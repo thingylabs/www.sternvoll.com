@@ -1,0 +1,6 @@
+/*   <link rel="stylesheet" id="vamtam-theme-layout-max-low-css"
+href="https://bijoux.vamtam.com/wp-content/themes/bijoux/vamtam/assets/css/dist/responsive/layout-max-low.css?ver=1707986728"
+type="text/css" media="(min-width: 1025px) and (max-width: 1260px)" /> */
+@media (min-width: 1025px) and (max-width: 1260px) {
+  .responsive-layout .layout-left-only .loop-wrapper.regular .post-media,.responsive-layout .layout-right-only .loop-wrapper.regular .post-media{flex-basis:100%;margin-bottom:var(--vamtam-vertical-padding)}
+}

@@ -1,0 +1,67 @@
+/*   <style id="vamtam-front-all-inline-css" type="text/css">
+*/
+@font-face {
+  font-family: 'icomoon';
+  src: url(../fonts/wp-uploads/icomoon.woff2) format('woff2'),
+    url(../fonts/wp-uploads/icomoon.woff) format('woff'),
+    url(../fonts/wp-uploads/icomoon.ttf) format('ttf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'vamtam-theme';
+  src: url(../fonts/wp-uploads/theme-icons.woff2) format('woff2'),
+    url(../fonts/wp-uploads/theme-icons.woff) format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+.vamtam-box-outer-padding,
+.limit-wrapper,
+.header-padding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.vamtam-box-outer-padding .vamtam-box-outer-padding,
+.limit-wrapper .limit-wrapper,
+.elementor .limit-wrapper {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (min-width: 1026px) and (max-width: 1260px) {
+
+  .vamtam-box-outer-padding,
+  .limit-wrapper,
+  .header-padding {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (max-width: 1025px) {
+
+  .vamtam-box-outer-padding,
+  .limit-wrapper,
+  .header-padding {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .vamtam-box-outer-padding,
+  .limit-wrapper,
+  .header-padding {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

@@ -1,0 +1,30 @@
+.woocommerce div.product form.variations_form table.variations tr {
+  border-top: 0;
+}
+
+
+/*https://bijoux.vamtam.com/product/magnolia-golden-ring/
+font-style for button when disabled*/
+
+.woocommerce button.button.alt.disabled {
+  font-family: "Montserrat", Sans-serif;
+  font-size: 12px !important;
+  font-weight: 600;
+  font-family: var(--e-global-typography-a32e368-font-family), Sans-serif;
+  font-size: var(--e-global-typography-a32e368-font-size);
+  font-weight: var(--e-global-typography-a32e368-font-weight);
+  text-transform: var(--e-global-typography-a32e368-text-transform) !important;
+  line-height: var(--e-global-typography-a32e368-line-height);
+  letter-spacing: var(--e-global-typography-a32e368-letter-spacing);
+  word-spacing: var(--e-global-typography-a32e368-word-spacing);
+}
+
+
+/* end https://bijoux.vamtam.com/product/magnolia-golden-ring/
+font-style for button when disabled*/
+
+@media(max-width: 767px) {
+  .woocommerce .quantity input.qty {
+    max-width: 90px;
+  }
+}

@@ -1,0 +1,4 @@
+/*   <style id="woocommerce-inline-inline-css" type="text/css"> */
+.woocommerce form .form-row .required {
+  visibility: visible;
+}
