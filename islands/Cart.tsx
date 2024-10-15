@@ -1,0 +1,178 @@
+import { useEffect, useRef } from 'preact/hooks'
+import { IS_BROWSER } from '$fresh/runtime.ts'
+import IconCart from '@/components/IconCart.tsx'
+import { cart, fetchCartData, removeFromCart } from '@/utils/signals.ts'
+import { formatCurrency } from '@/utils/data.ts'
+
+// Lazy load a <dialog> polyfill.
+if (IS_BROWSER && !globalThis.HTMLDialogElement) {
+  await import(
+    'https://raw.githubusercontent.com/GoogleChrome/dialog-polyfill/5033aac1b74c44f36cde47be3d11f4756f3f8fda/dist/dialog-polyfill.esm.js'
+  )
+}
+
+declare global {
+  interface HTMLDialogElement {
+    showModal(): void
+    close(): void
+  }
+}
+
+export default function Cart() {
+  const ref = useRef<HTMLDialogElement | null>(null)
+
+  // Fetch cart data when the component mounts
+  useEffect(() => {
+    fetchCartData()
+  }, [])
+
+  const onDialogClick = (e: MouseEvent) => {
+    if ((e.target as HTMLDialogElement).tagName === 'DIALOG') {
+      ref.current!.close()
+    }
+  }
+
+  if (!cart.value) {
+    return <div>Loading...</div>
+  }
+
+  return (
+    <div>
+      <button
+        onClick={() => ref.current!.showModal()}
+        class='flex items-center gap-2 border-2 border-gray-800 rounded-full px-5 py-1 font-semibold text-gray-800 hover:bg-gray-800 hover:text-white transition-colors duration-300'
+      >
+        <IconCart />
+        {cart.value.lines.nodes.length ?? '0'}
+      </button>
+      <dialog
+        ref={ref}
+        class='bg-transparent p-0 m-0 pt-[50%] sm:pt-0 sm:ml-auto max-w-full sm:max-w-lg w-full max-h-full h-full transition-transform duration-500 sm:translate-x-0 translate-y-0 backdrop-blur'
+        onClick={onDialogClick}
+      >
+        <CartInner />
+      </dialog>
+    </div>
+  )
+}
+
+function CartInner() {
+  const checkout = (e: Event) => {
+    e.preventDefault()
+    if (cart.value) {
+      location.href = cart.value.checkoutUrl
+    }
+  }
+
+  const remove = (itemId: string) => {
+    if (cart.value) {
+      removeFromCart(cart.value.id, itemId)
+    }
+  }
+
+  return (
+    <div class='py-8 px-6 h-full bg-white rounded-tl-2xl rounded-tr-2xl sm:rounded-tr-none sm:rounded-bl-2xl flex flex-col justify-between'>
+      <div class='flex justify-between'>
+        <h2 class='text-lg font-medium text-gray-900'>Shopping Cart</h2>
+        <button
+          class='py-1'
+          onClick={(e) => {
+            ;(e.target as HTMLButtonElement).closest('dialog')!.close()
+          }}
+        >
+          <svg
+            class='w-6 h-6 fill-current text-gray-600'
+            viewBox='0 0 24 24'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z' />
+          </svg>
+        </button>
+      </div>
+      {cart.value && cart.value.lines.nodes.length === 0
+        ? <p class='text-gray-700'>There are no items in the cart.</p>
+        : (
+          <ul role='list' class='-my-6 divide-y divide-gray-200'>
+            {cart.value?.lines.nodes.map((line) => (
+              <li class='flex py-6' key={line.id}>
+                <div class='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200'>
+                  <img
+                    src={line.merchandise.image.url}
+                    alt={line.merchandise.image.altText ??
+                      line.merchandise.product.title}
+                    class='h-full w-full object-cover object-center'
+                  />
+                </div>
+                <div class='ml-4 flex flex-1 flex-col'>
+                  <div>
+                    <div class='flex justify-between text-base font-medium text-gray-900'>
+                      <h3>{line.merchandise.product.title}</h3>
+                      <p class='ml-4'>
+                        {formatCurrency(line.estimatedCost.totalAmount)}
+                      </p>
+                    </div>
+                    <p class='mt-1 text-sm text-gray-500'>
+                      {line.merchandise.title !== line.merchandise.product.title
+                        ? line.merchandise.title
+                        : ''}
+                    </p>
+                  </div>
+                  <div class='flex flex-1 items-end justify-between text-sm'>
+                    <p class='text-gray-500'>
+                      Quantity <strong>{line.quantity}</strong>
+                    </p>
+
+                    <div class='flex'>
+                      <button
+                        type='button'
+                        class='font-medium text-indigo-600 hover:text-indigo-500'
+                        onClick={() =>
+                          remove(line.id)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      {cart.value && (
+        <div class='border-t border-gray-200 py-6 px-4 sm:px-6'>
+          <div class='flex justify-between text-lg font-medium'>
+            <p>Subtotal</p>
+            <p>{formatCurrency(cart.value.estimatedCost.totalAmount)}</p>
+          </div>
+          <p class='mt-0.5 text-sm text-gray-500'>
+            Shipping and taxes calculated at checkout.
+          </p>
+          <div class='mt-6'>
+            <button
+              type='button'
+              class='w-full bg-gray-700 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-700'
+              disabled={cart.value.lines.nodes.length === 0}
+              onClick={checkout}
+            >
+              Checkout
+            </button>
+          </div>
+          <div class='mt-6 flex justify-center text-center text-sm text-gray-500'>
+            <p>
+              or&nbsp;
+              <button
+                type='button'
+                class='font-medium text-indigo-600 hover:text-indigo-500'
+                onClick={(e) => {
+                  ;(e.target as HTMLButtonElement).closest('dialog')!.close()
+                }}
+              >
+                Continue Shopping <span aria-hidden='true'>&rarr;</span>
+              </button>
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
