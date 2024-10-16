@@ -1,11 +1,11 @@
-import { Handlers, PageProps } from '$fresh/server.ts';
-import { formatCurrency } from '@/utils/data.ts';
-import { graphql } from '@/utils/shopify.ts';
-import { Footer } from '@/components/Footer.tsx';
-import { HeadElement } from '@/components/HeadElement.tsx';
-import { Header } from '@/components/Header.tsx';
-import IconCart from '@/components/IconCart.tsx';
-import { List, Product } from '../utils/types.ts';
+import { Handlers, PageProps } from '$fresh/server.ts'
+import { formatCurrency } from '@/utils/data.ts'
+import { graphql } from '@/utils/shopify.ts'
+import { Footer } from '@/components/Footer.tsx'
+import { HeadElement } from '@/components/HeadElement.tsx'
+import { Header } from '@/components/Header.tsx'
+import IconCart from '@/components/IconCart.tsx'
+import { List, Product } from '../utils/types.ts'
 
 const q = `{
   products(first: 20) {
@@ -29,48 +29,46 @@ const q = `{
       }
     }
   }
-}`;
+}`
 
 interface Data {
-  products: List<Product>;
+  products: List<Product>
 }
 
 export const handler: Handlers<Data> = {
   async GET(_req, ctx) {
-    const data = await graphql<Data>(q);
-    return ctx.render(data);
+    const data = await graphql<Data>(q)
+    return ctx.render(data)
   },
-};
+}
 
 export default function Home(ctx: PageProps<Data>) {
-  const { data, url } = ctx;
-  const products = data.products.nodes;
+  const { data, url } = ctx
+  const products = data.products.nodes
 
   return (
     <div>
       <HeadElement
-        description="Shop for Deno Merch"
+        description='Shop for Deno Merch'
         image={url.href + 'og-image.png'}
-        title="Deno Merch"
+        title='Deno Merch'
         url={url}
       />
       <Header />
       <div
-        class="w-11/12 max-w-5xl mx-auto mt-28"
-        aria-labelledby="information-heading"
+        class='w-11/12 max-w-5xl mx-auto mt-28'
+        aria-labelledby='information-heading'
       >
-        <h2 id="information-heading" class="sr-only">
+        <h2 id='information-heading' class='sr-only'>
           Product List
         </h2>
-        <div class="grid grid-cols-1 gap-8 sm:gap-x-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-10">
-          {products.map((product) => (
-            <ProductCard product={product} />
-          ))}
+        <div class='grid grid-cols-1 gap-8 sm:gap-x-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-12 lg:gap-y-10'>
+          {products.map((product) => <ProductCard product={product} />)}
         </div>
       </div>
       <Footer />
     </div>
-  );
+  )
 }
 
 function ProductCard(props: { product: Product }) {
