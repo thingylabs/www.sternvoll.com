@@ -7,7 +7,7 @@ export interface Image {
   url: string
   width: number
   height: number
-  altText: string | null
+  altText: string
 }
 
 export interface List<T> {
@@ -37,26 +37,4 @@ export interface ProductVariant {
   priceV2: Money
   title: string
   availableForSale: boolean
-}
-
-export interface CartLineItem {
-  id: string
-  quantity: number
-  merchandise: {
-    product: Product
-    title: string
-    image: Image
-  }
-  estimatedCost: {
-    totalAmount: Money
-  }
-}
-
-export interface CartData {
-  id: string
-  lines: List<CartLineItem>
-  checkoutUrl: string
-  estimatedCost: {
-    totalAmount: Money
-  }
 }

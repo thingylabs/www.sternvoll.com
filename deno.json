@@ -37,7 +37,7 @@
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
     "$std/": "https://deno.land/std@0.216.0/",
-    "swr": "https://esm.sh/swr@2.0.0",
+    "swr": "https://esm.sh/swr@2.2.5",
     "@/": "./"
   },
   "compilerOptions": {

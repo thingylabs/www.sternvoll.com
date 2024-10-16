@@ -11,17 +11,14 @@ export async function graphql<T>(
   query: string,
   variables: Record<string, unknown> = {},
 ): Promise<T> {
-  const resp = await fetch(
-    `https://${SHOPIFY_SHOP}.myshopify.com/api/2024-10/graphql.json`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': SHOPIFY_ACCESS_TOKEN!,
-      },
-      body: JSON.stringify({ query, variables }),
+  const resp = await fetch(`https://${SHOPIFY_SHOP}/api/2024-04/graphql.json`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Shopify-Storefront-Access-Token': SHOPIFY_ACCESS_TOKEN!,
     },
-  )
+    body: JSON.stringify({ query, variables }),
+  })
   if (!resp.ok) {
     const body = await resp.text()
     throw new Error(`${resp.status} ${body}`)

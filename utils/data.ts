@@ -1,34 +1,30 @@
-import { signal } from '@preact/signals'
-import { Image, Money } from './types.ts'
+import useSWR, { mutate } from "swr";
+import { Image, Money } from "./types.ts";
 
 export interface CartData {
-  id: string
+  id: string;
   lines: {
     nodes: {
-      id: string
-      quantity: number
+      id: string;
+      quantity: number;
       merchandise: {
         product: {
-          title: string
-        }
-        title: string
-        image: Image
-      }
+          title: string;
+        };
+        title: string;
+        image: Image;
+      };
       estimatedCost: {
-        totalAmount: Money
-      }
-    }[]
-  }
-  checkoutUrl: string
+        totalAmount: Money;
+      };
+    }[];
+  };
+  checkoutUrl: string;
   estimatedCost: {
-    totalAmount: Money
-  }
+    totalAmount: Money;
+  };
 }
 
-// Signal to hold cart data
-export const cart = signal<CartData | null>(null)
-
-// GraphQL query for cart data
 const CART_QUERY = `{
   id
   lines(first: 100) {
@@ -62,109 +58,87 @@ const CART_QUERY = `{
       currencyCode
     }
   }
-}`
+}`;
 
-// Shopify GraphQL helper function
-async function shopifyGraphql<T>(
+// deno-lint-ignore no-explicit-any
+async function shopifyGraphql<T = any>(
   query: string,
   variables?: Record<string, unknown>,
 ): Promise<T> {
-  const res = await fetch('/api/shopify', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+  const res = await fetch("/api/shopify", {
+    method: "POST",
     body: JSON.stringify({ query, variables }),
-  })
-
-  if (!res.ok) {
-    throw new Error(`Error fetching data: ${res.statusText}`)
-  }
-
-  const json = await res.json()
-  if (json.errors) {
-    throw new Error(json.errors.map((e: Error) => e.message).join('\n'))
-  }
-
-  return json.data
+  });
+  return await res.json();
 }
 
-// Fetch cart data or create a new cart if none exists
-export async function fetchCartData(): Promise<void> {
-  const id = localStorage.getItem('cartId')
+async function cartFetcher(): Promise<CartData> {
+  const id = localStorage.getItem("cartId");
   if (id === null) {
     const { cartCreate } = await shopifyGraphql<
       { cartCreate: { cart: CartData } }
-    >(
-      `mutation { cartCreate { cart ${CART_QUERY} } }`,
-    )
-    localStorage.setItem('cartId', cartCreate.cart.id)
-    cart.value = cartCreate.cart
-  } else {
-    const { cart: fetchedCart } = await shopifyGraphql<{ cart: CartData }>(
-      `query($id: ID!) { cart(id: $id) ${CART_QUERY} }`,
-      { id },
-    )
-
-    if (fetchedCart === null) {
-      // If the cart is null, reset and fetch a new cart
-      localStorage.removeItem('cartId')
-      await fetchCartData()
-    } else {
-      cart.value = fetchedCart
-    }
+    >(`mutation { cartCreate { cart ${CART_QUERY} } }`);
+    localStorage.setItem("cartId", cartCreate.cart.id);
+    return cartCreate.cart;
   }
+
+  const { cart } = await shopifyGraphql(
+    `query($id: ID!) { cart(id: $id) ${CART_QUERY} }`,
+    { id },
+  );
+  if (cart === null) {
+    // If there is a cart ID, but the returned cart is null, then the cart
+    // was already part of a completed order. Clear the cart ID and get a new
+    // one.
+    localStorage.removeItem("cartId");
+    return cartFetcher();
+  }
+
+  return cart;
 }
 
-// Add items to the cart
+export function useCart() {
+  return useSWR<CartData, Error>("cart", cartFetcher, {});
+}
+
 const ADD_TO_CART_QUERY =
   `mutation add($cartId: ID!, $lines: [CartLineInput!]!) {
   cartLinesAdd(cartId: $cartId, lines: $lines) {
     cart ${CART_QUERY}
   }
-}`
+}`;
 
-export async function addToCart(
-  cartId: string,
-  productId: string,
-): Promise<void> {
-  const { cart: updatedCart } = await shopifyGraphql<{ cart: CartData }>(
-    ADD_TO_CART_QUERY,
-    {
-      cartId,
-      lines: [{ merchandiseId: productId }],
-    },
-  )
-  cart.value = updatedCart // Update the cart signal with the new cart data
+export async function addToCart(cartId: string, productId: string) {
+  const mutation = shopifyGraphql<{ cart: CartData }>(ADD_TO_CART_QUERY, {
+    cartId,
+    lines: [{ merchandiseId: productId }],
+  }).then(({ cart }) => cart);
+  await mutate("cart", mutation);
 }
 
-// Remove items from the cart
-const REMOVE_FROM_CART_MUTATION =
-  `mutation removeFromCart($cartId: ID!, $lineIds: [ID!]!) {
-  cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
-    cart ${CART_QUERY}
+const REMOVE_FROM_CART_MUTATION = `
+  mutation removeFromCart($cartId: ID!, $lineIds: [ID!]!) {
+    cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+      cart ${CART_QUERY}
+    }
   }
-}`
+`;
 
-export async function removeFromCart(
-  cartId: string,
-  lineItemId: string,
-): Promise<void> {
-  const { cart: updatedCart } = await shopifyGraphql<{ cart: CartData }>(
+export async function removeFromCart(cartId: string, lineItemId: string) {
+  const mutation = shopifyGraphql<{ cart: CartData }>(
     REMOVE_FROM_CART_MUTATION,
     {
       cartId,
       lineIds: [lineItemId],
     },
-  )
-  cart.value = updatedCart // Update the cart signal after removal
+  ).then(({ cart }) => cart);
+  await mutate("cart", mutation);
 }
 
-// Function to format currency amounts
-export function formatCurrency(amount: Money): string {
-  const intl = new Intl.NumberFormat('en-US', {
-    style: 'currency',
+export function formatCurrency(amount: Money) {
+  const intl = new Intl.NumberFormat("en-US", {
+    style: "currency",
     currency: amount.currencyCode,
-  })
-  return intl.format(amount.amount)
+  });
+  return intl.format(amount.amount);
 }
