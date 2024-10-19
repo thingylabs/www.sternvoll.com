@@ -2,12 +2,14 @@ import { Head } from '$fresh/runtime.ts'
 
 export type HeadProps = {
   url: URL
-  title: string
-  description: string
-  image?: string
+  meta: {
+    title: string
+    description: string
+    image?: string
+  }
 }
 
-export function HeadElement({ description, image, title, url }: HeadProps) {
+export function Meta({ url, meta: { title, description, image } }: HeadProps) {
   return (
     <Head>
       <title>{title}</title>
@@ -19,7 +21,7 @@ export function HeadElement({ description, image, title, url }: HeadProps) {
       <meta property='og:type' content='website' />
       <meta property='og:title' content={title} />
       <meta property='og:description' content={description} />
-      {image && <meta property='og:image' content={image} />}
+      {image && <meta property='og:image' content={`${url}/${image}`} />}
 
       {/* Twitter Meta Tags */}
       <meta name='twitter:card' content='summary_large_image' />
@@ -27,7 +29,7 @@ export function HeadElement({ description, image, title, url }: HeadProps) {
       <meta property='twitter:url' content={url.href} />
       <meta name='twitter:title' content={title} />
       <meta name='twitter:description' content={description} />
-      {image && <meta name='twitter:image' content={image} />}
+      {image && <meta name='twitter:image' content={`${url}/${image}`} />}
     </Head>
   )
 }

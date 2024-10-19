@@ -1,6 +1,6 @@
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { Footer } from '@/components/Footer.tsx'
-import { HeadElement } from '@/components/HeadElement.tsx'
+import { Meta } from '@/components/Meta.tsx'
 import { Header } from '@/components/Header.tsx'
 import ProductDetails from '@/islands/ProductDetails.tsx'
 import { graphql } from '@/utils/shopify.ts'
@@ -64,13 +64,17 @@ export default function ProductPage(ctx: PageProps<Query>) {
     return <div>Product not found</div>
   }
 
+  const meta = {
+    description: data.product.description,
+    image: data.product.featuredImage?.url,
+    title: data.product.title
+  }
+
   return (
     <>
-      <HeadElement
-        description={data.product.description}
-        image={data.product.featuredImage?.url}
-        title={data.product.title}
+      <Meta
         url={url}
+        meta={meta}
       />
 
       <Header />

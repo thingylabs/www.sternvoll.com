@@ -2,7 +2,7 @@ import { Handlers, PageProps } from '$fresh/server.ts'
 import { formatCurrency } from '@/utils/data.ts'
 import { graphql } from '@/utils/shopify.ts'
 import { Footer } from '@/components/Footer.tsx'
-import { HeadElement } from '@/components/HeadElement.tsx'
+import { Meta } from '@/components/Meta.tsx'
 import { Header } from '@/components/Header.tsx'
 import IconCart from '@/components/IconCart.tsx'
 import { List, Product } from '../utils/types.ts'
@@ -46,13 +46,17 @@ export default function Home(ctx: PageProps<Data>) {
   const { data, url } = ctx
   const products = data.products.nodes
 
+  const meta = {
+    description: 'Shop for Deno Merch',
+    image: 'og-image.png',
+    title: 'Deno Merch',
+  }
+
   return (
     <div>
-      <HeadElement
-        description='Shop for Deno Merch'
-        image={url.href + 'og-image.png'}
-        title='Deno Merch'
+      <Meta
         url={url}
+        meta={meta}
       />
       <Header />
       <div
