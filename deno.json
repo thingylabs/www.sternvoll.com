@@ -18,10 +18,8 @@
     }
   },
   "fmt": {
-    "options": {
-      "semiColons": false,
-      "singleQuote": true
-    }
+    "semiColons": false,
+    "singleQuote": true
   },
   "exclude": [
     "**/_fresh/*",

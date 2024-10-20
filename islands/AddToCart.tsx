@@ -5,7 +5,7 @@ interface AddToCartProps {
   id: string
 }
 
-export default function AddToCart(props: AddToCartProps) {
+export function AddToCart(props: AddToCartProps) {
   const { data } = useCart()
   const [isAdding, setIsAdding] = useState(false)
 

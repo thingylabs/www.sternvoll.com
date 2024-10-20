@@ -67,7 +67,7 @@ export default function ProductPage(ctx: PageProps<Query>) {
   const meta = {
     description: data.product.description,
     image: data.product.featuredImage?.url,
-    title: data.product.title
+    title: data.product.title,
   }
 
   return (

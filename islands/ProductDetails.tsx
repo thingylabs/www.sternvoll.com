@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks'
-import AddToCart from '@/islands/AddToCart.tsx'
+import { AddToCart } from '@/islands/AddToCart.tsx'
 import { formatCurrency } from '@/utils/data.ts'
 import { Product } from '@/utils/types.ts'
 

@@ -1,7 +1,7 @@
 // islands/Cart.tsx
 import { useRef } from 'preact/hooks'
 import { IS_BROWSER } from '$fresh/runtime.ts'
-import IconCart from '@/components/IconCart.tsx'
+import { IconCart } from '@/components/IconCart.tsx'
 import {
   CartData,
   formatCurrency,

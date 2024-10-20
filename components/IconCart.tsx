@@ -1,4 +1,4 @@
-export default function IconCart({ size = 16 }: { size?: number }) {
+export function IconCart({ size = 16 }: { size?: number }) {
   return (
     <svg
       width={Math.round((15 / 16) * size)}

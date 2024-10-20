@@ -4,8 +4,9 @@ import { graphql } from '@/utils/shopify.ts'
 import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
 import { Header } from '@/components/Header.tsx'
-import IconCart from '@/components/IconCart.tsx'
+import { IconCart } from '@/components/IconCart.tsx'
 import { List, Product } from '../utils/types.ts'
+import { OurStory } from '../islands/OurStory.tsx'
 
 const q = `{
   products(first: 20) {
@@ -59,6 +60,9 @@ export default function Home(ctx: PageProps<Data>) {
         meta={meta}
       />
       <Header />
+
+      <OurStory />
+
       <div
         class='w-11/12 max-w-5xl mx-auto mt-28'
         aria-labelledby='information-heading'
