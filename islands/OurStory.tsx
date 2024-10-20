@@ -34,23 +34,23 @@ export function OurStory() {
             transform: `translateX(${(-1 * (100 - scrollPos)) + inset.left}%)`,
           }}
         >
-          jewelry
+          Moderne
         </span>
         {/* Selection Text (Below) */}
         <span
-          class={`absolute bottom-[5vw] select-none`}
+          class={`absolute bottom-[2vw] select-none`}
           style={{ transform: `translateX(${100 - scrollPos - inset.right}%)` }}
         >
-          selection
+          Klassiker
         </span>
       </div>
 
       {/* Foreground Text */}
       <div class='text-center z-10'>
         <p class='text-[5vw]'>
-          It has always been to produce awesome <br />
-          products for the dynamic urban lifestyle <br />
-          of the modern woman.
+          Im Herzen Stuttgarts kreiert Sternvoll<br />
+          einzigartigen Schmuck, inspiriert von<br />
+          kosmischer Schönheit.
         </p>
       </div>
 

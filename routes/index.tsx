@@ -9,43 +9,47 @@ import { List, Product } from '../utils/types.ts'
 import { OurStory } from '../islands/OurStory.tsx'
 
 const q = `{
-  products(first: 20) {
-    nodes {
-      id
-      handle
-      title
-      featuredImage {
-        url(transform: {preferredContentType: WEBP, maxWidth:400, maxHeight:400})
-        altText
-      }
-      priceRange {
-        minVariantPrice {
-          amount
-          currencyCode
+  collection(id: "gid://shopify/Collection/534705242378") {
+    products(first: 20) {
+      nodes {
+        id
+        handle
+        title
+        featuredImage {
+          url(transform: {preferredContentType: WEBP, maxWidth:400, maxHeight:400})
+          altText
         }
-        maxVariantPrice {
-          amount
-          currencyCode
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+          maxVariantPrice {
+            amount
+            currencyCode
+          }
         }
       }
     }
   }
 }`
 
-interface Data {
-  products: List<Product>
+interface Collection {
+  collection: {
+    products: List<Product>
+  }
 }
 
-export const handler: Handlers<Data> = {
+export const handler: Handlers<Collection> = {
   async GET(_req, ctx) {
-    const data = await graphql<Data>(q)
+    const data = await graphql<Collection>(q)
     return ctx.render(data)
   },
 }
 
-export default function Home(ctx: PageProps<Data>) {
+export default function Home(ctx: PageProps<Collection>) {
   const { data, url } = ctx
-  const products = data.products.nodes
+  const products = data.collection.products.nodes
 
   const meta = {
     description: 'Shop for Deno Merch',
