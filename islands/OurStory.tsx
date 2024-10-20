@@ -7,6 +7,7 @@ const inset = {
 
 export function OurStory() {
   const [scrollPos, setScrollPos] = useState(0)
+  const [hovered, setHovered] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +39,7 @@ export function OurStory() {
         </span>
         {/* Selection Text (Below) */}
         <span
-          class={`absolute bottom-[2vw] select-none`}
+          class={`absolute bottom-0 select-none`}
           style={{ transform: `translateX(${100 - scrollPos - inset.right}%)` }}
         >
           Klassiker
@@ -55,11 +56,26 @@ export function OurStory() {
       </div>
 
       {/* Our Story Button */}
-      <div class='mt-[2vw] flex justify-center cursor-pointer hover:scale-95 transition-transform duration-300'>
-        <div class='text-[35vw] absolute leading-none z-10 text-white'>
+      <div
+        class='mt-[5vw] flex justify-center cursor-pointer hover:scale-95 transition-transform duration-300'
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <span
+          class='text-[35vw] absolute leading-none z-10 text-white'
+          style={{
+            backgroundImage: 'linear-gradient(to top, #CB9274 50%, white 50%)',
+            backgroundSize: '100% 200%',
+            backgroundPosition: hovered ? '0% 100%' : '0% 0%',
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            color: 'transparent',
+            WebkitTextFillColor: 'transparent',
+            transition: 'background-position 1s ease',
+          }}
+        >
           O
-        </div>
-
+        </span>
         <div class='text-[3vw] mt-[8.5vw] flex flex-col z-20'>
           <span class='text-center'>
             OUR
