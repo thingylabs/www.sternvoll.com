@@ -14,7 +14,9 @@ declare global {
   }
 }
 
-export function Cart() {
+export function Cart(
+  { transparentButton = false }: { transparentButton?: boolean },
+) {
   const { data, error } = useCart()
   const ref = useRef<HTMLDialogElement | null>(null)
 
@@ -33,13 +35,19 @@ export function Cart() {
       <button
         onClick={() => ref.current!.showModal()}
         type='button'
-        class='relative rounded-md bg-secondary p-2 opacity-50 hover:opacity-100'
+        class={`relative rounded-md p-2 opacity-50 hover:opacity-100 ${
+          transparentButton
+            ? 'bg-transparent border border-secondary opacity-6'
+            : 'bg-secondary'
+        }`}
       >
-        <span class='sr-only'>Open menu</span>
+        <span class='sr-only'>Open cart</span>
         <IconCart size={24} />
-        <span class='absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2'>
-          {data?.lines.nodes.length ?? '0'}
-        </span>
+        {data && data.lines.nodes.length > 0 && (
+          <span class='absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2'>
+            {data?.lines.nodes.length}
+          </span>
+        )}
       </button>
       <dialog
         ref={ref}

@@ -2,7 +2,7 @@ import { Handlers, PageProps } from '$fresh/server.ts'
 import { graphql } from '@/utils/shopify.ts'
 import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
-import { Header } from '@/components/Header.tsx'
+import { Header } from '../islands/Header.tsx'
 import { List, Product } from '../utils/types.ts'
 import { OurStory } from '../islands/OurStory.tsx'
 import { ProductCard } from '@/components/ProductCard.tsx'
@@ -63,7 +63,35 @@ export default function Home(ctx: PageProps<Collection>) {
         url={url}
         meta={meta}
       />
-      <Header />
+
+      <div class='relative h-screen'>
+        <Header /> {/* Header overlays the hero image */}
+
+        {/* Hero Image */}
+        <img
+          src='/hero.jpg'
+          alt='Hero Image'
+          class='absolute inset-0 w-full h-full object-cover object-[100%]'
+        />
+
+        {/* Overlay Content */}
+        <div class='absolute inset-0 flex flex-col justify-center items-start text-left px-8'>
+          <h1 class='text-white font-accent text-6xl sm:text-7xl leading-tight'>
+            Effortless chic,
+          </h1>
+          <p class='text-white mt-4 font-serif text-xl sm:text-2xl italic'>
+            alltäglich heißt nicht langweilig.
+          </p>
+
+          {/* Button */}
+          <a
+            href='#shop'
+            class='mt-6 inline-block bg-white text-gray-900 font-bold px-6 py-3 rounded-md hover:bg-gray-200'
+          >
+            JETZT SHOPPEN
+          </a>
+        </div>
+      </div>
 
       <OurStory />
 
