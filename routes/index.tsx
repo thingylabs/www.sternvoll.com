@@ -9,7 +9,7 @@ import { ProductCard } from '@/components/ProductCard.tsx'
 
 const q = `{
   collection(id: "gid://shopify/Collection/534705242378") {
-    products(first: 20) {
+    products(first: 8) {
       nodes {
         id
         handle
@@ -67,8 +67,8 @@ export default function Home(ctx: PageProps<Collection>) {
 
       <OurStory />
 
-      <section class='p-4  pt-10'>
-        <h2 class='text-xl font-accent'>
+      <section class='p-4 mt-10 py-10 bg-white'>
+        <h2 class='text-2xl font-accent'>
           Selected works:
         </h2>
         <div class='grid grid-cols-1 gap-8'>
