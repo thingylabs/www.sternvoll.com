@@ -23,6 +23,7 @@ export interface Product {
   id: string
   handle: string
   title: string
+  tags?: [string]
   description: string
   descriptionHtml: string
   productType: string

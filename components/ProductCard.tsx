@@ -1,0 +1,66 @@
+import { formatCurrency } from '@/utils/data.ts'
+import { IconCart } from '@/components/IconCart.tsx'
+import { Product } from '../utils/types.ts'
+
+export function ProductCard(props: { product: Product }) {
+  const { product } = props
+  return (
+    <div key={product.id} class='mb-4'>
+      {/* Container for product and tags */}
+      <a href={`/products/${product.handle}`} class='group'>
+        <div class='relative bg-white overflow-hidden transition-all duration-500 aspect-w-1 aspect-h-1'>
+          {product.featuredImage && (
+            <img
+              src={product.featuredImage.url}
+              alt={product.featuredImage.altText || product.title}
+              class='absolute inset-0 w-full h-full object-center object-contain'
+            />
+          )}
+          <div class='absolute inset-0 flex items-center justify-center bg-[rgba(255,255,255,0.6)] opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+            <IconCart size={30} />
+          </div>
+        </div>
+
+        {/* Title and Price Section */}
+        <div class='flex items-center justify-between mt-2'>
+          <h3 class='text-gray-800 relative uppercase font-bold'>
+            {product.title}
+            <span class='bg-gray-800 h-[3px] w-0 group-hover:w-full absolute bottom-[-2px] left-0 transition-all duration-400' />
+          </h3>
+          <strong class='font-bold text-gray-800'>
+            {formatCurrency(product.priceRange.minVariantPrice)}
+          </strong>
+        </div>
+      </a>
+
+      {/* Tags Section - moved outside the group */}
+      <div class='flex flex-wrap space-x-1 items-center pt-2'>
+        {product.tags &&
+          product.tags.filter(filterTags).sort((a, b) => a.localeCompare(b))
+            .map((tag, index) => (
+              <a
+                href='#'
+                class='hover:text-secondary text-gray-500 text-sm flex items-center'
+              >
+                {index !== 0 && ( // Render the dot only if it's not the first tag
+                  <span class='w-1 h-1 bg-gray-400 rounded-full inline-block mx-1'>
+                  </span>
+                )}
+                {tag}
+              </a>
+            ))}
+      </div>
+    </div>
+  )
+}
+
+function filterTags(tag: string) {
+  if (
+    tag === 'Non-Amazon' ||
+    tag === 'Amazon - DE' ||
+    tag === 'Imported by webBee'
+  ) {
+    return false
+  }
+  return true
+}

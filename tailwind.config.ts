@@ -10,6 +10,9 @@ export default {
         tertiary: '#EFECEC',
         'tertiary-darker': '#E7E4E4',
       },
+      fontFamily: {
+        accent: ['Sorts Mill Goudy', 'serif'],
+      },
     },
   },
   content: [

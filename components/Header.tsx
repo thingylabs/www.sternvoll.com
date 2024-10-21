@@ -1,4 +1,4 @@
-// import Cart from '../islands/Cart.tsx'
+import Cart from '../islands/Cart.tsx'
 
 export function Header() {
   return (
@@ -65,6 +65,9 @@ export function Header() {
               Search
             </button>
           </div>
+        </div>
+        <div class='flex-1 ps-4'>
+          <Cart />
         </div>
       </nav>
     </header>

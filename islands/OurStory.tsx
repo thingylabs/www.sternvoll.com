@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'preact/hooks'
 
 const inset = {
-  left: 65,
-  right: 65,
+  left: {
+    start: 65,
+    end: 30,
+  },
+  right: {
+    start: 65,
+    end: -30,
+  },
 }
 
 export function OurStory() {
@@ -12,7 +18,7 @@ export function OurStory() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = globalThis.scrollY
-      const maxScroll = document.documentElement.clientHeight * 0.40
+      const maxScroll = document.documentElement.clientHeight * 1.5
       const scrollPercentage = Math.min(scrollTop / maxScroll, 1)
       setScrollPos(scrollPercentage * 100)
     }
@@ -22,17 +28,19 @@ export function OurStory() {
   }, [])
 
   return (
-    <div
-      class='relative h-[90vw] pt-[25vw] flex flex-col justify-center items-center overflow-hidden'
-      style="font-family: 'Sorts Mill Goudy', serif;"
-    >
+    <div class='relative h-[90vw] pt-[25vw] flex flex-col justify-center items-center overflow-hidden font-accent'>
       {/* Background Words */}
       <div class='absolute inset-0 flex justify-between items-center pointer-events-none text-[30vw] text-[#eee8e3]'>
         {/* Jewelry Text (Above) */}
         <span
           class={`absolute top-[5vw] select-none`}
           style={{
-            transform: `translateX(${(-1 * (100 - scrollPos)) + inset.left}%)`,
+            transform: `translateX(${
+              Math.min(
+                (-1 * (100 - scrollPos)) + inset.left.start,
+                inset.left.end,
+              )
+            }%)`,
           }}
         >
           Moderne
@@ -40,7 +48,11 @@ export function OurStory() {
         {/* Selection Text (Below) */}
         <span
           class={`absolute bottom-0 select-none`}
-          style={{ transform: `translateX(${100 - scrollPos - inset.right}%)` }}
+          style={{
+            transform: `translateX(${
+              Math.max(100 - scrollPos - inset.right.start, inset.right.end)
+            }%)`,
+          }}
         >
           Klassiker
         </span>
