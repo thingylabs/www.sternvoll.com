@@ -19,7 +19,7 @@ export function OurStory() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = globalThis.scrollY
-      const maxScroll = document.documentElement.clientHeight * 1.5
+      const maxScroll = document.documentElement.clientHeight * 2
       const scrollPercentage = Math.min(scrollTop / maxScroll, 1)
       scrollPos.value = scrollPercentage * 100
     }
