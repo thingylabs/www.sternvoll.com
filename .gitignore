@@ -6,7 +6,7 @@
 .env.local
 
 # Routing tree
-fresh.gen.ts
+#fresh.gen.ts
 # Fresh build directory
 _fresh/
 # npm dependencies
