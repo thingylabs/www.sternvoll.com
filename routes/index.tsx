@@ -71,15 +71,17 @@ export default function Home(ctx: PageProps<Collection>) {
         <img
           src='/hero.jpg'
           alt='Hero Image'
-          class='absolute inset-0 w-full h-full object-cover object-[100%]'
+          class='absolute inset-0 w-full h-full object-cover object-[95%]'
         />
 
         {/* Overlay Content */}
         <div class='absolute inset-0 flex flex-col justify-center items-start text-left px-8'>
-          <h1 class='text-white font-accent text-6xl sm:text-7xl leading-tight'>
+          <br />
+          <h1 class='text-white font-accent text-7xl sm:text-7xl leading-tight'>
+            <br />
             Effortless chic,
           </h1>
-          <p class='text-white mt-4 font-serif text-xl sm:text-2xl italic'>
+          <p class='text-white mt-4 font-serif text-2xl sm:text-2xl italic pr-10'>
             alltäglich heißt nicht langweilig.
           </p>
 
