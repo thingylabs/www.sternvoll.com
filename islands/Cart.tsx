@@ -1,6 +1,4 @@
-// islands/Cart.tsx
 import { useRef } from 'preact/hooks'
-import { IS_BROWSER } from '$fresh/runtime.ts'
 import { IconCart } from '@/components/IconCart.tsx'
 import {
   CartData,
@@ -8,13 +6,6 @@ import {
   removeFromCart,
   useCart,
 } from '@/utils/data.ts'
-
-// Lazy load a <dialog> polyfill
-if (IS_BROWSER && !globalThis.HTMLDialogElement) {
-  await import(
-    'https://raw.githubusercontent.com/GoogleChrome/dialog-polyfill/5033aac1b74c44f36cde47be3d11f4756f3f8fda/dist/dialog-polyfill.esm.js'
-  )
-}
 
 declare global {
   interface HTMLDialogElement {
