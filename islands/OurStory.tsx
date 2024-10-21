@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useSignal } from '@preact/signals'
+import { useEffect } from 'preact/hooks'
 
 const inset = {
   left: {
@@ -12,15 +13,15 @@ const inset = {
 }
 
 export function OurStory() {
-  const [scrollPos, setScrollPos] = useState(0)
-  const [hovered, setHovered] = useState(false)
+  const scrollPos = useSignal(0)
+  const hovered = useSignal(false)
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = globalThis.scrollY
       const maxScroll = document.documentElement.clientHeight * 1.5
       const scrollPercentage = Math.min(scrollTop / maxScroll, 1)
-      setScrollPos(scrollPercentage * 100)
+      scrollPos.value = scrollPercentage * 100
     }
 
     globalThis.addEventListener('scroll', handleScroll)
@@ -37,7 +38,7 @@ export function OurStory() {
           style={{
             transform: `translateX(${
               Math.min(
-                (-1 * (100 - scrollPos)) + inset.left.start,
+                (-1 * (100 - scrollPos.value)) + inset.left.start,
                 inset.left.end,
               )
             }%)`,
@@ -50,7 +51,10 @@ export function OurStory() {
           class={`absolute bottom-0 select-none`}
           style={{
             transform: `translateX(${
-              Math.max(100 - scrollPos - inset.right.start, inset.right.end)
+              Math.max(
+                100 - scrollPos.value - inset.right.start,
+                inset.right.end,
+              )
             }%)`,
           }}
         >
@@ -70,15 +74,15 @@ export function OurStory() {
       {/* Our Story Button */}
       <div
         class='mt-[5vw] flex justify-center cursor-pointer hover:scale-95 transition-transform duration-300'
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        onMouseEnter={() => hovered.value = true} // Update hover signal
+        onMouseLeave={() => hovered.value = false} // Reset hover signal
       >
         <span
           class='text-[35vw] absolute leading-none z-10 text-white'
           style={{
             backgroundImage: 'linear-gradient(to top, #CB9274 50%, white 50%)',
             backgroundSize: '100% 200%',
-            backgroundPosition: hovered ? '0% 100%' : '0% 0%',
+            backgroundPosition: hovered.value ? '0% 100%' : '0% 0%',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             color: 'transparent',
