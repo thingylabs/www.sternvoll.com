@@ -23,7 +23,7 @@ declare global {
   }
 }
 
-export default function Cart() {
+export function Cart() {
   const { data, error } = useCart()
   const ref = useRef<HTMLDialogElement | null>(null)
 
@@ -41,10 +41,14 @@ export default function Cart() {
     <div>
       <button
         onClick={() => ref.current!.showModal()}
-        class='flex items-center gap-2 border-2 border-gray-800 rounded-full px-5 py-1 font-semibold text-gray-800 hover:bg-gray-800 hover:text-white transition-colors duration-300'
+        type='button'
+        class='relative rounded-md bg-secondary p-2 opacity-50 hover:opacity-100'
       >
-        <IconCart />
-        {data?.lines.nodes.length ?? '0'}
+        <span class='sr-only'>Open menu</span>
+        <IconCart size={24} />
+        <span class='absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2'>
+          {data?.lines.nodes.length ?? '0'}
+        </span>
       </button>
       <dialog
         ref={ref}

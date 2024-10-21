@@ -9,6 +9,7 @@ export default {
         secondary: '#D6BFB7',
         tertiary: '#EFECEC',
         'tertiary-darker': '#E7E4E4',
+        background: '#f6f4f2',
       },
       fontFamily: {
         accent: ['Sorts Mill Goudy', 'serif'],

@@ -3,7 +3,7 @@ export function IconCart({ size = 16 }: { size?: number }) {
     <svg
       width={Math.round((15 / 16) * size)}
       height={size}
-      viewBox='0 0 15 16'
+      viewBox='0 0 18 18'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
