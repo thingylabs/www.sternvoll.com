@@ -10,7 +10,7 @@ import { SelectedWorks } from '../components/SelectedWorks.tsx'
 import { ImageCard } from '../components/ImageCard.tsx'
 import { Hand } from '../islands/Hand.tsx'
 import { CategoryCard } from '../components/CategoryCard.tsx'
-import { FillLetter } from '../islands/FillLetter.tsx'
+import { FillLetter } from '../components/FillLetter.tsx'
 
 const q = `{
   collection(id: "gid://shopify/Collection/534705242378") {
