@@ -6,7 +6,7 @@ interface JournalProps {
 
 export function Journal({ imageSrc, title, date }: JournalProps) {
   return (
-    <section class='flex justify-center items-center min-h-screen w-full p-10'>
+    <section class='flex justify-center items-center w-full p-10'>
       <div class='max-w-md'>
         <div class='relative'>
           {/* Grey background layers */}

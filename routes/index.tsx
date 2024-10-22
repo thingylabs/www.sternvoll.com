@@ -131,15 +131,17 @@ export default function Home(ctx: PageProps<Collection>) {
         href='#'
       />
 
-      <h2>Journal</h2>
-      <p>Inspirierende Geschichten, Trends und Einblicke in die Schmuckwelt</p>
-
       <FillLetter
         letter='E'
         firstLine='Explore'
         secondLine='Collections'
         href='#'
       />
+
+      <h2 class='text-4xl font-accent p-8'>Journal</h2>
+      <p class='text-2xl font-accent p-8'>
+        Inspirierende Geschichten, Trends und Einblicke in die Schmuckwelt
+      </p>
 
       <Journal
         imageSrc='journal-cover.jpg'
