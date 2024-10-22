@@ -5,7 +5,10 @@ import { Meta } from '@/components/Meta.tsx'
 import { Header } from '../islands/Header.tsx'
 import { List, Product } from '../utils/types.ts'
 import { OurStory } from '../islands/OurStory.tsx'
-import { ProductCard } from '@/components/ProductCard.tsx'
+import { Hero } from '../components/Hero.tsx'
+import { SelectedWorks } from '../components/SelectedWorks.tsx'
+import { ImageCard } from '../components/ImageCard.tsx'
+import { Hand } from '../islands/Hand.tsx'
 
 const q = `{
   collection(id: "gid://shopify/Collection/534705242378") {
@@ -58,55 +61,53 @@ export default function Home(ctx: PageProps<Collection>) {
   }
 
   return (
-    <div>
-      <Meta
-        url={url}
-        meta={meta}
-      />
+    <>
+      <Meta url={url} meta={meta} />
 
-      <div class='relative h-screen'>
-        <Header /> {/* Header overlays the hero image */}
-
-        {/* Hero Image */}
-        <img
-          src='/hero.jpg'
-          alt='Hero Image'
-          class='absolute inset-0 w-full h-full object-cover object-[95%]'
-        />
-
-        {/* Overlay Content */}
-        <div class='absolute inset-0 flex flex-col justify-center items-start text-left px-8'>
-          <br />
-          <h1 class='text-white font-accent text-7xl sm:text-7xl leading-tight'>
-            <br />
-            Effortless chic,
-          </h1>
-          <p class='text-white mt-4 font-serif text-2xl sm:text-2xl italic pr-10'>
-            alltäglich heißt nicht langweilig.
-          </p>
-
-          {/* Button */}
-          <a
-            href='#shop'
-            class='mt-6 inline-block bg-white text-gray-900 font-bold px-6 py-3 rounded-md hover:bg-gray-200'
-          >
-            JETZT SHOPPEN
-          </a>
-        </div>
-      </div>
+      <Hero>
+        <Header />
+      </Hero>
 
       <OurStory />
 
-      <section class='p-4 mt-10 py-10 bg-white'>
-        <h2 class='text-2xl font-accent'>
-          Selected works:
-        </h2>
-        <div class='grid grid-cols-1 gap-8'>
-          {products.map((product) => <ProductCard product={product} />)}
-        </div>
-      </section>
+      <SelectedWorks products={products} />
+
+      <ImageCard
+        image='collection-clip-ons.jpg'
+        title='Sanfte Berührung - Schmerzfreie Ohrclips'
+        text='Komfort und Eleganz, mühelos vereint.'
+        linkTitle='CLIPS ENTDECKEN'
+        link='#'
+        orientation='left'
+      />
+      <ImageCard
+        image='collection-perfect-match.jpg'
+        title='Perfektes Match für jeden Anlass'
+        text='Die sorgfältig zusammengestellten Schmuck-Sets verpassen jeder Garderobe den letzten Schliff.'
+        linkTitle='SETS ENTDECKEN'
+        link='#'
+        orientation='right'
+      />
+      <ImageCard
+        image='collection-diamond-finishing.jpg'
+        title='Funkeln wie ein Diamant'
+        text='Die charakteristische Oberflächenveredelung verleiht einen unverwechselbaren Glanz.'
+        linkTitle='DIAMOND FINISH ENTDECKEN'
+        link='#'
+        orientation='left'
+      />
+      <ImageCard
+        image='collection-heart-shaped.jpg'
+        title='Unvergessliche Herzens-angelegenheiten'
+        text='Eine Kollektion, die Liebe in zeitloser Eleganz und glänzendem Design einfängt.'
+        linkTitle='HERZEN ENTDECKEN'
+        link='#'
+        orientation='right'
+      />
+
+      <Hand />
 
       <Footer />
-    </div>
+    </>
   )
 }
