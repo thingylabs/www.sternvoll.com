@@ -2,13 +2,13 @@ import { useSignal } from '@preact/signals'
 import { useEffect, useRef } from 'preact/hooks'
 
 const inset = {
-  left: {
-    start: -30,
-    end: 30,
+  top: {
+    xStart: -30,
+    xEnd: 30,
   },
-  right: {
-    start: 30,
-    end: -40,
+  bottom: {
+    xStart: 30,
+    xEnd: -40,
   },
 }
 
@@ -78,7 +78,8 @@ export function OurStory() {
     return start + (end - start) * (progress / 100)
   }
 
-  const opacity = scrollPos.value === 0 ? 0 : 1 // Fade in as soon as scroll starts
+  // Fade in as soon as scroll starts
+  const opacity = scrollPos.value === 0 ? 0 : 1
 
   return (
     <section
@@ -91,7 +92,7 @@ export function OurStory() {
           class={`absolute top-[5vw] select-none transition-opacity duration-700 ease-out`}
           style={{
             transform: `translateX(${
-              interpolate(inset.left.start, inset.left.end, scrollPos.value)
+              interpolate(inset.top.xStart, inset.top.xEnd, scrollPos.value)
             }%)`,
             opacity: opacity, // Fade-in effect
             transition: 'opacity 0.7s ease-in-out', // Initial fade-in effect
@@ -104,7 +105,11 @@ export function OurStory() {
           class={`absolute bottom-0 select-none transition-opacity duration-700 ease-out`}
           style={{
             transform: `translateX(${
-              interpolate(inset.right.start, inset.right.end, scrollPos.value)
+              interpolate(
+                inset.bottom.xStart,
+                inset.bottom.xEnd,
+                scrollPos.value,
+              )
             }%)`,
             opacity: opacity, // Fade-in effect
             transition: 'opacity 0.7s ease-in-out', // Initial fade-in effect
