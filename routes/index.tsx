@@ -9,6 +9,7 @@ import { Hero } from '../components/Hero.tsx'
 import { SelectedWorks } from '../components/SelectedWorks.tsx'
 import { ImageCard } from '../components/ImageCard.tsx'
 import { Hand } from '../islands/Hand.tsx'
+import { CategoryCard } from '../components/CategoryCard.tsx'
 
 const q = `{
   collection(id: "gid://shopify/Collection/534705242378") {
@@ -106,6 +107,27 @@ export default function Home(ctx: PageProps<Collection>) {
       />
 
       <Hand />
+
+      <CategoryCard
+        backgroundImage='category-earrings.jpg'
+        text='Ohrringe'
+        href='#'
+      />
+      <CategoryCard
+        backgroundImage='category-rings.jpg'
+        text='Ringe'
+        href='#'
+      />
+      <CategoryCard
+        backgroundImage='category-necklaces.jpg'
+        text='Halsketten'
+        href='#'
+      />
+      <CategoryCard
+        backgroundImage='category-clip-ons.jpg'
+        text='Clip-ons'
+        href='#'
+      />
 
       <Footer />
     </>
