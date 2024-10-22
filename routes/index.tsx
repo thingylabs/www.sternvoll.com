@@ -10,6 +10,7 @@ import { SelectedWorks } from '../components/SelectedWorks.tsx'
 import { ImageCard } from '../components/ImageCard.tsx'
 import { Hand } from '../islands/Hand.tsx'
 import { CategoryCard } from '../components/CategoryCard.tsx'
+import { FillLetter } from '../islands/FillLetter.tsx'
 
 const q = `{
   collection(id: "gid://shopify/Collection/534705242378") {
@@ -126,6 +127,13 @@ export default function Home(ctx: PageProps<Collection>) {
       <CategoryCard
         backgroundImage='category-clip-ons.jpg'
         text='Clip-ons'
+        href='#'
+      />
+
+      <FillLetter
+        letter='E'
+        firstLine='Explore'
+        secondLine='Collections'
         href='#'
       />
 
