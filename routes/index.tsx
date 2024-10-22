@@ -11,6 +11,7 @@ import { ImageCard } from '../components/ImageCard.tsx'
 import { Hand } from '../islands/Hand.tsx'
 import { CategoryCard } from '../components/CategoryCard.tsx'
 import { FillLetter } from '../components/FillLetter.tsx'
+import { Journal } from '../components/Journal.tsx'
 
 const q = `{
   collection(id: "gid://shopify/Collection/534705242378") {
@@ -130,11 +131,20 @@ export default function Home(ctx: PageProps<Collection>) {
         href='#'
       />
 
+      <h2>Journal</h2>
+      <p>Inspirierende Geschichten, Trends und Einblicke in die Schmuckwelt</p>
+
       <FillLetter
         letter='E'
         firstLine='Explore'
         secondLine='Collections'
         href='#'
+      />
+
+      <Journal
+        imageSrc='journal-cover.jpg'
+        title='STERNVOLL'
+        date='2020 / April'
       />
 
       <Footer />
