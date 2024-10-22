@@ -1,87 +1,127 @@
 import { useSignal } from '@preact/signals'
 import { useEffect, useRef } from 'preact/hooks'
 
+const inset = {
+  yStart: 300,
+  yEnd: -100,
+}
+
 export function Hand() {
   const scrollPos = useSignal(0)
-  const isTitleInView = useSignal(false)
-  const scrollBaseline = useSignal(0)
-  const titleRef = useRef<HTMLHeadingElement>(null)
+  const isInView = useSignal(false)
+  const fadeIn = useSignal(false)
+  const handRef = useRef<HTMLDivElement>(null)
+  const startY = useSignal(0)
+  const endY = useSignal(0)
+  const hasFadedIn = useSignal(false)
+
+  const updateScrollPos = () => {
+    const currentScroll = globalThis.scrollY
+    const maxScroll = endY.value - startY.value
+
+    if (
+      currentScroll >= startY.value - globalThis.innerHeight &&
+      currentScroll <= endY.value
+    ) {
+      const progress =
+        (currentScroll - (startY.value - globalThis.innerHeight)) /
+        (maxScroll + globalThis.innerHeight)
+      scrollPos.value = Math.min(Math.max(progress * 100, 0), 100)
+    }
+  }
 
   useEffect(() => {
+    fadeIn.value = true
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            isTitleInView.value = true
-            // Set the baseline when the title comes into view
-            scrollBaseline.value = globalThis.scrollY
+            isInView.value = true
+            const rect = handRef.current?.getBoundingClientRect()
+            if (rect) {
+              startY.value = rect.top + globalThis.scrollY -
+                globalThis.innerHeight
+              endY.value = rect.bottom + globalThis.scrollY
+            }
+          } else {
+            isInView.value = false
           }
+
+          updateScrollPos()
         })
       },
-      { threshold: 0.1 },
+      { threshold: 0 },
     )
 
-    if (titleRef.current) {
-      observer.observe(titleRef.current)
+    if (handRef.current) {
+      observer.observe(handRef.current)
     }
 
     return () => {
-      if (titleRef.current) {
-        observer.unobserve(titleRef.current)
+      if (handRef.current) {
+        observer.unobserve(handRef.current)
       }
     }
   }, [])
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!isTitleInView.value) return
-
-      const scrollTop = globalThis.scrollY - scrollBaseline.value
-      const maxScroll = document.documentElement.clientHeight * 1.5
-      const scrollPercentage = Math.min(scrollTop / maxScroll, 1)
-      scrollPos.value = Math.max(scrollPercentage * 100, 0)
+      if (!isInView.value) return
+      updateScrollPos()
     }
 
     globalThis.addEventListener('scroll', handleScroll)
+    updateScrollPos()
+
     return () => {
       globalThis.removeEventListener('scroll', handleScroll)
     }
-  }, [isTitleInView])
+  }, [isInView])
 
-  const opacity = Math.min(scrollPos.value, 1)
-  const translateY = Math.max(150 - scrollPos.value * 1.2, -30)
+  const interpolate = (start: number, end: number, progress: number) => {
+    return start + (end - start) * (progress / 100)
+  }
+
+  const translateY = interpolate(inset.yStart, inset.yEnd, scrollPos.value)
+  const scrollOpacity = interpolate(0, 1, scrollPos.value)
+
+  const opacity = fadeIn.value ? scrollOpacity : 0
+  const transition = !hasFadedIn.value ? 'opacity 0.8s ease-in' : 'none'
 
   return (
-    <div class='relative h-[600px] flex flex-col justify-center items-center overflow-hidden font-accent'>
-      {/* Title */}
+    <div
+      ref={handRef}
+      class='relative h-[700px] flex flex-col justify-center items-center overflow-hidden font-accent'
+    >
       <div class='text-center w-full'>
-        <h1
-          ref={titleRef}
-          class='text-8xl font-accent text-secondary-light absolute top-40 z-0 w-full text-center'
-        >
+        <h1 class='text-8xl font-accent text-secondary-light absolute top-40 z-0 w-full text-center'>
           Kollektionen
         </h1>
       </div>
 
-      {/* Animated Hand Image */}
+      {/* Hand Image */}
       <div
-        class='absolute z-10' // Absolute positioning
+        class='absolute z-10'
         style={{
-          transform: `translateY(${translateY - 100}px)`,
-          opacity: opacity,
-          transition: 'transform 0.3s ease, opacity 0.3s ease',
+          transform: `translateY(${translateY}px)`,
+          opacity: fadeIn.value ? opacity : 0,
+          transition: `${transition}`,
+        }}
+        onTransitionEnd={() => {
+          // Disable transition after first fade-in
+          hasFadedIn.value = true
         }}
       >
         <img
           src='hand.png'
           alt='Hand holding jewelry'
-          class='w-auto max-w-[250px] h-auto object-contain' // Slightly smaller hand size
+          class='w-auto max-w-[250px] h-auto object-contain'
         />
       </div>
 
-      {/* Description Text */}
       <div class='absolute bottom-10 text-center px-4 w-full max-w-3xl z-20'>
-        <p class='text-lg font-serif text-gray-800 mt-5'>
+        <p class='text-3xl font-accent mt-5'>
           Entdecken Sie unsere Schmuckkollektionen, inspiriert von den Wundern
           der Natur, dem Glanz der Städte und den feinen Linien moderner Kunst.
         </p>
