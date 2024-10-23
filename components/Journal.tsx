@@ -9,22 +9,22 @@ export function Journal({ imageSrc, title, date }: JournalProps) {
     <section class='flex justify-center items-center w-full p-10'>
       <div class='max-w-md'>
         <div class='relative'>
-          {/* Grey background layers */}
+          {/* Grey background layers - Successively shorter */}
           <div
-            class='absolute w-full h-full bg-gray-200 rounded-lg'
-            style={{ right: '-10px', bottom: '-10px' }}
+            class='absolute w-full bg-gray-200 rounded-lg'
+            style={{ right: '-10px', height: '95%', top: '2.5%' }}
           />
           <div
-            class='absolute w-full h-full bg-gray-300 rounded-lg'
-            style={{ right: '-5px', bottom: '-5px' }}
+            class='absolute w-full bg-gray-300 rounded-lg'
+            style={{ right: '-5px', height: '98%', top: '1%' }}
           />
 
           {/* Main book cover image */}
-          <div class='relative w-full h-full rounded-lg shadow-lg overflow-hidden'>
+          <div class='relative w-full h-full rounded-lg shadow-xl overflow-hidden'>
             <img
               src={imageSrc}
               alt={title}
-              class='w-full h-full object-cover rounded-lg shadow-lg'
+              class='w-full h-full object-cover rounded-lg'
             />
 
             <div class='absolute inset-0 flex flex-col justify-between items-center p-6'>
