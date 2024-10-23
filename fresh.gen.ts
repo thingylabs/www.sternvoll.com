@@ -10,6 +10,7 @@ import * as $AddToCart from './islands/AddToCart.tsx'
 import * as $Cart from './islands/Cart.tsx'
 import * as $Hand from './islands/Hand.tsx'
 import * as $Header from './islands/Header.tsx'
+import * as $MovingText from './islands/MovingText.tsx'
 import * as $OurStory from './islands/OurStory.tsx'
 import * as $ProductDetails from './islands/ProductDetails.tsx'
 import type { Manifest } from '$fresh/server.ts'
@@ -26,6 +27,7 @@ const manifest = {
     './islands/Cart.tsx': $Cart,
     './islands/Hand.tsx': $Hand,
     './islands/Header.tsx': $Header,
+    './islands/MovingText.tsx': $MovingText,
     './islands/OurStory.tsx': $OurStory,
     './islands/ProductDetails.tsx': $ProductDetails,
   },
