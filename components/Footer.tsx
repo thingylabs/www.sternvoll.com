@@ -17,10 +17,11 @@ export const Footer = () => {
               <span className='text-2xl font-semibold'>Sternvoll Jewelry</span>
             </a>
             <p className='mt-4 text-gray-500'>
-              Sternvoll Jewelry is a modern, ethically sourced jewelry brand,
-              offering beautiful, sustainable pieces for everyone.
+              Everyday doesn't mean boring! Discover luxurious 18K gold and
+              lab-grown diamond jewelry that combines timeless elegance with
+              modern style.
             </p>
-            <div class='pt-4 pb-2'>
+            <div class='pt-6 pb-2'>
               <Social />
             </div>
           </div>
