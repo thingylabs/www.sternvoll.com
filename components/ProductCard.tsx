@@ -58,7 +58,8 @@ function filterTags(tag: string) {
   if (
     tag === 'Non-Amazon' ||
     tag === 'Amazon - DE' ||
-    tag === 'Imported by webBee'
+    tag === 'Imported by webBee' ||
+    tag === 'IGI Certified'
   ) {
     return false
   }

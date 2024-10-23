@@ -34,11 +34,7 @@ export function Header() {
         hasBackground.value
           ? 'bg-primary text-primary'
           : 'bg-transparent text-white'
-      } ${isVisible.value ? 'translate-y-0' : '-translate-y-full'}`}
-      style={{
-        transition:
-          'transform 0.3s ease-in-out, background-color 0.3s ease-in-out',
-      }}
+      } transform ${isVisible.value ? 'translate-y-0' : '-translate-y-full'}`}
     >
       <div class='flex justify-between items-center'>
         {/* Menu Button */}

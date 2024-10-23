@@ -1,33 +1,35 @@
 import { Social } from '@/components/Social.tsx'
 import { MovingText } from '@/islands/MovingText.tsx'
+import { meta } from '@/meta.ts'
+import tw from '@/tailwind.config.ts'
 
 export const Footer = () => {
   return (
     <footer className=''>
-      <div className='container mx-auto px-10 py-8'>
+      <div className='container mx-auto px-6 py-8'>
         <div className='flex flex-col md:flex-row justify-between items-center'>
-          {/* Left section: Logo and description */}
+          {/* Logo and description */}
           <div className='w-full md:w-1/2 mb-6 md:mb-0'>
             <a href='#' className='flex items-center'>
               <img
-                src='Sternvoll-star.png'
-                className='h-8 mr-3'
-                alt='Sternvoll Star'
+                src={meta.logos.square}
+                className='mr-3 flex-shrink-0 h-8'
+                alt='Sternvoll Logo'
               />
-              <span className='text-2xl font-semibold'>Sternvoll Jewelry</span>
+              <span className='text-3xl font-accent h-8'>
+                {meta.title}
+              </span>
             </a>
-            <p className='mt-4 text-gray-500'>
-              Everyday doesn't mean boring! Discover luxurious 18K gold and
-              lab-grown diamond jewelry that combines timeless elegance with
-              modern style.
+            <p className='mt-4 text-justify'>
+              {meta.shortDescription}
             </p>
-            <div class='pt-6 pb-2'>
+            <div class='pt-6'>
               <Social />
             </div>
           </div>
 
-          {/* Right section: Links */}
-          <div className='w-full md:w-1/2 flex flex-wrap justify-between'>
+          {/* Menu Links */}
+          <div className='pl-2 pt-6 w-full md:w-1/2 flex flex-wrap justify-between'>
             <div className='w-1/2'>
               <h3 className='text-gray-900 font-semibold mb-4'>COMPANY</h3>
               <ul className='text-gray-500 space-y-2'>
@@ -103,19 +105,18 @@ export const Footer = () => {
         insetConfig={{
           top: {
             xStart: -50,
-            xEnd: 150,
+            xEnd: 180,
           },
           bottom: {
             xStart: 100,
-            xEnd: -180,
+            xEnd: -220,
           },
         }}
         height='35vw'
         fontSize='9vw'
-        color='#eee8e3'
+        color={tw.theme.extend.colors.secondary}
       />
 
-      {/* Footer bottom */}
       <div className='text-center mt-8 pt-6 text-gray-500 text-sm py-8'>
         <p>© 2024 Sternvoll Jewelry. All Rights Reserved.</p>
       </div>

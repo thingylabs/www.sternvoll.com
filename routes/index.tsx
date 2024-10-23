@@ -13,6 +13,13 @@ import { CategoryCard } from '../components/CategoryCard.tsx'
 import { FillLetter } from '../components/FillLetter.tsx'
 import { Journal } from '../components/Journal.tsx'
 
+const meta = {
+  title: 'Sternvoll Jewelry: Effortless chic for every day',
+  description:
+    "Everyday doesn't mean boring! Discover luxurious 18K gold and lab-grown diamond jewelry that combines timeless elegance with modern style. Visit our new website for a unique shopping experience and exquisite designs.",
+  image: 'og.png',
+}
+
 const q = `{
   collection(id: "gid://shopify/Collection/534705242378") {
     products(first: 8) {
@@ -56,12 +63,6 @@ export const handler: Handlers<Collection> = {
 export default function Home(ctx: PageProps<Collection>) {
   const { data, url } = ctx
   const products = data.collection.products.nodes
-
-  const meta = {
-    description: 'Shop for Deno Merch',
-    image: 'og-image.png',
-    title: 'Deno Merch',
-  }
 
   return (
     <>
@@ -138,14 +139,16 @@ export default function Home(ctx: PageProps<Collection>) {
         href='#'
       />
 
-      <h2 class='text-4xl font-accent p-8'>Journal</h2>
-      <p class='text-2xl font-accent p-8'>
-        Inspirierende Geschichten, Trends und Einblicke in die Schmuckwelt
-      </p>
+      <div class='text-center p-8'>
+        <h2 class='text-6xl font-accent'>Journal</h2>
+        <p class='text-2xl font-accent italic pt-8'>
+          Inspirierende Geschichten, Trends und Einblicke in die Schmuckwelt
+        </p>
+      </div>
 
       <Journal
         imageSrc='journal-cover.jpg'
-        title='STERNVOLL'
+        title='Sternvoll Journal Cover'
         date='2020 / April'
       />
 

@@ -1,5 +1,6 @@
 import { AppProps } from '$fresh/server.ts'
 import { Head } from '$fresh/runtime.ts'
+import { meta } from '@/meta.ts'
 
 export default function App({ Component }: AppProps) {
   return (
@@ -12,17 +13,24 @@ export default function App({ Component }: AppProps) {
         <link
           rel='icon'
           type='image/png'
-          href='/favicon-48x48.png'
-          sizes='48x48'
+          href={meta.favicon['48x48']}
         />
-        <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-        <link rel='shortcut icon' href='/favicon.ico' />
+        <link
+          rel='icon'
+          type='image/svg+xml'
+          href={meta.favicon.svg}
+        />
+        <link
+          rel='shortcut icon'
+          type='image/x-icon'
+          href={meta.favicon.ico}
+        />
         <link
           rel='apple-touch-icon'
           sizes='180x180'
-          href='/apple-touch-icon.png'
+          href={meta.favicon['180x180']}
         />
-        {/* <link rel="manifest" href="/site.webmanifest" /> */}
+        <link rel='manifest' href='site.webmanifest' />
       </Head>
       <Component />
     </>
