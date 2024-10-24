@@ -16,11 +16,11 @@ export const Footer = () => {
                 className='mr-3 flex-shrink-0 h-8'
                 alt='Sternvoll Logo'
               />
-              <span className='text-3xl font-accent h-8'>
+              <span className='text-3xl font-accent h-8 text-black	'>
                 {meta.title}
               </span>
             </a>
-            <p className='mt-4 text-justify'>
+            <p className='mt-4 text-justify font-accent tracking-wider text-black	'>
               {meta.shortDescription}
             </p>
             <div class='pt-6'>
@@ -99,18 +99,18 @@ export const Footer = () => {
         </div>
       </div>
 
-      <div class='h-[25vw]'>
+      <div class='mt-4 h-[25vw]'>
         <MovingText
           firstLine='There is nothing wrong'
           secondLine='with looking good'
           inset={{
             top: {
               xStart: -50,
-              xEnd: 180,
+              xEnd: 260,
             },
             bottom: {
               xStart: 100,
-              xEnd: -220,
+              xEnd: -330,
             },
           }}
           fontSize='9vw'
@@ -118,7 +118,7 @@ export const Footer = () => {
         />
       </div>
 
-      <div className='text-center mt-8 pt-6 text-gray-500 text-sm py-8'>
+      <div className='text-center pt-12 pb-2 text-gray-500 text-sm'>
         <p>© 2024 Sternvoll Jewelry. All Rights Reserved.</p>
       </div>
     </footer>
