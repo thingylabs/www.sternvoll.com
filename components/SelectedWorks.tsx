@@ -7,7 +7,7 @@ interface SelectedWorksProps {
 
 export function SelectedWorks({ products }: SelectedWorksProps) {
   return (
-    <section class='p-4 mt-10 py-10 bg-white'>
+    <section>
       <h2 class='text-2xl font-accent'>Selected works:</h2>
       <div class='grid grid-cols-1 gap-8'>
         {products.map((product) => (

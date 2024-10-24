@@ -4,7 +4,7 @@ import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
 import { Header } from '../islands/Header.tsx'
 import { List, Product } from '../utils/types.ts'
-import { OurStory } from '../islands/OurStory.tsx'
+import { OurStory } from '../components/OurStory.tsx'
 import { Hero } from '../components/Hero.tsx'
 import { SelectedWorks } from '../components/SelectedWorks.tsx'
 import { ImageCard } from '../components/ImageCard.tsx'
@@ -72,65 +72,73 @@ export default function Home(ctx: PageProps<Collection>) {
         <Header />
       </Hero>
 
-      <OurStory />
+      <div class='py-10'>
+        <OurStory />
+      </div>
 
-      <SelectedWorks products={products} />
+      <div class='p-4 py-10 bg-white'>
+        <SelectedWorks products={products} />
+      </div>
 
-      <ImageCard
-        image='collection-clip-ons.jpg'
-        title='Sanfte Berührung - Schmerzfreie Ohrclips'
-        text='Komfort und Eleganz, mühelos vereint.'
-        linkTitle='CLIPS ENTDECKEN'
-        link='#'
-        orientation='left'
-      />
-      <ImageCard
-        image='collection-perfect-match.jpg'
-        title='Perfektes Match für jeden Anlass'
-        text='Die sorgfältig zusammengestellten Schmuck-Sets verpassen jeder Garderobe den letzten Schliff.'
-        linkTitle='SETS ENTDECKEN'
-        link='#'
-        orientation='right'
-      />
-      <ImageCard
-        image='collection-diamond-finishing.jpg'
-        title='Funkeln wie ein Diamant'
-        text='Die charakteristische Oberflächenveredelung verleiht einen unverwechselbaren Glanz.'
-        linkTitle='DIAMOND FINISH ENTDECKEN'
-        link='#'
-        orientation='left'
-      />
-      <ImageCard
-        image='collection-heart-shaped.jpg'
-        title='Unvergessliche Herzens-angelegenheiten'
-        text='Eine Kollektion, die Liebe in zeitloser Eleganz und glänzendem Design einfängt.'
-        linkTitle='HERZEN ENTDECKEN'
-        link='#'
-        orientation='right'
-      />
+      <div class='p-4 py-10 bg-white'>
+        <ImageCard
+          image='collection-clip-ons.jpg'
+          title='Sanfte Berührung - Schmerzfreie Ohrclips'
+          text='Komfort und Eleganz, mühelos vereint.'
+          linkTitle='CLIPS ENTDECKEN'
+          link='#'
+          orientation='left'
+        />
+        <ImageCard
+          image='collection-perfect-match.jpg'
+          title='Perfektes Match für jeden Anlass'
+          text='Die sorgfältig zusammengestellten Schmuck-Sets verpassen jeder Garderobe den letzten Schliff.'
+          linkTitle='SETS ENTDECKEN'
+          link='#'
+          orientation='right'
+        />
+        <ImageCard
+          image='collection-diamond-finishing.jpg'
+          title='Funkeln wie ein Diamant'
+          text='Die charakteristische Oberflächenveredelung verleiht einen unverwechselbaren Glanz.'
+          linkTitle='DIAMOND FINISH ENTDECKEN'
+          link='#'
+          orientation='left'
+        />
+        <ImageCard
+          image='collection-heart-shaped.jpg'
+          title='Unvergessliche Herzens-angelegenheiten'
+          text='Eine Kollektion, die Liebe in zeitloser Eleganz und glänzendem Design einfängt.'
+          linkTitle='HERZEN ENTDECKEN'
+          link='#'
+          orientation='right'
+        />
+      </div>
 
       <Hand />
 
-      <CategoryCard
-        backgroundImage='category-earrings.jpg'
-        text='Ohrringe'
-        href='#'
-      />
-      <CategoryCard
-        backgroundImage='category-rings.jpg'
-        text='Ringe'
-        href='#'
-      />
-      <CategoryCard
-        backgroundImage='category-necklaces.jpg'
-        text='Halsketten'
-        href='#'
-      />
-      <CategoryCard
-        backgroundImage='category-clip-ons.jpg'
-        text='Clip-ons'
-        href='#'
-      />
+      <div class='p-4 py-10 space-y-6'>
+        <CategoryCard
+          backgroundImage='category-earrings.jpg'
+          text='Ohrringe'
+          href='#'
+        />
+        <CategoryCard
+          backgroundImage='category-rings.jpg'
+          text='Ringe'
+          href='#'
+        />
+        <CategoryCard
+          backgroundImage='category-necklaces.jpg'
+          text='Halsketten'
+          href='#'
+        />
+        <CategoryCard
+          backgroundImage='category-clip-ons.jpg'
+          text='Clip-ons'
+          href='#'
+        />
+      </div>
 
       <FillLetter
         letter='E'
@@ -139,9 +147,9 @@ export default function Home(ctx: PageProps<Collection>) {
         href='#'
       />
 
-      <div class='text-center p-8'>
+      <div class='text-center p-8 pt-12'>
         <h2 class='text-6xl font-accent'>Journal</h2>
-        <p class='text-2xl font-accent italic pt-8'>
+        <p class='text-3xl font-accent italic pt-8'>
           Inspirierende Geschichten, Trends und Einblicke in die Schmuckwelt
         </p>
       </div>

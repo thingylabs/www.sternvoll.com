@@ -99,23 +99,24 @@ export const Footer = () => {
         </div>
       </div>
 
-      <MovingText
-        firstLine='There is nothing wrong'
-        secondLine='with looking good'
-        insetConfig={{
-          top: {
-            xStart: -50,
-            xEnd: 180,
-          },
-          bottom: {
-            xStart: 100,
-            xEnd: -220,
-          },
-        }}
-        height='35vw'
-        fontSize='9vw'
-        color={tw.theme.extend.colors.secondary}
-      />
+      <div class='h-[25vw]'>
+        <MovingText
+          firstLine='There is nothing wrong'
+          secondLine='with looking good'
+          inset={{
+            top: {
+              xStart: -50,
+              xEnd: 180,
+            },
+            bottom: {
+              xStart: 100,
+              xEnd: -220,
+            },
+          }}
+          fontSize='9vw'
+          color={tw.theme.extend.colors.secondary}
+        />
+      </div>
 
       <div className='text-center mt-8 pt-6 text-gray-500 text-sm py-8'>
         <p>© 2024 Sternvoll Jewelry. All Rights Reserved.</p>

@@ -5,25 +5,25 @@ import { JSX } from 'preact'
 interface MovingTextProps {
   firstLine: string
   secondLine: string
-  insetConfig: {
+  inset: {
     top: {
       xStart: number
       xEnd: number
+      top?: string
     }
     bottom: {
       xStart: number
       xEnd: number
+      bottom?: string
     }
   }
-  height: string
-  fontSize: string
-  color: string
+  fontSize?: string
+  color?: string
   children?: JSX.Element | JSX.Element[]
 }
 
 export function MovingText(
-  { firstLine, secondLine, insetConfig, height, fontSize, color, children }:
-    MovingTextProps,
+  { firstLine, secondLine, inset, fontSize, color, children }: MovingTextProps,
 ) {
   const scrollPos = useSignal(0)
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -92,50 +92,49 @@ export function MovingText(
   const opacity = scrollPos.value === 0 ? 0 : 1
 
   return (
-    <section
+    <div
       ref={sectionRef}
-      class='relative pt-[25vw] flex flex-col justify-center items-center overflow-hidden font-accent'
-      style={{
-        height,
-      }}
+      class='relative flex flex-col justify-center items-center overflow-hidden font-accent h-full'
     >
       <div
         class='absolute inset-0 flex justify-between items-center pointer-events-none whitespace-nowrap'
         style={{
-          fontSize,
-          color,
+          ...(fontSize && { fontSize }),
+          ...(color && { color }),
         }}
       >
         {/* Left Element (Top - Starts from left, moves to right) */}
         <span
-          class='absolute top-[5vw] select-none transition-opacity duration-700 ease-out'
+          class='absolute select-none transition-opacity duration-700 ease-out'
           style={{
             transform: `translateX(${
               interpolate(
-                insetConfig.top.xStart,
-                insetConfig.top.xEnd,
+                inset.top.xStart,
+                inset.top.xEnd,
                 scrollPos.value,
               )
             }%)`,
             opacity: opacity,
             transition: 'opacity 0.7s ease-in-out',
+            top: inset.top.top ?? 0,
           }}
         >
           {firstLine}
         </span>
         {/* Right Element (Bottom - Starts from right, moves to left) */}
         <span
-          class='absolute bottom-0 select-none transition-opacity duration-700 ease-out'
+          class='absolute select-none transition-opacity duration-700 ease-out'
           style={{
             transform: `translateX(${
               interpolate(
-                insetConfig.bottom.xStart,
-                insetConfig.bottom.xEnd,
+                inset.bottom.xStart,
+                inset.bottom.xEnd,
                 scrollPos.value,
               )
             }%)`,
-            opacity: opacity,
+            opacity,
             transition: 'opacity 0.7s ease-in-out',
+            bottom: inset.bottom.bottom ?? 0,
           }}
         >
           {secondLine}
@@ -143,7 +142,15 @@ export function MovingText(
       </div>
 
       {/* Render the children inside the section */}
-      <div class='relative z-10'>{children}</div>
-    </section>
+      <div
+        class='relative z-10 h-full w-full'
+        style={{
+          opacity: opacity,
+          transition: 'opacity 0.7s ease-in-out',
+        }}
+      >
+        {children}
+      </div>
+    </div>
   )
 }

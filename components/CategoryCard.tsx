@@ -10,7 +10,7 @@ export function CategoryCard(
   return (
     <a
       href={href}
-      class='block relative group w-full h-[900px] overflow-hidden flex justify-center items-center bg-cover bg-center transition-all duration-800 ease-in-out'
+      class='block relative group w-full h-[500px] overflow-hidden flex justify-center items-center bg-cover bg-center transition-all duration-800 ease-in-out'
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {/* Hover Overlay */}
@@ -19,19 +19,22 @@ export function CategoryCard(
 
       {/* Main Text */}
       <div class='relative z-10'>
-        <h1 class='text-6xl text-white font-accent transform translate-y-[60px] transition-transform duration-[800ms] ease-in-out group-hover:translate-y-[-60px]'>
+        <h1 class='text-6xl text-white font-accent transform translate-y-[40px] transition-transform duration-[800ms] ease-in-out group-hover:translate-y-[-40px]'>
           {text}
         </h1>
       </div>
 
-      {/* First Letter Animation */}
+      {/* Letter Background */}
+      {/* Movement */}
       <div
-        class='absolute text-[264px] font-accent leading-none text-white transform translate-y-[35px] group-hover:translate-y-[-35px] transition-transform duration-[700ms] ease-out group-hover:delay-[350ms]'
+        class='absolute text-[264px] font-accent leading-none text-white transform group-hover:translate-y-[-15px] transition-transform duration-[900ms] ease-out group-hover:delay-[500ms]'
         style={{
           transitionProperty: 'transform',
         }}
       >
+        {/* Blur */}
         <span class='blur-lg group-hover:blur-none transition-[filter] duration-[700ms] ease-out group-hover:delay-[250ms]'>
+          {/* Opacity */}
           <span class='opacity-0 group-hover:opacity-10 transition-opacity duration-[800ms] ease-out group-hover:delay-[250ms]'>
             {text.charAt(0)}
           </span>
