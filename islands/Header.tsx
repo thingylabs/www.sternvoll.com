@@ -1,7 +1,7 @@
 import { useSignal } from '@preact/signals'
 import { useEffect } from 'preact/hooks'
-import { Cart } from './Cart.tsx'
-import { MenuButton } from '../components/MenuButton.tsx'
+import { Cart } from '@/islands/Cart.tsx'
+import { MenuButton } from '@/components/MenuButton.tsx'
 
 export function Header() {
   const hasBackground = useSignal(false)

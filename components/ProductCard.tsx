@@ -1,6 +1,6 @@
 import { formatCurrency } from '@/utils/data.ts'
 import { IconCart } from '@/components/IconCart.tsx'
-import { Product } from '../utils/types.ts'
+import { Product } from '@/utils/types.ts'
 
 export function ProductCard(props: { product: Product }) {
   const { product } = props

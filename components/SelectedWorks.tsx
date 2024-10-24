@@ -1,5 +1,5 @@
 import { ProductCard } from '@/components/ProductCard.tsx'
-import { Product } from '../utils/types.ts'
+import { Product } from '@/utils/types.ts'
 
 interface SelectedWorksProps {
   products: Product[]
