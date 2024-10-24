@@ -2,11 +2,11 @@ import { meta } from '@/meta.ts'
 
 export function Social() {
   return (
-    <div className='flex space-x-3'>
+    <div class='flex space-x-3 md:space-x-12'>
       {/* Facebook */}
       <a
         href={meta.social.facebook}
-        className='text-gray-500 hover:text-gray-900'
+        class='text-[#051f34] hover:text-[#cb9274]'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -24,7 +24,7 @@ export function Social() {
       {/* Instagram */}
       <a
         href={meta.social.instagram}
-        className='text-gray-500 hover:text-gray-900'
+        class='text-[#051f34] hover:text-[#cb9274]'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -44,7 +44,7 @@ export function Social() {
       {/* TikTok */}
       <a
         href={meta.social.tiktok}
-        className='text-gray-500 hover:text-gray-900'
+        class='text-[#051f34] hover:text-[#cb9274]'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -62,7 +62,7 @@ export function Social() {
       {/* YouTube */}
       <a
         href={meta.social.youtube}
-        className='text-gray-500 hover:text-gray-900'
+        class='text-[#051f34] hover:text-[#cb9274]'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -80,7 +80,7 @@ export function Social() {
       {/* Twitter */}
       <a
         href={meta.social.x}
-        className='text-gray-500 hover:text-gray-900'
+        class='text-[#051f34] hover:text-[#cb9274]'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -98,7 +98,7 @@ export function Social() {
       {/* LinkedIn */}
       <a
         href={meta.social.linkedin}
-        className='text-gray-500 hover:text-gray-900'
+        class='text-[#051f34] hover:text-[#cb9274]'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -116,7 +116,7 @@ export function Social() {
       {/* Mastodon */}
       <a
         href={meta.social.mastodon}
-        className='text-gray-500 hover:text-gray-900'
+        class='text-[#051f34] hover:text-[#cb9274]'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -133,7 +133,7 @@ export function Social() {
       {/* Bluesky */}
       <a
         href={meta.social.bluesky}
-        className='text-gray-500 hover:text-gray-900'
+        class='text-[#051f34] hover:text-[#cb9274]'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'

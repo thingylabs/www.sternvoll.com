@@ -23,7 +23,7 @@ export function ProductCard(props: { product: Product }) {
 
         {/* Title and Price Section */}
         <div class='flex items-center justify-between mt-2'>
-          <h3 class='text-gray-800 relative uppercase font-bold'>
+          <h3 class='text-gray-800 relative uppercase font-bold truncate pr-2'>
             {product.title}
             <span class='bg-gray-800 h-[3px] w-0 group-hover:w-full absolute bottom-[-2px] left-0 transition-all duration-400' />
           </h3>
@@ -36,7 +36,9 @@ export function ProductCard(props: { product: Product }) {
       {/* Tags Section - moved outside the group */}
       <div class='flex flex-wrap space-x-1 items-center pt-2'>
         {product.tags &&
-          product.tags.filter(filterTags).sort((a, b) => a.localeCompare(b))
+          product.tags.filter(filterTags).map(replace).sort((a, b) =>
+            a.localeCompare(b)
+          )
             .map((tag, index) => (
               <a
                 href='#'
@@ -53,7 +55,12 @@ export function ProductCard(props: { product: Product }) {
     </div>
   )
 }
-
+function replace(tag: string) {
+  if (tag === '925 Sterling Silver') {
+    return '925 Silver'
+  }
+  return tag
+}
 function filterTags(tag: string) {
   if (
     tag === 'Non-Amazon' ||

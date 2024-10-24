@@ -14,7 +14,7 @@ interface MovingTextProps {
     bottom: {
       xStart: number
       xEnd: number
-      bottom?: string
+      class?: string
     }
   }
   fontSize?: string
@@ -105,7 +105,7 @@ export function MovingText(
       >
         {/* Left Element (Top - Starts from left, moves to right) */}
         <span
-          class='absolute select-none transition-opacity duration-700 ease-out'
+          class='absolute select-none transition-opacity duration-700 ease-out leading-none'
           style={{
             transform: `translateX(${
               interpolate(
@@ -123,7 +123,7 @@ export function MovingText(
         </span>
         {/* Right Element (Bottom - Starts from right, moves to left) */}
         <span
-          class='absolute select-none transition-opacity duration-700 ease-out'
+          class={`absolute select-none transition-opacity duration-700 ease-out leading-none bottom-0 ${inset.bottom.class}`}
           style={{
             transform: `translateX(${
               interpolate(
@@ -134,7 +134,6 @@ export function MovingText(
             }%)`,
             opacity,
             transition: 'opacity 0.7s ease-in-out',
-            bottom: inset.bottom.bottom ?? 0,
           }}
         >
           {secondLine}
@@ -143,7 +142,7 @@ export function MovingText(
 
       {/* Render the children inside the section */}
       <div
-        class='relative z-10 h-full w-full'
+        class='relative z-10 h-full w-full flex justify-center items-center overflow-hidden'
         style={{
           opacity: opacity,
           transition: 'opacity 0.7s ease-in-out',

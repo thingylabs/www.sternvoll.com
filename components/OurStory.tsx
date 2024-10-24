@@ -17,7 +17,7 @@ export function OurStory() {
           bottom: {
             xStart: 30,
             xEnd: -40,
-            bottom: '20vw',
+            class: 'bottom-[20vw] sm:bottom-[10vw]',
           },
         }}
       >
@@ -27,7 +27,7 @@ export function OurStory() {
             einzigartigen Schmuck, inspiriert von<br />
             kosmischer Schönheit.
           </p>
-          <div class='relative h-[45vw] w-[45vw] pt-[3vw]'>
+          <div class='relative h-[45vw] w-[45vw] pt-[3vw] sm:pt-0 sm:h-[35vw] sm:w-[35vw]'>
             <FillLetter
               firstLine='OUR'
               secondLine='STORY'

@@ -72,15 +72,15 @@ export default function Home(ctx: PageProps<Collection>) {
         <Header />
       </Hero>
 
-      <div class='py-10'>
+      <div class='py-10 sm:pb-8'>
         <OurStory />
       </div>
 
-      <div class='p-4 py-10 bg-white'>
+      <div class='p-4 py-10 md:pt-12 bg-white'>
         <SelectedWorks products={products} />
       </div>
 
-      <div class='p-4 py-10 bg-white'>
+      <div class='p-4 py-10'>
         <ImageCard
           image='collection-clip-ons.jpg'
           title='Sanfte Berührung - Schmerzfreie Ohrclips'
@@ -117,7 +117,7 @@ export default function Home(ctx: PageProps<Collection>) {
 
       <Hand />
 
-      <div class='p-4 py-10 space-y-6'>
+      <div class='p-4 py-10 space-y-6 md:space-y-0 md:grid md:grid-cols-2 md:gap-6'>
         <CategoryCard
           backgroundImage='category-earrings.jpg'
           text='Ohrringe'
@@ -141,23 +141,28 @@ export default function Home(ctx: PageProps<Collection>) {
       </div>
 
       <FillLetter
-        letter='E'
         firstLine='Explore'
         secondLine='Collections'
         href='#'
       />
 
-      <div class='text-center p-8 pt-12'>
-        <h2 class='text-6xl font-accent'>Journal</h2>
-        <p class='text-3xl font-accent italic pt-8'>
+      <div class='text-center p-8 pt-12 md:pb-0'>
+        <h2 class='text-5xl font-accent md:text-6xl'>Journal</h2>
+        <p class='text-3xl font-accent italic pt-8 leading-normal md:w-1/2 md:mx-auto'>
           Inspirierende Geschichten, Trends und Einblicke in die Schmuckwelt
         </p>
       </div>
 
+      <FillLetter
+        firstLine='ALL'
+        secondLine='STORIES'
+        href='#'
+      />
+
       <Journal
         imageSrc='journal-cover.jpg'
         title='Sternvoll Journal Cover'
-        date='2020 / April'
+        date='2024 / April'
       />
 
       <Footer />

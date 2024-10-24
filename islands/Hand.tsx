@@ -95,7 +95,7 @@ export function Hand() {
       class='relative h-[700px] flex flex-col justify-center items-center overflow-hidden font-accent'
     >
       <div class='text-center w-full'>
-        <h1 class='text-5xl font-accent text-secondary-light absolute top-40 z-0 w-full text-center'>
+        <h1 class='text-5xl font-accent text-secondary-light absolute top-40 z-0 w-full text-center md:text-[120px]'>
           Kollektionen
         </h1>
       </div>
@@ -121,7 +121,7 @@ export function Hand() {
       </div>
 
       <div class='absolute bottom-10 text-center px-4 w-full max-w-3xl z-20'>
-        <p class='text-2xl font-accent mt-5'>
+        <p class='text-2xl font-accent mt-5 md:text-3xl md:leading-relaxed'>
           Entdecken Sie unsere Schmuckkollektionen, inspiriert von den Wundern
           der Natur, dem Glanz der Städte und den feinen Linien moderner Kunst.
         </p>

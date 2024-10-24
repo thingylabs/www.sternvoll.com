@@ -8,8 +8,8 @@ interface SelectedWorksProps {
 export function SelectedWorks({ products }: SelectedWorksProps) {
   return (
     <section>
-      <h2 class='text-2xl font-accent'>Selected works:</h2>
-      <div class='grid grid-cols-1 gap-8'>
+      <h2 class='text-2xl md:text-4xl font-accent'>Selected works:</h2>
+      <div class='grid grid-cols-1 md:grid-cols-2 gap-8'>
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

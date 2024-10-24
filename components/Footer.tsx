@@ -1,31 +1,27 @@
 import { Social } from '@/components/Social.tsx'
 import { MovingText } from '@/islands/MovingText.tsx'
 import { meta } from '@/meta.ts'
-import tw from '@/tailwind.config.ts'
 
 export const Footer = () => {
   return (
     <footer className=''>
-      <div className='container mx-auto px-6 py-8'>
-        <div className='flex flex-col md:flex-row justify-between items-center'>
+      <div className='container mx-auto px-6 py-8 pt-14 md:pt-24'>
+        <div className='flex flex-col md:flex-row justify-between items-start'>
           {/* Logo and description */}
-          <div className='w-full md:w-1/2 mb-6 md:mb-0'>
+          <div className='w-full md:w-1/2 mb-6 md:mb-0 md:pt-6 md:px-12'>
             <a href='#' className='flex items-center'>
               <img
                 src={meta.logos.square}
-                className='mr-3 flex-shrink-0 h-8'
+                className='mr-3 flex-shrink-0 h-8 drop-shadow'
                 alt='Sternvoll Logo'
               />
-              <span className='text-3xl font-accent h-8 text-black	'>
+              <h1 className='text-3xl font-accent h-8 text-black drop-shadow font-bold'>
                 {meta.title}
-              </span>
+              </h1>
             </a>
-            <p className='mt-4 text-justify font-accent tracking-wider text-black	'>
+            <p className='mt-4 text-justify font-accent tracking-wider text-black drop-shadow'>
               {meta.shortDescription}
             </p>
-            <div class='pt-6'>
-              <Social />
-            </div>
           </div>
 
           {/* Menu Links */}
@@ -99,7 +95,7 @@ export const Footer = () => {
         </div>
       </div>
 
-      <div class='mt-4 h-[25vw]'>
+      <div class='relative mt-4 h-[30vw]'>
         <MovingText
           firstLine='There is nothing wrong'
           secondLine='with looking good'
@@ -113,13 +109,15 @@ export const Footer = () => {
               xEnd: -330,
             },
           }}
-          fontSize='9vw'
-          color={tw.theme.extend.colors.secondary}
-        />
+          fontSize='14vw'
+          color='#eee8e3'
+        >
+          <Social />
+        </MovingText>
       </div>
 
-      <div className='text-center pt-12 pb-2 text-gray-500 text-sm'>
-        <p>© 2024 Sternvoll Jewelry. All Rights Reserved.</p>
+      <div className='text-center pt-16 pb-2 text-gray-500 text-sm'>
+        <p>© 2024. All Rights Reserved.</p>
       </div>
     </footer>
   )
