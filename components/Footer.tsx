@@ -1,6 +1,7 @@
 import { Social } from '@/components/Social.tsx'
 import { MovingText } from '@/islands/MovingText.tsx'
 import { meta } from '@/meta.ts'
+import { Payment } from '@/components/Payment.tsx'
 
 export const Footer = () => {
   return (
@@ -22,6 +23,9 @@ export const Footer = () => {
             <p className='mt-4 text-justify font-accent tracking-wider text-black drop-shadow'>
               {meta.shortDescription}
             </p>
+            <div class='pt-5'>
+              <Payment />
+            </div>
           </div>
 
           {/* Menu Links */}
