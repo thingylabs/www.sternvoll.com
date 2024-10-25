@@ -22,7 +22,7 @@ export function OurStory() {
         }}
       >
         <div class='h-full flex flex-col justify-center items-center font-accent pt-[25vw]'>
-          <p class='text-[6vw] text-center'>
+          <p class='text-[6vw] text-center xl:text-[4vw]'>
             Im Herzen Stuttgarts kreiert Sternvoll<br />
             einzigartigen Schmuck, inspiriert von<br />
             kosmischer Schönheit.

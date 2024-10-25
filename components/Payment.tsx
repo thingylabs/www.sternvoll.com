@@ -4,8 +4,8 @@ export function Payment() {
     { name: 'Apple Pay', file: 'wallets/apple-pay.svg' },
     { name: 'Klarna', file: 'apm/klarna.svg' },
     { name: 'Paypal', file: 'apm/paypal.svg' },
-    { name: 'Google Pay', file: 'wallets/google-pay.svg' },
     { name: 'Visa', file: 'cards/visa.svg' },
+    { name: 'WeChat Pay', file: 'apm/wechat-pay.svg' },
     { name: 'Bitcoin', file: 'apm/crypto.svg' },
   ]
   return (
