@@ -76,11 +76,11 @@ export default function Home(ctx: PageProps<Collection>) {
         <OurStory />
       </div>
 
-      <div class='p-4 py-10 md:pt-12 bg-white'>
+      <div class='p-4 py-10 md:pt-12'>
         <SelectedWorks products={products} />
       </div>
 
-      <div class='p-4 py-10'>
+      <div class='py-4 px-4 md:px-0'>
         <ImageCard
           image='collection-clip-ons.jpg'
           title='Sanfte Berührung - Schmerzfreie Ohrclips'
@@ -88,6 +88,7 @@ export default function Home(ctx: PageProps<Collection>) {
           linkTitle='CLIPS ENTDECKEN'
           link='#'
           orientation='left'
+          backgroundColor='#EBE2DD'
         />
         <ImageCard
           image='collection-perfect-match.jpg'
@@ -96,6 +97,7 @@ export default function Home(ctx: PageProps<Collection>) {
           linkTitle='SETS ENTDECKEN'
           link='#'
           orientation='right'
+          backgroundColor='#E9F4F8'
         />
         <ImageCard
           image='collection-diamond-finishing.jpg'
@@ -104,6 +106,7 @@ export default function Home(ctx: PageProps<Collection>) {
           linkTitle='DIAMOND FINISH ENTDECKEN'
           link='#'
           orientation='left'
+          backgroundColor='#EBE2DD'
         />
         <ImageCard
           image='collection-heart-shaped.jpg'
@@ -112,6 +115,7 @@ export default function Home(ctx: PageProps<Collection>) {
           linkTitle='HERZEN ENTDECKEN'
           link='#'
           orientation='right'
+          backgroundColor='#E9F4F8'
         />
       </div>
 
@@ -143,19 +147,6 @@ export default function Home(ctx: PageProps<Collection>) {
       <FillLetter
         firstLine='Explore'
         secondLine='Collections'
-        href='#'
-      />
-
-      <div class='text-center p-8 pt-12 md:pb-0'>
-        <h2 class='text-5xl font-accent md:text-6xl'>Journal</h2>
-        <p class='text-3xl font-accent italic pt-8 leading-normal md:w-1/2 md:mx-auto'>
-          Inspirierende Geschichten, Trends und Einblicke in die Schmuckwelt
-        </p>
-      </div>
-
-      <FillLetter
-        firstLine='ALL'
-        secondLine='STORIES'
         href='#'
       />
 

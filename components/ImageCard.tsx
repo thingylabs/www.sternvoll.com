@@ -7,6 +7,7 @@ interface ImageCardProps {
   linkTitle: string
   link: string
   orientation?: 'left' | 'right' // Defaults to left
+  backgroundColor?: string // Configurable background color
 }
 
 export const ImageCard: FunctionalComponent<ImageCardProps> = ({
@@ -16,30 +17,40 @@ export const ImageCard: FunctionalComponent<ImageCardProps> = ({
   linkTitle,
   link,
   orientation = 'left',
+  backgroundColor = '#f4f4f4', // Default background color
 }) => {
   const isRight = orientation === 'right'
 
   return (
     <div
-      class={`flex flex-col md:flex-row ${
+      class={`relative flex flex-col md:flex-row ${
         isRight ? 'md:flex-row-reverse text-right' : 'text-left'
       } max-w-full overflow-hidden`}
     >
+      {/* Colored Background Block */}
+      <div
+        class={`hidden lg:block absolute w-[54%] h-[70%] ${
+          isRight ? 'right-0' : 'left-0'
+        } z-0 top-1/2 transform -translate-y-1/2`}
+        style={{ backgroundColor }}
+      >
+      </div>
+
       {/* Image Section */}
-      <div class='w-full md:w-1/2'>
+      <div class='relative w-full md:w-1/2 lg:w-[46%] z-10'>
         <img src={image} alt={title} class='w-full object-cover' />
       </div>
 
       {/* Text Section */}
       <div
-        class={`w-full md:w-1/2 flex flex-col justify-center py-8 px-4 md:px-6 ${
+        class={`relative w-full md:w-1/2 lg:w-[54%] flex flex-col justify-center py-8 px-4 md:px-6 z-10 ${
           isRight ? 'md:pr-8' : 'md:pl-8'
-        } box-border max-w-full`}
+        } box-border max-w-full lg:px-2`}
       >
-        <h2 class='text-5xl font-accent mb-4 md:leading-tight'>{title}</h2>
-        <p class='text-3xl leading-normal mb-6 font-accent italic'>
-          {text}
-        </p>
+        <h2 class='text-5xl font-accent mb-4 md:leading-tight lg:text-7xl'>
+          {title}
+        </h2>
+        <p class='text-3xl leading-normal mb-6 font-accent italic'>{text}</p>
 
         {/* Link Section with Dash */}
         <div class={`flex ${isRight ? 'justify-end' : 'justify-start'}`}>

@@ -20,7 +20,7 @@ export const Footer = () => {
                 {meta.title}
               </h1>
             </a>
-            <p className='mt-4 text-justify font-accent tracking-wider text-black drop-shadow'>
+            <p className='mt-4 text-justify font-accent tracking-wider text-black drop-shadow lg:text-lg'>
               {meta.shortDescription}
             </p>
             <div class='pt-5'>
@@ -31,7 +31,7 @@ export const Footer = () => {
           {/* Menu Links */}
           <div className='pl-2 pt-6 w-full md:w-1/2 flex flex-wrap justify-between'>
             <div className='w-1/2'>
-              <h3 className='text-gray-900 font-semibold mb-4'>COMPANY</h3>
+              <h3 className='font-semibold mb-4'>COMPANY</h3>
               <ul className='text-gray-500 space-y-2'>
                 <li>
                   <a href='#' className='hover:underline'>About</a>
@@ -48,7 +48,7 @@ export const Footer = () => {
               </ul>
             </div>
             <div className='w-1/2'>
-              <h3 className='text-gray-900 font-semibold mb-4'>HELP CENTER</h3>
+              <h3 className='font-semibold mb-4'>HELP CENTER</h3>
               <ul className='text-gray-500 space-y-2'>
                 <li>
                   <a href='#' className='hover:underline'>Discord Server</a>
@@ -65,7 +65,7 @@ export const Footer = () => {
               </ul>
             </div>
             <div className='w-1/2 mt-6'>
-              <h3 className='text-gray-900 font-semibold mb-4'>LEGAL</h3>
+              <h3 className='font-semibold mb-4'>LEGAL</h3>
               <ul className='text-gray-500 space-y-2'>
                 <li>
                   <a href='#' className='hover:underline'>Privacy Policy</a>
@@ -79,7 +79,7 @@ export const Footer = () => {
               </ul>
             </div>
             <div className='w-1/2 mt-6'>
-              <h3 className='text-gray-900 font-semibold mb-4'>DOWNLOAD</h3>
+              <h3 className='font-semibold mb-4'>DOWNLOAD</h3>
               <ul className='text-gray-500 space-y-2'>
                 <li>
                   <a href='#' className='hover:underline'>iOS</a>
