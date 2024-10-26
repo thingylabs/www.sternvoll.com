@@ -6,21 +6,49 @@ import { Payment } from '@/components/Payment.tsx'
 export const Footer = () => {
   return (
     <footer className=''>
-      <div className='container mx-auto px-6 py-8 pt-14 md:pt-24'>
-        <div className='flex flex-col md:flex-row justify-between items-start'>
+      <div
+        className={`
+        container mx-auto px-6 py-8 pt-14
+        md:pt-24
+        `}
+      >
+        <div
+          className={`
+          flex flex-col justify-between items-start
+          md:flex-row
+          `}
+        >
           {/* Logo and description */}
-          <div className='w-full md:w-1/2 mb-6 md:mb-0 md:pt-6 md:px-12'>
+          <div
+            className={`
+            w-full mb-6
+            md:w-1/2 md:pt-6 md:mb-0 md:px-12
+            `}
+          >
             <a href='#' className='flex items-center'>
               <img
                 src={meta.logos.square}
                 className='mr-3 flex-shrink-0 h-8 drop-shadow'
                 alt='Sternvoll Logo'
               />
-              <h1 className='text-3xl font-accent h-8 text-black drop-shadow font-bold'>
+              <h1
+                className={`
+                h-8
+                text-3xl font-accent text-black font-bold
+                drop-shadow
+                `}
+              >
                 {meta.title}
               </h1>
             </a>
-            <p className='mt-4 text-justify font-accent tracking-wider text-black drop-shadow lg:text-lg'>
+            <p
+              className={`
+              text-justify font-accent tracking-wider text-black
+              mt-4
+              drop-shadow
+              lg:text-lg
+              `}
+            >
               {meta.shortDescription}
             </p>
             <div class='pt-5'>
@@ -99,7 +127,12 @@ export const Footer = () => {
         </div>
       </div>
 
-      <div class='relative mt-4 h-[30vw]'>
+      <div
+        class={`
+        relative h-[20vw]
+        mt-4
+        `}
+      >
         <MovingText
           firstLine='There is nothing wrong'
           secondLine='with looking good'
@@ -113,14 +146,20 @@ export const Footer = () => {
               xEnd: -330,
             },
           }}
-          fontSize='14vw'
+          fontSize='10vw'
           color='#eee8e3'
         >
           <Social />
         </MovingText>
       </div>
 
-      <div className='text-center pt-16 pb-2 text-gray-500 text-sm'>
+      <div
+        className={`
+        text-center text-gray-500 text-sm
+        pt-[20vw]
+        pb-8
+        `}
+      >
         <p>© 2024. All Rights Reserved.</p>
       </div>
     </footer>

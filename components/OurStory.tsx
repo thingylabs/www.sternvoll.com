@@ -17,17 +17,34 @@ export function OurStory() {
           bottom: {
             xStart: 30,
             xEnd: -40,
-            class: 'bottom-[20vw] sm:bottom-[10vw]',
+            class: 'bottom-[25vw]',
           },
         }}
       >
-        <div class='h-full flex flex-col justify-center items-center font-accent pt-[25vw]'>
-          <p class='text-[6vw] text-center xl:text-[4vw]'>
+        <div
+          class={`
+        h-full pt-[20vw]
+        font-accent
+        flex flex-col justify-center items-center
+        `}
+        >
+          <p
+            class={`
+          text-[6vw] md:text-[5vw] xl:text-[4vw]
+          text-center
+          `}
+          >
             Im Herzen Stuttgarts kreiert Sternvoll<br />
             einzigartigen Schmuck, inspiriert von<br />
             kosmischer Schönheit.
           </p>
-          <div class='relative h-[45vw] w-[45vw] pt-[3vw] sm:pt-0 sm:h-[35vw] sm:w-[35vw]'>
+          <div
+            class={`
+          relative pt-[3vw]
+          h-[45vw] w-[45vw]
+          
+          `}
+          >
             <FillLetter
               firstLine='OUR'
               secondLine='STORY'

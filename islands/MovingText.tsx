@@ -94,10 +94,18 @@ export function MovingText(
   return (
     <div
       ref={sectionRef}
-      class='relative flex flex-col justify-center items-center overflow-hidden font-accent h-full'
+      class={`
+        relative h-full flex flex-col justify-center items-center
+        font-accent
+        overflow-hidden 
+        `}
     >
       <div
-        class='absolute inset-0 flex justify-between items-center pointer-events-none whitespace-nowrap'
+        class={`
+        absolute flex justify-between items-center
+        inset-0 whitespace-nowrap
+        pointer-events-none
+        `}
         style={{
           ...(fontSize && { fontSize }),
           ...(color && { color }),
@@ -105,7 +113,11 @@ export function MovingText(
       >
         {/* Left Element (Top - Starts from left, moves to right) */}
         <span
-          class='absolute select-none transition-opacity duration-700 ease-out leading-none'
+          class={`
+          absolute
+          select-none leading-none
+          transition-opacity duration-700 ease-in-out
+          `}
           style={{
             transform: `translateX(${
               interpolate(
@@ -115,15 +127,20 @@ export function MovingText(
               )
             }%)`,
             opacity: opacity,
-            transition: 'opacity 0.7s ease-in-out',
             top: inset.top.top ?? 0,
           }}
         >
           {firstLine}
         </span>
+
         {/* Right Element (Bottom - Starts from right, moves to left) */}
         <span
-          class={`absolute select-none transition-opacity duration-700 ease-out leading-none bottom-0 ${inset.bottom.class}`}
+          class={`
+          absolute
+          select-none leading-none
+          transition-opacity duration-700 ease-in-out
+          bottom-0 ${inset.bottom.class}
+          `}
           style={{
             transform: `translateX(${
               interpolate(
@@ -133,7 +150,6 @@ export function MovingText(
               )
             }%)`,
             opacity,
-            transition: 'opacity 0.7s ease-in-out',
           }}
         >
           {secondLine}
@@ -142,10 +158,14 @@ export function MovingText(
 
       {/* Render the children inside the section */}
       <div
-        class='relative z-10 h-full w-full flex justify-center items-center overflow-hidden'
+        class={`
+        relative z-10
+        flex justify-center items-center
+        transition-opacity duration-700 ease-in-out
+        h-full w-full overflow-hidden
+        `}
         style={{
           opacity: opacity,
-          transition: 'opacity 0.7s ease-in-out',
         }}
       >
         {children}

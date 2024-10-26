@@ -2,7 +2,12 @@ import { meta } from '@/meta.ts'
 
 export function Social() {
   return (
-    <div class='flex space-x-3 md:space-x-12'>
+    <div
+      class={`
+    inline-block
+    flex space-x-3 md:space-x-12
+    `}
+    >
       {/* Facebook */}
       <a
         href={meta.social.facebook}

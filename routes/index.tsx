@@ -72,11 +72,11 @@ export default function Home(ctx: PageProps<Collection>) {
         <Header />
       </Hero>
 
-      <div class='py-10 sm:pb-8'>
+      <div class='pt-[20vw]'>
         <OurStory />
       </div>
 
-      <div class='p-4 py-10 md:pt-12'>
+      <div class='p-4 pt-[20vw] md:pt-12'>
         <SelectedWorks products={products} />
       </div>
 
