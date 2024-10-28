@@ -80,7 +80,7 @@ export default function Home(ctx: PageProps<Collection>) {
         <SelectedWorks products={products} />
       </div>
 
-      <div class='py-4 px-4 md:px-0'>
+      <div class='py-4 px-4 md:px-0 xl:pt-[20vw]'>
         <ImageCard
           image='collection-clip-ons.jpg'
           title='Sanfte Berührung - Schmerzfreie Ohrclips'
@@ -121,7 +121,13 @@ export default function Home(ctx: PageProps<Collection>) {
 
       <Hand />
 
-      <div class='p-4 py-10 space-y-6 md:space-y-0 md:grid md:grid-cols-2 md:gap-6'>
+      <div
+        class={`
+      p-4 py-10 space-y-6
+      md:space-y-0 md:grid md:grid-cols-2 md:gap-6
+      xl:grid-cols-4 xl:gap-8
+      `}
+      >
         <CategoryCard
           backgroundImage='category-earrings.jpg'
           text='Ohrringe'

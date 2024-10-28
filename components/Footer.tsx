@@ -5,11 +5,12 @@ import { Payment } from '@/components/Payment.tsx'
 
 export const Footer = () => {
   return (
-    <footer className=''>
+    <footer className='xl:text-[1.5vw]'>
       <div
         className={`
         container mx-auto px-6 py-8 pt-14
         md:pt-24
+        xl:max-w-[80vw]
         `}
       >
         <div
@@ -23,18 +24,22 @@ export const Footer = () => {
             className={`
             w-full mb-6
             md:w-1/2 md:pt-6 md:mb-0 md:px-12
+            xl:pr-[5vw]
             `}
           >
             <a href='#' className='flex items-center'>
               <img
                 src={meta.logos.square}
-                className='mr-3 flex-shrink-0 h-8 drop-shadow'
+                className={`
+                mr-3 flex-shrink-0 h-8 drop-shadow
+                xl:h-[2.5vw]
+                `}
                 alt='Sternvoll Logo'
               />
               <h1
                 className={`
-                h-8
                 text-3xl font-accent text-black font-bold
+                xl:text-[2.5vw] xl:pt-[0.75vw]
                 drop-shadow
                 `}
               >
@@ -46,7 +51,7 @@ export const Footer = () => {
               text-justify font-accent tracking-wider text-black
               mt-4
               drop-shadow
-              lg:text-lg
+              lg:text-lg xl:text-[1.5vw] xl:leading-snug
               `}
             >
               {meta.shortDescription}
@@ -139,14 +144,14 @@ export const Footer = () => {
           inset={{
             top: {
               xStart: -50,
-              xEnd: 260,
+              xEnd: 90,
             },
             bottom: {
               xStart: 100,
-              xEnd: -330,
+              xEnd: -110,
             },
           }}
-          fontSize='10vw'
+          fontSize='9vw'
           color='#eee8e3'
         >
           <Social />

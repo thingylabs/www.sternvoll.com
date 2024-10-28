@@ -17,6 +17,9 @@ export function Payment() {
           key={method.name}
           width={36}
           height={36}
+          class={`
+          xl:w-[3vw]
+          `}
         />
       ))}
     </div>

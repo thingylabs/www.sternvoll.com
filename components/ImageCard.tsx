@@ -36,7 +36,7 @@ export const ImageCard: FunctionalComponent<ImageCardProps> = ({
       <div
         class={`relative flex flex-col md:flex-row ${
           isRight ? 'md:flex-row-reverse' : ''
-        } w-full max-w-full xl:max-w-[1280px] mx-auto`}
+        } w-full max-w-full lg:max-w-[1280px] xl:max-w-[80vw] mx-auto`}
       >
         {/* Image Section */}
         <div class='relative w-full md:w-1/2 lg:w-[46%] z-10'>

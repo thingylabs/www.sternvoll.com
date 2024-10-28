@@ -13,7 +13,7 @@ export function Journal({ imageSrc, title, date }: JournalProps) {
         {/* Text Section */}
         <div class='flex flex-col justify-center items-center text-center p-8 pt-12 md:pb-0 lg:justify-center lg:items-center lg:text-center'>
           <div class='lg:w-[80%]'>
-            <h2 class='text-5xl font-accent md:text-6xl'>Journal</h2>
+            <h2 class='text-[5vw] font-accent'>Journal</h2>
             <p class='text-3xl font-accent italic pt-8 leading-normal md:w-1/2 md:mx-auto lg:w-full lg:mx-0'>
               Inspirierende Geschichten, Trends und Einblicke in die Schmuckwelt
             </p>
@@ -26,7 +26,7 @@ export function Journal({ imageSrc, title, date }: JournalProps) {
 
         {/* Image Section */}
         <div class='flex justify-center items-center w-full p-10 md:w-[55%] md:mx-auto lg:w-full'>
-          <div class='relative max-w-md lg:max-w-lg'>
+          <div class='relative'>
             {/* Smaller background cover for md and above */}
             <div class='hidden md:block absolute left-[-40px] top-1/2 transform -translate-y-1/2 lg:left-[-60px] lg:top-[-40px] lg:translate-y-0 w-[60%] h-[60%] z-0 rounded shadow-lg'>
               <img

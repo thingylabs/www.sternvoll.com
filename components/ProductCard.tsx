@@ -5,7 +5,7 @@ import { Product } from '@/utils/types.ts'
 export function ProductCard(props: { product: Product }) {
   const { product } = props
   return (
-    <div key={product.id} class='mb-4'>
+    <div key={product.id} class='mb-4 xl:text-[1.2vw]'>
       {/* Container for product and tags */}
       <a href={`/products/${product.handle}`} class='group'>
         <div class='relative bg-white overflow-hidden transition-all duration-500 aspect-w-1 aspect-h-1'>
@@ -42,7 +42,7 @@ export function ProductCard(props: { product: Product }) {
             .map((tag, index) => (
               <a
                 href='#'
-                class='hover:text-secondary text-gray-500 text-sm flex items-center'
+                class='hover:text-secondary text-gray-500 text-sm flex items-center xl:text-[1vw]'
               >
                 {index !== 0 && ( // Render the dot only if it's not the first tag
                   <span class='w-1 h-1 bg-gray-400 rounded-full inline-block mx-1'>

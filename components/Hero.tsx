@@ -23,9 +23,10 @@ export function Hero({ children }: HeroProps) {
       {/* Overlay Content constrained to 1280px */}
       <div
         class={`
-        absolute flex flex-col justify-center items-start
+        absolute flex flex-col justify-end pb-14
         inset-0 text-left
         px-4 md:pl-[60px] xl:pl-[10vw]
+        sm:justify-center sm:pb-0
       `}
       >
         <div class='w-full'>

@@ -92,10 +92,15 @@ export function Hand() {
   return (
     <div
       ref={handRef}
-      class='relative h-[700px] flex flex-col justify-center items-center overflow-hidden font-accent'
+      class='relative min-h-[700px] h-[70vw] flex flex-col justify-center items-center overflow-hidden font-accent'
     >
       <div class='text-center w-full'>
-        <h1 class='text-5xl font-accent text-secondary-light absolute top-40 z-0 w-full text-center md:text-[120px]'>
+        <h1
+          class={`
+        text-5xl font-accent text-secondary-light absolute top-40 z-0 w-full text-center
+        md:text-[120px] xl:text-[10vw]
+        `}
+        >
           Kollektionen
         </h1>
       </div>
@@ -106,7 +111,7 @@ export function Hand() {
         style={{
           transform: `translateY(${translateY}px)`,
           opacity,
-          transition: `${transition}`,
+          transition,
         }}
         onTransitionEnd={() => {
           // Disable transition after first fade-in
@@ -120,8 +125,8 @@ export function Hand() {
         />
       </div>
 
-      <div class='absolute bottom-10 text-center px-4 w-full max-w-3xl z-20'>
-        <p class='text-2xl font-accent mt-5 md:text-3xl md:leading-relaxed'>
+      <div class='absolute bottom-10 text-center px-4 z-20 xl:pt-[10vw]'>
+        <p class='text-2xl font-accent mt-5 md:text-3xl md:leading-relaxed xl:text-[4vw] xl:w-[80vw] x:mx-auto'>
           Entdecken Sie unsere Schmuckkollektionen, inspiriert von den Wundern
           der Natur, dem Glanz der Städte und den feinen Linien moderner Kunst.
         </p>
