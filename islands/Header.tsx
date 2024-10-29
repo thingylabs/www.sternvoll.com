@@ -1,7 +1,7 @@
 import { useSignal } from '@preact/signals'
 import { useEffect } from 'preact/hooks'
 import { Cart } from '@/islands/Cart.tsx'
-import { MenuButton } from '@/components/MenuButton.tsx'
+import { Menu } from './Menu.tsx'
 
 export function Header() {
   const hasBackground = useSignal(false)
@@ -39,7 +39,7 @@ export function Header() {
       <div class='flex justify-between items-center'>
         {/* Menu Button */}
         <div class='flex-none'>
-          <MenuButton transparentButton={!hasBackground.value} />
+          <Menu transparentButton={!hasBackground.value} />
         </div>
 
         {/* Logo */}

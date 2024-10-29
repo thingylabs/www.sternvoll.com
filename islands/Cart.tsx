@@ -51,7 +51,7 @@ export function Cart(
       </button>
       <dialog
         ref={ref}
-        class='bg-transparent p-0 m-0 pt-[50%] sm:pt-0 sm:ml-auto max-w-full sm:max-w-lg w-full max-h-full h-full transition-transform duration-500 sm:translate-x-0 translate-y-0 backdrop-blur'
+        class='bg-transparent p-0 m-0 pt-[50%] sm:pt-0 max-w-full sm:pl-[40%] md:pl-[60%] w-full max-h-full h-full transition-transform duration-500 sm:translate-x-0 translate-y-0 backdrop-blur'
         onClick={onDialogClick}
       >
         <CartInner cart={data} />
@@ -76,7 +76,7 @@ function CartInner(props: { cart: CartData | undefined }) {
   }
 
   return (
-    <div class='py-8 px-6 h-full bg-white rounded-tl-2xl rounded-tr-2xl sm:rounded-tr-none sm:rounded-bl-2xl flex flex-col justify-between'>
+    <div class='py-8 px-6 h-full bg-white rounded-tl-2xl rounded-tr-2xl sm:rounded-tr-none sm:rounded-bl-2xl flex flex-col justify-between overflow-y-auto'>
       <div class='flex justify-between'>
         <h2 class='text-lg font-medium text-gray-900'>Shopping Cart</h2>
         <button
