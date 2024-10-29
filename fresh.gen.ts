@@ -8,7 +8,7 @@ import * as $index from './routes/index.tsx'
 import * as $products_product_ from './routes/products/[product].tsx'
 import * as $AddToCart from './islands/AddToCart.tsx'
 import * as $Cart from './islands/Cart.tsx'
-import * as $Hand from './islands/Hand.tsx'
+import * as $Collections from './islands/Collections.tsx'
 import * as $Header from './islands/Header.tsx'
 import * as $MovingText from './islands/MovingText.tsx'
 import * as $ProductDetails from './islands/ProductDetails.tsx'
@@ -24,7 +24,7 @@ const manifest = {
   islands: {
     './islands/AddToCart.tsx': $AddToCart,
     './islands/Cart.tsx': $Cart,
-    './islands/Hand.tsx': $Hand,
+    './islands/Collections.tsx': $Collections,
     './islands/Header.tsx': $Header,
     './islands/MovingText.tsx': $MovingText,
     './islands/ProductDetails.tsx': $ProductDetails,

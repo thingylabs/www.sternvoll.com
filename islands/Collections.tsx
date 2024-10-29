@@ -6,7 +6,7 @@ const inset = {
   yEnd: -150,
 }
 
-export function Hand() {
+export function Collections() {
   const scrollPos = useSignal(0)
   const isInView = useSignal(false)
   const fadeIn = useSignal(false)
@@ -98,7 +98,7 @@ export function Hand() {
         <h1
           class={`
         text-5xl font-accent text-secondary-light absolute top-40 z-0 w-full text-center
-        md:text-[120px] xl:text-[10vw]
+        md:text-[120px] xl:text-[11vw]
         `}
         >
           Kollektionen
@@ -121,12 +121,12 @@ export function Hand() {
         <img
           src='hand.png'
           alt='Hand holding jewelry'
-          class='w-auto max-w-[40vw] h-auto object-contain'
+          class='w-auto max-w-[40vw] h-auto object-contain xl:max-w-[60vw]'
         />
       </div>
 
       <div class='absolute bottom-10 text-center px-4 z-20 xl:pt-[10vw]'>
-        <p class='text-2xl font-accent mt-5 md:text-3xl md:leading-relaxed xl:text-[4vw] xl:w-[80vw] x:mx-auto'>
+        <p class='text-2xl font-accent mt-5 md:text-3xl md:leading-relaxed xl:text-[3vw] xl:w-[80vw] x:mx-auto'>
           Entdecken Sie unsere Schmuckkollektionen, inspiriert von den Wundern
           der Natur, dem Glanz der Städte und den feinen Linien moderner Kunst.
         </p>

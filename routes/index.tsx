@@ -8,7 +8,7 @@ import { OurStory } from '@/components/OurStory.tsx'
 import { Hero } from '@/components/Hero.tsx'
 import { SelectedWorks } from '@/components/SelectedWorks.tsx'
 import { ImageCard } from '@/components/ImageCard.tsx'
-import { Hand } from '@/islands/Hand.tsx'
+import { Collections } from '../islands/Collections.tsx'
 import { CategoryCard } from '@/components/CategoryCard.tsx'
 import { FillLetter } from '@/components/FillLetter.tsx'
 import { Journal } from '@/components/Journal.tsx'
@@ -119,7 +119,7 @@ export default function Home(ctx: PageProps<Collection>) {
         />
       </div>
 
-      <Hand />
+      <Collections />
 
       <div
         class={`
