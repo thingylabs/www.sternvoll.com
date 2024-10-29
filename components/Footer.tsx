@@ -67,13 +67,10 @@ export const Footer = () => {
               <h3 className='font-semibold mb-4'>COMPANY</h3>
               <ul className='text-gray-500 space-y-2'>
                 <li>
-                  <a href='#' className='hover:underline'>About</a>
+                  <a href='#' className='hover:underline'>About Sternvoll</a>
                 </li>
                 <li>
-                  <a href='#' className='hover:underline'>Careers</a>
-                </li>
-                <li>
-                  <a href='#' className='hover:underline'>Brand Center</a>
+                  <a href='#' className='hover:underline'>Ambassadors</a>
                 </li>
                 <li>
                   <a href='#' className='hover:underline'>Blog</a>
@@ -84,16 +81,15 @@ export const Footer = () => {
               <h3 className='font-semibold mb-4'>HELP CENTER</h3>
               <ul className='text-gray-500 space-y-2'>
                 <li>
-                  <a href='#' className='hover:underline'>Discord Server</a>
+                  <a href='#' className='hover:underline'>
+                    Contact information
+                  </a>
                 </li>
                 <li>
-                  <a href='#' className='hover:underline'>Twitter</a>
+                  <a href='#' className='hover:underline'>Shipping policy</a>
                 </li>
                 <li>
-                  <a href='#' className='hover:underline'>Facebook</a>
-                </li>
-                <li>
-                  <a href='#' className='hover:underline'>Contact Us</a>
+                  <a href='#' className='hover:underline'>Refund policy</a>
                 </li>
               </ul>
             </div>
@@ -101,30 +97,31 @@ export const Footer = () => {
               <h3 className='font-semibold mb-4'>LEGAL</h3>
               <ul className='text-gray-500 space-y-2'>
                 <li>
-                  <a href='#' className='hover:underline'>Privacy Policy</a>
+                  <a href='#' className='hover:underline'>Privacy policy</a>
                 </li>
                 <li>
-                  <a href='#' className='hover:underline'>Licensing</a>
+                  <a href='#' className='hover:underline'>Terms of service</a>
                 </li>
                 <li>
-                  <a href='#' className='hover:underline'>Terms</a>
+                  <a href='#' className='hover:underline'>Legal notice</a>
                 </li>
               </ul>
             </div>
             <div className='w-1/2 mt-6'>
-              <h3 className='font-semibold mb-4'>DOWNLOAD</h3>
+              <h3 className='font-semibold mb-4'>FROM OUR BLOG</h3>
               <ul className='text-gray-500 space-y-2'>
                 <li>
-                  <a href='#' className='hover:underline'>iOS</a>
+                  <a href='#' className='hover:underline'>
+                    Something interesting
+                  </a>
                 </li>
                 <li>
-                  <a href='#' className='hover:underline'>Android</a>
+                  <a href='#' className='hover:underline'>Another something</a>
                 </li>
                 <li>
-                  <a href='#' className='hover:underline'>Windows</a>
-                </li>
-                <li>
-                  <a href='#' className='hover:underline'>MacOS</a>
+                  <a href='#' className='hover:underline'>
+                    <i>More...</i>
+                  </a>
                 </li>
               </ul>
             </div>
