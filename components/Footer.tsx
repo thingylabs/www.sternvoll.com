@@ -30,7 +30,7 @@ export const Footer = () => {
           >
             <a href='#' className='flex items-center'>
               <img
-                src={meta.logos.square}
+                src={'/' + meta.logos.square}
                 className={`
                 mr-3 flex-shrink-0 h-8 drop-shadow
                 xl:h-[2.5vw]
