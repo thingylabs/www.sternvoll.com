@@ -80,7 +80,7 @@ export default function Home(ctx: PageProps<Collection>) {
         <SelectedWorks products={products} />
       </div>
 
-      <div class='py-4 px-4 md:px-0 xl:pt-[20vw]'>
+      <div class='py-4 px-4 md:px-0 pt-[10vw]'>
         <ImageCard
           image='collection-clip-ons.jpg'
           title='Sanfte Berührung - Schmerzfreie Ohrclips'
