@@ -1,4 +1,4 @@
-import { InlineMenu, Menu } from '@/islands/Menu.tsx'
+import { InlineMenu, Menu } from './HeaderMenu.tsx'
 import { Cart } from '@/islands/Cart.tsx'
 
 export function Header() {

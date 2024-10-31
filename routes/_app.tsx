@@ -1,6 +1,6 @@
 import { AppProps } from '$fresh/server.ts'
 import { Head } from '$fresh/runtime.ts'
-import { meta } from '@/meta.ts'
+import { meta } from '../config/meta.ts'
 
 export default function App({ Component }: AppProps) {
   return (

@@ -1,67 +1,9 @@
-import { useEffect, useRef } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
+import { menuItems } from '../config/headerMenu.ts'
 
 interface MenuProps {
   transparentButton?: boolean
 }
-
-type MenuItem = {
-  label: string
-  link?: string
-  items?: MenuItem[]
-}
-
-export const menuItems: MenuItem[] = [
-  {
-    label: 'Jewelry',
-    link: '#jewelry',
-    items: [
-      {
-        label: 'All Jewelry',
-        link: '#all-jewelry',
-        items: [
-          { label: 'Rings', link: '#rings' },
-          { label: 'Earrings', link: '#earrings' },
-          { label: 'Necklaces', link: '#necklaces' },
-          { label: 'Bracelets', link: '#bracelets' },
-        ],
-      },
-      {
-        label: 'Collections',
-        link: '#collections',
-        items: [
-          { label: 'Heart-Shaped Jewelry', link: '#heart-shaped' },
-          { label: 'Pain-Free Earclips', link: '#earclips' },
-          { label: 'Diamond-Finishing', link: '#diamond-finishing' },
-        ],
-      },
-      {
-        label: 'Materials',
-        link: '#materials',
-        items: [
-          { label: '18k Gold', link: '#18k-gold' },
-          { label: '925 Sterling Silver', link: '#sterling-silver' },
-          { label: 'Diamonds', link: '#diamonds' },
-          { label: 'Pearls', link: '#pearls' },
-        ],
-      },
-      {
-        label: 'Price',
-        link: '#price',
-        items: [
-          { label: '> 1,000 Euro', link: '#price-above-1000' },
-          { label: '< 500 Euro', link: '#price-below-500' },
-          { label: '< 100 Euro', link: '#price-below-100' },
-          { label: '< 50 Euro', link: '#price-below-50' },
-        ],
-      },
-    ],
-  },
-  { label: 'Rings', link: '#rings' },
-  { label: 'Earrings', link: '#earrings' },
-  { label: 'Necklaces', link: '#necklaces' },
-  { label: 'Engagement & Wedding', link: '#engagement-wedding' },
-  { label: 'On Sale 🔖', link: '#on-sale' },
-]
 
 export function Menu({ transparentButton = false }: MenuProps) {
   const ref = useRef<HTMLDialogElement | null>(null)
@@ -203,58 +145,77 @@ function MenuDrawer({ onClose }: { onClose: () => void }) {
 
 // Inline menu for large screens
 export function InlineMenu() {
+  const [openCategory, setOpenCategory] = useState<string | null>(null)
+  const dropdownRef = useRef<HTMLDivElement | null>(null)
+
+  const handleToggle = (categoryLabel: string) => {
+    setOpenCategory((prev) => (prev === categoryLabel ? null : categoryLabel))
+  }
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current && !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setOpenCategory(null)
+    }
+  }
+
+  useEffect(() => {
+    if (openCategory) {
+      document.addEventListener('mousedown', handleClickOutside)
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [openCategory])
+
   return (
-    <div class='hidden lg:flex justify-center space-x-6 mt-2'>
+    <div class='hidden lg:flex justify-center space-x-6 mt-4 mb-1'>
       {menuItems.map((category) =>
         category.items
           ? (
-            <div key={category.label} class='group relative'>
-              <a
-                href={category.link}
+            <div
+              key={category.label}
+              class='relative'
+              ref={openCategory === category.label ? dropdownRef : null}
+            >
+              <button
+                onClick={() => handleToggle(category.label)}
                 class='text-white hover:text-gray-300 flex items-center'
               >
                 {category.label}
                 <span class='ml-1'>▾</span> {/* Triangle indicator */}
-              </a>
-              <div class='absolute left-0 mt-2 hidden group-hover:flex bg-gray-100 text-gray-900 shadow-lg rounded-lg p-4'>
-                <ul class='space-y-2 min-w-max'>
-                  {category.items.map((subCategory) =>
-                    subCategory.items
-                      ? (
-                        <li key={subCategory.label}>
-                          <a
-                            href={subCategory.link}
-                            class='font-semibold hover:underline'
-                          >
-                            {subCategory.label}
-                          </a>
-                          <ul class='mt-1 space-y-1'>
-                            {subCategory.items.map((subItem) => (
-                              <li key={subItem.label}>
-                                <a
-                                  href={subItem.link}
-                                  class='block px-2 py-1 hover:bg-gray-200'
-                                >
-                                  {subItem.label}
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                        </li>
-                      )
-                      : (
-                        <li key={subCategory.label}>
-                          <a
-                            href={subCategory.link}
-                            class='block px-2 py-1 hover:bg-gray-200'
-                          >
-                            {subCategory.label}
-                          </a>
-                        </li>
-                      )
-                  )}
-                </ul>
-              </div>
+              </button>
+
+              {/* Dropdown menu */}
+              {openCategory === category.label && (
+                <div
+                  class='absolute left-0 mt-2 bg-gray-100 text-gray-900 shadow-lg rounded-lg p-4'
+                  style={{ width: '600px' }}
+                >
+                  <div class='grid grid-cols-4 gap-8'>
+                    {category.items.map((subCategory) => (
+                      <div key={subCategory.label}>
+                        <h4 class='font-semibold mb-2'>{subCategory.label}</h4>
+                        <ul class='space-y-1'>
+                          {subCategory.items?.map((subItem) => (
+                            <li key={subItem.label}>
+                              <a
+                                href={subItem.link}
+                                class='block py-1 hover:bg-gray-200 rounded'
+                              >
+                                {subItem.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )
           : (

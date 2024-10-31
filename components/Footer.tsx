@@ -1,7 +1,8 @@
 import { Social } from '@/components/Social.tsx'
 import { MovingText } from '@/islands/MovingText.tsx'
-import { meta } from '@/meta.ts'
+import { meta } from '../config/meta.ts'
 import { Payment } from '@/components/Payment.tsx'
+import { menuItems } from '@/config/footerMenu.ts'
 
 export const Footer = () => {
   return (
@@ -38,8 +39,9 @@ export const Footer = () => {
               />
               <h1
                 className={`
+                pt-2
                 text-3xl font-accent text-black font-bold
-                xl:text-[2.5vw] xl:pt-[0.75vw]
+                xl:text-[2.5vw]
                 drop-shadow
                 `}
               >
@@ -63,68 +65,20 @@ export const Footer = () => {
 
           {/* Menu Links */}
           <div className='pl-2 pt-6 w-full md:w-1/2 flex flex-wrap justify-between'>
-            <div className='w-1/2'>
-              <h3 className='font-semibold mb-4'>COMPANY</h3>
-              <ul className='text-gray-500 space-y-2'>
-                <li>
-                  <a href='#' className='hover:underline'>About Sternvoll</a>
-                </li>
-                <li>
-                  <a href='#' className='hover:underline'>Ambassadors</a>
-                </li>
-                <li>
-                  <a href='#' className='hover:underline'>Blog</a>
-                </li>
-              </ul>
-            </div>
-            <div className='w-1/2'>
-              <h3 className='font-semibold mb-4'>HELP CENTER</h3>
-              <ul className='text-gray-500 space-y-2'>
-                <li>
-                  <a href='#' className='hover:underline'>
-                    Contact information
-                  </a>
-                </li>
-                <li>
-                  <a href='#' className='hover:underline'>Shipping policy</a>
-                </li>
-                <li>
-                  <a href='#' className='hover:underline'>Refund policy</a>
-                </li>
-              </ul>
-            </div>
-            <div className='w-1/2 mt-6'>
-              <h3 className='font-semibold mb-4'>LEGAL</h3>
-              <ul className='text-gray-500 space-y-2'>
-                <li>
-                  <a href='#' className='hover:underline'>Privacy policy</a>
-                </li>
-                <li>
-                  <a href='#' className='hover:underline'>Terms of service</a>
-                </li>
-                <li>
-                  <a href='#' className='hover:underline'>Legal notice</a>
-                </li>
-              </ul>
-            </div>
-            <div className='w-1/2 mt-6'>
-              <h3 className='font-semibold mb-4'>FROM OUR BLOG</h3>
-              <ul className='text-gray-500 space-y-2'>
-                <li>
-                  <a href='#' className='hover:underline'>
-                    Something interesting
-                  </a>
-                </li>
-                <li>
-                  <a href='#' className='hover:underline'>Another something</a>
-                </li>
-                <li>
-                  <a href='#' className='hover:underline'>
-                    <i>More...</i>
-                  </a>
-                </li>
-              </ul>
-            </div>
+            {menuItems.map((section) => (
+              <div key={section.title} className='w-1/2 pb-6'>
+                <h3 className='font-semibold mb-4'>{section.title}</h3>
+                <ul className='text-gray-500 space-y-2'>
+                  {section.links.map((link) => (
+                    <li key={link.label}>
+                      <a href={link.href} className='hover:underline'>
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </div>

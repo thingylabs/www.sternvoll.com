@@ -1,4 +1,4 @@
-import { meta } from '@/meta.ts'
+import { meta } from '../config/meta.ts'
 
 export function Social() {
   const imgClass = 'xl:h-[2vw] xl:w-[2vw]'
