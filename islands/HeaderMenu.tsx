@@ -172,7 +172,7 @@ export function InlineMenu() {
   }, [openCategory])
 
   return (
-    <div class='hidden lg:flex justify-center space-x-6 mt-4 mb-1'>
+    <div class='hidden lg:flex justify-center space-x-6 mt-2 mb-1 2xl:mt-[1vw] 2xl:text-[1.3vw]'>
       {menuItems.map((category) =>
         category.items
           ? (
@@ -186,15 +186,12 @@ export function InlineMenu() {
                 class='text-white hover:text-gray-300 flex items-center'
               >
                 {category.label}
-                <span class='ml-1'>▾</span> {/* Triangle indicator */}
+                <span class='ml-1 pl-2'>▾</span> {/* Triangle indicator */}
               </button>
 
               {/* Dropdown menu */}
               {openCategory === category.label && (
-                <div
-                  class='absolute left-0 mt-2 bg-gray-100 text-gray-900 shadow-lg rounded-lg p-4'
-                  style={{ width: '600px' }}
-                >
+                <div class='absolute left-0 mt-2 bg-gray-100 text-gray-900 shadow-lg rounded-lg p-4 2xl:scale-2 w-[600px] 2xl:w-[45vw]'>
                   <div class='grid grid-cols-4 gap-8'>
                     {category.items.map((subCategory) => (
                       <div key={subCategory.label}>

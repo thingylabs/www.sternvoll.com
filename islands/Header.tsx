@@ -33,7 +33,7 @@ export function Header() {
 
   return (
     <header
-      class={`fixed top-0 left-0 w-full z-20 p-4 transition-all duration-500 opacity-0 ${
+      class={`fixed top-0 left-0 w-full z-20 p-4 2xl:p-[1vw] transition-all duration-500 opacity-0 ${
         hasBackground.value
           ? 'bg-primary text-primary'
           : 'bg-transparent text-white'
@@ -59,7 +59,7 @@ export function Header() {
           class='absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none'
         >
           <img
-            class='object-scale-down h-10'
+            class='object-scale-down h-10 2xl:h-[3vw]'
             src='/Sternvoll-bright.png'
             alt='Sternvoll'
           />
