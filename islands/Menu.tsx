@@ -1,4 +1,4 @@
-import { useRef } from 'preact/hooks'
+import { useEffect, useRef } from 'preact/hooks'
 
 interface MenuProps {
   transparentButton?: boolean
@@ -72,6 +72,19 @@ export function Menu({ transparentButton = false }: MenuProps) {
     }
   }
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (globalThis.innerWidth >= 1024 && ref.current?.open) {
+        ref.current.close()
+      }
+    }
+
+    globalThis.addEventListener('resize', handleResize)
+    return () => {
+      globalThis.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   return (
     <div>
       <button
@@ -105,7 +118,7 @@ export function Menu({ transparentButton = false }: MenuProps) {
         class={`
         bg-transparent p-0 m-0 pt-[50%]
         sm:pt-0 sm:pr-[40%] md:pr-[50%]
-        w-full max-w-full w-full max-h-full h-full
+        w-full max-w-full max-h-full h-full
         transition-transform duration-500
         sm:translate-x-0 translate-y-0 backdrop-blur
         `}
