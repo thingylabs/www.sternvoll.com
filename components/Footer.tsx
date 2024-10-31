@@ -6,7 +6,7 @@ import { menuItems } from '@/config/footerMenu.ts'
 
 export const Footer = () => {
   return (
-    <footer className='xl:text-[1.5vw]'>
+    <footer className='xl:text-[1.3vw]'>
       <div
         className={`
         container mx-auto px-6 py-8 pt-14
