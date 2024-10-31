@@ -1,45 +1,13 @@
-import { useSignal } from '@preact/signals'
-import { useEffect } from 'preact/hooks'
+import { InlineMenu, Menu } from '@/islands/Menu.tsx'
 import { Cart } from '@/islands/Cart.tsx'
-import { Menu } from './Menu.tsx'
 
 export function Header() {
-  const hasBackground = useSignal(false)
-  const isVisible = useSignal(true)
-  const lastScrollTop = useSignal(0)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollTop = globalThis.scrollY
-
-      // Set background if scrolled past 95% of viewport height
-      hasBackground.value = currentScrollTop > globalThis.innerHeight * 0.95
-
-      // Show header when scrolling up, hide when scrolling down
-      isVisible.value = currentScrollTop < lastScrollTop.value ||
-        currentScrollTop < 100
-
-      lastScrollTop.value = currentScrollTop
-    }
-
-    globalThis.addEventListener('scroll', handleScroll)
-    return () => {
-      globalThis.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
-
   return (
-    <header
-      class={`fixed top-0 left-0 w-full z-20 p-4 transition-all duration-500 ${
-        hasBackground.value
-          ? 'bg-primary text-primary'
-          : 'bg-transparent text-white'
-      } transform ${isVisible.value ? 'translate-y-0' : '-translate-y-full'}`}
-    >
+    <header class='fixed top-0 left-0 w-full z-20 p-4 bg-primary text-white'>
       <div class='flex justify-between items-center'>
-        {/* Menu Button */}
-        <div class='flex-none'>
-          <Menu transparentButton={!hasBackground.value} />
+        {/* Drawer Menu Button for small screens */}
+        <div class='lg:hidden'>
+          <Menu transparentButton />
         </div>
 
         {/* Logo */}
@@ -53,9 +21,12 @@ export function Header() {
 
         {/* Cart */}
         <div class='flex-none'>
-          <Cart transparentButton={!hasBackground.value} />
+          <Cart transparentButton />
         </div>
       </div>
+
+      {/* Inline Navigation Links for large screens */}
+      <InlineMenu />
     </header>
   )
 }
