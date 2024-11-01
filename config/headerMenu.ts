@@ -1,3 +1,5 @@
+import { categories } from './productCategories.ts'
+
 type MenuItem = {
   label: string
   link?: string
@@ -12,12 +14,7 @@ export const menuItems: MenuItem[] = [
       {
         label: 'All Jewelry',
         link: '#all-jewelry',
-        items: [
-          { label: 'Rings', link: '#rings' },
-          { label: 'Earrings', link: '#earrings' },
-          { label: 'Necklaces', link: '#necklaces' },
-          { label: 'Bracelets', link: '#bracelets' },
-        ],
+        items: categories,
       },
       {
         label: 'Collections',

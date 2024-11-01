@@ -3,21 +3,22 @@ import { useEffect } from 'preact/hooks'
 import { InlineMenu, Menu } from './HeaderMenu.tsx'
 import { Cart } from '@/islands/Cart.tsx'
 
-export function Header() {
-  const hasBackground = useSignal(false)
+interface HeaderProps {
+  forceBackground?: boolean
+}
+
+export function Header({ forceBackground = false }: HeaderProps) {
+  const hasBackground = useSignal(forceBackground)
   const isVisible = useSignal(false) // Start with the header hidden
   const lastScrollTop = useSignal(0)
 
   useEffect(() => {
-    const currentScrollTop = globalThis.scrollY
-    hasBackground.value = currentScrollTop > globalThis.innerHeight * 0.95
-    isVisible.value = true // Show the header with a fade-in effect
-
     const handleScroll = () => {
       const scrollTop = globalThis.scrollY
 
-      // Set background if scrolled past 95% of viewport height
-      hasBackground.value = scrollTop > globalThis.innerHeight * 0.95
+      // Set background if scrolled past 95% of viewport height or if forceBackground is true
+      hasBackground.value = forceBackground ||
+        scrollTop > globalThis.innerHeight * 0.95
 
       // Show header when scrolling up, hide when scrolling down
       isVisible.value = scrollTop < lastScrollTop.value || scrollTop < 100
@@ -29,11 +30,16 @@ export function Header() {
     return () => {
       globalThis.removeEventListener('scroll', handleScroll)
     }
+  }, [forceBackground])
+
+  useEffect(() => {
+    // Make the header visible on mount
+    isVisible.value = true
   }, [])
 
   return (
     <header
-      class={`fixed top-0 left-0 w-full z-20 p-4 2xl:p-[1vw] transition-all duration-500 opacity-0 ${
+      class={`fixed top-0 left-0 w-full z-20 p-4 2xl:p-[1vw] transition-all duration-500 ${
         hasBackground.value
           ? 'bg-primary text-primary'
           : 'bg-transparent text-white'

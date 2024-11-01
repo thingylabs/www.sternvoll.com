@@ -3,6 +3,7 @@ import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
 import { Header } from '../../islands/Header.tsx'
 import ProductDetails from '@/islands/ProductDetails.tsx'
+import RelatedProducts from '@/components/RelatedProducts.tsx'
 import { graphql } from '@/utils/shopify.ts'
 import { Product } from '@/utils/types.ts'
 
@@ -12,6 +13,7 @@ const q = `query ($product: String!) {
     description
     descriptionHtml
     productType
+    tags
 
     variants(first: 10) {
       nodes {
@@ -43,17 +45,60 @@ const q = `query ($product: String!) {
   }
 }`
 
+const relatedProductsQuery = `query ($query: String!) {
+  products(first: 4, query: $query) {
+    edges {
+      node {
+        handle
+        title
+        featuredImage {
+          url
+          altText
+        }
+        variants(first: 1) {
+          nodes {
+            priceV2 {
+              amount
+              currencyCode
+            }
+          }
+        }
+      }
+    }
+  }
+}`
+
 interface Query {
   product: Product | null
+  relatedProducts: Product[]
 }
 
 export const handler: Handlers<Query> = {
   async GET(_req, ctx) {
-    const data = await graphql<Query>(q, { product: ctx.params.product })
-    if (!data.product) {
-      return new Response('Product not found', { status: 404 })
+    try {
+      const data = await graphql<Query>(q, { product: ctx.params.product })
+      if (!data.product) {
+        return new Response('Product not found', { status: 404 })
+      }
+
+      // Format tags into a single query string
+      const tags = data.product.tags ? data.product.tags.join(' ') : ''
+      const relatedData = await graphql<
+        { products: { edges: { node: Product }[] } }
+      >(
+        relatedProductsQuery,
+        { query: tags },
+      )
+
+      const relatedProducts = relatedData.products.edges.map((edge) =>
+        edge.node
+      )
+
+      return ctx.render({ product: data.product, relatedProducts })
+    } catch (error) {
+      console.error('Error fetching product data:', error)
+      return new Response('Error fetching product data', { status: 500 })
     }
-    return ctx.render(data)
   },
 }
 
@@ -71,17 +116,21 @@ export default function ProductPage(ctx: PageProps<Query>) {
   }
 
   return (
-    <>
-      <Meta
-        url={url}
-        meta={meta}
-      />
+    <div class='mt-24'>
+      <Meta url={url} meta={meta} />
+      <Header forceBackground />
 
-      <Header />
-      <div class='w-11/12 mt-16 max-w-5xl mx-auto flex items-center justify-between relative'>
+      <ProductDetails product={data.product!} />
+
+      <div class='px-4'>
+        <h2 class='text-2xl font-semibold mt-12 mb-4'>Related Products</h2>
+        <RelatedProducts products={data.relatedProducts} />
+      </div>
+
+      <div class='w-11/12 max-w-5xl mx-auto flex items-center justify-between relative'>
         <a
           href='/'
-          class='flex items-center gap-2 text-gray-400 hover:text-gray-800 transition-colors duration-200'
+          class='flex items-center mt-8 gap-2 text-gray-400 hover:text-gray-800 transition-colors duration-200'
         >
           <svg
             width='16'
@@ -98,8 +147,8 @@ export default function ProductPage(ctx: PageProps<Query>) {
           Back to shop
         </a>
       </div>
-      <ProductDetails product={data.product!} />
+
       <Footer />
-    </>
+    </div>
   )
 }
