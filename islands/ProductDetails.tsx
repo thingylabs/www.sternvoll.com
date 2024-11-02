@@ -58,7 +58,7 @@ export default function ProductDetails({ product }: { product: Product }) {
   const accordions = parseDescription(product.descriptionHtml)
 
   return (
-    <div class='w-11/12 xl:max-w-[80vw] mx-auto mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-[60%_40%]'>
+    <div class='w-11/12 xl:max-w-[80vw] mx-auto mt-8 grid gap-8 md:grid-cols-2'>
       {/* Product image */}
       <div class='relative'>
         <div
