@@ -15,6 +15,17 @@ const q = `query ($product: String!) {
     productType
     tags
 
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+      maxVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+
     variants(first: 10) {
       nodes {
         id
@@ -54,6 +65,8 @@ const relatedProductsQuery = `query ($query: String!) {
         featuredImage {
           url
           altText
+          width
+          height
         }
         priceRange {
           minVariantPrice {
@@ -110,8 +123,16 @@ export default function ProductPage(ctx: PageProps<Query>) {
 
   const meta = {
     description: data.product.description,
-    image: data.product.featuredImage?.url,
+    locale: 'en_US',
+    image: {
+      url: data.product.featuredImage!.url,
+      width: data.product.featuredImage!.width,
+      height: data.product.featuredImage!.height,
+      alt: data.product.featuredImage!.altText,
+    },
     title: data.product.title,
+    price: data.product.priceRange.minVariantPrice.amount,
+    currency: data.product.priceRange.minVariantPrice.currencyCode,
   }
 
   return (
@@ -119,9 +140,9 @@ export default function ProductPage(ctx: PageProps<Query>) {
       <Meta url={url} meta={meta} />
       <Header forceBackground />
 
-      <div class='container mx-auto px-4'>
-        <ProductDetails product={data.product!} />
+      <ProductDetails product={data.product!} />
 
+      <div class='container mx-auto px-4'>
         <div class='mt-16'>
           <SelectedWorks
             title='Related jewelry'

@@ -12,7 +12,7 @@ export function Payment() {
     <div class='flex space-x-2'>
       {methods.map((method) => (
         <img
-          src={`/${path}${method.file}`}
+          src={`${path}${method.file}`}
           alt={method.name}
           key={method.name}
           width={36}

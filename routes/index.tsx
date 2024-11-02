@@ -12,12 +12,19 @@ import { Collections } from '../islands/Collections.tsx'
 import { CategoryCard } from '@/components/CategoryCard.tsx'
 import { FillLetter } from '@/components/FillLetter.tsx'
 import { Journal } from '@/components/Journal.tsx'
+import { meta as siteMeta } from '@/config/meta.ts'
 
 const meta = {
   title: 'Sternvoll Jewelry: Effortless chic for every day',
   description:
     "Everyday doesn't mean boring! Discover luxurious 18K gold and lab-grown diamond jewelry that combines timeless elegance with modern style. Visit our new website for a unique shopping experience and exquisite designs.",
-  image: 'og.png',
+  locale: 'en_US',
+  image: { // TODO
+    url: siteMeta.ogImage.fileName,
+    width: siteMeta.ogImage.width,
+    height: siteMeta.ogImage.height,
+    alt: siteMeta.ogImage.alt,
+  },
 }
 
 const q = `{

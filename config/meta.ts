@@ -12,11 +12,16 @@ export const meta = {
     '192x192': 'favicon-192x192.png',
     '512x512': 'favicon-512x512.png',
   },
-  coverImage: '',
-  // slogan: <80 chars
-  slogan: `𝗘𝗳𝗳𝗼𝗿𝘁𝗹𝗲𝘀𝘀 𝗰𝗵𝗶𝗰, everyday doesn't mean boring!`,
-  // shortDescription: <150 chars
-  shortDescription:
+  ogImage: { // TODO
+    fileName: 'og-image.jpg',
+    width: 0,
+    height: 0,
+    alt: '...',
+  },
+  coverImage: '', // TODO: what for?
+  slogan: // <80 chars
+    `𝗘𝗳𝗳𝗼𝗿𝘁𝗹𝗲𝘀𝘀 𝗰𝗵𝗶𝗰, everyday doesn't mean boring!`,
+  shortDescription: // <150 chars
     `Everyday doesn't mean boring! Discover luxurious 18K gold and lab-grown diamond jewelry that combines timeless elegance with modern style.`,
   social: {
     facebook: 'https://www.facebook.com/sternvoll/',
