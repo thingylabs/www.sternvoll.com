@@ -136,13 +136,13 @@ export default function ProductPage(ctx: PageProps<Query>) {
   }
 
   return (
-    <div class='mt-24'>
+    <div class='mt-24 lg:mt-[13vw]'>
       <Meta url={url} meta={meta} />
       <Header forceBackground />
 
       <ProductDetails product={data.product!} />
 
-      <div class='container mx-auto px-4'>
+      <div class='px-4 md:px-8 lg:px-12 xl:px-0 xl:max-w-[80vw] mx-auto'>
         <div class='mt-16'>
           <SelectedWorks
             title='Related jewelry'
@@ -150,7 +150,7 @@ export default function ProductPage(ctx: PageProps<Query>) {
           />
         </div>
 
-        <div class='back-to-shop mt-12'>
+        <div class='back-to-shop mt-12 xl:text-[1vw]'>
           <a
             href='/'
             class='flex items-center gap-2 text-gray-500 hover:text-gray-800 transition-colors duration-200'
@@ -159,6 +159,7 @@ export default function ProductPage(ctx: PageProps<Query>) {
               width='16'
               height='16'
               viewBox='0 0 16 16'
+              class='xl:w-[1vw] xl:h-[1vw]'
               fill='none'
               xmlns='http://www.w3.org/2000/svg'
             >

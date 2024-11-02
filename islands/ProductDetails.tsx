@@ -12,44 +12,30 @@ export default function ProductDetails({ product }: { product: Product }) {
   // Function to change the main image
   function changeImage(index: number) {
     if (!product.images || !product.images.nodes) return
-
     if (index < 0) {
       index = product.images.nodes.length - 1
     } else if (index >= product.images.nodes.length) {
       index = 0
     }
-
     setCurrentImageIndex(index)
   }
 
   // Handlers for touch events
-  const handleTouchStart = (e: TouchEvent) => {
-    setStartX(e.touches[0].clientX)
-  }
+  const handleTouchStart = (e: TouchEvent) => setStartX(e.touches[0].clientX)
 
   const handleTouchEnd = (e: TouchEvent) => {
     if (startX === null) return
     const endX = e.changedTouches[0].clientX
     const deltaX = startX - endX
-
-    // Check if the swipe is significant enough to change the image
-    if (deltaX > 50) {
-      // Swipe left
-      changeImage(currentImageIndex + 1)
-    } else if (deltaX < -50) {
-      // Swipe right
-      changeImage(currentImageIndex - 1)
-    }
-
+    if (deltaX > 50) changeImage(currentImageIndex + 1) // Swipe left
+    else if (deltaX < -50) changeImage(currentImageIndex - 1) // Swipe right
     setStartX(null)
   }
 
   // Function to determine the breadcrumb category
   const getCategory = () => {
     for (const category of categories) {
-      if (product.tags!.includes(category.label)) {
-        return category
-      }
+      if (product.tags!.includes(category.label)) return category
     }
     return null
   }
@@ -59,27 +45,20 @@ export default function ProductDetails({ product }: { product: Product }) {
   // Utility to split the description into titles and contents
   function parseDescription(descriptionHtml: string) {
     if (!descriptionHtml) return []
-
-    // Split by paragraph tags and filter out empty entries
     const paragraphs = descriptionHtml
       .split('</p>')
-      .map((p) => p.replace(/<[^>]+>/g, '').trim()) // Remove HTML tags and trim
+      .map((p) => p.replace(/<[^>]+>/g, '').trim()) // Remove HTML tags
       .filter((p) => p)
-
-    // Skip the first paragraph and process the rest
-    const accordions = paragraphs.slice(1).map((para) => {
+    return paragraphs.slice(1).map((para) => {
       const [title, ...rest] = para.split(':')
-      const content = rest.join(':').trim()
-      return { title: title?.trim(), content }
+      return { title: title?.trim(), content: rest.join(':').trim() }
     })
-
-    return accordions
   }
 
   const accordions = parseDescription(product.descriptionHtml)
 
   return (
-    <div class='w-11/12 max-w-5xl mx-auto mt-8 lg:grid lg:grid-cols-2 lg:gap-x-16'>
+    <div class='w-11/12 xl:max-w-[80vw] mx-auto mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-[60%_40%]'>
       {/* Product image */}
       <div class='relative'>
         <div
@@ -87,7 +66,7 @@ export default function ProductDetails({ product }: { product: Product }) {
           onTouchStart={(e) => handleTouchStart(e)}
           onTouchEnd={(e) => handleTouchEnd(e)}
         >
-          <div class='rounded-lg overflow-hidden'>
+          <div class='rounded-lg overflow-hidden relative'>
             {product.images && product.images.nodes[currentImageIndex] && (
               <img
                 id='productImage'
@@ -99,13 +78,13 @@ export default function ProductDetails({ product }: { product: Product }) {
 
             {/* Navigation Arrows */}
             <button
-              class='absolute w-16 opacity-50 hover:opacity-100 top-0 bottom-0 flex items-center justify-center left-0'
+              class='absolute inset-y-1/2 transform -translate-y-1/2 w-16 opacity-50 hover:opacity-100 flex items-center justify-center left-0'
               onClick={() => changeImage(currentImageIndex - 1)}
             >
-              <span class='inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/50'>
+              <span class='inline-flex items-center justify-center w-10 h-10 xl:w-[2.5vw] xl:h-[2.5vw] rounded-full bg-white/30 hover:bg-white/50'>
                 <svg
                   aria-hidden='true'
-                  class='w-6 h-6 text-gray-800'
+                  class='w-6 h-6 text-gray-800 xl:w-[2vw] xl:h-[2vw]'
                   fill='none'
                   stroke='currentColor'
                   viewBox='0 0 24 24'
@@ -121,13 +100,13 @@ export default function ProductDetails({ product }: { product: Product }) {
               </span>
             </button>
             <button
-              class='absolute w-16 opacity-50 hover:opacity-100 top-0 bottom-0 flex items-center justify-center right-0'
+              class='absolute inset-y-1/2 transform -translate-y-1/2 w-16 opacity-50 hover:opacity-100 flex items-center justify-center right-0'
               onClick={() => changeImage(currentImageIndex + 1)}
             >
-              <span class='inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/50'>
+              <span class='inline-flex items-center justify-center w-10 h-10 xl:w-[2.5vw] xl:h-[2.5vw] rounded-full bg-white/30 hover:bg-white/50'>
                 <svg
                   aria-hidden='true'
-                  class='w-6 h-6 text-gray-800'
+                  class='w-6 h-6 text-gray-800 xl:w-[2vw] xl:h-[2vw]'
                   fill='none'
                   stroke='currentColor'
                   viewBox='0 0 24 24'
@@ -146,13 +125,13 @@ export default function ProductDetails({ product }: { product: Product }) {
         </div>
 
         {/* Image Previews */}
-        <div class='mt-4 flex space-x-2'>
+        <div class='mt-4 grid grid-cols-4 md:grid-cols-2 gap-2'>
           {product.images &&
             product.images.nodes.map((image, index) => (
               <button
                 key={index}
                 onClick={() => changeImage(index)}
-                class={`w-16 h-16 border-2 ${
+                class={`aspect-square w-full border-2 ${
                   currentImageIndex === index
                     ? 'border-gray-800'
                     : 'border-gray-300'
@@ -168,58 +147,43 @@ export default function ProductDetails({ product }: { product: Product }) {
         </div>
       </div>
 
-      {/* Breadcrumb */}
-      <nav class='my-8 text-sm text-gray-500 flex justify-center'>
-        <a href='/' class='mr-2'>Home</a> &gt;{' '}
-        <a href='#' class='mx-2'>All Jewelry</a>
-        {category && (
-          <>
-            {' '}
-            &gt;{' '}
-            <a href={category.link ?? '#'} class='ml-2'>{category.label}</a>
-          </>
-        )}
-      </nav>
+      {/* Product Details Section */}
+      <div class='xl:text-[1.1vw]'>
+        {/* Breadcrumb */}
+        <nav class='my-4 text-sm xl:text-[0.9vw] text-gray-500 flex justify-center md:justify-start'>
+          <a href='/' class='mr-2'>Home</a> &gt;{' '}
+          <a href='#' class='mx-2'>All Jewelry</a>
+          {category && (
+            <>
+              {' '} &gt;{' '}
+              <a href={category.link ?? '#'} class='ml-2'>{category.label}</a>
+            </>
+          )}
+        </nav>
 
-      {/* Product details */}
-      <div class='mt-6'>
-        <div class='flex flex-col items-center gap-2 text-center'>
-          <h1 class='text-2xl lg:text-3xl font-semibold text-gray-800'>
+        {/* Product Title and Price */}
+        <div class='flex flex-col items-center md:items-start gap-2 text-center md:text-left'>
+          <h1 class='text-2xl lg:text-3xl xl:text-[1.75vw] font-semibold text-gray-800'>
             {product.title}
           </h1>
-          <div class='px-8 py-6 text-xl font-thin	tracking-wide'>
+          <div class='text-xl xl:text-[1.5vw] font-thin tracking-wide'>
             {formatCurrency(variant.priceV2)}
           </div>
-        </div>{' '}
-        <section
-          aria-labelledby='information-heading'
-          class=''
-        >
-          <h2 id='information-heading' class='sr-only'>
-            Product information
-          </h2>
+        </div>
 
+        {/* Availability and Description */}
+        <section aria-labelledby='information-heading' class='mt-4'>
+          <h2 id='information-heading' class='sr-only'>Product information</h2>
           {!variant.availableForSale && (
-            <div class='flex justify-center'>
-              <p class='text-base text-gray-500'>Out of stock</p>
-            </div>
+            <p class='text-base text-red-500 xl:text-[1vw]'>Out of stock</p>
           )}
-
-          {/* Display only the first paragraph of the description */}
-          <div class='mt-2'>
-            <p class='text-base text-gray-600'>
-              {product.descriptionHtml
-                ?.split('</p>')[0]
-                .replace(/<[^>]+>/g, '')
-                .split(': ')[1]}
-            </p>
-          </div>
+          <p class='mt-2 text-base text-gray-600 xl:text-[1.3vw] xl:leading-normal'>
+            {product.descriptionHtml?.split('</p>')[0].replace(/<[^>]+>/g, '')}
+          </p>
         </section>
-      </div>
 
-      {/* Product form */}
-      <div class='mt-12 lg:max-w-lg lg:col-start-1 lg:row-start-2 lg:self-start'>
-        <section aria-labelledby='options-heading'>
+        {/* Product Form */}
+        <section aria-labelledby='options-heading' class='pt-4'>
           {product.variants.nodes.length > 1 && (
             <div class='group'>
               <div class='relative p-4 flex items-center justify-between rounded-lg border-2 border-gray-300 group-hover:border-gray-400 transition-colors'>
@@ -272,26 +236,22 @@ export default function ProductDetails({ product }: { product: Product }) {
             </div>
           )}
         </section>
-      </div>
 
-      {/* Additional Information Section */}
-      {accordions.length > 0 && (
-        <section class='mt-8'>
-          <h3 class='text-lg font-semibold text-gray-800 mb-4'>
-            Additional Information
-          </h3>
-          <div class='space-y-4'>
+        {/* Additional Information Accordion */}
+        {accordions.length > 0 && (
+          <section class='mt-8'>
+            <h3 class='text-lg font-semibold mb-4'>Additional Information</h3>
             {accordions.map(({ title, content }, index) => (
               <details key={index} class='border rounded-lg'>
-                <summary class='p-4 cursor-pointer bg-gray-100 hover:bg-gray-200 rounded-lg'>
+                <summary class='p-4 bg-gray-100 cursor-pointer'>
                   {title}
                 </summary>
                 <div class='p-4 text-gray-600'>{content}</div>
               </details>
             ))}
-          </div>
-        </section>
-      )}
+          </section>
+        )}
+      </div>
     </div>
   )
 }
