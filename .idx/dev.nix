@@ -6,6 +6,7 @@
 
   # Use https://search.nixos.org/packages to find packages
   packages = [
+    pkgs.nano
   ];
 
   # Sets environment variables in the workspace
