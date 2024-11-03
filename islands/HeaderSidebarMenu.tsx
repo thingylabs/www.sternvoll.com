@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 import { menuItems } from '@/config/headerMenu.ts'
 import { meta } from '@/config/meta.ts'
 import { Social } from '@/components/Social.tsx'
@@ -9,7 +9,7 @@ interface MenuProps {
 
 export function Menu({ transparentButton = false }: MenuProps) {
   const ref = useRef<HTMLDialogElement | null>(null)
-  const languageSelectorRef = useRef<HTMLDialogElement | null>(null)
+  const localeSelectorRef = useRef<HTMLDialogElement | null>(null)
 
   const onDialogClick = (e: MouseEvent) => {
     if ((e.target as HTMLDialogElement).tagName === 'DIALOG') {
@@ -17,9 +17,9 @@ export function Menu({ transparentButton = false }: MenuProps) {
     }
   }
 
-  const onLanguageSelectorDialogClick = (e: MouseEvent) => {
+  const onLocaleSelectorDialogClick = (e: MouseEvent) => {
     if ((e.target as HTMLDialogElement).tagName === 'DIALOG') {
-      languageSelectorRef.current?.close()
+      localeSelectorRef.current?.close()
     }
   }
 
@@ -36,12 +36,12 @@ export function Menu({ transparentButton = false }: MenuProps) {
     }
   }, [])
 
-  const openLanguageSelector = () => {
-    languageSelectorRef.current?.showModal()
+  const openLocaleSelector = () => {
+    localeSelectorRef.current?.showModal()
   }
 
-  const closeLanguageSelector = () => {
-    languageSelectorRef.current?.close()
+  const closeLocaleSelector = () => {
+    localeSelectorRef.current?.close()
   }
 
   return (
@@ -85,20 +85,20 @@ export function Menu({ transparentButton = false }: MenuProps) {
         onClick={onDialogClick}
       >
         <MenuDrawer
-          onOpenLanguageSelector={openLanguageSelector}
+          onOpenLocaleSelector={openLocaleSelector}
           onClose={() => ref.current?.close()}
         />
       </dialog>
 
-      {/* Language Selector Dialog with Full-Screen Blur Effect */}
+      {/* Locale Selector Dialog */}
       <dialog
-        ref={languageSelectorRef}
+        ref={localeSelectorRef}
         class='
           bg-transparent p-0 m-0 w-full h-full
           max-w-full max-h-full transition-transform
           duration-500 backdrop-blur
         '
-        onClick={onLanguageSelectorDialogClick}
+        onClick={onLocaleSelectorDialogClick}
       >
         <div class='fixed bottom-0 bg-white rounded-t-lg p-4 shadow-xl w-full max-w-md mx-auto'>
           <div class='flex items-center'>
@@ -107,10 +107,7 @@ export function Menu({ transparentButton = false }: MenuProps) {
               placeholder='Search'
               class='w-full border p-2 rounded mb-2'
             />
-            <button
-              onClick={closeLanguageSelector}
-              class='ml-2 text-gray-400'
-            >
+            <button onClick={closeLocaleSelector} class='ml-2 text-gray-400'>
               <svg
                 class='w-5 h-5 fill-current'
                 viewBox='0 0 24 24'
@@ -136,12 +133,36 @@ export function Menu({ transparentButton = false }: MenuProps) {
 }
 
 function MenuDrawer({
-  onOpenLanguageSelector,
+  onOpenLocaleSelector,
   onClose,
 }: {
-  onOpenLanguageSelector: () => void
+  onOpenLocaleSelector: () => void
   onClose: () => void
 }) {
+  const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false)
+  const languageSelectorRef = useRef<HTMLDivElement | null>(null)
+
+  // Handle clicking outside of the language selector to close it
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        languageSelectorRef.current &&
+        !languageSelectorRef.current.contains(event.target as Node)
+      ) {
+        setIsLanguageSelectorOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
+  const toggleLanguageSelector = () => {
+    setIsLanguageSelectorOpen((prev) => !prev)
+  }
+
   return (
     <div class='py-8 pt-6 px-6 h-full bg-white rounded-tl-2xl rounded-tr-2xl sm:rounded-tl-none sm:rounded-br-2xl flex flex-col overflow-y-auto relative'>
       <div class='flex justify-between pb-4 border-b border-gray-200'>
@@ -212,14 +233,31 @@ function MenuDrawer({
       <div class='mt-8 border-t border-gray-200 pt-4'>
         <div class='space-y-2'>
           <button class='text-gray-600'>Log in</button>
+          {/* Locale Selector */}
           <div
             class='text-gray-600 cursor-pointer flex items-center'
-            onClick={onOpenLanguageSelector}
+            onClick={onOpenLocaleSelector}
           >
             United States | USD $
             <span class='ml-2'>▾</span>
           </div>
-          <div class='text-gray-600'>English</div>
+          {/* Language Selector */}
+          <div
+            class='text-gray-600 cursor-pointer flex items-center relative'
+            onClick={toggleLanguageSelector}
+          >
+            English
+            <span class='ml-2'>▾</span>
+            {isLanguageSelectorOpen && (
+              <div
+                ref={languageSelectorRef}
+                class='absolute bottom-full mb-2 bg-white border rounded shadow-lg p-2 z-10'
+              >
+                <div class='py-1'>English</div>
+                <div class='py-1'>Deutsch</div>
+              </div>
+            )}
+          </div>
         </div>
         <div class='mt-6'>
           <Social />
