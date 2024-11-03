@@ -1,6 +1,6 @@
 export interface Money {
   amount: number
-  currencyCode: string
+  currency: string
 }
 
 export interface Image {
@@ -23,7 +23,7 @@ export interface Product {
   id: string
   handle: string
   title: string
-  tags?: [string]
+  tags?: string[]
   description: string
   descriptionHtml: string
   productType: string
@@ -31,6 +31,8 @@ export interface Product {
   images?: List<Image>
   variants: List<ProductVariant>
   priceRange: ProductPriceRange
+  createdAt: string
+  normalizedSales?: number
 }
 
 export interface ProductVariant {

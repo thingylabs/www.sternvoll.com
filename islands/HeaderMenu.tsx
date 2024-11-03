@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
-import { menuItems } from '../config/headerMenu.ts'
+import { menuItems } from '@/config/headerMenu.ts'
+import { meta } from '@/config/meta.ts'
 
 interface MenuProps {
   transparentButton?: boolean
@@ -77,7 +78,7 @@ function MenuDrawer({ onClose }: { onClose: () => void }) {
   return (
     <div class='py-8 pt-6 px-6 h-full bg-white rounded-tl-2xl rounded-tr-2xl sm:rounded-tl-none sm:rounded-br-2xl flex flex-col overflow-y-auto'>
       <div class='flex justify-between pb-4 border-b border-gray-200'>
-        <img src='Sternvoll-bright.png' class='w-[80%] object-scale-down' />
+        <img src={`/${meta.logos.default}`} class='w-[80%] object-scale-down' />
         <button class='py-1' onClick={onClose}>
           <svg
             class='w-6 h-6 fill-current text-gray-400'

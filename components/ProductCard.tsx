@@ -4,6 +4,17 @@ import { Product } from '@/utils/types.ts'
 
 export function ProductCard(props: { product: Product }) {
   const { product } = props
+
+  // Ensure price and currency are defined, falling back to default values if necessary
+  const price = product.priceRange?.minVariantPrice?.amount ?? '0'
+  const currency = product.priceRange?.minVariantPrice?.currency ?? 'USD' // Default to 'USD'
+
+  // Ensure currency is always valid and provided to the formatter
+  const formattedPrice = formatCurrency({
+    amount: parseFloat('' + price),
+    currency,
+  })
+
   return (
     <div key={product.id} class='mb-4 xl:text-[1.2vw]'>
       {/* Container for product and tags */}
@@ -28,7 +39,7 @@ export function ProductCard(props: { product: Product }) {
             <span class='bg-gray-800 h-[3px] w-0 group-hover:w-full absolute bottom-[-2px] left-0 transition-all duration-400' />
           </h3>
           <strong class='font-bold text-gray-800'>
-            {formatCurrency(product.priceRange.minVariantPrice)}
+            {formattedPrice}
           </strong>
         </div>
       </a>
@@ -36,11 +47,13 @@ export function ProductCard(props: { product: Product }) {
       {/* Tags Section - moved outside the group */}
       <div class='flex flex-wrap space-x-1 items-center pt-2'>
         {product.tags &&
-          product.tags.filter(filterTags).map(replace).sort((a, b) =>
-            a.localeCompare(b)
-          )
+          product.tags
+            .filter(filterTags)
+            .map(replace)
+            .sort((a, b) => a.localeCompare(b))
             .map((tag, index) => (
               <a
+                key={index}
                 href='#'
                 class='hover:text-secondary text-gray-500 text-sm flex items-center xl:text-[1vw]'
               >
@@ -55,12 +68,15 @@ export function ProductCard(props: { product: Product }) {
     </div>
   )
 }
+
+// Utility functions for filtering and replacing tags
 function replace(tag: string) {
   if (tag === '925 Sterling Silver') {
     return '925 Silver'
   }
   return tag
 }
+
 function filterTags(tag: string) {
   if (
     tag === 'Non-Amazon' ||

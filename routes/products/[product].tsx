@@ -132,7 +132,7 @@ export default function ProductPage(ctx: PageProps<Query>) {
     },
     title: data.product.title,
     price: data.product.priceRange.minVariantPrice.amount,
-    currency: data.product.priceRange.minVariantPrice.currencyCode,
+    currency: data.product.priceRange.minVariantPrice.currency,
   }
 
   return (

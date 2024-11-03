@@ -65,7 +65,7 @@ export function Header({ forceBackground = false }: HeaderProps) {
           class='absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none'
         >
           <img
-            class='object-scale-down h-10 2xl:h-[3vw]'
+            class='object-scale-down h-10 2xl:h-[2vw]'
             src='/Sternvoll-bright.png'
             alt='Sternvoll'
           />

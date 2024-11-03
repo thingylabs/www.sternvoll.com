@@ -4,10 +4,12 @@
 
 import * as $_app from './routes/_app.tsx'
 import * as $api_shopify from './routes/api/shopify.ts'
+import * as $collections_collection_ from './routes/collections/[collection].tsx'
 import * as $index from './routes/index.tsx'
 import * as $products_product_ from './routes/products/[product].tsx'
 import * as $AddToCart from './islands/AddToCart.tsx'
 import * as $Cart from './islands/Cart.tsx'
+import * as $CollectionContent from './islands/CollectionContent.tsx'
 import * as $Collections from './islands/Collections.tsx'
 import * as $Header from './islands/Header.tsx'
 import * as $HeaderMenu from './islands/HeaderMenu.tsx'
@@ -19,12 +21,14 @@ const manifest = {
   routes: {
     './routes/_app.tsx': $_app,
     './routes/api/shopify.ts': $api_shopify,
+    './routes/collections/[collection].tsx': $collections_collection_,
     './routes/index.tsx': $index,
     './routes/products/[product].tsx': $products_product_,
   },
   islands: {
     './islands/AddToCart.tsx': $AddToCart,
     './islands/Cart.tsx': $Cart,
+    './islands/CollectionContent.tsx': $CollectionContent,
     './islands/Collections.tsx': $Collections,
     './islands/Header.tsx': $Header,
     './islands/HeaderMenu.tsx': $HeaderMenu,
