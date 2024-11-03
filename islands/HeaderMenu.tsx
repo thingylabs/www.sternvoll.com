@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { menuItems } from '@/config/headerMenu.ts'
 import { meta } from '@/config/meta.ts'
+import { Social } from '@/components/Social.tsx'
 
 interface MenuProps {
   transparentButton?: boolean
@@ -75,8 +76,30 @@ export function Menu({ transparentButton = false }: MenuProps) {
 
 // Drawer menu for small screens
 function MenuDrawer({ onClose }: { onClose: () => void }) {
+  const [isCurrencyMenuOpen, setIsCurrencyMenuOpen] = useState(false)
+  const currencyMenuRef = useRef<HTMLDivElement | null>(null)
+
+  const toggleCurrencyMenu = () => {
+    setIsCurrencyMenuOpen((prev) => !prev)
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        currencyMenuRef.current &&
+        !currencyMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsCurrencyMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
   return (
-    <div class='py-8 pt-6 px-6 h-full bg-white rounded-tl-2xl rounded-tr-2xl sm:rounded-tl-none sm:rounded-br-2xl flex flex-col overflow-y-auto'>
+    <div class='py-8 pt-6 px-6 h-full bg-white rounded-tl-2xl rounded-tr-2xl sm:rounded-tl-none sm:rounded-br-2xl flex flex-col overflow-y-auto relative'>
       <div class='flex justify-between pb-4 border-b border-gray-200'>
         <img src={`/${meta.logos.default}`} class='w-[80%] object-scale-down' />
         <button class='py-1' onClick={onClose}>
@@ -140,6 +163,45 @@ function MenuDrawer({ onClose }: { onClose: () => void }) {
             )
         )}
       </ul>
+
+      {/* Footer Section */}
+      <div class='mt-8 border-t border-gray-200 pt-4'>
+        <div class='space-y-2'>
+          <button class='text-gray-600'>Log in</button>
+          <div
+            class='text-gray-600 cursor-pointer flex items-center relative'
+            onClick={toggleCurrencyMenu}
+          >
+            United States | USD $
+            <span class='ml-2'>▾</span>
+          </div>
+          {isCurrencyMenuOpen && (
+            <div
+              ref={currencyMenuRef}
+              class='absolute left-0 mt-2 bg-white shadow-lg rounded-lg p-4 w-full max-h-60 overflow-y-auto'
+              style={{ top: '100%' }}
+            >
+              <input
+                type='text'
+                placeholder='Search'
+                class='w-full border p-2 rounded mb-2'
+              />
+              {/* Country and Currency List */}
+              <ul class='space-y-1'>
+                <li>Afghanistan - AFN ؋</li>
+                <li>Åland Islands - EUR €</li>
+                <li>Albania - ALL L</li>
+                <li>Algeria - DZD د.ج</li>
+                {/* Add more countries as needed */}
+              </ul>
+            </div>
+          )}
+          <div class='text-gray-600'>English</div>
+        </div>
+        <div class='mt-6'>
+          <Social />
+        </div>
+      </div>
     </div>
   )
 }
