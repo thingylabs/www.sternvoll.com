@@ -1,6 +1,7 @@
 import { useSignal } from '@preact/signals'
 import { useEffect } from 'preact/hooks'
-import { InlineMenu, Menu } from './HeaderMenu.tsx'
+import { Menu } from './HeaderSidebarMenu.tsx'
+import { InlineMenu } from '@/components/HeaderInlineMenu.tsx'
 import { Cart } from '@/islands/Cart.tsx'
 
 interface HeaderProps {

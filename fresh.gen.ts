@@ -12,7 +12,7 @@ import * as $Cart from './islands/Cart.tsx'
 import * as $CollectionContent from './islands/CollectionContent.tsx'
 import * as $Collections from './islands/Collections.tsx'
 import * as $Header from './islands/Header.tsx'
-import * as $HeaderMenu from './islands/HeaderMenu.tsx'
+import * as $HeaderSidebarMenu from './islands/HeaderSidebarMenu.tsx'
 import * as $MovingText from './islands/MovingText.tsx'
 import * as $ProductDetails from './islands/ProductDetails.tsx'
 import type { Manifest } from '$fresh/server.ts'
@@ -31,7 +31,7 @@ const manifest = {
     './islands/CollectionContent.tsx': $CollectionContent,
     './islands/Collections.tsx': $Collections,
     './islands/Header.tsx': $Header,
-    './islands/HeaderMenu.tsx': $HeaderMenu,
+    './islands/HeaderSidebarMenu.tsx': $HeaderSidebarMenu,
     './islands/MovingText.tsx': $MovingText,
     './islands/ProductDetails.tsx': $ProductDetails,
   },
