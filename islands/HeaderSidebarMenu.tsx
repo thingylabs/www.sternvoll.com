@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'preact/hooks'
+import { useEffect, useRef } from 'preact/hooks'
 import { menuItems } from '@/config/headerMenu.ts'
 import { meta } from '@/config/meta.ts'
 import { Social } from '@/components/Social.tsx'
@@ -9,10 +9,17 @@ interface MenuProps {
 
 export function Menu({ transparentButton = false }: MenuProps) {
   const ref = useRef<HTMLDialogElement | null>(null)
+  const languageSelectorRef = useRef<HTMLDialogElement | null>(null)
 
   const onDialogClick = (e: MouseEvent) => {
     if ((e.target as HTMLDialogElement).tagName === 'DIALOG') {
-      ref.current!.close()
+      ref.current?.close()
+    }
+  }
+
+  const onLanguageSelectorDialogClick = (e: MouseEvent) => {
+    if ((e.target as HTMLDialogElement).tagName === 'DIALOG') {
+      languageSelectorRef.current?.close()
     }
   }
 
@@ -29,11 +36,19 @@ export function Menu({ transparentButton = false }: MenuProps) {
     }
   }, [])
 
+  const openLanguageSelector = () => {
+    languageSelectorRef.current?.showModal()
+  }
+
+  const closeLanguageSelector = () => {
+    languageSelectorRef.current?.close()
+  }
+
   return (
     <div>
       <button
         type='button'
-        onClick={() => ref.current!.showModal()}
+        onClick={() => ref.current?.showModal()}
         class={`relative rounded-md p-2 opacity-50 hover:opacity-100 ${
           transparentButton
             ? 'bg-transparent border border-secondary opacity-6'
@@ -57,47 +72,76 @@ export function Menu({ transparentButton = false }: MenuProps) {
         </svg>
       </button>
 
+      {/* Sidebar Dialog */}
       <dialog
         ref={ref}
-        class={`
-        bg-transparent p-0 m-0 pt-[50%]
-        sm:pt-0 sm:pr-[40%] md:pr-[50%]
-        w-full max-w-full max-h-full h-full
-        transition-transform duration-500
-        sm:translate-x-0 translate-y-0 backdrop-blur
-        `}
+        class='
+          bg-transparent p-0 m-0 pt-[50%]
+          sm:pt-0 sm:pr-[40%] md:pr-[50%]
+          w-full max-w-full max-h-full h-full
+          transition-transform duration-500
+          sm:translate-x-0 translate-y-0 backdrop-blur
+        '
         onClick={onDialogClick}
       >
-        <MenuDrawer onClose={() => ref.current?.close()} />
+        <MenuDrawer
+          onOpenLanguageSelector={openLanguageSelector}
+          onClose={() => ref.current?.close()}
+        />
+      </dialog>
+
+      {/* Language Selector Dialog with Full-Screen Blur Effect */}
+      <dialog
+        ref={languageSelectorRef}
+        class='
+          bg-transparent p-0 m-0 w-full h-full
+          max-w-full max-h-full transition-transform
+          duration-500 backdrop-blur
+        '
+        onClick={onLanguageSelectorDialogClick}
+      >
+        <div class='fixed bottom-0 bg-white rounded-t-lg p-4 shadow-xl w-full max-w-md mx-auto'>
+          <div class='flex items-center'>
+            <input
+              type='text'
+              placeholder='Search'
+              class='w-full border p-2 rounded mb-2'
+            />
+            <button
+              onClick={closeLanguageSelector}
+              class='ml-2 text-gray-400'
+            >
+              <svg
+                class='w-5 h-5 fill-current'
+                viewBox='0 0 24 24'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z' />
+              </svg>
+            </button>
+          </div>
+
+          {/* Country and Currency List */}
+          <ul class='space-y-1'>
+            <li>Afghanistan - AFN ؋</li>
+            <li>Åland Islands - EUR €</li>
+            <li>Albania - ALL L</li>
+            <li>Algeria - DZD د.ج</li>
+            {/* Add more countries as needed */}
+          </ul>
+        </div>
       </dialog>
     </div>
   )
 }
 
-// Drawer menu for small screens
-function MenuDrawer({ onClose }: { onClose: () => void }) {
-  const [isCurrencyMenuOpen, setIsCurrencyMenuOpen] = useState(false)
-  const currencyMenuRef = useRef<HTMLDivElement | null>(null)
-
-  const toggleCurrencyMenu = () => {
-    setIsCurrencyMenuOpen((prev) => !prev)
-  }
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        currencyMenuRef.current &&
-        !currencyMenuRef.current.contains(event.target as Node)
-      ) {
-        setIsCurrencyMenuOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
-
+function MenuDrawer({
+  onOpenLanguageSelector,
+  onClose,
+}: {
+  onOpenLanguageSelector: () => void
+  onClose: () => void
+}) {
   return (
     <div class='py-8 pt-6 px-6 h-full bg-white rounded-tl-2xl rounded-tr-2xl sm:rounded-tl-none sm:rounded-br-2xl flex flex-col overflow-y-auto relative'>
       <div class='flex justify-between pb-4 border-b border-gray-200'>
@@ -169,33 +213,12 @@ function MenuDrawer({ onClose }: { onClose: () => void }) {
         <div class='space-y-2'>
           <button class='text-gray-600'>Log in</button>
           <div
-            class='text-gray-600 cursor-pointer flex items-center relative'
-            onClick={toggleCurrencyMenu}
+            class='text-gray-600 cursor-pointer flex items-center'
+            onClick={onOpenLanguageSelector}
           >
             United States | USD $
             <span class='ml-2'>▾</span>
           </div>
-          {isCurrencyMenuOpen && (
-            <div
-              ref={currencyMenuRef}
-              class='absolute left-0 mt-2 bg-white shadow-lg rounded-lg p-4 w-full max-h-60 overflow-y-auto'
-              style={{ top: '100%' }}
-            >
-              <input
-                type='text'
-                placeholder='Search'
-                class='w-full border p-2 rounded mb-2'
-              />
-              {/* Country and Currency List */}
-              <ul class='space-y-1'>
-                <li>Afghanistan - AFN ؋</li>
-                <li>Åland Islands - EUR €</li>
-                <li>Albania - ALL L</li>
-                <li>Algeria - DZD د.ج</li>
-                {/* Add more countries as needed */}
-              </ul>
-            </div>
-          )}
           <div class='text-gray-600'>English</div>
         </div>
         <div class='mt-6'>
