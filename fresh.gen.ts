@@ -2,11 +2,12 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
+import * as $_lang_collections_collection_ from './routes/[[lang]]/collections/[collection].tsx'
+import * as $_lang_products_product_ from './routes/[[lang]]/products/[product].tsx'
 import * as $_app from './routes/_app.tsx'
+import * as $_middleware from './routes/_middleware.ts'
 import * as $api_shopify from './routes/api/shopify.ts'
-import * as $collections_collection_ from './routes/collections/[collection].tsx'
 import * as $index from './routes/index.tsx'
-import * as $products_product_ from './routes/products/[product].tsx'
 import * as $AddToCart from './islands/AddToCart.tsx'
 import * as $Cart from './islands/Cart.tsx'
 import * as $CollectionContent from './islands/CollectionContent.tsx'
@@ -19,11 +20,13 @@ import type { Manifest } from '$fresh/server.ts'
 
 const manifest = {
   routes: {
+    './routes/[[lang]]/collections/[collection].tsx':
+      $_lang_collections_collection_,
+    './routes/[[lang]]/products/[product].tsx': $_lang_products_product_,
     './routes/_app.tsx': $_app,
+    './routes/_middleware.ts': $_middleware,
     './routes/api/shopify.ts': $api_shopify,
-    './routes/collections/[collection].tsx': $collections_collection_,
     './routes/index.tsx': $index,
-    './routes/products/[product].tsx': $products_product_,
   },
   islands: {
     './islands/AddToCart.tsx': $AddToCart,

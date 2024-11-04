@@ -1,6 +1,6 @@
 import { AppProps } from '$fresh/server.ts'
 import { Head } from '$fresh/runtime.ts'
-import { meta } from '../config/meta.ts'
+import { meta } from '@/config/meta.ts'
 
 export default function App({ Component }: AppProps) {
   return (
@@ -42,7 +42,7 @@ export default function App({ Component }: AppProps) {
           sizes='180x180'
           href={'/' + meta.favicon['180x180']}
         />
-        <link rel='manifest' href='/site.webmanifest' />
+        {/* <link rel='manifest' href='/site.webmanifest' /> */}
       </Head>
       <Component />
     </>

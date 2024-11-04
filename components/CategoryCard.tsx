@@ -11,7 +11,7 @@ export function CategoryCard(
     <a
       href={href}
       class='block relative group w-full h-[500px] overflow-hidden flex justify-center items-center bg-cover bg-center transition-all duration-800 ease-in-out'
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+      style={{ backgroundImage: `url(/${backgroundImage})` }}
     >
       {/* Hover Overlay */}
       <div class='absolute inset-0 bg-[#002A3F] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out'>

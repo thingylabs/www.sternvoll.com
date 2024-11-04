@@ -30,7 +30,7 @@ export function Journal({ imageSrc, title, date }: JournalProps) {
             {/* Smaller background cover for md and above */}
             <div class='hidden md:block absolute left-[-40px] top-1/2 transform -translate-y-1/2 lg:left-[-60px] lg:top-[-40px] lg:translate-y-0 w-[60%] h-[60%] z-0 rounded shadow-lg'>
               <img
-                src='journal-cover-background.jpg'
+                src='/journal-cover-background.jpg'
                 alt='Smaller Cover'
                 class='w-full h-full object-cover rounded shadow-lg'
               />
@@ -50,7 +50,7 @@ export function Journal({ imageSrc, title, date }: JournalProps) {
               {/* Main book cover image */}
               <div class='relative w-full h-full rounded shadow-lg md:shadow-xl'>
                 <img
-                  src={imageSrc}
+                  src={'/' + imageSrc}
                   alt={title}
                   class='w-full h-full object-cover rounded shadow-lg md:shadow-xl'
                 />
@@ -58,7 +58,7 @@ export function Journal({ imageSrc, title, date }: JournalProps) {
                 <div class='absolute inset-0 flex flex-col justify-between items-center p-6'>
                   {/* Title */}
                   <h2 class='text-white text-xl font-serif tracking-wide mt-4'>
-                    <img src='Sternvoll-bright.png' alt='Sternvoll Logo' />
+                    <img src='/Sternvoll-bright.png' alt='Sternvoll Logo' />
                   </h2>
 
                   {/* Date at the bottom */}

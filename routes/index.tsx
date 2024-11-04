@@ -8,11 +8,16 @@ import { OurStory } from '@/components/OurStory.tsx'
 import { Hero } from '@/components/Hero.tsx'
 import { SelectedWorks } from '@/components/SelectedWorks.tsx'
 import { ImageCard } from '@/components/ImageCard.tsx'
-import { Collections } from '../islands/Collections.tsx'
+import { Collections } from '@/islands/Collections.tsx'
 import { CategoryCard } from '@/components/CategoryCard.tsx'
 import { FillLetter } from '@/components/FillLetter.tsx'
 import { Journal } from '@/components/Journal.tsx'
 import { meta as siteMeta } from '@/config/meta.ts'
+import { RouteConfig } from '$fresh/server.ts'
+
+export const config: RouteConfig = {
+  routeOverride: '/{:lang}?',
+}
 
 const meta = {
   title: 'Sternvoll Jewelry: Effortless chic for every day',
@@ -62,12 +67,14 @@ interface Collection {
 
 export const handler: Handlers<Collection> = {
   async GET(_req, ctx) {
+    console.log('ctx.state', ctx.state)
     const data = await graphql<Collection>(q)
     return ctx.render(data)
   },
 }
 
 export default function Home(ctx: PageProps<Collection>) {
+  console.log('ctx.state', ctx.state)
   const { data, url } = ctx
   const products = data.collection.products.nodes
 
