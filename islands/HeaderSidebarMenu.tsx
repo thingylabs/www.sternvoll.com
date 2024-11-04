@@ -2,31 +2,32 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 import { menuItems } from '@/config/headerMenu.ts'
 import { meta } from '@/config/meta.ts'
 import { Social } from '@/components/Social.tsx'
+import { locales } from '@/config/locales.ts'
 
 interface MenuProps {
   transparentButton?: boolean
 }
 
 export function Menu({ transparentButton = false }: MenuProps) {
-  const ref = useRef<HTMLDialogElement | null>(null)
-  const localeSelectorRef = useRef<HTMLDialogElement | null>(null)
+  const menuRef = useRef<HTMLDialogElement | null>(null)
+  const localeRef = useRef<HTMLDialogElement | null>(null)
 
   const onDialogClick = (e: MouseEvent) => {
     if ((e.target as HTMLDialogElement).tagName === 'DIALOG') {
-      ref.current?.close()
+      menuRef.current?.close()
     }
   }
 
   const onLocaleSelectorDialogClick = (e: MouseEvent) => {
     if ((e.target as HTMLDialogElement).tagName === 'DIALOG') {
-      localeSelectorRef.current?.close()
+      localeRef.current?.close()
     }
   }
 
   useEffect(() => {
     const handleResize = () => {
-      if (globalThis.innerWidth >= 1024 && ref.current?.open) {
-        ref.current.close()
+      if (globalThis.innerWidth >= 1024 && menuRef.current?.open) {
+        menuRef.current.close()
       }
     }
 
@@ -37,18 +38,18 @@ export function Menu({ transparentButton = false }: MenuProps) {
   }, [])
 
   const openLocaleSelector = () => {
-    localeSelectorRef.current?.showModal()
+    localeRef.current?.showModal()
   }
 
   const closeLocaleSelector = () => {
-    localeSelectorRef.current?.close()
+    localeRef.current?.close()
   }
 
   return (
     <div>
       <button
         type='button'
-        onClick={() => ref.current?.showModal()}
+        onClick={() => menuRef.current?.showModal()}
         class={`relative rounded-md p-2 opacity-50 hover:opacity-100 ${
           transparentButton
             ? 'bg-transparent border border-secondary opacity-6'
@@ -74,7 +75,7 @@ export function Menu({ transparentButton = false }: MenuProps) {
 
       {/* Sidebar Dialog */}
       <dialog
-        ref={ref}
+        ref={menuRef}
         class='
           bg-transparent p-0 m-0 pt-[50%]
           sm:pt-0 sm:pr-[40%] md:pr-[50%]
@@ -86,48 +87,71 @@ export function Menu({ transparentButton = false }: MenuProps) {
       >
         <MenuDrawer
           onOpenLocaleSelector={openLocaleSelector}
-          onClose={() => ref.current?.close()}
+          onClose={() => menuRef.current?.close()}
         />
       </dialog>
 
       {/* Locale Selector Dialog */}
       <dialog
-        ref={localeSelectorRef}
+        ref={localeRef}
         class='
-          bg-transparent p-0 m-0 w-full h-full
-          max-w-full max-h-full transition-transform
-          duration-500 backdrop-blur
-        '
+    bg-transparent p-0 m-0 pt-[50%]
+    sm:pt-0 sm:pr-[40%] md:pr-[50%]
+    w-full h-full max-w-full max-h-full
+    transition-transform duration-500
+    sm:translate-x-0 translate-y-0 backdrop-blur
+  '
         onClick={onLocaleSelectorDialogClick}
       >
-        <div class='fixed bottom-0 bg-white rounded-t-lg p-4 shadow-xl w-full max-w-md mx-auto'>
-          <div class='flex items-center'>
-            <input
-              type='text'
-              placeholder='Search'
-              class='w-full border p-2 rounded mb-2'
-            />
-            <button onClick={closeLocaleSelector} class='ml-2 text-gray-400'>
-              <svg
-                class='w-5 h-5 fill-current'
-                viewBox='0 0 24 24'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z' />
-              </svg>
-            </button>
-          </div>
+        <LocaleDrawer
+          closeLocaleSelector={closeLocaleSelector}
+        />
+      </dialog>
+    </div>
+  )
+}
 
-          {/* Country and Currency List */}
+function LocaleDrawer({
+  closeLocaleSelector,
+}: {
+  closeLocaleSelector: () => void
+}) {
+  return (
+    <div class='bg-white rounded-t-lg shadow-xl w-full max-w-md mx-auto flex flex-col h-full'>
+      <div class='flex items-center p-4'>
+        <input
+          type='text'
+          placeholder='Search'
+          class='w-full border p-2 rounded'
+        />
+        <button onClick={closeLocaleSelector} class='ml-2 text-gray-400'>
+          <svg
+            class='w-5 h-5 fill-current'
+            viewBox='0 0 24 24'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z' />
+          </svg>
+        </button>
+      </div>
+
+      {/* Scrollable Country and Currency List */}
+      <div class='flex-1 overflow-y-auto'>
+        <div class='px-4'>
+          {/* Add padding only here */}
           <ul class='space-y-1'>
-            <li>Afghanistan - AFN ؋</li>
-            <li>Åland Islands - EUR €</li>
-            <li>Albania - ALL L</li>
-            <li>Algeria - DZD د.ج</li>
-            {/* Add more countries as needed */}
+            {locales.map((locale, index) => (
+              <li key={index} className='flex justify-between'>
+                <span>{locale.country}</span>
+                <span>
+                  <span>{locale.currency.code}</span>
+                  <span class='ml-1'>{locale.currency.symbol}</span>
+                </span>
+              </li>
+            ))}
           </ul>
         </div>
-      </dialog>
+      </div>
     </div>
   )
 }
