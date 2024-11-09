@@ -1,14 +1,19 @@
-import { AppProps } from '$fresh/server.ts'
+import { PageProps } from '$fresh/server.ts'
 import { Head } from '$fresh/runtime.ts'
 import { meta } from '@/config/meta.ts'
+import { TranslationKey } from '@/translations.ts'
+import { Data } from '@/routes/_middleware.ts'
 
-export default function App({ Component }: AppProps) {
+export default function App(
+  { Component, state: { geo } }: PageProps<unknown, Data>,
+) {
+  const t = geo.getT()
   return (
     <>
       <Head>
         <meta charset='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-        <title>www.sternvoll.com</title>
+        <title>{t[meta.title as TranslationKey]}</title>
         <link rel='stylesheet' href='/styles.css' />
         <link
           rel='preload'

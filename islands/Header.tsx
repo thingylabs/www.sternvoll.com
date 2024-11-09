@@ -2,13 +2,14 @@ import { useSignal } from '@preact/signals'
 import { useEffect } from 'preact/hooks'
 import { Menu } from './HeaderSidebarMenu.tsx'
 import { InlineMenu } from '@/components/HeaderInlineMenu.tsx'
-import { Cart } from '@/islands/Cart.tsx'
+import { Cart, T } from '@/islands/Cart.tsx'
 
 interface HeaderProps {
   forceBackground?: boolean
+  t: T
 }
 
-export function Header({ forceBackground = false }: HeaderProps) {
+export function Header({ forceBackground = false, t }: HeaderProps) {
   const hasBackground = useSignal(forceBackground)
   const isVisible = useSignal(false) // Start with the header hidden
   const lastScrollTop = useSignal(0)
@@ -74,7 +75,7 @@ export function Header({ forceBackground = false }: HeaderProps) {
 
         {/* Cart - Stays on the Right */}
         <div class='flex-none'>
-          <Cart transparentButton={!hasBackground.value} />
+          <Cart transparentButton={!hasBackground.value} t={t} />
         </div>
       </div>
 

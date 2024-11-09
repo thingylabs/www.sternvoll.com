@@ -6,6 +6,13 @@ import {
   removeFromCart,
   useCart,
 } from '@/utils/data.ts'
+import { TranslationMap } from '@/translations.ts'
+
+export type T = Pick<
+  TranslationMap,
+  | 'Shopping Cart'
+  | 'Open cart'
+>
 
 declare global {
   interface HTMLDialogElement {
@@ -15,7 +22,13 @@ declare global {
 }
 
 export function Cart(
-  { transparentButton = false }: { transparentButton?: boolean },
+  {
+    transparentButton = false,
+    t,
+  }: {
+    transparentButton?: boolean
+    t: T
+  },
 ) {
   const { data, error } = useCart()
   const ref = useRef<HTMLDialogElement | null>(null)
@@ -41,7 +54,7 @@ export function Cart(
             : 'bg-secondary'
         }`}
       >
-        <span class='sr-only'>Open cart</span>
+        <span class='sr-only'>{t['Open cart']}</span>
         <IconCart size={globalThis.innerWidth >= 1536 ? 48 : 24} />
         {data && data.lines.nodes.length > 0 && (
           <span class='absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2'>
@@ -54,13 +67,16 @@ export function Cart(
         class='bg-transparent p-0 m-0 pt-[50%] sm:pt-0 max-w-full sm:pl-[40%] md:pl-[60%] w-full max-h-full h-full transition-transform duration-500 sm:translate-x-0 translate-y-0 backdrop-blur'
         onClick={onDialogClick}
       >
-        <CartInner cart={data} />
+        <CartInner cart={data} t={t} />
       </dialog>
     </div>
   )
 }
 
-function CartInner(props: { cart: CartData | undefined }) {
+function CartInner(
+  props: { cart: CartData | undefined; t: T },
+) {
+  const t = props.t
   const { data: cart } = useCart()
   const checkout = (e: Event) => {
     e.preventDefault()
@@ -78,7 +94,9 @@ function CartInner(props: { cart: CartData | undefined }) {
   return (
     <div class='py-8 px-6 h-full bg-white rounded-tl-2xl rounded-tr-2xl sm:rounded-tr-none sm:rounded-bl-2xl flex flex-col justify-between overflow-y-auto'>
       <div class='flex justify-between'>
-        <h2 class='text-lg font-medium text-gray-900'>Shopping Cart</h2>
+        <h2 class='text-lg font-medium text-gray-900'>
+          {t['Shopping Cart']}
+        </h2>
         <button
           class='py-1'
           onClick={(e) => {

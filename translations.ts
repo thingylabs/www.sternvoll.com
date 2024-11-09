@@ -1,0 +1,230 @@
+export const languages = [
+  { code: 'en', name: 'English' },
+  { code: 'de', name: 'Deutsch' },
+] as const
+
+export const translations = {
+  'Sternvoll Jewelry: Effortless chic for every day': {
+    de: 'Sternvoll Jewelry: Effortless chic  für jeden Tag',
+  },
+  "Everyday doesn't mean boring! Discover luxurious 18K gold and lab-grown diamond jewelry that combines timeless elegance with modern style.":
+    {
+      de:
+        'Der Alltag muss nicht langweilig sein! Entdecken Sie luxuriösen Schmuck aus 18K Gold und lab-grown Diamanten, der zeitlose Eleganz mit modernem Stil verbindet.',
+    },
+  'Shopping Cart': {
+    de: 'Einkaufswagen',
+  },
+  'Open cart': {
+    de: 'Einkaufswagen öffnen',
+  },
+  'Not passed': {
+    de: 'Nicht weitergegeben',
+  },
+  'Gentle Touch - Pain-Free Clip-Ons': {
+    de: 'Sanfte Berührung - Schmerzfreie Ohrclips',
+  },
+  'Comfort and elegance, effortlessly united.': {
+    de: 'Komfort und Eleganz, mühelos vereint.',
+  },
+  'DISCOVER CLIPS': {
+    de: 'CLIPS ENTDECKEN',
+  },
+  'The perfect match for every occasion.': {
+    de: 'Perfektes Match für jeden Anlass',
+  },
+  'The carefully curated jewelry sets add the finishing touch to any wardrobe.':
+    {
+      de:
+        'Die sorgfältig zusammengestellten Schmuck-Sets verpassen jeder Garderobe den letzten Schliff.',
+    },
+  'DISCOVER SETS': {
+    de: 'SETS ENTDECKEN',
+  },
+  'Sparkle like a diamond': {
+    de: 'Funkeln wie ein Diamant',
+  },
+  'The distinctive surface finish gives it an unmistakable shine.': {
+    de:
+      'Die charakteristische Oberflächenveredelung verleiht einen unverwechselbaren Glanz.',
+  },
+  'DISCOVER DIAMOND FINISH': {
+    de: 'DIAMOND FINISH ENTDECKEN',
+  },
+  'Unforgettable matters of the heart': {
+    de: 'Unvergessliche Herzens-angelegenheiten',
+  },
+  'A collection that captures love in timeless elegance and shining design.': {
+    de:
+      'Eine Kollektion, die Liebe in zeitloser Eleganz und glänzendem Design einfängt.',
+  },
+  'DISCOVER HEARTS': {
+    de: 'HERZEN ENTDECKEN',
+  },
+  'Earrings': {
+    de: 'Ohrringe',
+  },
+  'Rings': {
+    de: 'Ringe',
+  },
+  'Necklaces': {
+    de: 'Halsketten',
+  },
+  'Clip-ons': {
+    de: 'Ohrclips',
+  },
+  'Explore': {
+    de: 'Kollektionen',
+  },
+  'Collections': {
+    de: 'Entdecken',
+  },
+  'Sternvoll Journal Cover': {
+    de: 'Sternvoll Journal Cover',
+  },
+  '2024 / April': {
+    de: '2024 / April',
+  },
+  'Modern': {
+    de: 'Moderne',
+  },
+  'Classics': {
+    de: 'Klassiker',
+  },
+  'In the heart of Stuttgart, Sternvoll creates': {
+    de: 'Im Herzen Stuttgarts kreiert Sternvoll',
+  },
+  'unique jewelry, inspired by': {
+    de: 'einzigartigen Schmuck, inspiriert von',
+  },
+  'cosmic beauty.': {
+    de: 'kosmischer Schönheit.',
+  },
+  'OUR': {
+    de: 'UNSERE',
+  },
+  'STORY': {
+    de: 'GESCHICHTE',
+  },
+  'Effortless chic': {
+    de: 'Effortless chic',
+  },
+  'everyday doesn\’t mean boring': {
+    de: 'alltäglich heißt nicht langweilig',
+  },
+  'SHOP NOW': {
+    de: 'JETZT SHOPPEN',
+  },
+  'There is nothing wrong': {
+    de: 'There is nothing wrong',
+  },
+  'with looking good': {
+    de: 'with looking good',
+  },
+  '© 2024. All Rights Reserved.': {
+    de: '© 2024. Alle Rechte vorbehalten.',
+  },
+  'Product not found': {
+    de: 'Produkt nicht gefunden',
+  },
+  // Footer menu
+  'COMPANY': {
+    de: 'FIRMA',
+  },
+  'About Sternvoll': {
+    de: 'Über Sternvoll',
+  },
+  'Ambassadors': {
+    de: 'Botschafter',
+  },
+  'Journal': {
+    de: 'Journal',
+  },
+  'HELP CENTER': {
+    de: 'HILFE-CENTER',
+  },
+  'Contact information': {
+    de: 'Kontaktinformationen',
+  },
+  'Shipping policy': {
+    de: 'Versandinformationen',
+  },
+  'Refund policy': {
+    de: 'Rückerstattung',
+  },
+  'LEGAL': {
+    de: 'RECHTLICHES',
+  },
+  'Privacy policy': {
+    de: 'Datenschutz',
+  },
+  'Terms of service': {
+    de: 'Nutzungsbedingungen',
+  },
+  'Legal notice': {
+    de: 'Impressum',
+  },
+  'FROM OUR BLOG': {
+    de: 'AUS UNSEREM BLOG',
+  },
+  // Header menu
+  'Jewelry': {
+    de: 'Schmuck',
+  },
+  'All Jewelry': {
+    de: 'Alle Produkte',
+  },
+  'Heart-Shaped Jewelry': {
+    de: 'Herzförmiger Schmuck',
+  },
+  'Pain-Free Earclips': {
+    de: 'Schmerzfreie Ohrclips',
+  },
+  'Diamond-Finishing': {
+    de: 'Diamond-Finishing',
+  },
+  'Materials': {
+    de: 'Materialien',
+  },
+  '18k Gold': {
+    de: '18 Karat Gold',
+  },
+  '925 Sterling Silver': {
+    de: '925 Sterlingsilber',
+  },
+  'Diamonds': {
+    de: 'Diamanten',
+  },
+  'Pearls': {
+    de: 'Perlen',
+  },
+  'Price': {
+    de: 'Preis',
+  },
+  '> 1,000 Euro': {
+    de: '> 1.000 Euro',
+  },
+  '< 500 Euro': {
+    de: '< 500 Euro',
+  },
+  '< 100 Euro': {
+    de: '< 100 Euro',
+  },
+  '< 50 Euro': {
+    de: '< 50 Euro',
+  },
+  'Engagement & Wedding': {
+    de: 'Verlobung & Hochzeit',
+  },
+  'On Sale 🔖': {
+    de: 'Im Angebot 🔖',
+  },
+  // Categories
+  'Bracelets': {
+    de: 'Armbänder',
+  },
+}
+
+export type LanguageCode = typeof languages[number]['code']
+export type TranslationKey = keyof typeof translations
+export type TranslationMap = { [K in TranslationKey]: string }

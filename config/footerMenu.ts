@@ -1,6 +1,12 @@
+import { TranslationKey } from '@/translations.ts'
+
 type MenuItem = {
-  title: string
-  links: { label: string; href: string }[]
+  title: TranslationKey
+
+  links: {
+    label: TranslationKey
+    href: string
+  }[]
 }
 
 export const menuItems: MenuItem[] = [
@@ -30,9 +36,12 @@ export const menuItems: MenuItem[] = [
   },
   {
     title: 'FROM OUR BLOG',
-    links: [
+    links: [ // TODO
+      // @ts-ignore-next
       { label: 'Something interesting', href: '#' },
+      // @ts-ignore-next
       { label: 'Another something', href: '#' },
+      // @ts-ignore-next
       { label: 'More...', href: '#' },
     ],
   },

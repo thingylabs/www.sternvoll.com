@@ -4,20 +4,37 @@ import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
 import { CollectionContent } from '@/islands/CollectionContent.tsx'
 import { graphql } from '@/utils/shopify.ts'
-import { Product } from '@/utils/types.ts'
+import { Image, Product } from '@/utils/types.ts'
+import type { Data } from '@/routes/_middleware.ts'
+import { meta as pageMeta } from '@/config/meta.ts'
 
-interface CollectionQuery {
+interface Query {
   collectionByHandle: {
     title: string
+    image: Image
+    seo: {
+      title: string
+      description: string
+    }
     products: {
       edges: { node: Product & { normalizedSales: number } }[]
     }
   }
 }
 
-const collectionQuery = `query ($collection: String!) {
+const q = `query ($collection: String!) {
   collectionByHandle(handle: $collection) {
     title
+    seo {
+      title
+      description
+    }
+    image {
+      url(transform: {preferredContentType: WEBP, maxWidth:400, maxHeight:400})
+      altText
+      width
+      height
+    }
     products(first: 24, sortKey: BEST_SELLING) {
       edges {
         node {
@@ -25,7 +42,7 @@ const collectionQuery = `query ($collection: String!) {
           title
           handle
           featuredImage {
-            url
+            url(transform: {preferredContentType: WEBP, maxWidth:400, maxHeight:400})
             altText
             width
             height
@@ -47,14 +64,16 @@ const collectionQuery = `query ($collection: String!) {
   }
 }`
 
-export const handler: Handlers<CollectionQuery> = {
+export const handler: Handlers<Query, Data> = {
   async GET(_req, ctx) {
     const { collection } = ctx.params
 
     try {
-      const data = await graphql<CollectionQuery>(collectionQuery, {
-        collection,
-      })
+      const data = await graphql<Query>(
+        q,
+        { collection },
+        ctx.state.geo.lang,
+      )
 
       if (!data.collectionByHandle) {
         return new Response('Collection not found', { status: 404 })
@@ -89,13 +108,24 @@ export const handler: Handlers<CollectionQuery> = {
   },
 }
 
-export default function CollectionPage(
-  { data, url }: PageProps<CollectionQuery>,
-) {
+export default function CollectionPage(ctx: PageProps<Query, Data>) {
+  const { data, url, state } = ctx
+  const t = state.geo.getT()
   const { collectionByHandle: collection } = data
   const products = collection.products.edges.map((edge) => edge.node)
 
-  // Prepare image for the Meta component
+  const meta = {
+    ...pageMeta,
+    locale: state.geo.locale,
+    title: collection.seo.title,
+    description: collection.seo.description,
+    image: {
+      url: collection.image?.url,
+      width: collection.image?.width,
+      height: collection.image?.height,
+      alt: collection.image?.altText,
+    },
+  }
   const firstProductImage = products[0]?.featuredImage
 
   return (
@@ -116,13 +146,13 @@ export default function CollectionPage(
             : undefined,
         }}
       />
-      <Header forceBackground />
+      <Header forceBackground t={t} />
       <main class='max-w-7xl mx-auto p-4 pt-[10vw]'>
         <h1 class='text-3xl md:text-5xl font-bold mb-6'>{collection.title}</h1>
         {/* CollectionContent Island Component */}
         <CollectionContent products={products} title={collection.title} />
       </main>
-      <Footer />
+      <Footer meta={meta} t={t} />
     </>
   )
 }

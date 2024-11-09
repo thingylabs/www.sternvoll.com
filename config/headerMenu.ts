@@ -1,7 +1,8 @@
 import { categories } from './productCategories.ts'
+import { TranslationKey } from '@/translations.ts'
 
 type MenuItem = {
-  label: string
+  label: TranslationKey
   link?: string
   items?: MenuItem[]
 }

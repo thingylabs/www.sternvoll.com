@@ -49,9 +49,9 @@ export function Meta(
       {/* OpenGraph */}
       <meta property='og:site_name' content={siteMeta.title} />
       <meta property='og:locale' content={locale} />
-      {price ?? <meta property='og:price:amount' content={price} />}
-      {currency ?? <meta property='og:price:currency' content={currency} />}
-      {image ?? (
+      {price && <meta property='og:price:amount' content={'' + price} />}
+      {currency && <meta property='og:price:currency' content={currency} />}
+      {image && (
         <>
           <meta
             property='og:image:secure_url'

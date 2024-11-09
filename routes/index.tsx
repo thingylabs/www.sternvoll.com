@@ -14,22 +14,11 @@ import { FillLetter } from '@/components/FillLetter.tsx'
 import { Journal } from '@/components/Journal.tsx'
 import { meta as siteMeta } from '@/config/meta.ts'
 import { RouteConfig } from '$fresh/server.ts'
+import { Data } from '@/routes/_middleware.ts'
+import type { TranslationKey } from '@/translations.ts'
 
 export const config: RouteConfig = {
   routeOverride: '/{:lang}?',
-}
-
-const meta = {
-  title: 'Sternvoll Jewelry: Effortless chic for every day',
-  description:
-    "Everyday doesn't mean boring! Discover luxurious 18K gold and lab-grown diamond jewelry that combines timeless elegance with modern style. Visit our new website for a unique shopping experience and exquisite designs.",
-  locale: 'en_US',
-  image: { // TODO
-    url: siteMeta.ogImage.fileName,
-    width: siteMeta.ogImage.width,
-    height: siteMeta.ogImage.height,
-    alt: siteMeta.ogImage.alt,
-  },
 }
 
 const q = `{
@@ -65,29 +54,44 @@ interface Collection {
   }
 }
 
-export const handler: Handlers<Collection> = {
+export const handler: Handlers<Collection, Data> = {
   async GET(_req, ctx) {
-    console.log('ctx.state', ctx.state)
-    const data = await graphql<Collection>(q)
+    const data = await graphql<Collection>(q, {}, ctx.state.geo.lang)
     return ctx.render(data)
   },
 }
 
-export default function Home(ctx: PageProps<Collection>) {
-  console.log('ctx.state', ctx.state)
-  const { data, url } = ctx
+export default function Home(ctx: PageProps<Collection, Data>) {
+  const { data, url, state } = ctx
   const products = data.collection.products.nodes
+  const getT = state.geo.getT
+
+  const t = getT()
+  const meta = {
+    ...siteMeta,
+    description: t[siteMeta.shortDescription as TranslationKey],
+    locale: state.geo.locale,
+    image: {
+      url: siteMeta.ogImage.fileName,
+      width: siteMeta.ogImage.width,
+      height: siteMeta.ogImage.height,
+      alt: siteMeta.ogImage.alt, // TODO: Translate
+    },
+  }
 
   return (
     <>
       <Meta url={url} meta={meta} />
 
-      <Hero>
-        <Header />
+      <Hero t={t}>
+        {/* Only fetch the necessary keys for client-side Header component */}
+        <Header
+          t={getT(['Shopping Cart', 'Open cart'])}
+        />
       </Hero>
 
       <div class='pt-[20vw]'>
-        <OurStory />
+        <OurStory t={t} />
       </div>
 
       <div class='p-4 pt-[20vw] md:pt-12'>
@@ -95,38 +99,45 @@ export default function Home(ctx: PageProps<Collection>) {
       </div>
 
       <div class='py-4 px-4 md:px-0 pt-[10vw]'>
+        {/* Server-rendered component can access the full `t` map */}
         <ImageCard
           image='collection-clip-ons.jpg'
-          title='Sanfte Berührung - Schmerzfreie Ohrclips'
-          text='Komfort und Eleganz, mühelos vereint.'
-          linkTitle='CLIPS ENTDECKEN'
+          title={t['Gentle Touch - Pain-Free Clip-Ons']}
+          text={t['Comfort and elegance, effortlessly united.']}
+          linkTitle={t['DISCOVER CLIPS']}
           link='#'
           orientation='left'
           backgroundColor='#EBE2DD'
         />
         <ImageCard
           image='collection-perfect-match.jpg'
-          title='Perfektes Match für jeden Anlass'
-          text='Die sorgfältig zusammengestellten Schmuck-Sets verpassen jeder Garderobe den letzten Schliff.'
-          linkTitle='SETS ENTDECKEN'
+          title={t['The perfect match for every occasion.']}
+          text={t[
+            'The carefully curated jewelry sets add the finishing touch to any wardrobe.'
+          ]}
+          linkTitle={t['DISCOVER SETS']}
           link='#'
           orientation='right'
           backgroundColor='#E9F4F8'
         />
         <ImageCard
           image='collection-diamond-finishing.jpg'
-          title='Funkeln wie ein Diamant'
-          text='Die charakteristische Oberflächenveredelung verleiht einen unverwechselbaren Glanz.'
-          linkTitle='DIAMOND FINISH ENTDECKEN'
+          title={t['Sparkle like a diamond']}
+          text={t[
+            'The distinctive surface finish gives it an unmistakable shine.'
+          ]}
+          linkTitle={t['DISCOVER DIAMOND FINISH']}
           link='#'
           orientation='left'
           backgroundColor='#EBE2DD'
         />
         <ImageCard
           image='collection-heart-shaped.jpg'
-          title='Unvergessliche Herzens-angelegenheiten'
-          text='Eine Kollektion, die Liebe in zeitloser Eleganz und glänzendem Design einfängt.'
-          linkTitle='HERZEN ENTDECKEN'
+          title={t['Unforgettable matters of the heart']}
+          text={t[
+            'A collection that captures love in timeless elegance and shining design.'
+          ]}
+          linkTitle={t['DISCOVER HEARTS']}
           link='#'
           orientation='right'
           backgroundColor='#E9F4F8'
@@ -144,39 +155,39 @@ export default function Home(ctx: PageProps<Collection>) {
       >
         <CategoryCard
           backgroundImage='category-earrings.jpg'
-          text='Ohrringe'
+          text={t['Earrings']}
           href='#'
         />
         <CategoryCard
           backgroundImage='category-rings.jpg'
-          text='Ringe'
+          text={t['Rings']}
           href='#'
         />
         <CategoryCard
           backgroundImage='category-necklaces.jpg'
-          text='Halsketten'
+          text={t['Necklaces']}
           href='#'
         />
         <CategoryCard
           backgroundImage='category-clip-ons.jpg'
-          text='Clip-ons'
+          text={t['Clip-ons']}
           href='#'
         />
       </div>
 
       <FillLetter
-        firstLine='Explore'
-        secondLine='Collections'
+        firstLine={t['Explore']}
+        secondLine={t['Collections']}
         href='#'
       />
 
       <Journal
         imageSrc='journal-cover.jpg'
-        title='Sternvoll Journal Cover'
-        date='2024 / April'
+        title={t['Sternvoll Journal Cover']}
+        date={t['2024 / April']}
       />
 
-      <Footer />
+      <Footer meta={meta} t={t} />
     </>
   )
 }

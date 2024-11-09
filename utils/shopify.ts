@@ -1,3 +1,5 @@
+import type { LanguageCode } from '@/translations.ts'
+
 const SHOPIFY_SHOP = Deno.env.get('SHOPIFY_SHOP')
 const SHOPIFY_ACCESS_TOKEN = Deno.env.get('SHOPIFY_ACCESS_TOKEN')
 
@@ -11,12 +13,14 @@ const SHOPIFY_ACCESS_TOKEN = Deno.env.get('SHOPIFY_ACCESS_TOKEN')
 export async function graphql<T>(
   query: string,
   variables: Record<string, unknown> = {},
+  lang: LanguageCode,
 ): Promise<T> {
   const resp = await fetch(`https://${SHOPIFY_SHOP}/api/2024-04/graphql.json`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'X-Shopify-Storefront-Access-Token': SHOPIFY_ACCESS_TOKEN!,
+      'Accept-Language': lang || 'en',
     },
     body: JSON.stringify({ query, variables }),
   })

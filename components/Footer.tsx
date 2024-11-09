@@ -1,10 +1,16 @@
 import { Social } from '@/components/Social.tsx'
 import { MovingText } from '@/islands/MovingText.tsx'
-import { meta } from '../config/meta.ts'
 import { Payment } from '@/components/Payment.tsx'
 import { menuItems } from '@/config/footerMenu.ts'
+import { TranslationKey, TranslationMap } from '@/translations.ts'
+import { PartialMeta } from '@/config/meta.ts'
 
-export const Footer = () => {
+interface FooterProps {
+  meta: PartialMeta
+  t: TranslationMap
+}
+
+export const Footer = ({ meta, t }: FooterProps) => {
   return (
     <footer className='xl:text-[1.3vw]'>
       <div
@@ -30,7 +36,7 @@ export const Footer = () => {
           >
             <a href='#' className='flex items-center'>
               <img
-                src={'/' + meta.logos.square}
+                src={'/' + meta.logos!.square}
                 className={`
                 mr-3 flex-shrink-0 h-8 drop-shadow
                 xl:h-[2.5vw]
@@ -45,7 +51,7 @@ export const Footer = () => {
                 drop-shadow
                 `}
               >
-                {meta.title}
+                Sternvoll Jewelry
               </h1>
             </a>
             <p
@@ -56,7 +62,7 @@ export const Footer = () => {
               lg:text-lg xl:text-[1.5vw] xl:leading-snug
               `}
             >
-              {meta.shortDescription}
+              {t[meta.shortDescription as TranslationKey]}
             </p>
             <div class='pt-5'>
               <Payment />
@@ -67,12 +73,12 @@ export const Footer = () => {
           <div className='pl-2 pt-6 w-full md:w-1/2 flex flex-wrap justify-between'>
             {menuItems.map((section) => (
               <div key={section.title} className='w-1/2 pb-6'>
-                <h3 className='font-semibold mb-4'>{section.title}</h3>
+                <h3 className='font-semibold mb-4'>{t[section.title]}</h3>
                 <ul className='text-gray-500 space-y-2'>
                   {section.links.map((link) => (
                     <li key={link.label}>
                       <a href={link.href} className='hover:underline'>
-                        {link.label}
+                        {t[link.label]}
                       </a>
                     </li>
                   ))}
@@ -90,8 +96,8 @@ export const Footer = () => {
         `}
       >
         <MovingText
-          firstLine='There is nothing wrong'
-          secondLine='with looking good'
+          firstLine={t['There is nothing wrong']}
+          secondLine={t['with looking good']}
           inset={{
             top: {
               xStart: -50,
@@ -116,7 +122,7 @@ export const Footer = () => {
         pb-8
         `}
       >
-        <p>© 2024. All Rights Reserved.</p>
+        <p>{t['© 2024. All Rights Reserved.']}</p>
       </div>
     </footer>
   )

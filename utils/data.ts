@@ -1,4 +1,3 @@
-// /home/user/www.sternvoll.com/utils/data.ts
 import useSWR, { mutate } from 'swr'
 import { Image, Money } from './types.ts'
 

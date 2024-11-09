@@ -6,6 +6,8 @@ import ProductDetails from '@/islands/ProductDetails.tsx'
 import { graphql } from '@/utils/shopify.ts'
 import { Product } from '@/utils/types.ts'
 import { SelectedWorks } from '@/components/SelectedWorks.tsx'
+import { Data } from '@/routes/_middleware.ts'
+import { meta as siteMeta } from '@/config/meta.ts'
 
 const q = `query ($product: String!) {
   product(handle: $product) {
@@ -88,10 +90,14 @@ interface Query {
   relatedProducts: Product[]
 }
 
-export const handler: Handlers<Query> = {
+export const handler: Handlers<Query, Data> = {
   async GET(_req, ctx) {
     try {
-      const data = await graphql<Query>(q, { product: ctx.params.product })
+      const data = await graphql<Query>(
+        q,
+        { product: ctx.params.product },
+        ctx.state.geo.lang,
+      )
       if (!data.product) {
         return new Response('Product not found', { status: 404 })
       }
@@ -100,7 +106,11 @@ export const handler: Handlers<Query> = {
       const tags = data.product.tags ? data.product.tags.join(' ') : ''
       const relatedData = await graphql<
         { products: { edges: { node: Product }[] } }
-      >(relatedProductsQuery, { query: tags })
+      >(
+        relatedProductsQuery,
+        { query: tags },
+        ctx.state.geo.lang,
+      )
 
       const relatedProducts = relatedData.products.edges.map((edge) =>
         edge.node
@@ -114,16 +124,19 @@ export const handler: Handlers<Query> = {
   },
 }
 
-export default function ProductPage(ctx: PageProps<Query>) {
-  const { data, url } = ctx
+export default function ProductPage(ctx: PageProps<Query, Data>) {
+  const { data, url, state } = ctx
+  const getT = state.geo.getT
+  const t = getT()
 
   if (!data.product) {
-    return <div>Product not found</div>
+    return <div>{t['Product not found']}</div>
   }
 
   const meta = {
+    ...siteMeta,
+    locale: state.geo.locale,
     description: data.product.description,
-    locale: 'en_US',
     image: {
       url: data.product.featuredImage!.url,
       width: data.product.featuredImage!.width,
@@ -138,7 +151,7 @@ export default function ProductPage(ctx: PageProps<Query>) {
   return (
     <div class='mt-24 lg:mt-[13vw]'>
       <Meta url={url} meta={meta} />
-      <Header forceBackground />
+      <Header forceBackground t={getT(['Shopping Cart', 'Open cart'])} />
 
       <ProductDetails product={data.product!} />
 
@@ -173,7 +186,7 @@ export default function ProductPage(ctx: PageProps<Query>) {
         </div>
       </div>
 
-      <Footer />
+      <Footer meta={meta} t={t} />
     </div>
   )
 }

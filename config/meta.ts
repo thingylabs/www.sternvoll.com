@@ -20,9 +20,9 @@ export const meta = {
   },
   coverImage: '', // TODO: what for?
   slogan: // <80 chars
-    `𝗘𝗳𝗳𝗼𝗿𝘁𝗹𝗲𝘀𝘀 𝗰𝗵𝗶𝗰, everyday doesn't mean boring!`,
+    "𝗘𝗳𝗳𝗼𝗿𝘁𝗹𝗲𝘀𝘀 𝗰𝗵𝗶𝗰, everyday doesn't mean boring!",
   shortDescription: // <150 chars
-    `Everyday doesn't mean boring! Discover luxurious 18K gold and lab-grown diamond jewelry that combines timeless elegance with modern style.`,
+    "Everyday doesn't mean boring! Discover luxurious 18K gold and lab-grown diamond jewelry that combines timeless elegance with modern style.",
   social: {
     facebook: 'https://www.facebook.com/sternvoll/',
     instagram: 'https://www.instagram.com/sternvolljewelry',
@@ -37,3 +37,7 @@ export const meta = {
     linkedin: 'https://www.linkedin.com/company/sternvoll/',
   },
 }
+export type Meta = typeof meta
+
+// Create a type that allows for a subset of the Meta type
+export type PartialMeta = Partial<Meta>

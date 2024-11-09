@@ -1,10 +1,12 @@
 import { JSX } from 'preact'
+import { TranslationMap } from '@/translations.ts'
 
 interface HeroProps {
   children: JSX.Element
+  t: TranslationMap
 }
 
-export function Hero({ children }: HeroProps) {
+export function Hero({ children, t }: HeroProps) {
   return (
     <div class='relative h-screen'>
       {/* The Header or other content passed as children */}
@@ -37,7 +39,7 @@ export function Hero({ children }: HeroProps) {
             leading-none drop-shadow
           `}
           >
-            Effortless chic,
+            {t['Effortless chic']},
           </h1>
           <p
             class={`
@@ -47,7 +49,7 @@ export function Hero({ children }: HeroProps) {
             drop-shadow
           `}
           >
-            alltäglich heißt nicht langweilig.
+            {t['everyday doesn\’t mean boring']}.
           </p>
 
           {/* Button */}
@@ -61,7 +63,7 @@ export function Hero({ children }: HeroProps) {
             lg:mt-10 xl:mt-[3vw]
             `}
           >
-            JETZT SHOPPEN
+            {t['SHOP NOW']}
           </a>
         </div>
       </div>
