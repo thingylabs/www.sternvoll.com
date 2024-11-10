@@ -33,7 +33,7 @@ export function InlineMenu() {
       class={`
     hidden lg:flex justify-center space-x-6 mt-2 mb-1
     md:mt-[1.75vw]
-    2xl:mt-[1vw] 2xl:text-[1.3vw]
+    2xl:mt-[0.75vw] 2xl:text-[1.3vw] 2xl:space-x-[2vw]
     `}
     >
       {menuItems.map((category) =>

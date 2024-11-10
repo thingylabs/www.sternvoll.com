@@ -23,7 +23,7 @@ export function AddToCart(props: AddToCartProps) {
       disabled={!data && !isAdding}
       class={`w-full ${
         isAdding ? '!bg-gray-400' : 'bg-gray-700'
-      } border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-900`}
+      } border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-900 2xl:text-[1.5vw] 2xl:py-[1vw]`}
     >
       {isAdding ? 'Adding...' : 'Add to Cart'}
     </button>

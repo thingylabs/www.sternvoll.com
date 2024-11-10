@@ -155,7 +155,7 @@ export default function ProductPage(ctx: PageProps<Query, Data>) {
 
       <ProductDetails product={data.product!} />
 
-      <div class='px-4 md:px-8 lg:px-12 xl:px-0 xl:max-w-[80vw] mx-auto'>
+      <div class='px-4 md:px-8 lg:px-12 xl:px-0 xl:max-w-[80vw] mx-auto 2xl:pt-[5vw]'>
         <div class='mt-16'>
           <SelectedWorks
             title='Related jewelry'
@@ -163,7 +163,7 @@ export default function ProductPage(ctx: PageProps<Query, Data>) {
           />
         </div>
 
-        <div class='back-to-shop mt-12 xl:text-base'>
+        <div class='back-to-shop mt-12 xl:text-base 2xl:text-[1.25vw]'>
           <a
             href='/'
             class='flex items-center gap-2 text-gray-500 hover:text-gray-800 transition-colors duration-200'

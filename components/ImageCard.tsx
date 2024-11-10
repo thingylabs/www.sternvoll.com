@@ -54,16 +54,18 @@ export const ImageCard: FunctionalComponent<ImageCardProps> = ({
             isRight ? 'md:pl-8 text-right' : 'md:pr-8 text-left'
           } box-border max-w-full lg:px-2 xl:px-12`}
         >
-          <h2 class='text-5xl font-accent mb-4 md:leading-tight lg:text-7xl'>
+          <h2 class='text-5xl font-accent mb-4 md:leading-tight lg:text-7xl 2xl:text-[5vw]'>
             {title}
           </h2>
-          <p class='text-3xl leading-normal mb-6 font-accent italic'>{text}</p>
+          <p class='text-3xl leading-normal mb-6 font-accent italic 2xl:text-[2.5vw]'>
+            {text}
+          </p>
 
           {/* Link Section with Dash */}
           <div class={`flex ${isRight ? 'justify-end' : 'justify-start'}`}>
             <a
               href={link}
-              class='group relative pl-12 text-xs 2xl:text-base tracking-widest bg-white text-primary font-bold py-3 px-4 rounded hover:bg-primary hover:text-white transition-colors inline-block truncate'
+              class='group relative pl-12 text-xs 2xl:text-[1vw] tracking-widest bg-white text-primary font-bold py-3 px-4 rounded hover:bg-primary hover:text-white transition-colors inline-block truncate'
             >
               {/* Dash before the link */}
               <span class='absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-[2px] bg-secondary transition-all duration-300 ease-in-out group-hover:w-6 group-hover:left-3'>

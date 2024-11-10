@@ -121,7 +121,7 @@ export function Collections() {
         <img
           src='/hand.png'
           alt='Hand holding jewelry'
-          class='w-auto max-w-[40vw] h-auto object-contain xl:max-w-[60vw]'
+          class='w-auto max-w-[40vw] h-auto object-contain xl:max-w-[60vw] 2xl:w-[20vw]'
         />
       </div>
 

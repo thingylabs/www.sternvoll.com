@@ -144,7 +144,9 @@ export default function Home(ctx: PageProps<Collection, Data>) {
         />
       </div>
 
-      <Collections />
+      <div class='2xl:pt-[5vw]'>
+        <Collections />
+      </div>
 
       <div
         class={`
@@ -152,6 +154,7 @@ export default function Home(ctx: PageProps<Collection, Data>) {
       md:space-y-0 md:grid md:grid-cols-2 md:gap-6
       lg:gap-8
       xl:grid-cols-4 xl:gap-8
+      2xl:pt-[5vw]
       `}
       >
         <CategoryCard

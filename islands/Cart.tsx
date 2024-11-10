@@ -54,7 +54,7 @@ export function Cart(
         } lg:bg-transparent lg:border-none lg:p-0 lg:opacity-100`}
       >
         <span class='sr-only'>{t['Open cart']}</span>
-        <div class='w-6 h-6 lg:w-7 lg:h-7 flex items-center justify-center'>
+        <div class='w-6 h-6 lg:w-7 lg:h-7 flex items-center justify-center 2xl:w-[3vw] 2xl:h-[3vw] 2xl:ml-[1vw]'>
           <svg
             viewBox='0 0 24 24'
             fill='none'

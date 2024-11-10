@@ -70,7 +70,7 @@ export function Header({ forceBackground = false, t }: HeaderProps) {
             <img
               class={`
               object-scale-down h-10
-              lg:h-[2.75vw] 2xl:h-[2vw]
+              lg:h-[2.75vw] 2xl:h-[2.5vw] 2xl:my-[1vw]
               `}
               src='/Sternvoll-bright.png'
               alt='Sternvoll'
@@ -84,6 +84,7 @@ export function Header({ forceBackground = false, t }: HeaderProps) {
               <svg
                 width='30'
                 height='30'
+                class='2xl:w-[3vw] 2xl:h-[3vw]'
                 viewBox='0 0 24 24'
                 fill='none'
                 xmlns='http://www.w3.org/2000/svg'

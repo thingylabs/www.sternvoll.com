@@ -152,7 +152,10 @@ export default function ProductDetails({ product }: { product: Product }) {
       {/* Product Details Section */}
       <div class='xl:text-[1.1vw]'>
         {/* Breadcrumb */}
-        <nav class='my-4 text-sm xl:text-base text-gray-500 flex justify-center md:justify-start'>
+        <nav
+          class={`my-4 text-sm xl:text-base text-gray-500 flex justify-center md:justify-start
+        2xl:text-[1.25vw]`}
+        >
           <a href='/' class='mr-2'>Home</a> &gt;{' '}
           <a href='#' class='mx-2'>All Jewelry</a>
           {category && (
@@ -165,10 +168,13 @@ export default function ProductDetails({ product }: { product: Product }) {
 
         {/* Product Title and Price */}
         <div class='flex flex-col items-center md:items-start gap-2 text-center md:text-left'>
-          <h1 class='text-2xl lg:text-3xl xl:text-[1.75vw] font-semibold text-gray-800'>
+          <h1
+            class={`text-2xl lg:text-3xl xl:text-[1.75vw] font-semibold text-gray-800
+          2xl:mt-[2vw]`}
+          >
             {product.title}
           </h1>
-          <div class='text-xl xl:text-[1.5vw] font-thin tracking-wide'>
+          <div class='text-xl xl:text-[1.5vw] font-thin tracking-wide 2xl:mt-[2vw]'>
             {formatCurrency(variant.priceV2)}
           </div>
         </div>
@@ -177,21 +183,21 @@ export default function ProductDetails({ product }: { product: Product }) {
         <section aria-labelledby='information-heading' class='mt-4'>
           <h2 id='information-heading' class='sr-only'>Product information</h2>
           {!variant.availableForSale && (
-            <p class='text-base text-red-500 pb-2 xl:text-[1.5vw]'>
+            <p class='text-base text-red-500 pb-2 xl:text-[1.5vw] 2xl:mt-[2vw]'>
               Out of stock
             </p>
           )}
-          <p class='mt-2 text-base text-gray-600 xl:text-[1.3vw] xl:leading-normal'>
+          <p class='mt-2 text-base text-gray-600 xl:text-[1.3vw] xl:leading-normal 2xl:text-[1.5vw] 2xl:mt-[2vw]'>
             {product.descriptionHtml?.split('</p>')[0].replace(/<[^>]+>/g, '')}
           </p>
         </section>
 
         {/* Product Form */}
-        <section aria-labelledby='options-heading' class='pt-4'>
+        <section aria-labelledby='options-heading' class='pt-4 2xl:mt-[2vw]'>
           {product.variants.nodes.length > 1 && (
             <div class='group'>
-              <div class='relative p-4 flex items-center justify-between rounded-lg border-2 border-gray-300 group-hover:border-gray-400 transition-colors'>
-                <span>{/* space holderplace, don't remove */}</span>
+              <div class='relative p-4 flex items-center justify-between rounded-lg border-2 border-gray-300 group-hover:border-gray-400 transition-colors 2xl:text-[1.5vw] 2xl:p-[1vw]'>
+                <span>{/* spaceholder place, don't remove */}</span>
                 <span class='text-gray-400 group-hover:text-gray-600 transition-colors'>
                   <svg
                     width='16'
@@ -217,15 +223,20 @@ export default function ProductDetails({ product }: { product: Product }) {
                   </svg>
                 </span>
                 <select
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setVariant(
                       JSON.parse((e.target as HTMLSelectElement).value),
-                    )}
+                    )
+                    ;(e.target as HTMLSelectElement).blur()
+                  }}
                   class='absolute pl-4 top-0 left-0 block w-full h-full rounded-lg appearance-none bg-transparent cursor-pointer'
                 >
                   {product.variants.nodes.map((variant) => {
                     return (
-                      <option value={JSON.stringify(variant)}>
+                      <option
+                        value={JSON.stringify(variant)}
+                        class='2xl:text-[2vw]'
+                      >
                         {variant.title}
                       </option>
                     )
@@ -244,16 +255,20 @@ export default function ProductDetails({ product }: { product: Product }) {
         {/* Additional Information Accordion */}
         {accordions.length > 0 && (
           <section class='mt-8'>
-            <h3 class='text-lg font-semibold mb-4'>Additional Information</h3>
+            <h3 class='text-lg font-semibold mb-4 2xl:text-[1.5vw] 2xl:py-[2vw]'>
+              Additional Information
+            </h3>
             {accordions.map(({ title, content }, index) => (
               <details
                 key={index}
                 class='border border-tertiary-darker rounded-lg xl:text-base'
               >
-                <summary class='p-4 bg-tertiary cursor-pointer'>
+                <summary class='p-4 bg-tertiary cursor-pointer 2xl:text-[1.5vw] 2xl:p-[1.25vw]'>
                   {title}
                 </summary>
-                <div class='p-4 bg-tertiary pt-0'>{content}</div>
+                <div class='p-4 bg-tertiary pt-0 2xl:text-[1.5vw] 2xl:leading-normal'>
+                  {content}
+                </div>
               </details>
             ))}
           </section>

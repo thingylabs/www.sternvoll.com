@@ -59,7 +59,7 @@ export function ProductCard({ product, showcase = false }: ProductCardProps) {
               <a
                 key={index}
                 href='#'
-                class='hover:text-secondary text-gray-500 text-sm xl:text-base 2xl:text-lg flex items-center'
+                class='hover:text-secondary text-gray-500 text-sm xl:text-base 2xl:text-[1.25vw] 2xl:pt-[0.25vw] flex items-center'
               >
                 {index !== 0 && (
                   <span class='w-1 h-1 bg-gray-400 rounded-full inline-block mx-1'>
