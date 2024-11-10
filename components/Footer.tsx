@@ -39,7 +39,7 @@ export const Footer = ({ meta, t }: FooterProps) => {
                 src={'/' + meta.logos!.square}
                 className={`
                 mr-3 flex-shrink-0 h-8 drop-shadow
-                xl:h-[2.5vw]
+                xl:h-[2vw]
                 `}
                 alt='Sternvoll Logo'
               />
@@ -47,7 +47,7 @@ export const Footer = ({ meta, t }: FooterProps) => {
                 className={`
                 pt-2
                 text-3xl font-accent text-black font-bold
-                xl:text-[2.5vw]
+                xl:text-[2vw]
                 drop-shadow
                 `}
               >
@@ -59,7 +59,7 @@ export const Footer = ({ meta, t }: FooterProps) => {
               text-justify font-accent tracking-wider text-black
               mt-4
               drop-shadow
-              lg:text-lg xl:text-[1.5vw] xl:leading-snug
+              lg:text-lg xl:text-[1vw] xl:leading-snug
               `}
             >
               {t[meta.shortDescription as TranslationKey]}
@@ -73,8 +73,10 @@ export const Footer = ({ meta, t }: FooterProps) => {
           <div className='pl-2 pt-6 w-full md:w-1/2 flex flex-wrap justify-between'>
             {menuItems.map((section) => (
               <div key={section.title} className='w-1/2 pb-6'>
-                <h3 className='font-semibold mb-4'>{t[section.title]}</h3>
-                <ul className='text-gray-500 space-y-2'>
+                <h3 className='font-semibold mb-4 xl:text-[1vw]'>
+                  {t[section.title]}
+                </h3>
+                <ul className='text-gray-500 space-y-2 xl:text-[1vw]'>
                   {section.links.map((link) => (
                     <li key={link.label}>
                       <a href={link.href} className='hover:underline'>
@@ -100,12 +102,12 @@ export const Footer = ({ meta, t }: FooterProps) => {
           secondLine={t['with looking good']}
           inset={{
             top: {
-              xStart: -50,
-              xEnd: 90,
+              xStart: -40,
+              xEnd: 30,
             },
             bottom: {
               xStart: 100,
-              xEnd: -110,
+              xEnd: -10,
             },
           }}
           fontSize='9vw'

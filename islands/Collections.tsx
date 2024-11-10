@@ -126,7 +126,7 @@ export function Collections() {
       </div>
 
       <div class='absolute bottom-10 text-center px-4 z-20 xl:pt-[10vw]'>
-        <p class='text-2xl font-accent mt-5 md:text-3xl md:leading-relaxed xl:text-[3vw] xl:w-[80vw] x:mx-auto'>
+        <p class='text-2xl font-accent mt-5 md:text-3xl md:leading-relaxed xl:text-[3vw] 2xl:text-[2vw] xl:w-[80vw] x:mx-auto'>
           Entdecken Sie unsere Schmuckkollektionen, inspiriert von den Wundern
           der Natur, dem Glanz der Städte und den feinen Linien moderner Kunst.
         </p>
