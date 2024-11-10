@@ -153,7 +153,19 @@ export default function CollectionPage(ctx: PageProps<Query, Data>) {
         <h1 class='text-2xl font-bold mb-4'>{collection.title}</h1>
         {collection.descriptionHtml && (
           <div
-            class='collection-description mb-8'
+            class='
+          prose prose-lg text-gray-700 
+          [&>h2]:text-3xl [&>h2]:font-bold [&>h2]:mt-6 [&>h2]:mb-4 
+          [&>h3]:text-2xl [&>h3]:font-bold [&>h3]:mt-6 [&>h3]:mb-4
+          [&>h4]:text-xl [&>h4]:font-semibold [&>h4]:mt-4 [&>h4]:mb-3
+          [&>p]:mb-4 [&>p]:text-base
+          [&>p>strong]:text-gray-800 [&>p>strong]:font-semibold
+          [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:mb-4
+          [&>ul>li]:mb-2 
+          [&>li>strong]:text-gray-800 [&>li>strong]:font-semibold
+          [&>a]:text-blue-600 [&>a]:underline 
+          [&>em]:text-gray-700 [&>em]:italic 
+        '
             dangerouslySetInnerHTML={{ __html: collection.descriptionHtml }}
           />
         )}
