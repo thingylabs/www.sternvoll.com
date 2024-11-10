@@ -157,11 +157,13 @@ export default function ProductDetails({ product }: { product: Product }) {
         2xl:text-[1.25vw]`}
         >
           <a href='/' class='mr-2'>Home</a> &gt;{' '}
-          <a href='#' class='mx-2'>All Jewelry</a>
+          <a href='/collections/all' class='mx-2'>All Jewelry</a>
           {category && (
             <>
               {' '} &gt;{' '}
-              <a href={category.link ?? '#'} class='ml-2'>{category.label}</a>
+              <a href={`/collections/${category.link ?? '#'}`} class='ml-2'>
+                {category.label}
+              </a>
             </>
           )}
         </nav>
