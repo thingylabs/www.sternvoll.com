@@ -40,7 +40,7 @@ export function Header({ forceBackground = false, t }: HeaderProps) {
   }, [])
 
   return (
-    <div class='h-[18vw]'>
+    <div class='h-[12vw]'>
       <header
         class={`fixed top-0 left-0 w-full z-20 p-4 2xl:p-[1vw] transition-all duration-500 ${
           hasBackground.value

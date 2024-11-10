@@ -11,7 +11,7 @@ export function SelectedWorks(
 ) {
   return (
     <section>
-      <h2 class='text-2xl md:text-4xl font-accent'>{title}:</h2>
+      <h2 class='text-3xl md:text-4xl font-accent pb-2'>{title}:</h2>
       <div class='grid grid-cols-1 md:grid-cols-2 gap-8 lg:grid-cols-4'>
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />

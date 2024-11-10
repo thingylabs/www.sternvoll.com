@@ -58,7 +58,7 @@ export default function ProductDetails({ product }: { product: Product }) {
   const accordions = parseDescription(product.descriptionHtml)
 
   return (
-    <div class='w-11/12 xl:max-w-[80vw] mx-auto mt-8 grid gap-8 md:grid-cols-2'>
+    <div class='w-11/12 xl:max-w-[80vw] mx-auto grid gap-8 md:grid-cols-2'>
       {/* Product image */}
       <div class='relative'>
         <div
@@ -244,11 +244,14 @@ export default function ProductDetails({ product }: { product: Product }) {
           <section class='mt-8'>
             <h3 class='text-lg font-semibold mb-4'>Additional Information</h3>
             {accordions.map(({ title, content }, index) => (
-              <details key={index} class='border rounded-lg'>
-                <summary class='p-4 bg-gray-100 cursor-pointer'>
+              <details
+                key={index}
+                class='border border-tertiary-darker rounded-lg'
+              >
+                <summary class='p-4 bg-tertiary cursor-pointer'>
                   {title}
                 </summary>
-                <div class='p-4 text-gray-600'>{content}</div>
+                <div class='p-4  bg-tertiary pt-0'>{content}</div>
               </details>
             ))}
           </section>

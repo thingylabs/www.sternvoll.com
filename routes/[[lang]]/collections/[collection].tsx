@@ -147,9 +147,7 @@ export default function CollectionPage(ctx: PageProps<Query, Data>) {
         }}
       />
       <Header forceBackground t={t} />
-      <main class='max-w-7xl mx-auto p-4 pt-[10vw]'>
-        <h1 class='text-3xl md:text-5xl font-bold mb-6'>{collection.title}</h1>
-        {/* CollectionContent Island Component */}
+      <main class='max-w-7xl mx-auto p-4 pt-[2vw]'>
         <CollectionContent products={products} title={collection.title} />
       </main>
       <Footer meta={meta} t={t} />
