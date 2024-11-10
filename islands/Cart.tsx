@@ -1,5 +1,4 @@
 import { useRef } from 'preact/hooks'
-import { IconCart } from '@/components/IconCart.tsx'
 import {
   CartData,
   formatCurrency,
@@ -48,20 +47,45 @@ export function Cart(
       <button
         onClick={() => ref.current!.showModal()}
         type='button'
-        class={`relative rounded-md p-2 opacity-50 hover:opacity-100 ${
+        class={`relative flex items-center justify-center rounded-md p-2 opacity-50 hover:opacity-100 ${
           transparentButton
-            ? 'bg-transparent border border-secondary opacity-6'
+            ? 'bg-transparent border border-secondary opacity-60'
             : 'bg-secondary'
-        }`}
+        } lg:bg-transparent lg:border-none lg:p-0 lg:opacity-100`}
       >
         <span class='sr-only'>{t['Open cart']}</span>
-        <IconCart size={globalThis.innerWidth >= 1536 ? 48 : 24} />
+        <div class='w-6 h-6 lg:w-7 lg:h-7 flex items-center justify-center'>
+          <svg
+            viewBox='0 0 24 24'
+            fill='none'
+            xmlns='http://www.w3.org/2000/svg'
+            class='w-full h-full'
+          >
+            <rect
+              x='4.5'
+              y='6.5'
+              width='15'
+              height='13'
+              rx='2.5'
+              stroke='currentColor'
+              stroke-width='1.5'
+            />
+            <path
+              d='M9 6V4C9 2.89543 9.89543 2 11 2H13C14.1046 2 15 2.89543 15 4V6'
+              stroke='currentColor'
+              stroke-width='1.5'
+              fill='none'
+              stroke-linecap='round'
+            />
+          </svg>
+        </div>
         {data && data.lines.nodes.length > 0 && (
           <span class='absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2'>
             {data?.lines.nodes.length}
           </span>
         )}
       </button>
+
       <dialog
         ref={ref}
         class='bg-transparent p-0 m-0 pt-[50%] sm:pt-0 max-w-full sm:pl-[40%] md:pl-[60%] w-full max-h-full h-full transition-transform duration-500 sm:translate-x-0 translate-y-0 backdrop-blur'

@@ -23,7 +23,7 @@ export const config: RouteConfig = {
 
 const q = `{
   collection(id: "gid://shopify/Collection/534705242378") {
-    products(first: 8) {
+    products(first: 4) {
       nodes {
         id
         handle

@@ -29,7 +29,13 @@ export function InlineMenu() {
   }, [openCategory])
 
   return (
-    <div class='hidden lg:flex justify-center space-x-6 mt-2 mb-1 2xl:mt-[1vw] 2xl:text-[1.3vw]'>
+    <div
+      class={`
+    hidden lg:flex justify-center space-x-6 mt-2 mb-1
+    md:mt-[1.75vw]
+    2xl:mt-[1vw] 2xl:text-[1.3vw]
+    `}
+    >
       {menuItems.map((category) =>
         category.items
           ? (
@@ -40,7 +46,7 @@ export function InlineMenu() {
             >
               <button
                 onClick={() => handleToggle(category.label)}
-                class='text-white hover:text-gray-300 flex items-center'
+                class='text-white hover:text-gray-300 flex items-center opacity-75'
               >
                 {category.label}
                 <span class='ml-1 pl-2'>▾</span> {/* Triangle indicator */}
@@ -76,7 +82,7 @@ export function InlineMenu() {
             <a
               key={category.label}
               href={category.link}
-              class='text-white hover:text-gray-300'
+              class='text-white hover:text-gray-300  opacity-75'
             >
               {category.label}
             </a>

@@ -68,14 +68,37 @@ export function Header({ forceBackground = false, t }: HeaderProps) {
             class='absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none'
           >
             <img
-              class='object-scale-down h-10 2xl:h-[2vw]'
+              class={`
+              object-scale-down h-10
+              lg:h-[2.75vw] 2xl:h-[2vw]
+              `}
               src='/Sternvoll-bright.png'
               alt='Sternvoll'
             />
           </a>
 
           {/* Cart - Stays on the Right */}
-          <div class='flex-none'>
+          <div class='flex items-center space-x-4 flex-none'>
+            {/* User Icon */}
+            <div class='hidden lg:inline'>
+              <svg
+                width='30'
+                height='30'
+                viewBox='0 0 24 24'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <circle cx='12' cy='8' r='4' stroke='white' stroke-width='1' />
+                <path
+                  d='M4 20c0-4 4-6 8-6s8 2 8 6'
+                  stroke='white'
+                  stroke-width='1'
+                  stroke-linecap='round'
+                />
+              </svg>
+            </div>
+
+            {/* Cart Component */}
             <Cart transparentButton={!hasBackground.value} t={t} />
           </div>
         </div>
