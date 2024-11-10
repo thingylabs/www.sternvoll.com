@@ -63,7 +63,7 @@ export const ImageCard: FunctionalComponent<ImageCardProps> = ({
           <div class={`flex ${isRight ? 'justify-end' : 'justify-start'}`}>
             <a
               href={link}
-              class='group relative pl-12 text-xs tracking-widest bg-white text-primary font-bold py-3 px-4 rounded hover:bg-primary hover:text-white transition-colors inline-block truncate'
+              class='group relative pl-12 text-xs 2xl:text-base tracking-widest bg-white text-primary font-bold py-3 px-4 rounded hover:bg-primary hover:text-white transition-colors inline-block truncate'
             >
               {/* Dash before the link */}
               <span class='absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-[2px] bg-secondary transition-all duration-300 ease-in-out group-hover:w-6 group-hover:left-3'>
