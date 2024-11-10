@@ -35,11 +35,11 @@ export function OurStory({ t }: { t: TranslationMap }) {
           text-center
           `}
           >
-            {t['In the heart of Stuttgart, Sternvoll creates']}
+            {t['In the heart of Stuttgart,']}
             <br />
-            {t['unique jewelry, inspired by']}
+            {t['Sternvoll creates unique jewelry,']}
             <br />
-            {t['cosmic beauty.']}
+            {t['inspired by cosmic beauty.']}
           </p>
           <div
             class={`

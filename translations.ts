@@ -91,13 +91,13 @@ export const translations = {
   'Classics': {
     de: 'Klassiker',
   },
-  'In the heart of Stuttgart, Sternvoll creates': {
+  'In the heart of Stuttgart,': {
     de: 'Im Herzen Stuttgarts kreiert Sternvoll',
   },
-  'unique jewelry, inspired by': {
+  'Sternvoll creates unique jewelry,': {
     de: 'einzigartigen Schmuck, inspiriert von',
   },
-  'cosmic beauty.': {
+  'inspired by cosmic beauty.': {
     de: 'kosmischer Schönheit.',
   },
   'OUR': {
