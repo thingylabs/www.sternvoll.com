@@ -40,7 +40,12 @@ export const ImageCard: FunctionalComponent<ImageCardProps> = ({
       >
         {/* Image Section */}
         <div class='relative w-full md:w-1/2 lg:w-[46%] z-10'>
-          <img src={'/' + image} alt={title} class='w-full object-cover' />
+          <img
+            src={'/' + image}
+            alt={title}
+            class='w-full object-cover'
+            crossorigin='anonymous'
+          />
         </div>
 
         {/* Text Section */}

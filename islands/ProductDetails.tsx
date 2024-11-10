@@ -73,6 +73,7 @@ export default function ProductDetails({ product }: { product: Product }) {
                 src={product.images.nodes[currentImageIndex].url}
                 alt={product.images.nodes[currentImageIndex].altText}
                 class='w-full h-full object-center object-contain'
+                crossorigin='anonymous'
               />
             )}
 
@@ -141,6 +142,7 @@ export default function ProductDetails({ product }: { product: Product }) {
                   src={image.url}
                   alt={image.altText}
                   class='w-full h-full object-cover'
+                  crossorigin='anonymous'
                 />
               </button>
             ))}

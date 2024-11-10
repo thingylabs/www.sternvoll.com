@@ -25,6 +25,7 @@ export function ProductCard(props: { product: Product }) {
               src={product.featuredImage.url}
               alt={product.featuredImage.altText || product.title}
               class='absolute inset-0 w-full h-full object-center object-contain'
+              crossorigin='anonymous'
             />
           )}
           <div class='absolute inset-0 flex items-center justify-center bg-[rgba(255,255,255,0.6)] opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
