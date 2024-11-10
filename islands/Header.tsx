@@ -50,7 +50,7 @@ export function Header({ forceBackground = false, t }: HeaderProps) {
           isVisible.value
             ? 'translate-y-0 opacity-100'
             : '-translate-y-full opacity-0'
-        }`}
+        } lg:text-white`}
       >
         <div class='relative flex items-center justify-between'>
           {/* Drawer Menu Button or Placeholder */}

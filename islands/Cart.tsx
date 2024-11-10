@@ -68,12 +68,12 @@ export function Cart(
               height='13'
               rx='2.5'
               stroke='currentColor'
-              stroke-width='1.5'
+              stroke-width='1'
             />
             <path
               d='M9 6V4C9 2.89543 9.89543 2 11 2H13C14.1046 2 15 2.89543 15 4V6'
               stroke='currentColor'
-              stroke-width='1.5'
+              stroke-width='1'
               fill='none'
               stroke-linecap='round'
             />
