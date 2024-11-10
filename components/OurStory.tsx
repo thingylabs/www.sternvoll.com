@@ -31,7 +31,7 @@ export function OurStory({ t }: { t: TranslationMap }) {
         >
           <p
             class={`
-          text-[6vw] md:text-[5vw] xl:text-[4vw]
+          text-[6vw] md:text-[5vw] xl:text-[4vw] 2xl:text-[3vw]
           text-center
           `}
           >

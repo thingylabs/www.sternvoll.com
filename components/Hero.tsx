@@ -35,7 +35,7 @@ export function Hero({ children, t }: HeroProps) {
           <h1
             class={`
             text-white font-accent
-            text-7xl md:text-[12vw] lg:text-[10vw]
+            text-7xl md:text-[12vw] lg:text-[10vw] 2xl:text-[7.5vw]
             leading-none drop-shadow
           `}
           >
@@ -45,7 +45,7 @@ export function Hero({ children, t }: HeroProps) {
             class={`
             text-white font-accent italic leading-snug
             text-3xl md:text-4xl xl:text-[3vw]
-            pr-10 lg:-mt-2
+            pr-10 lg:-mt-2 xl:leading-normal
             drop-shadow
           `}
           >

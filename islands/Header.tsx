@@ -87,7 +87,7 @@ export function Header({ forceBackground = false, t }: HeaderProps) {
               <svg
                 width='30'
                 height='30'
-                class='2xl:w-[3vw] 2xl:h-[3vw]'
+                class='2xl:w-[2vw] 2xl:h-[2vw]'
                 viewBox='0 0 24 24'
                 fill='none'
                 xmlns='http://www.w3.org/2000/svg'

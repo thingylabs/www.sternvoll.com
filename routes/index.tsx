@@ -90,7 +90,7 @@ export default function Home(ctx: PageProps<Collection, Data>) {
         />
       </Hero>
 
-      <div class='pt-[12.5vw]'>
+      <div class='pt-[12.5vw] 2xl:pt-[5vw]'>
         <OurStory t={t} />
       </div>
 
