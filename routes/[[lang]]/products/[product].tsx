@@ -163,7 +163,7 @@ export default function ProductPage(ctx: PageProps<Query, Data>) {
           />
         </div>
 
-        <div class='back-to-shop mt-12 xl:text-base 2xl:text-[1.25vw]'>
+        <div class='back-to-shop mt-12 xl:text-base 2xl:text-[1vw]'>
           <a
             href='/'
             class='flex items-center gap-2 text-gray-500 hover:text-gray-800 transition-colors duration-200'

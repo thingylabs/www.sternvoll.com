@@ -17,7 +17,7 @@ export function ProductCard({ product, showcase = false }: ProductCardProps) {
   })
 
   return (
-    <div key={product.id} class='mb-4 xl:text-[1.35vw]'>
+    <div key={product.id} class='mb-4 xl:text-[1vw]'>
       <a href={`/products/${product.handle}`} class='group'>
         <div
           class={`relative bg-white overflow-hidden transition-all duration-500 ${

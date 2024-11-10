@@ -154,7 +154,7 @@ export default function ProductDetails({ product }: { product: Product }) {
         {/* Breadcrumb */}
         <nav
           class={`my-4 text-sm xl:text-base text-gray-500 flex justify-center md:justify-start
-        2xl:text-[1.25vw]`}
+        2xl:text-[1vw]`}
         >
           <a href='/' class='mr-2'>Home</a> &gt;{' '}
           <a href='/collections/all' class='mx-2'>All Jewelry</a>
@@ -176,7 +176,7 @@ export default function ProductDetails({ product }: { product: Product }) {
           >
             {product.title}
           </h1>
-          <div class='text-xl xl:text-[1.5vw] font-thin tracking-wide 2xl:mt-[2vw]'>
+          <div class='text-xl xl:text-[1vw] font-thin tracking-wide 2xl:mt-[2vw]'>
             {formatCurrency(variant.priceV2)}
           </div>
         </div>
@@ -189,7 +189,7 @@ export default function ProductDetails({ product }: { product: Product }) {
               Out of stock
             </p>
           )}
-          <p class='mt-2 text-base text-gray-600 xl:text-[1.3vw] xl:leading-normal 2xl:text-[1.5vw] 2xl:mt-[2vw]'>
+          <p class='mt-2 text-base text-gray-600 xl:text-[1.3vw] xl:leading-normal 2xl:text-[1vw] 2xl:mt-[2vw]'>
             {product.descriptionHtml?.split('</p>')[0].replace(/<[^>]+>/g, '')}
           </p>
         </section>
@@ -198,7 +198,7 @@ export default function ProductDetails({ product }: { product: Product }) {
         <section aria-labelledby='options-heading' class='pt-4 2xl:mt-[2vw]'>
           {product.variants.nodes.length > 1 && (
             <div class='group'>
-              <div class='relative p-4 flex items-center justify-between rounded-lg border-2 border-gray-300 group-hover:border-gray-400 transition-colors 2xl:text-[1.5vw] 2xl:p-[1vw]'>
+              <div class='relative p-4 flex items-center justify-between rounded-lg border-2 border-gray-300 group-hover:border-gray-400 transition-colors 2xl:text-[1vw] 2xl:p-[1vw]'>
                 <span>{/* spaceholder place, don't remove */}</span>
                 <span class='text-gray-400 group-hover:text-gray-600 transition-colors'>
                   <svg
@@ -257,7 +257,7 @@ export default function ProductDetails({ product }: { product: Product }) {
         {/* Additional Information Accordion */}
         {accordions.length > 0 && (
           <section class='mt-8'>
-            <h3 class='text-lg font-semibold mb-4 2xl:text-[1.5vw] 2xl:py-[2vw]'>
+            <h3 class='text-lg font-semibold mb-4 2xl:text-[1vw] 2xl:py-[2vw]'>
               Additional Information
             </h3>
             {accordions.map(({ title, content }, index) => (
@@ -265,10 +265,10 @@ export default function ProductDetails({ product }: { product: Product }) {
                 key={index}
                 class='border border-tertiary-darker rounded-lg xl:text-base'
               >
-                <summary class='p-4 bg-tertiary cursor-pointer 2xl:text-[1.5vw] 2xl:p-[1.25vw]'>
+                <summary class='p-4 bg-tertiary cursor-pointer 2xl:text-[1vw] 2xl:p-[1.25vw]'>
                   {title}
                 </summary>
-                <div class='p-4 bg-tertiary pt-0 2xl:text-[1.5vw] 2xl:leading-normal'>
+                <div class='p-4 bg-tertiary pt-0 2xl:text-[1vw] 2xl:leading-normal'>
                   {content}
                 </div>
               </details>
