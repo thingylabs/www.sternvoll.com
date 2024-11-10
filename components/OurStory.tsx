@@ -13,11 +13,11 @@ export function OurStory({ t }: { t: TranslationMap }) {
         inset={{
           top: {
             xStart: -30,
-            xEnd: 30,
+            xEnd: 45,
           },
           bottom: {
-            xStart: 30,
-            xEnd: -40,
+            xStart: 45,
+            xEnd: -35,
             class: 'bottom-[25vw]',
           },
         }}
