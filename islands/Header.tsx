@@ -28,6 +28,9 @@ export function Header({ forceBackground = false, t }: HeaderProps) {
       lastScrollTop.value = scrollTop
     }
 
+    // Initial check for scroll position on mount
+    handleScroll()
+
     globalThis.addEventListener('scroll', handleScroll)
     return () => {
       globalThis.removeEventListener('scroll', handleScroll)
