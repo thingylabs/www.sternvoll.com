@@ -8,30 +8,30 @@ export function OurStory({ t }: { t: TranslationMap }) {
       <MovingText
         firstLine={t['Modern']}
         secondLine={t['Classics']}
-        fontSize='13vw'
+        fontSize='23vw'
         color='#eee8e3'
         inset={{
           top: {
-            xStart: 0,
-            xEnd: 40,
+            xStart: -30,
+            xEnd: 30,
           },
           bottom: {
-            xStart: 130,
-            xEnd: 20,
-            class: 'bottom-[10vw]',
+            xStart: 30,
+            xEnd: -40,
+            class: 'bottom-[25vw]',
           },
         }}
       >
         <div
           class={`
-        h-full pt-[10vw]
+        h-full pt-[20vw]
         font-accent
         flex flex-col justify-center items-center
         `}
         >
           <p
             class={`
-          text-[6vw] md:text-[5vw] xl:text-[4vw] 2xl:text-[2.5vw]
+          text-[6vw] md:text-[5vw] xl:text-[4vw] 2xl:text-[3vw]
           text-center
           `}
           >
@@ -43,8 +43,8 @@ export function OurStory({ t }: { t: TranslationMap }) {
           </p>
           <div
             class={`
-          relative
-          h-[20vw] w-[45vw]
+          relative pt-[3vw]
+          h-[45vw] w-[45vw]
           `}
           >
             <FillLetter
