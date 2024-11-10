@@ -26,7 +26,7 @@ export function FillLetter(
           {/* Letter with Fill-Up Effect */}
           <div
             class={`
-          text-[50vw] sm:text-[30vw] xl:text-[20vw] leading-none font-accent
+          text-[50vw] sm:text-[30vw] xl:text-[15vw] leading-none font-accent
           bg-[linear-gradient(to_top,#CB9274_0%,#CB9274_50%,white_50%,white_100%)]
           bg-clip-text text-transparent
           bg-[length:100%_200%] bg-[0%_0%]
@@ -46,7 +46,7 @@ export function FillLetter(
           >
             <div
               class={`
-            text-[3vw] sm:text-[2vw] xl:text-[1.25vw]
+            text-[3vw] sm:text-[2vw] xl:text-[1vw]
             font-accent font-semibold uppercase
             flex flex-col text-center
             `}

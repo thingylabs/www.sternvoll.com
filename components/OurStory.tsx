@@ -8,15 +8,15 @@ export function OurStory({ t }: { t: TranslationMap }) {
       <MovingText
         firstLine={t['Modern']}
         secondLine={t['Classics']}
-        fontSize='15vw'
+        fontSize='13vw'
         color='#eee8e3'
         inset={{
           top: {
-            xStart: -10,
+            xStart: 0,
             xEnd: 40,
           },
           bottom: {
-            xStart: 90,
+            xStart: 130,
             xEnd: 20,
             class: 'bottom-[10vw]',
           },
