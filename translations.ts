@@ -237,6 +237,10 @@ export const translations = {
   'IGI Certified Quality': {
     de: 'IGI-zertifizierte Qualität',
   },
+  // Journal component
+  'Inspiring stories, trends, and insights into the world of jewelry': {
+    de: 'Inspirierende Geschichten, Trends und Einblicke in die Schmuckwelt',
+  },
 }
 
 export type LanguageCode = typeof languages[number]['code']

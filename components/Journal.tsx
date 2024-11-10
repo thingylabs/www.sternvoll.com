@@ -1,21 +1,25 @@
 import { FillLetter } from '@/components/FillLetter.tsx'
+import { TranslationMap } from '@/translations.ts'
 
 interface JournalProps {
   imageSrc: string
   title: string
   date: string
+  t: TranslationMap
 }
 
-export function Journal({ imageSrc, title, date }: JournalProps) {
+export function Journal({ imageSrc, title, date, t }: JournalProps) {
   return (
     <>
       <div class='lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center lg:justify-center'>
         {/* Text Section */}
         <div class='flex flex-col justify-center items-center text-center p-8 pt-12 md:pb-0 lg:justify-center lg:items-center lg:text-center'>
           <div class='lg:w-[80%]'>
-            <h2 class='text-[5vw] font-accent'>Journal</h2>
+            <h2 class='text-[5vw] font-accent'>{t['Journal']}</h2>
             <p class='text-3xl font-accent italic pt-8 leading-normal md:w-1/2 md:mx-auto lg:w-full lg:mx-0 2xl:text-[2vw]'>
-              Inspirierende Geschichten, Trends und Einblicke in die Schmuckwelt
+              {t[
+                'Inspiring stories, trends, and insights into the world of jewelry'
+              ]}
             </p>
           </div>
 

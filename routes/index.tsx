@@ -189,6 +189,7 @@ export default function Home(ctx: PageProps<Collection, Data>) {
         imageSrc='journal-cover.jpg'
         title={t['Sternvoll Journal Cover']}
         date={t['2024 / April']}
+        t={t}
       />
 
       <Footer meta={meta} t={t} />
