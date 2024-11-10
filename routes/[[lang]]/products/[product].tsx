@@ -149,7 +149,7 @@ export default function ProductPage(ctx: PageProps<Query, Data>) {
   }
 
   return (
-    <div class='mt-24 lg:mt-[13vw]'>
+    <>
       <Meta url={url} meta={meta} />
       <Header forceBackground t={getT(['Shopping Cart', 'Open cart'])} />
 
@@ -187,6 +187,6 @@ export default function ProductPage(ctx: PageProps<Query, Data>) {
       </div>
 
       <Footer meta={meta} t={t} />
-    </div>
+    </>
   )
 }

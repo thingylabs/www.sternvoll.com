@@ -40,47 +40,49 @@ export function Header({ forceBackground = false, t }: HeaderProps) {
   }, [])
 
   return (
-    <header
-      class={`fixed top-0 left-0 w-full z-20 p-4 2xl:p-[1vw] transition-all duration-500 ${
-        hasBackground.value
-          ? 'bg-primary text-primary'
-          : 'bg-transparent text-white'
-      } transform ${
-        isVisible.value
-          ? 'translate-y-0 opacity-100'
-          : '-translate-y-full opacity-0'
-      }`}
-    >
-      <div class='relative flex items-center justify-between'>
-        {/* Drawer Menu Button or Placeholder */}
-        <div class='flex-none'>
-          <div class='lg:hidden'>
-            <Menu transparentButton={!hasBackground.value} />
+    <div class='h-[18vw]'>
+      <header
+        class={`fixed top-0 left-0 w-full z-20 p-4 2xl:p-[1vw] transition-all duration-500 ${
+          hasBackground.value
+            ? 'bg-primary text-primary'
+            : 'bg-transparent text-white'
+        } transform ${
+          isVisible.value
+            ? 'translate-y-0 opacity-100'
+            : '-translate-y-full opacity-0'
+        }`}
+      >
+        <div class='relative flex items-center justify-between'>
+          {/* Drawer Menu Button or Placeholder */}
+          <div class='flex-none'>
+            <div class='lg:hidden'>
+              <Menu transparentButton={!hasBackground.value} />
+            </div>
+            <div class='hidden lg:block w-10'></div>{' '}
+            {/* Placeholder for spacing */}
           </div>
-          <div class='hidden lg:block w-10'></div>{' '}
-          {/* Placeholder for spacing */}
+
+          {/* Centered Logo */}
+          <a
+            href='/'
+            class='absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none'
+          >
+            <img
+              class='object-scale-down h-10 2xl:h-[2vw]'
+              src='/Sternvoll-bright.png'
+              alt='Sternvoll'
+            />
+          </a>
+
+          {/* Cart - Stays on the Right */}
+          <div class='flex-none'>
+            <Cart transparentButton={!hasBackground.value} t={t} />
+          </div>
         </div>
 
-        {/* Centered Logo */}
-        <a
-          href='/'
-          class='absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none'
-        >
-          <img
-            class='object-scale-down h-10 2xl:h-[2vw]'
-            src='/Sternvoll-bright.png'
-            alt='Sternvoll'
-          />
-        </a>
-
-        {/* Cart - Stays on the Right */}
-        <div class='flex-none'>
-          <Cart transparentButton={!hasBackground.value} t={t} />
-        </div>
-      </div>
-
-      {/* Inline Navigation Links for large screens */}
-      <InlineMenu />
-    </header>
+        {/* Inline Navigation Links for large screens */}
+        <InlineMenu />
+      </header>
+    </div>
   )
 }
