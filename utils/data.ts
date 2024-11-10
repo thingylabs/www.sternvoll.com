@@ -137,12 +137,12 @@ export async function removeFromCart(cartId: string, lineItemId: string) {
 
 export function formatCurrency(amount: Money) {
   // Fallback to a default currency if none is provided
-  const currency = amount.currency || 'USD'
+  const currency = amount.currencyCode || 'USD'
 
   // Use Intl.NumberFormat with the fallback currency code
   const intl = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: currency,
   })
-  return intl.format(amount.amount)
+  return intl.format(Number(amount.amount))
 }

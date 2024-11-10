@@ -9,10 +9,11 @@ interface ProductCardProps {
 
 export function ProductCard({ product, showcase = false }: ProductCardProps) {
   const price = product.priceRange?.minVariantPrice?.amount ?? '0'
-  const currency = product.priceRange?.minVariantPrice?.currency ?? 'USD'
+  const currencyCode = product.priceRange?.minVariantPrice?.currencyCode ??
+    'USD'
   const formattedPrice = formatCurrency({
     amount: parseFloat('' + price),
-    currency,
+    currencyCode,
   })
 
   return (

@@ -28,7 +28,7 @@ const q = `query ($product: String!) {
       }
     }
 
-    variants(first: 10) {
+    variants(first: 250) {
       nodes {
         id
         title
@@ -145,7 +145,7 @@ export default function ProductPage(ctx: PageProps<Query, Data>) {
     },
     title: data.product.title,
     price: data.product.priceRange.minVariantPrice.amount,
-    currency: data.product.priceRange.minVariantPrice.currency,
+    currency: data.product.priceRange.minVariantPrice.currencyCode,
   }
 
   return (

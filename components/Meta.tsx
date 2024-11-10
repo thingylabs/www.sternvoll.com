@@ -13,7 +13,7 @@ export type HeadProps = {
       height: number
       alt: string
     }
-    price?: number
+    price?: number | string
     currency?: string
   }
 }

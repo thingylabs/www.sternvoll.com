@@ -1,6 +1,6 @@
 export interface Money {
-  amount: number
-  currency: string
+  amount: number | string
+  currencyCode: string
 }
 
 export interface Image {
