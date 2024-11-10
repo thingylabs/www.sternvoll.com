@@ -10,7 +10,7 @@ type MenuItem = {
 export const menuItems: MenuItem[] = [
   {
     label: 'Jewelry',
-    link: '#jewelry',
+    link: '/collections/all',
     items: [
       {
         label: 'All Jewelry',
@@ -19,38 +19,50 @@ export const menuItems: MenuItem[] = [
       },
       {
         label: 'Collections',
-        link: '#collections',
+        link: '/collections/all',
         items: [
-          { label: 'Heart-Shaped Jewelry', link: '#heart-shaped' },
-          { label: 'Pain-Free Earclips', link: '#earclips' },
-          { label: 'Diamond-Finishing', link: '#diamond-finishing' },
+          {
+            label: 'Heart-Shaped Jewelry',
+            link: '/collections/heart-shaped-jewelry',
+          },
+          {
+            label: 'Pain-Free Earclips',
+            link: '/collections/pain-free-clip-ons-earclips',
+          },
+          {
+            label: 'Diamond-Finishing',
+            link: '/collections/diamond-finishing',
+          },
         ],
       },
       {
         label: 'Materials',
-        link: '#materials',
+        link: '/collections/all',
         items: [
-          { label: '18k Gold', link: '#18k-gold' },
-          { label: '925 Sterling Silver', link: '#sterling-silver' },
-          { label: 'Diamonds', link: '#diamonds' },
-          { label: 'Pearls', link: '#pearls' },
+          { label: '18k Gold', link: '/18k-gold' },
+          {
+            label: '925 Sterling Silver',
+            link: '/collections/925-sterling-silver',
+          },
+          { label: 'Diamonds', link: '/collections/diamonds' },
+          { label: 'Pearls', link: '/collections/pearls' },
         ],
       },
       {
         label: 'Price',
-        link: '#price',
+        link: '/collections/all',
         items: [
-          { label: '> 1,000 Euro', link: '#price-above-1000' },
-          { label: '< 500 Euro', link: '#price-below-500' },
-          { label: '< 100 Euro', link: '#price-below-100' },
-          { label: '< 50 Euro', link: '#price-below-50' },
+          { label: '> 1,000 Euro', link: '/collections/over-1k-euro' },
+          { label: '< 500 Euro', link: '/collections/under-500-euro' },
+          { label: '< 100 Euro', link: '/collections/under-100-euro' },
+          { label: '< 50 Euro', link: '/collections/under-50-euro' },
         ],
       },
     ],
   },
-  { label: 'Rings', link: '#rings' },
-  { label: 'Earrings', link: '#earrings' },
-  { label: 'Necklaces', link: '#necklaces' },
-  { label: 'Engagement & Wedding', link: '#engagement-wedding' },
-  { label: 'On Sale 🔖', link: '#on-sale' },
+  { label: 'Rings', link: '/collections/rings' },
+  { label: 'Earrings', link: '/collections/earrings' },
+  { label: 'Necklaces', link: '/collections/necklace' },
+  { label: 'Engagement & Wedding', link: '/collections/engagement-wedding' },
+  { label: 'On Sale 🔖', link: '/collections/on-sale-🔖' },
 ]
