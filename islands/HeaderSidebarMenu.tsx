@@ -256,7 +256,9 @@ function MenuDrawer({
       {/* Footer Section */}
       <div class='mt-8 border-t border-gray-200 pt-4'>
         <div class='space-y-2'>
-          <button class='text-gray-600'>Log in</button>
+          <a class='text-gray-600' href='https://account.sternvoll.com/'>
+            Log in
+          </a>
           {/* Locale Selector */}
           <div
             class='text-gray-600 cursor-pointer flex items-center'
