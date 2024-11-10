@@ -46,7 +46,8 @@ export function FillLetter(
           >
             <div
               class={`
-            text-[3vw] sm:text-[2vw] xl:text-[1vw] font-accent font-semibold uppercase
+            text-[3vw] sm:text-[2vw] xl:text-[1.25vw]
+            font-accent font-semibold uppercase
             flex flex-col text-center
             `}
             >

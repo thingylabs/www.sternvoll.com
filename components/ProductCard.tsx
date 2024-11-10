@@ -16,7 +16,7 @@ export function ProductCard({ product, showcase = false }: ProductCardProps) {
   })
 
   return (
-    <div key={product.id} class='mb-4 xl:text-[1.2vw]'>
+    <div key={product.id} class='mb-4 xl:text-[1.35vw]'>
       <a href={`/products/${product.handle}`} class='group'>
         <div
           class={`relative bg-white overflow-hidden transition-all duration-500 ${
@@ -49,7 +49,7 @@ export function ProductCard({ product, showcase = false }: ProductCardProps) {
         </div>
       </a>
 
-      <div class='flex flex-wrap space-x-1 items-center pt-2'>
+      <div class='flex flex-wrap space-x-1 items-center pt-2 xl:pt-1'>
         {product.tags &&
           product.tags
             .filter(filterTags)
@@ -59,7 +59,7 @@ export function ProductCard({ product, showcase = false }: ProductCardProps) {
               <a
                 key={index}
                 href='#'
-                class='hover:text-secondary text-gray-500 text-sm flex items-center xl:text-[1vw]'
+                class='hover:text-secondary text-gray-500 text-sm xl:text-base flex items-center xl:text-[1vw]'
               >
                 {index !== 0 && (
                   <span class='w-1 h-1 bg-gray-400 rounded-full inline-block mx-1'>

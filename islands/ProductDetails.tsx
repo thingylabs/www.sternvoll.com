@@ -152,7 +152,7 @@ export default function ProductDetails({ product }: { product: Product }) {
       {/* Product Details Section */}
       <div class='xl:text-[1.1vw]'>
         {/* Breadcrumb */}
-        <nav class='my-4 text-sm xl:text-[0.9vw] text-gray-500 flex justify-center md:justify-start'>
+        <nav class='my-4 text-sm xl:text-base text-gray-500 flex justify-center md:justify-start'>
           <a href='/' class='mr-2'>Home</a> &gt;{' '}
           <a href='#' class='mx-2'>All Jewelry</a>
           {category && (
@@ -177,7 +177,9 @@ export default function ProductDetails({ product }: { product: Product }) {
         <section aria-labelledby='information-heading' class='mt-4'>
           <h2 id='information-heading' class='sr-only'>Product information</h2>
           {!variant.availableForSale && (
-            <p class='text-base text-red-500 xl:text-[1vw]'>Out of stock</p>
+            <p class='text-base text-red-500 pb-2 xl:text-[1.5vw]'>
+              Out of stock
+            </p>
           )}
           <p class='mt-2 text-base text-gray-600 xl:text-[1.3vw] xl:leading-normal'>
             {product.descriptionHtml?.split('</p>')[0].replace(/<[^>]+>/g, '')}
@@ -246,12 +248,12 @@ export default function ProductDetails({ product }: { product: Product }) {
             {accordions.map(({ title, content }, index) => (
               <details
                 key={index}
-                class='border border-tertiary-darker rounded-lg'
+                class='border border-tertiary-darker rounded-lg xl:text-base'
               >
                 <summary class='p-4 bg-tertiary cursor-pointer'>
                   {title}
                 </summary>
-                <div class='p-4  bg-tertiary pt-0'>{content}</div>
+                <div class='p-4 bg-tertiary pt-0'>{content}</div>
               </details>
             ))}
           </section>
