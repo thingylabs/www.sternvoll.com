@@ -3,6 +3,7 @@
 // This file is automatically updated during development when running `dev.ts`.
 
 import * as $_lang_collections_collection_ from './routes/[[lang]]/collections/[collection].tsx'
+import * as $_lang_policies_policy_ from './routes/[[lang]]/policies/[policy].tsx'
 import * as $_lang_products_product_ from './routes/[[lang]]/products/[product].tsx'
 import * as $_app from './routes/_app.tsx'
 import * as $_middleware from './routes/_middleware.ts'
@@ -22,6 +23,7 @@ const manifest = {
   routes: {
     './routes/[[lang]]/collections/[collection].tsx':
       $_lang_collections_collection_,
+    './routes/[[lang]]/policies/[policy].tsx': $_lang_policies_policy_,
     './routes/[[lang]]/products/[product].tsx': $_lang_products_product_,
     './routes/_app.tsx': $_app,
     './routes/_middleware.ts': $_middleware,

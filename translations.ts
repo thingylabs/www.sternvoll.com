@@ -223,6 +223,10 @@ export const translations = {
   'Bracelets': {
     de: 'Armbänder',
   },
+  // Policies
+  'Policy not found': {
+    de: 'Seite nicht gefunden',
+  },
 }
 
 export type LanguageCode = typeof languages[number]['code']
