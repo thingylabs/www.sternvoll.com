@@ -2,14 +2,14 @@ import { formatCurrency } from '@/utils/data.ts'
 import { IconCart } from '@/components/IconCart.tsx'
 import { Product } from '@/utils/types.ts'
 
-export function ProductCard(props: { product: Product }) {
-  const { product } = props
+interface ProductCardProps {
+  product: Product
+  showcase?: boolean // Prop to apply taller styling
+}
 
-  // Ensure price and currency are defined, falling back to default values if necessary
+export function ProductCard({ product, showcase = false }: ProductCardProps) {
   const price = product.priceRange?.minVariantPrice?.amount ?? '0'
-  const currency = product.priceRange?.minVariantPrice?.currency ?? 'USD' // Default to 'USD'
-
-  // Ensure currency is always valid and provided to the formatter
+  const currency = product.priceRange?.minVariantPrice?.currency ?? 'USD'
   const formattedPrice = formatCurrency({
     amount: parseFloat('' + price),
     currency,
@@ -17,14 +17,19 @@ export function ProductCard(props: { product: Product }) {
 
   return (
     <div key={product.id} class='mb-4 xl:text-[1.2vw]'>
-      {/* Container for product and tags */}
       <a href={`/products/${product.handle}`} class='group'>
-        <div class='relative bg-white overflow-hidden transition-all duration-500 aspect-w-1 aspect-h-1'>
+        <div
+          class={`relative bg-white overflow-hidden transition-all duration-500 ${
+            showcase ? 'aspect-w-1 aspect-h-[1.3]' : 'aspect-w-1 aspect-h-1'
+          }`}
+        >
           {product.featuredImage && (
             <img
               src={product.featuredImage.url}
               alt={product.featuredImage.altText || product.title}
-              class='absolute inset-0 w-full h-full object-center object-contain'
+              class={`absolute inset-0 w-full h-full object-center ${
+                showcase ? 'object-cover' : 'object-contain'
+              }`}
               crossorigin='anonymous'
             />
           )}
@@ -33,7 +38,6 @@ export function ProductCard(props: { product: Product }) {
           </div>
         </div>
 
-        {/* Title and Price Section */}
         <div class='flex items-center justify-between mt-2'>
           <h3 class='text-gray-800 relative uppercase font-bold truncate pr-2'>
             {product.title}
@@ -45,7 +49,6 @@ export function ProductCard(props: { product: Product }) {
         </div>
       </a>
 
-      {/* Tags Section - moved outside the group */}
       <div class='flex flex-wrap space-x-1 items-center pt-2'>
         {product.tags &&
           product.tags
@@ -58,7 +61,7 @@ export function ProductCard(props: { product: Product }) {
                 href='#'
                 class='hover:text-secondary text-gray-500 text-sm flex items-center xl:text-[1vw]'
               >
-                {index !== 0 && ( // Render the dot only if it's not the first tag
+                {index !== 0 && (
                   <span class='w-1 h-1 bg-gray-400 rounded-full inline-block mx-1'>
                   </span>
                 )}
