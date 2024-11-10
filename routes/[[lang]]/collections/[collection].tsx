@@ -11,6 +11,7 @@ import { meta as pageMeta } from '@/config/meta.ts'
 interface Query {
   collectionByHandle: {
     title: string
+    descriptionHtml: string
     image: Image
     seo: {
       title: string
@@ -25,6 +26,7 @@ interface Query {
 const q = `query ($collection: String!) {
   collectionByHandle(handle: $collection) {
     title
+    descriptionHtml
     seo {
       title
       description
@@ -148,6 +150,13 @@ export default function CollectionPage(ctx: PageProps<Query, Data>) {
       />
       <Header forceBackground t={t} />
       <main class='max-w-7xl mx-auto p-4 pt-[2vw]'>
+        <h1 class='text-2xl font-bold mb-4'>{collection.title}</h1>
+        {collection.descriptionHtml && (
+          <div
+            class='collection-description mb-8'
+            dangerouslySetInnerHTML={{ __html: collection.descriptionHtml }}
+          />
+        )}
         <CollectionContent products={products} title={collection.title} />
       </main>
       <Footer meta={meta} t={t} />
