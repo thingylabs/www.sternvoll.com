@@ -105,7 +105,7 @@ export default function Home(ctx: PageProps<Collection, Data>) {
           title={t['Gentle Touch - Pain-Free Clip-Ons']}
           text={t['Comfort and elegance, effortlessly united.']}
           linkTitle={t['DISCOVER CLIPS']}
-          link='#'
+          link='/collections/pain-free-clip-ons-earclips'
           orientation='left'
           backgroundColor='#EBE2DD'
         />
@@ -116,7 +116,7 @@ export default function Home(ctx: PageProps<Collection, Data>) {
             'The carefully curated jewelry sets add the finishing touch to any wardrobe.'
           ]}
           linkTitle={t['DISCOVER SETS']}
-          link='#'
+          link='/collections/perfect-match-sets'
           orientation='right'
           backgroundColor='#E9F4F8'
         />
@@ -127,7 +127,7 @@ export default function Home(ctx: PageProps<Collection, Data>) {
             'The distinctive surface finish gives it an unmistakable shine.'
           ]}
           linkTitle={t['DISCOVER DIAMOND FINISH']}
-          link='#'
+          link='/collections/diamond-finishing'
           orientation='left'
           backgroundColor='#EBE2DD'
         />
@@ -138,7 +138,7 @@ export default function Home(ctx: PageProps<Collection, Data>) {
             'A collection that captures love in timeless elegance and shining design.'
           ]}
           linkTitle={t['DISCOVER HEARTS']}
-          link='#'
+          link='/collections/heart-shaped-jewelry'
           orientation='right'
           backgroundColor='#E9F4F8'
         />

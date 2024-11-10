@@ -14,7 +14,7 @@ export const menuItems: MenuItem[] = [
     items: [
       {
         label: 'All Jewelry',
-        link: '#all-jewelry',
+        link: '/collections/all',
         items: categories,
       },
       {

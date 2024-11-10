@@ -6,9 +6,9 @@ type Category = {
 }
 
 export const categories: Category[] = [
-  { label: 'Rings', link: '#rings' },
-  { label: 'Earrings', link: '#earrings' },
-  { label: 'Clip-ons', link: '#clip-ons' },
-  { label: 'Necklaces', link: '#necklaces' },
-  { label: 'Bracelets', link: '#bracelets' },
+  { label: 'Rings', link: '/collections/rings' },
+  { label: 'Earrings', link: '/collections/earrings' },
+  { label: 'Clip-ons', link: '/collections/pain-free-clip-ons-earclips' },
+  { label: 'Necklaces', link: '/collections/necklaces' },
+  { label: 'Bracelets', link: '/collections/bracelets' },
 ]
