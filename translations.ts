@@ -227,6 +227,16 @@ export const translations = {
   'Policy not found': {
     de: 'Seite nicht gefunden',
   },
+  // Blog (footer)
+  'Flashing Gold Plating vs. Micro Plating': {
+    de: 'Flashing Gold Plating vs. Micro Plating',
+  },
+  'Everything You Need to Know About 925 Sterling Silver': {
+    de: 'Alles, was Sie über 925 Sterlingsilber wissen müssen',
+  },
+  'IGI Certified Quality': {
+    de: 'IGI-zertifizierte Qualität',
+  },
 }
 
 export type LanguageCode = typeof languages[number]['code']
