@@ -5,7 +5,7 @@ import { Product } from '@/utils/types.ts'
 interface ProductCardProps {
   product: Product
   showcase?: boolean // Prop to apply taller styling
-  lang?: string
+  lang: string
 }
 
 export function ProductCard(

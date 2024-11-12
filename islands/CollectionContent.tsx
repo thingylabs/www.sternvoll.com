@@ -5,11 +5,13 @@ import { Product } from '@/utils/types.ts'
 interface CollectionContentProps {
   products: Product[]
   title: string
+  lang: string
 }
 
 export function CollectionContent({
   products,
   title,
+  lang,
 }: CollectionContentProps) {
   const [sortOption, setSortOption] = useState('best-selling')
   const [filterAvailability, setFilterAvailability] = useState<string[]>([])
@@ -182,7 +184,11 @@ export function CollectionContent({
       </div>
 
       {/* Products Display */}
-      <SelectedWorks products={filteredAndSortedProducts} title={title} />
+      <SelectedWorks
+        products={filteredAndSortedProducts}
+        title={title}
+        lang={lang}
+      />
     </>
   )
 }

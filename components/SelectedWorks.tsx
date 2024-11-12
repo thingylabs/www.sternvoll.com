@@ -5,7 +5,7 @@ interface SelectedWorksProps {
   products: Product[]
   title?: string
   showcase?: boolean // Prop to enable rhythmic showcasing
-  lang?: string
+  lang: string
 }
 
 export function SelectedWorks(

@@ -169,7 +169,11 @@ export default function CollectionPage(ctx: PageProps<Query, Data>) {
             dangerouslySetInnerHTML={{ __html: collection.descriptionHtml }}
           />
         )}
-        <CollectionContent products={products} title={collection.title} />
+        <CollectionContent
+          products={products}
+          title={collection.title}
+          lang={state.geo.lang}
+        />
       </main>
       <Footer meta={meta} t={t} />
     </>
