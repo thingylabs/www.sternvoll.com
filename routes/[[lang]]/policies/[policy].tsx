@@ -2,9 +2,10 @@ import { Handlers, PageProps } from '$fresh/server.ts'
 import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
 import { Header } from '@/islands/Header.tsx'
-import { adminApiGraphql } from '@/utils/shopify.ts' // use Admin API function
+import { adminApiGraphql } from '@/utils/shopify.ts'
 import type { Data } from '@/routes/_middleware.ts'
 import { meta as siteMeta } from '@/config/meta.ts'
+import { policy as privacyPolicyContent } from '@/config/privacyPolicy.ts'
 
 interface PolicyData {
   title: string
@@ -40,7 +41,15 @@ export const handler: Handlers<{ policy: PolicyData | null }, Data> = {
     const { policy: policyHandle } = ctx.params
     const policyType = kebabToUpperSnakeCase(policyHandle)
 
+    // Special case for "privacy-policy" page
+    if (policyHandle === 'privacy-policy') {
+      return ctx.render({
+        policy: { title: 'Privacy Policy', body: privacyPolicyContent },
+      })
+    }
+
     try {
+      // Use the Admin API to fetch all available policies
       const data = await adminApiGraphql<Query>(policyQuery)
       const selectedPolicy = data.shop.shopPolicies.find(
         (policy) => policy.type === policyType,
