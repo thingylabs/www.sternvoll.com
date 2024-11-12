@@ -5,10 +5,12 @@ interface SelectedWorksProps {
   products: Product[]
   title?: string
   showcase?: boolean // Prop to enable rhythmic showcasing
+  lang?: string
 }
 
 export function SelectedWorks(
-  { products, title = 'Selected works', showcase = false }: SelectedWorksProps,
+  { products, title = 'Selected works', showcase = false, lang = 'en' }:
+    SelectedWorksProps,
 ) {
   return (
     <section>
@@ -21,6 +23,7 @@ export function SelectedWorks(
             key={product.id}
             product={product}
             showcase={showcase && index % 2 === 0} // Apply taller style to every other item
+            lang={lang}
           />
         ))}
       </div>

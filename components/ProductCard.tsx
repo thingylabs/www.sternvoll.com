@@ -5,9 +5,12 @@ import { Product } from '@/utils/types.ts'
 interface ProductCardProps {
   product: Product
   showcase?: boolean // Prop to apply taller styling
+  lang?: string
 }
 
-export function ProductCard({ product, showcase = false }: ProductCardProps) {
+export function ProductCard(
+  { product, showcase = false, lang = 'en' }: ProductCardProps,
+) {
   const price = product.priceRange?.minVariantPrice?.amount ?? '0'
   const currencyCode = product.priceRange?.minVariantPrice?.currencyCode ??
     'USD'
@@ -18,7 +21,10 @@ export function ProductCard({ product, showcase = false }: ProductCardProps) {
 
   return (
     <div key={product.id} class='mb-4 xl:text-[1vw]'>
-      <a href={`/products/${product.handle}`} class='group'>
+      <a
+        href={`/${lang === 'en' ? '' : lang + '/'}products/${product.handle}`}
+        class='group'
+      >
         <div
           class={`relative bg-white overflow-hidden transition-all duration-500 ${
             showcase ? 'aspect-w-1 aspect-h-[1.3]' : 'aspect-w-1 aspect-h-1'

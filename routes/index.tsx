@@ -95,7 +95,7 @@ export default function Home(ctx: PageProps<Collection, Data>) {
       </div>
 
       <div class='px-4 pt-[2.5vw]'>
-        <SelectedWorks products={products} showcase />
+        <SelectedWorks products={products} showcase lang={state.geo.lang} />
       </div>
 
       <div class='py-4 px-4 md:px-0 pt-[10vw]'>
