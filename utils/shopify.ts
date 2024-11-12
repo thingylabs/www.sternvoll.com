@@ -13,7 +13,7 @@ const SHOPIFY_ACCESS_TOKEN = Deno.env.get('SHOPIFY_ACCESS_TOKEN')
 export async function graphql<T>(
   query: string,
   variables: Record<string, unknown> = {},
-  lang: LanguageCode,
+  lang?: LanguageCode,
 ): Promise<T> {
   const resp = await fetch(`https://${SHOPIFY_SHOP}/api/2024-04/graphql.json`, {
     method: 'POST',
