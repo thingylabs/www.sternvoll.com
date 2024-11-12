@@ -90,7 +90,7 @@ export default function PolicyPage(
       <Meta url={url} meta={meta} />
       <Header forceBackground t={getT(['Shopping Cart', 'Open cart'])} />
 
-      <main class='max-w-4xl mx-auto p-4'>
+      <div class='px-4 md:px-8 lg:px-12 xl:px-0 xl:max-w-[80vw] mx-auto 2xl:pt-[5vw]'>
         <h1 class='text-2xl font-bold mb-4'>{policy.title}</h1>
         <div
           class='
@@ -105,27 +105,27 @@ export default function PolicyPage(
           '
           dangerouslySetInnerHTML={{ __html: policy.body }}
         />
-      </main>
 
-      <div class='back-to-shop mt-12 px-4'>
-        <a
-          href='/'
-          class='flex items-center gap-2 text-gray-500 hover:text-gray-800 transition-colors duration-200'
-        >
-          <svg
-            width='16'
-            height='16'
-            viewBox='0 0 16 16'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
+        <div class='back-to-shop mt-12 xl:text-base 2xl:text-[1vw]'>
+          <a
+            href='/'
+            class='flex items-center gap-2 text-gray-500 hover:text-gray-800 transition-colors duration-200'
           >
-            <path
-              d='M4.65 3.35C4.92 3.08 5.36 3.08 5.64 3.35C5.91 3.62 5.91 4.07 5.64 4.34L2.69 7.28H15.28C15.67 7.28 16 7.6 16 8C16 8.4 15.67 8.72 15.28 8.72H2.69L5.64 11.67C5.91 11.94 5.91 12.38 5.64 12.66C5.36 12.92 4.92 12.92 4.65 12.66L0.35 8.35C0.16 8.16 0.16 7.84 0.35 7.65L4.65 3.35Z'
-              fill='currentColor'
-            />
-          </svg>
-          Back to shop
-        </a>
+            <svg
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                d='M4.65 3.35C4.92 3.08 5.36 3.08 5.64 3.35C5.91 3.62 5.91 4.07 5.64 4.34L2.69 7.28H15.28C15.67 7.28 16 7.6 16 8C16 8.4 15.67 8.72 15.28 8.72H2.69L5.64 11.67C5.91 11.94 5.91 12.38 5.64 12.66C5.36 12.92 4.92 12.92 4.65 12.66L0.35 8.35C0.16 8.16 0.16 7.84 0.35 7.65L4.65 3.35Z'
+                fill='currentColor'
+              />
+            </svg>
+            Back to shop
+          </a>
+        </div>
       </div>
 
       <Footer meta={meta} t={t} />
