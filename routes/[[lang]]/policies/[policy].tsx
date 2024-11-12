@@ -2,7 +2,7 @@ import { Handlers, PageProps } from '$fresh/server.ts'
 import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
 import { Header } from '@/islands/Header.tsx'
-import { graphql } from '@/utils/shopify.ts'
+import { adminApiGraphql } from '@/utils/shopify.ts' // use Admin API function
 import type { Data } from '@/routes/_middleware.ts'
 import { meta as siteMeta } from '@/config/meta.ts'
 
@@ -13,63 +13,39 @@ interface PolicyData {
 
 interface Query {
   shop: {
-    privacyPolicy?: PolicyData
-    termsOfService?: PolicyData
-    refundPolicy?: PolicyData
-    shippingPolicy?: PolicyData
-    subscriptionPolicy?: PolicyData
+    shopPolicies: {
+      title: string
+      body: string
+      type: string
+    }[]
   }
 }
 
-const q = `query {
+const policyQuery = `query {
   shop {
-    privacyPolicy {
+    shopPolicies {
       title
       body
-    }
-    termsOfService {
-      title
-      body
-    }
-    refundPolicy {
-      title
-      body
-    }
-    shippingPolicy {
-      title
-      body
-    }
-    subscriptionPolicy {
-      title
-      body
+      type
     }
   }
 }`
 
-function kebabToCamelCase(str: string): string {
-  return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase())
+function kebabToUpperSnakeCase(str: string): string {
+  return str.replace(/-/g, '_').toUpperCase()
 }
 
-export const handler: Handlers<{ policy: PolicyData }, Data> = {
+export const handler: Handlers<{ policy: PolicyData | null }, Data> = {
   async GET(_req, ctx) {
     const { policy: policyHandle } = ctx.params
+    const policyType = kebabToUpperSnakeCase(policyHandle)
 
     try {
-      const data = await graphql<Query>(q, {}, ctx.state.geo.lang)
+      const data = await adminApiGraphql<Query>(policyQuery)
+      const selectedPolicy = data.shop.shopPolicies.find(
+        (policy) => policy.type === policyType,
+      )
 
-      // Convert kebab-case policy handle to camelCase
-      const camelCasePolicyHandle = kebabToCamelCase(policyHandle)
-
-      // Map policy handles to the data fields
-      const policyMapping: Record<string, PolicyData | undefined> = {
-        privacyPolicy: data.shop.privacyPolicy,
-        termsOfService: data.shop.termsOfService,
-        refundPolicy: data.shop.refundPolicy,
-        shippingPolicy: data.shop.shippingPolicy,
-        subscriptionPolicy: data.shop.subscriptionPolicy,
-      }
-
-      const selectedPolicy = policyMapping[camelCasePolicyHandle]
       if (!selectedPolicy) {
         return new Response('Policy not found', { status: 404 })
       }
@@ -83,7 +59,7 @@ export const handler: Handlers<{ policy: PolicyData }, Data> = {
 }
 
 export default function PolicyPage(
-  { data, url, state }: PageProps<{ policy: PolicyData }, Data>,
+  { data, url, state }: PageProps<{ policy: PolicyData | null }, Data>,
 ) {
   const { policy } = data
   const getT = state.geo.getT
