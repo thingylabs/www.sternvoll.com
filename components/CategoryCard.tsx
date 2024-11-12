@@ -10,7 +10,7 @@ export function CategoryCard(
   return (
     <a
       href={href}
-      class={`block relative group w-full h-[120vw] overflow-hidden flex justify-center items-center bg-cover bg-center transition-all duration-800 ease-in-out
+      class={`block relative group w-full h-[120vw] sm:h-[90vw] md:h-[70vw] overflow-hidden flex justify-center items-center bg-cover bg-center transition-all duration-800 ease-in-out
       lg:h-[50vw] 2xl:h-[30vw]`}
       style={{ backgroundImage: `url(/${backgroundImage})` }}
     >
