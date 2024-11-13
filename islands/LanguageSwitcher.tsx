@@ -8,7 +8,6 @@ interface Props {
 }
 
 export function LanguageSwitcher({ lang }: Props) {
-  console.log('lang', lang)
   const isOpen = useSignal(false)
   const selectedLanguage = useSignal<LanguageCode>(lang) // Initialize with the lang prop value
   const dropdownRef = useRef<HTMLDivElement>(null)

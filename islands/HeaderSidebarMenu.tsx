@@ -1,14 +1,17 @@
+// islands/HeaderSidebarMenu.tsx
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { menuItems } from '@/config/headerMenu.ts'
 import { meta } from '@/config/meta.ts'
 import { Social } from '@/components/Social.tsx'
 import { locales } from '@/config/locales.ts'
+import { LanguageCode, languages } from '@/translations.ts'
 
 interface MenuProps {
   transparentButton?: boolean
+  lang: LanguageCode
 }
 
-export function Menu({ transparentButton = false }: MenuProps) {
+export function Menu({ transparentButton = false, lang }: MenuProps) {
   const menuRef = useRef<HTMLDialogElement | null>(null)
   const localeRef = useRef<HTMLDialogElement | null>(null)
 
@@ -88,6 +91,7 @@ export function Menu({ transparentButton = false }: MenuProps) {
         <MenuDrawer
           onOpenLocaleSelector={openLocaleSelector}
           onClose={() => menuRef.current?.close()}
+          lang={lang}
         />
       </dialog>
 
@@ -159,14 +163,25 @@ function LocaleDrawer({
 function MenuDrawer({
   onOpenLocaleSelector,
   onClose,
+  lang,
 }: {
   onOpenLocaleSelector: () => void
   onClose: () => void
+  lang: LanguageCode
 }) {
   const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false)
   const languageSelectorRef = useRef<HTMLDivElement | null>(null)
 
-  // Handle clicking outside of the language selector to close it
+  const toggleLanguageSelector = () => {
+    setIsLanguageSelectorOpen((prev) => !prev)
+  }
+
+  const selectLanguage = (language: LanguageCode) => {
+    document.cookie = `lang=${language}; path=/;`
+    globalThis.location.reload()
+  }
+
+  // Close the dropdown if clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -182,10 +197,6 @@ function MenuDrawer({
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [])
-
-  const toggleLanguageSelector = () => {
-    setIsLanguageSelectorOpen((prev) => !prev)
-  }
 
   return (
     <div class='py-8 pt-6 px-6 h-full bg-white rounded-tl-2xl rounded-tr-2xl sm:rounded-tl-none sm:rounded-br-2xl flex flex-col overflow-y-auto relative'>
@@ -203,54 +214,13 @@ function MenuDrawer({
       </div>
 
       <ul class='mt-4 space-y-4 text-gray-900 text-lg'>
-        {menuItems.map((category) =>
-          category.items
-            ? (
-              <li key={category.label}>
-                <a href={category.link} class='hover:underline'>
-                  {category.label}
-                </a>
-                <ul class='pl-4 mt-2 space-y-2 text-gray-700'>
-                  {category.items.map((subCategory) =>
-                    subCategory.items
-                      ? (
-                        <li key={subCategory.label}>
-                          <a
-                            href={subCategory.link}
-                            class='font-semibold hover:underline'
-                          >
-                            {subCategory.label}
-                          </a>
-                          <ul class='pl-4 mt-2 space-y-2 text-gray-700'>
-                            {subCategory.items.map((subItem) => (
-                              <li key={subItem.label}>
-                                <a href={subItem.link} class='hover:underline'>
-                                  {subItem.label}
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                        </li>
-                      )
-                      : (
-                        <li key={subCategory.label}>
-                          <a href={subCategory.link} class='hover:underline'>
-                            {subCategory.label}
-                          </a>
-                        </li>
-                      )
-                  )}
-                </ul>
-              </li>
-            )
-            : (
-              <li key={category.label}>
-                <a href={category.link} class='hover:underline'>
-                  {category.label}
-                </a>
-              </li>
-            )
-        )}
+        {menuItems.map((category) => (
+          <li key={category.label}>
+            <a href={category.link} class='hover:underline'>
+              {category.label}
+            </a>
+          </li>
+        ))}
       </ul>
 
       {/* Footer Section */}
@@ -272,15 +242,36 @@ function MenuDrawer({
             class='text-gray-600 cursor-pointer flex items-center relative'
             onClick={toggleLanguageSelector}
           >
-            English
+            {languages.find((l) => l.code === lang)?.name}
             <span class='ml-2'>▾</span>
             {isLanguageSelectorOpen && (
               <div
                 ref={languageSelectorRef}
                 class='absolute bottom-full mb-2 bg-white border rounded shadow-lg p-2 z-10'
               >
-                <div class='py-1'>English</div>
-                <div class='py-1'>Deutsch</div>
+                {languages.map((language) => (
+                  <div
+                    key={language.code}
+                    onClick={() => selectLanguage(language.code)}
+                    class={`py-1 cursor-pointer flex items-center ${
+                      lang === language.code ? 'font-bold' : ''
+                    }`}
+                  >
+                    {/* Fixed-width space for checkmark */}
+                    <span class='w-4 mr-2 flex-shrink-0'>
+                      {lang === language.code && (
+                        <svg
+                          class='w-4 h-4'
+                          fill='currentColor'
+                          viewBox='0 0 20 20'
+                        >
+                          <path d='M16.707 5.293a1 1 0 00-1.414 0L9 11.586 5.707 8.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l7-7a1 1 0 000-1.414z' />
+                        </svg>
+                      )}
+                    </span>
+                    <span>{language.name}</span>
+                  </div>
+                ))}
               </div>
             )}
           </div>

@@ -52,7 +52,7 @@ export function Header({ forceBackground = false, t, lang }: HeaderProps) {
           {/* Left Container: Drawer Menu Button */}
           <div class='flex items-center space-x-4 flex-none'>
             <div class='lg:hidden'>
-              <Menu transparentButton={!hasBackground.value} />
+              <Menu transparentButton={!hasBackground.value} lang={lang} />
             </div>
             <div class='hidden lg:block w-10'></div>
           </div>
