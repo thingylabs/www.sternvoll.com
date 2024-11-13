@@ -6,13 +6,15 @@ import { InlineMenu } from '@/components/HeaderInlineMenu.tsx'
 import { Cart, T } from '@/islands/Cart.tsx'
 import { CountrySelector } from './CountrySelector.tsx'
 import { LanguageSwitcher } from '@/islands/LanguageSwitcher.tsx'
+import { LanguageCode } from '@/translations.ts'
 
 interface HeaderProps {
   forceBackground?: boolean
   t: T
+  lang: LanguageCode
 }
 
-export function Header({ forceBackground = false, t }: HeaderProps) {
+export function Header({ forceBackground = false, t, lang }: HeaderProps) {
   const hasBackground = useSignal(forceBackground)
   const isVisible = useSignal(false) // Start with the header hidden
   const lastScrollTop = useSignal(0)
@@ -88,8 +90,8 @@ export function Header({ forceBackground = false, t }: HeaderProps) {
             {/* Country Selector */}
 
             <div class='hidden lg:inline'>
-              <CountrySelector />
-              <LanguageSwitcher />
+              {/* <CountrySelector /> */}
+              <LanguageSwitcher lang={lang} />
             </div>
 
             {/* User Icon */}

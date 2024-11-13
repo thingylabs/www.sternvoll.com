@@ -1,3 +1,4 @@
+// routes/_middleware.ts
 import { FreshContext } from '$fresh/server.ts'
 import { getCookies } from 'cookie'
 import {
@@ -15,7 +16,7 @@ export interface Data {
     lang: LanguageCode
     country: string
     locale: string
-    getT: (keys?: TranslationKey[]) => TranslationMap // Make `keys` optional here
+    getT: (keys?: TranslationKey[]) => TranslationMap
   }
 }
 

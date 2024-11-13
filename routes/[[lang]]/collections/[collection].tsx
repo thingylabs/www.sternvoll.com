@@ -148,7 +148,7 @@ export default function CollectionPage(ctx: PageProps<Query, Data>) {
             : undefined,
         }}
       />
-      <Header forceBackground t={t} />
+      <Header forceBackground t={t} lang={state.geo.lang} />
       <main class='max-w-7xl mx-auto p-4 pt-[2vw]'>
         <h1 class='text-2xl font-bold mb-4'>{collection.title}</h1>
         {collection.descriptionHtml && (

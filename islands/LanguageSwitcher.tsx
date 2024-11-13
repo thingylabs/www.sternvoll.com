@@ -3,9 +3,14 @@ import { useSignal } from '@preact/signals'
 import { LanguageCode, languages } from '@/translations.ts'
 import { useEffect, useRef } from 'preact/hooks'
 
-export function LanguageSwitcher() {
+interface Props {
+  lang: LanguageCode
+}
+
+export function LanguageSwitcher({ lang }: Props) {
+  console.log('lang', lang)
   const isOpen = useSignal(false)
-  const selectedLanguage = useSignal<LanguageCode>('en')
+  const selectedLanguage = useSignal<LanguageCode>(lang) // Initialize with the lang prop value
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const toggleMenu = () => {
@@ -15,9 +20,14 @@ export function LanguageSwitcher() {
   const selectLanguage = (language: LanguageCode) => {
     selectedLanguage.value = language
     isOpen.value = false
+
+    // Set the language cookie and reload the page
+    document.cookie = `lang=${language}; path=/;`
+    globalThis.location.reload()
   }
 
   useEffect(() => {
+    // Close the dropdown if clicking outside of it
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
@@ -37,8 +47,9 @@ export function LanguageSwitcher() {
       {/* Language Selector */}
       <div class='flex items-center' onClick={toggleMenu}>
         <span>
-          {languages.find((lang) =>
-            lang.code === selectedLanguage.value
+          {/* Display the name of the currently selected language */}
+          {languages.find((langObj) =>
+            langObj.code === selectedLanguage.value
           )?.name}
         </span>
         <svg class='ml-1 w-4 h-4' fill='currentColor' viewBox='0 0 20 20'>
@@ -50,17 +61,17 @@ export function LanguageSwitcher() {
       {isOpen.value && (
         <div class='absolute top-full mt-2 bg-gray-800 text-white shadow-lg rounded-lg w-40 z-10'>
           <ul>
-            {languages.map((lang) => (
+            {languages.map((langObj) => (
               <li
-                key={lang.code}
+                key={langObj.code}
                 class={`cursor-pointer py-1 px-4 hover:bg-gray-700 rounded flex items-center ${
-                  selectedLanguage.value === lang.code ? 'font-bold' : ''
+                  selectedLanguage.value === langObj.code ? 'font-bold' : ''
                 }`}
-                onClick={() => selectLanguage(lang.code)}
+                onClick={() => selectLanguage(langObj.code)}
                 style={{ paddingLeft: '1.5rem' }} // Ensure space for checkmark
               >
                 <span class='w-4 mr-2 flex-shrink-0'>
-                  {selectedLanguage.value === lang.code && (
+                  {selectedLanguage.value === langObj.code && (
                     <svg
                       class='w-4 h-4'
                       fill='currentColor'
@@ -70,7 +81,8 @@ export function LanguageSwitcher() {
                     </svg>
                   )}
                 </span>
-                <span>{lang.name}</span>
+                {/* Display the name of the language in the dropdown */}
+                <span>{langObj.name}</span>
               </li>
             ))}
           </ul>

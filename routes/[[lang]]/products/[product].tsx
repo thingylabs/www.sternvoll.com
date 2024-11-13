@@ -151,7 +151,11 @@ export default function ProductPage(ctx: PageProps<Query, Data>) {
   return (
     <>
       <Meta url={url} meta={meta} />
-      <Header forceBackground t={getT(['Shopping Cart', 'Open cart'])} />
+      <Header
+        forceBackground
+        t={getT(['Shopping Cart', 'Open cart'])}
+        lang={state.geo.lang}
+      />
 
       <ProductDetails product={data.product!} />
 
@@ -160,6 +164,7 @@ export default function ProductPage(ctx: PageProps<Query, Data>) {
           <SelectedWorks
             title='Related jewelry'
             products={data.relatedProducts}
+            lang={state.geo.lang}
           />
         </div>
 

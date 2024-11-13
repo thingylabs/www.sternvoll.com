@@ -87,6 +87,7 @@ export default function Home(ctx: PageProps<Collection, Data>) {
         {/* Only fetch the necessary keys for client-side Header component */}
         <Header
           t={getT(['Shopping Cart', 'Open cart'])}
+          lang={state.geo.lang}
         />
       </Hero>
 
