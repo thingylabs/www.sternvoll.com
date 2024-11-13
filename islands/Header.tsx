@@ -4,7 +4,6 @@ import { useEffect } from 'preact/hooks'
 import { Menu } from './HeaderSidebarMenu.tsx'
 import { InlineMenu } from '@/components/HeaderInlineMenu.tsx'
 import { Cart, T } from '@/islands/Cart.tsx'
-import { CountrySelector } from './CountrySelector.tsx'
 import { LanguageSwitcher } from '@/islands/LanguageSwitcher.tsx'
 import { LanguageCode } from '@/translations.ts'
 
@@ -16,34 +15,23 @@ interface HeaderProps {
 
 export function Header({ forceBackground = false, t, lang }: HeaderProps) {
   const hasBackground = useSignal(forceBackground)
-  const isVisible = useSignal(false) // Start with the header hidden
+  const isVisible = useSignal(false)
   const lastScrollTop = useSignal(0)
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = globalThis.scrollY
-
-      // Set background if scrolled past 95% of viewport height or if forceBackground is true
       hasBackground.value = forceBackground ||
         scrollTop > globalThis.innerHeight * 0.95
-
-      // Show header when scrolling up, hide when scrolling down
       isVisible.value = scrollTop < lastScrollTop.value || scrollTop < 100
-
       lastScrollTop.value = scrollTop
     }
-
-    // Initial check for scroll position on mount
     handleScroll()
-
     globalThis.addEventListener('scroll', handleScroll)
-    return () => {
-      globalThis.removeEventListener('scroll', handleScroll)
-    }
+    return () => globalThis.removeEventListener('scroll', handleScroll)
   }, [forceBackground])
 
   useEffect(() => {
-    // Make the header visible on mount
     isVisible.value = true
   }, [])
 
@@ -60,41 +48,32 @@ export function Header({ forceBackground = false, t, lang }: HeaderProps) {
             : '-translate-y-full opacity-0'
         } lg:text-white`}
       >
-        <div class='relative flex items-center justify-between'>
-          {/* Drawer Menu Button or Placeholder */}
-          <div class='flex-none'>
+        <div class='flex items-center justify-between'>
+          {/* Left Container: Drawer Menu Button */}
+          <div class='flex items-center space-x-4 flex-none'>
             <div class='lg:hidden'>
               <Menu transparentButton={!hasBackground.value} />
             </div>
-            <div class='hidden lg:block w-10'></div>{' '}
-            {/* Placeholder for spacing */}
+            <div class='hidden lg:block w-10'></div>
           </div>
 
-          {/* Centered Logo */}
+          {/* Centered Logo - Absolute Center */}
           <a
             href='/'
-            class='absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none'
+            class='absolute left-1/2 transform -translate-x-1/2'
           >
             <img
-              class={`
-              object-scale-down h-10
-              lg:h-[2.75vw] 2xl:h-[2.5vw] 2xl:my-[1vw]
-              `}
+              class='object-scale-down h-10 lg:h-[2.75vw] 2xl:h-[2.5vw] 2xl:my-[1vw]'
               src='/Sternvoll-bright.png'
               alt='Sternvoll'
             />
           </a>
 
-          {/* Menu items on the right */}
+          {/* Right Container: Language Switcher, User Icon, Cart */}
           <div class='flex items-center space-x-4 flex-none'>
-            {/* Country Selector */}
-
             <div class='hidden lg:inline'>
-              {/* <CountrySelector /> */}
               <LanguageSwitcher lang={lang} />
             </div>
-
-            {/* User Icon */}
             <div class='hidden lg:inline'>
               <a href='https://account.sternvoll.com/'>
                 <svg
@@ -121,8 +100,6 @@ export function Header({ forceBackground = false, t, lang }: HeaderProps) {
                 </svg>
               </a>
             </div>
-
-            {/* Cart Component */}
             <Cart transparentButton={!hasBackground.value} t={t} />
           </div>
         </div>
