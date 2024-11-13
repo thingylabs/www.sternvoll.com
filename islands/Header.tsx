@@ -36,7 +36,7 @@ export function Header({ forceBackground = false, t, lang }: HeaderProps) {
   }, [])
 
   return (
-    <div class='h-[12vw]'>
+    <div class='h-[12vw] min-h-[72px]'>
       <header
         class={`fixed top-0 left-0 w-full z-20 p-4 2xl:p-[1vw] transition-all duration-500 ${
           hasBackground.value

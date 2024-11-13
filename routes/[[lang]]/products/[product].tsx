@@ -157,7 +157,9 @@ export default function ProductPage(ctx: PageProps<Query, Data>) {
         lang={state.geo.lang}
       />
 
-      <ProductDetails product={data.product!} />
+      <div class='pt-4'>
+        <ProductDetails product={data.product!} />
+      </div>
 
       <div class='px-4 md:px-8 lg:px-12 xl:px-0 xl:max-w-[80vw] mx-auto 2xl:pt-[5vw]'>
         <div class='mt-16'>
