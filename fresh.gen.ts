@@ -16,6 +16,7 @@ import * as $Collections from './islands/Collections.tsx'
 import * as $CountrySelector from './islands/CountrySelector.tsx'
 import * as $Header from './islands/Header.tsx'
 import * as $HeaderSidebarMenu from './islands/HeaderSidebarMenu.tsx'
+import * as $LanguageSwitcher from './islands/LanguageSwitcher.tsx'
 import * as $MovingText from './islands/MovingText.tsx'
 import * as $ProductDetails from './islands/ProductDetails.tsx'
 import type { Manifest } from '$fresh/server.ts'
@@ -39,6 +40,7 @@ const manifest = {
     './islands/CountrySelector.tsx': $CountrySelector,
     './islands/Header.tsx': $Header,
     './islands/HeaderSidebarMenu.tsx': $HeaderSidebarMenu,
+    './islands/LanguageSwitcher.tsx': $LanguageSwitcher,
     './islands/MovingText.tsx': $MovingText,
     './islands/ProductDetails.tsx': $ProductDetails,
   },

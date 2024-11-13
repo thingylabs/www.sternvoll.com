@@ -5,6 +5,7 @@ import { Menu } from './HeaderSidebarMenu.tsx'
 import { InlineMenu } from '@/components/HeaderInlineMenu.tsx'
 import { Cart, T } from '@/islands/Cart.tsx'
 import { CountrySelector } from './CountrySelector.tsx'
+import { LanguageSwitcher } from '@/islands/LanguageSwitcher.tsx'
 
 interface HeaderProps {
   forceBackground?: boolean
@@ -88,6 +89,7 @@ export function Header({ forceBackground = false, t }: HeaderProps) {
 
             <div class='hidden lg:inline'>
               <CountrySelector />
+              <LanguageSwitcher />
             </div>
 
             {/* User Icon */}
