@@ -1,3 +1,14 @@
+// config/locales.ts
+
+export type Locale = {
+  country: string
+  code: string
+  currency: {
+    code: string
+    symbol: string
+  }
+}
+
 export const locales = [
   {
     'country': 'Afghanistan',

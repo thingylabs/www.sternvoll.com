@@ -1,8 +1,10 @@
+// islands/Header.tsx
 import { useSignal } from '@preact/signals'
 import { useEffect } from 'preact/hooks'
 import { Menu } from './HeaderSidebarMenu.tsx'
 import { InlineMenu } from '@/components/HeaderInlineMenu.tsx'
 import { Cart, T } from '@/islands/Cart.tsx'
+import { CountrySelector } from './CountrySelector.tsx'
 
 interface HeaderProps {
   forceBackground?: boolean
@@ -80,11 +82,17 @@ export function Header({ forceBackground = false, t }: HeaderProps) {
             />
           </a>
 
-          {/* Cart - Stays on the Right */}
+          {/* Menu items on the right */}
           <div class='flex items-center space-x-4 flex-none'>
+            {/* Country Selector */}
+
+            <div class='hidden lg:inline'>
+              <CountrySelector />
+            </div>
+
             {/* User Icon */}
-            <a href='https://account.sternvoll.com/'>
-              <div class='hidden lg:inline'>
+            <div class='hidden lg:inline'>
+              <a href='https://account.sternvoll.com/'>
                 <svg
                   width='30'
                   height='30'
@@ -107,8 +115,8 @@ export function Header({ forceBackground = false, t }: HeaderProps) {
                     stroke-linecap='round'
                   />
                 </svg>
-              </div>
-            </a>
+              </a>
+            </div>
 
             {/* Cart Component */}
             <Cart transparentButton={!hasBackground.value} t={t} />

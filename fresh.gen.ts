@@ -13,6 +13,7 @@ import * as $AddToCart from './islands/AddToCart.tsx'
 import * as $Cart from './islands/Cart.tsx'
 import * as $CollectionContent from './islands/CollectionContent.tsx'
 import * as $Collections from './islands/Collections.tsx'
+import * as $CountrySelector from './islands/CountrySelector.tsx'
 import * as $Header from './islands/Header.tsx'
 import * as $HeaderSidebarMenu from './islands/HeaderSidebarMenu.tsx'
 import * as $MovingText from './islands/MovingText.tsx'
@@ -35,6 +36,7 @@ const manifest = {
     './islands/Cart.tsx': $Cart,
     './islands/CollectionContent.tsx': $CollectionContent,
     './islands/Collections.tsx': $Collections,
+    './islands/CountrySelector.tsx': $CountrySelector,
     './islands/Header.tsx': $Header,
     './islands/HeaderSidebarMenu.tsx': $HeaderSidebarMenu,
     './islands/MovingText.tsx': $MovingText,
