@@ -1,7 +1,10 @@
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
-import { Header } from '@/islands/Header.tsx'
+import {
+  Header,
+  translationKeys as headerTranslationKeys,
+} from '@/islands/Header.tsx'
 import { adminApiGraphql } from '@/utils/shopify.ts'
 import type { Data } from '@/routes/_middleware.ts'
 import { meta as siteMeta } from '@/config/meta.ts'
@@ -88,7 +91,12 @@ export default function PolicyPage(
   return (
     <>
       <Meta url={url} meta={meta} />
-      <Header forceBackground t={getT(['Shopping Cart', 'Open cart'])} />
+      <Header
+        forceBackground
+        t={getT(headerTranslationKeys)}
+        lang={state.geo.lang}
+        isEuIp={state.geo.isEuIp}
+      />
 
       <div class='px-4 md:px-8 lg:px-12 xl:px-0 xl:max-w-[80vw] mx-auto 2xl:pt-[5vw]'>
         <h1 class='text-2xl font-bold mb-4'>{policy.title}</h1>

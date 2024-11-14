@@ -1,7 +1,10 @@
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
-import { Header } from '../../../islands/Header.tsx'
+import {
+  Header,
+  translationKeys as headerTranslationKeys,
+} from '@/islands/Header.tsx'
 import ProductDetails from '@/islands/ProductDetails.tsx'
 import { graphql } from '@/utils/shopify.ts'
 import { Product } from '@/utils/types.ts'
@@ -153,8 +156,9 @@ export default function ProductPage(ctx: PageProps<Query, Data>) {
       <Meta url={url} meta={meta} />
       <Header
         forceBackground
-        t={getT(['Shopping Cart', 'Open cart'])}
+        t={getT(headerTranslationKeys)}
         lang={state.geo.lang}
+        isEuIp={state.geo.isEuIp}
       />
 
       <div class='pt-4'>

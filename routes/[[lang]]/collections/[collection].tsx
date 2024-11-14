@@ -1,5 +1,8 @@
 import { Handlers, PageProps } from '$fresh/server.ts'
-import { Header } from '@/islands/Header.tsx'
+import {
+  Header,
+  translationKeys as headerTranslationKeys,
+} from '@/islands/Header.tsx'
 import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
 import { CollectionContent } from '@/islands/CollectionContent.tsx'
@@ -113,6 +116,7 @@ export const handler: Handlers<Query, Data> = {
 export default function CollectionPage(ctx: PageProps<Query, Data>) {
   const { data, url, state } = ctx
   const t = state.geo.getT()
+  const getT = state.geo.getT
   const { collectionByHandle: collection } = data
   const products = collection.products.edges.map((edge) => edge.node)
 
@@ -148,7 +152,12 @@ export default function CollectionPage(ctx: PageProps<Query, Data>) {
             : undefined,
         }}
       />
-      <Header forceBackground t={t} lang={state.geo.lang} />
+      <Header
+        forceBackground
+        t={getT(headerTranslationKeys)}
+        lang={state.geo.lang}
+        isEuIp={state.geo.isEuIp}
+      />
       <main class='max-w-7xl mx-auto p-4 pt-[2vw]'>
         <h1 class='text-2xl font-bold mb-4'>{collection.title}</h1>
         {collection.descriptionHtml && (
