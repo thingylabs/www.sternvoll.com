@@ -1,3 +1,4 @@
+// utils/data.ts
 import useSWR, { mutate } from 'swr'
 import { Image, Money } from './types.ts'
 

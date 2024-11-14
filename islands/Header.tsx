@@ -3,17 +3,26 @@ import { useSignal } from '@preact/signals'
 import { useEffect } from 'preact/hooks'
 import { Menu } from './HeaderSidebarMenu.tsx'
 import { InlineMenu } from '@/components/HeaderInlineMenu.tsx'
-import { Cart, T } from '@/islands/Cart.tsx'
+import {
+  Cart,
+  T,
+  translationKeys as cartTranslationKeys,
+} from '@/islands/Cart.tsx'
 import { LanguageSwitcher } from '@/islands/LanguageSwitcher.tsx'
 import { LanguageCode } from '@/translations.ts'
 
 interface HeaderProps {
   forceBackground?: boolean
   t: T
+  isEuIp: boolean
   lang: LanguageCode
 }
 
-export function Header({ forceBackground = false, t, lang }: HeaderProps) {
+export const translationKeys = cartTranslationKeys
+
+export function Header(
+  { forceBackground = false, t, lang, isEuIp }: HeaderProps,
+) {
   const hasBackground = useSignal(forceBackground)
   const isVisible = useSignal(false)
   const lastScrollTop = useSignal(0)
@@ -100,7 +109,11 @@ export function Header({ forceBackground = false, t, lang }: HeaderProps) {
                 </svg>
               </a>
             </div>
-            <Cart transparentButton={!hasBackground.value} t={t} />
+            <Cart
+              transparentButton={!hasBackground.value}
+              t={t}
+              isEuIp={isEuIp}
+            />
           </div>
         </div>
 

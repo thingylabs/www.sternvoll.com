@@ -2,7 +2,10 @@ import { Handlers, PageProps } from '$fresh/server.ts'
 import { graphql } from '@/utils/shopify.ts'
 import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
-import { Header } from '@/islands/Header.tsx'
+import {
+  Header,
+  translationKeys as headerTranslationKeys,
+} from '@/islands/Header.tsx'
 import { List, Product } from '@/utils/types.ts'
 import { OurStory } from '@/components/OurStory.tsx'
 import { Hero } from '@/components/Hero.tsx'
@@ -86,8 +89,9 @@ export default function Home(ctx: PageProps<Collection, Data>) {
       <Hero t={t}>
         {/* Only fetch the necessary keys for client-side Header component */}
         <Header
-          t={getT(['Shopping Cart', 'Open cart'])}
+          t={getT(headerTranslationKeys)}
           lang={state.geo.lang}
+          isEuIp={state.geo.isEuIp}
         />
       </Hero>
 

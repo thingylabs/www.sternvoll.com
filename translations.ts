@@ -243,6 +243,29 @@ export const translations = {
   'Inspiring stories, trends, and insights into the world of jewelry': {
     de: 'Inspirierende Geschichten, Trends und Einblicke in die Schmuckwelt',
   },
+  // Cart
+  'Checkout Options': {
+    de: 'Checkout-Optionen',
+  },
+  'Comfort Checkout': {
+    de: 'Komfort Checkout',
+  },
+  'For a fast, automated process with modern payment methods (e.g., PayPal, Klarna, Apple Pay). By choosing this checkout option, you agree to additional data processing. Learn more in our':
+    {
+      de:
+        'Für eine schnelle, automatisierte Abwicklung mit modernen Zahlungsmethoden (z.B. PayPal, Klarna, Apple Pay). Durch die Wahl dieses Checkouts stimmen Sie der erweiterten Datenverarbeitung zu. Mehr dazu in unseren',
+    },
+  'Privacy Policy': {
+    de: 'Datenschutzbestimmungen',
+  },
+  'Manual Checkout': {
+    de: 'Manueller Checkout',
+  },
+  'For customers who prefer not to have additional data processing. In this option, payment is made manually, e.g., through a manual PayPal or bank transfer.':
+    {
+      de:
+        'Für Kunden, die keine zusätzliche Datenverarbeitung wünschen. Hierbei erfolgt die Zahlung z.B. durch eine manuelle PayPal-Überweisung oder Banküberweisung.',
+    },
 }
 
 export type LanguageCode = typeof languages[number]['code']

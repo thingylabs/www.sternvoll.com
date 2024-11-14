@@ -1,3 +1,4 @@
+// islands/Cart.tsx
 import { useRef } from 'preact/hooks'
 import {
   CartData,
@@ -7,10 +8,20 @@ import {
 } from '@/utils/data.ts'
 import { TranslationMap } from '@/translations.ts'
 
+export const translationKeys = [
+  'Shopping Cart',
+  'Open cart',
+  'Checkout Options',
+  'Comfort Checkout',
+  'For a fast, automated process with modern payment methods (e.g., PayPal, Klarna, Apple Pay). By choosing this checkout option, you agree to additional data processing. Learn more in our',
+  'Privacy Policy',
+  'Manual Checkout',
+  'For customers who prefer not to have additional data processing. In this option, payment is made manually, e.g., through a manual PayPal or bank transfer.',
+] as const
+
 export type T = Pick<
   TranslationMap,
-  | 'Shopping Cart'
-  | 'Open cart'
+  typeof translationKeys[number]
 >
 
 declare global {
@@ -23,19 +34,43 @@ declare global {
 export function Cart(
   {
     transparentButton = false,
+    isEuIp,
     t,
   }: {
     transparentButton?: boolean
+    isEuIp: boolean
     t: T
   },
 ) {
   const { data, error } = useCart()
-  const ref = useRef<HTMLDialogElement | null>(null)
+  const cartRef = useRef<HTMLDialogElement | null>(null)
+  const privacyRef = useRef<HTMLDialogElement | null>(null)
 
   const onDialogClick = (e: MouseEvent) => {
     if ((e.target as HTMLDialogElement).tagName === 'DIALOG') {
-      ref.current!.close()
+      cartRef.current?.close()
     }
+  }
+
+  const openPrivacyModal = () => {
+    if (isEuIp) {
+      // Show the privacy modal if the user is from the EU
+      privacyRef.current?.showModal()
+    } else if (data) {
+      // Directly proceed to checkout if not from the EU
+      location.href = data.checkoutUrl
+    }
+  }
+
+  const acceptPrivacy = () => {
+    privacyRef.current?.close()
+    if (data) {
+      location.href = data.checkoutUrl
+    }
+  }
+
+  const declinePrivacy = () => {
+    privacyRef.current?.close()
   }
 
   if (error) {
@@ -45,7 +80,7 @@ export function Cart(
   return (
     <div>
       <button
-        onClick={() => ref.current!.showModal()}
+        onClick={() => cartRef.current!.showModal()}
         type='button'
         class={`relative flex items-center justify-center rounded-md p-2 opacity-50 hover:opacity-100 ${
           transparentButton
@@ -87,27 +122,66 @@ export function Cart(
       </button>
 
       <dialog
-        ref={ref}
+        ref={cartRef}
         class='bg-transparent p-0 m-0 pt-[50%] sm:pt-0 max-w-full sm:pl-[40%] md:pl-[60%] w-full max-h-full h-full transition-transform duration-500 sm:translate-x-0 translate-y-0 backdrop-blur'
         onClick={onDialogClick}
       >
-        <CartInner cart={data} t={t} />
+        <CartInner cart={data} t={t} onCheckout={openPrivacyModal} />
+      </dialog>
+
+      {/* Inline Privacy Modal */}
+      <dialog
+        ref={privacyRef}
+        class='rounded-2xl max-w-lg w-full p-6 backdrop-blur-md bg-white/80 shadow-lg transition'
+      >
+        <div class='text-center'>
+          <h3 class='text-lg font-semibold'>{t['Checkout Options']}</h3>
+          <p class='mt-2 text-sm text-gray-600 text-justify'>
+            <strong>{t['Comfort Checkout']}</strong> - {t[
+              'For a fast, automated process with modern payment methods (e.g., PayPal, Klarna, Apple Pay). By choosing this checkout option, you agree to additional data processing. Learn more in our'
+            ]}{' '}
+            <a
+              href='/datenschutz'
+              target='_blank'
+              class='text-blue-600 underline'
+            >
+              {t['Privacy Policy']}
+            </a>.
+          </p>
+          <p class='mt-2 text-sm text-gray-600 text-justify'>
+            <span class='inline-flex space-x-1 font-semibold'>
+              {t['Manual Checkout']}
+            </span>{' '}
+            - {t[
+              'For customers who prefer not to have additional data processing. In this option, payment is made manually, e.g., through a manual PayPal or bank transfer.'
+            ]}
+          </p>
+        </div>
+
+        <div class='mt-6 flex space-x-4'>
+          <button
+            class='flex-1 py-2 rounded-lg bg-gray-200 text-gray-700 text-lg font-medium'
+            onClick={declinePrivacy}
+          >
+            {t['Manual Checkout']}
+          </button>
+          <button
+            class='flex-1 py-2 rounded-lg bg-blue-600 text-white text-lg font-medium'
+            onClick={acceptPrivacy}
+          >
+            {t['Comfort Checkout']}
+          </button>
+        </div>
       </dialog>
     </div>
   )
 }
 
 function CartInner(
-  props: { cart: CartData | undefined; t: T },
+  props: { cart: CartData | undefined; t: T; onCheckout: () => void },
 ) {
   const t = props.t
   const { data: cart } = useCart()
-  const checkout = (e: Event) => {
-    e.preventDefault()
-    if (cart) {
-      location.href = cart.checkoutUrl
-    }
-  }
 
   const remove = (itemId: string) => {
     if (cart) {
@@ -203,7 +277,7 @@ function CartInner(
               type='button'
               class='w-full bg-gray-700 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-700'
               disabled={props.cart.lines.nodes.length === 0}
-              onClick={checkout}
+              onClick={props.onCheckout}
             >
               Checkout
             </button>

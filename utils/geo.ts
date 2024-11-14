@@ -9,6 +9,7 @@ import {
 } from '@/translations.ts'
 import { FreshContext } from '$fresh/server.ts'
 import { Data } from '@/routes/_middleware.ts'
+import { logger } from '@/utils/logger.ts'
 
 const langCodes = languages.map((obj) => obj.code) as LanguageCode[]
 
@@ -67,7 +68,7 @@ export function getGeoData(req: Request, ctx: FreshContext<Data>) {
 
   ctx.state.geo = {
     country: browserCountry,
-    countryIp: getIpCountry(req),
+    isEuIp: isEuIp(req),
     lang,
     locale: `${lang}_${browserCountry}`,
     getT,
@@ -81,8 +82,41 @@ function redirect(url: URL) {
   }
 }
 
-function getIpCountry(req: Request) {
-  return req.headers.get('cf-ipcountry')!
+function isEuIp(req: Request) {
+  const eu = [
+    'AT',
+    'BE',
+    'BG',
+    'HR',
+    'CY',
+    'CZ',
+    'DK',
+    'EE',
+    'FI',
+    'FR',
+    'DE',
+    'GR',
+    'HU',
+    'IE',
+    'IT',
+    'LV',
+    'LT',
+    'LU',
+    'MT',
+    'NL',
+    'PL',
+    'PT',
+    'RO',
+    'SK',
+    'SI',
+    'ES',
+    'SE',
+    'GB',
+  ]
+  if (!req.headers.get('cf-ipcountry')) {
+    logger.error('Missing `cf-ipcountry` Cloudflare header')
+  }
+  return eu.includes(req.headers.get('cf-ipcountry') || 'DE')
 }
 
 function getBrowserLocale(req: Request) {

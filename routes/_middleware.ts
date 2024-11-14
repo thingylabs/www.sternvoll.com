@@ -2,15 +2,15 @@
 import { FreshContext } from '$fresh/server.ts'
 import { LanguageCode, TranslationKey, TranslationMap } from '@/translations.ts'
 import { getGeoData } from '@/utils/geo.ts'
-import { logger } from '@/utils/axiom.ts'
+import { logger } from '../utils/logger.ts'
 
 export interface Data {
   geo: {
     lang: LanguageCode
     country: string
-    countryIp: string
+    isEuIp: boolean
     locale: string
-    getT: (keys?: TranslationKey[]) => TranslationMap
+    getT: (keys?: readonly TranslationKey[]) => TranslationMap
   }
 }
 
