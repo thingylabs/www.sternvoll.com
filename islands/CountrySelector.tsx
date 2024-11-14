@@ -1,8 +1,8 @@
 // islands/CountrySelector.tsx
 import { useSignal } from '@preact/signals'
-import { locales } from '@/config/locales.ts'
+import { locales } from '../config/locales.ts'
 import { useEffect, useRef } from 'preact/hooks'
-import { Locale } from '@/config/locales.ts'
+import { Locale } from '../config/locales.ts'
 
 export function CountrySelector() {
   const isOpen = useSignal(false)

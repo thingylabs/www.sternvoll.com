@@ -17,8 +17,11 @@ export const translationKeys = [
   'Privacy Policy',
   'Manual Checkout',
   'For customers who prefer not to have additional data processing. In this option, payment is made manually, e.g., through a manual PayPal or bank transfer.',
-  'Comfort Checkout',
-  'Terms apply',
+  'Data privacy',
+  'Checkout',
+  'or',
+  'Continue Shopping',
+  'Shipping and taxes calculated at checkout.',
 ] as const
 
 export type T = Pick<TranslationMap, typeof translationKeys[number]>
@@ -314,12 +317,12 @@ function CartInner(
             <p>{formatCurrency(props.cart.estimatedCost.totalAmount)}</p>
           </div>
           <p class='mt-0.5 text-sm text-gray-500'>
-            Shipping and taxes calculated at checkout.
+            {t['Shipping and taxes calculated at checkout.']}
           </p>
 
           {/* Comfort Checkout Checkbox */}
           <div class='mt-6 flex flex-col items-center'>
-            <div class='flex items-center text-sm text-gray-600'>
+            <div class='flex flex-wrap items-center justify-center text-sm text-gray-600 text-center'>
               <input
                 type='checkbox'
                 id='comfortCheckout'
@@ -327,11 +330,14 @@ function CartInner(
                 checked={props.isComfortCheckoutEnabled}
                 onChange={props.onToggleComfortCheckout}
               />
-              <label htmlFor='comfortCheckout'>
+              <label htmlFor='comfortCheckout' class='whitespace-nowrap'>
                 {t['Comfort Checkout']}
               </label>
-              <a href='/policies/privacy-policy-comfort-checkout' class='ml-1'>
-                ({t['Terms apply']})
+              <a
+                href='/policies/privacy-policy-comfort-checkout'
+                class='ml-1 block sm:inline w-full sm:w-auto  text-indigo-600 hover:text-indigo-500'
+              >
+                ({t['Data privacy']})
               </a>
             </div>
 
@@ -341,12 +347,12 @@ function CartInner(
               disabled={props.cart.lines.nodes.length === 0}
               onClick={props.onCheckout}
             >
-              Checkout
+              {t['Checkout']}
             </button>
           </div>
           <div class='mt-6 flex justify-center text-center text-sm text-gray-500'>
             <p>
-              or&nbsp;
+              {t['or']}&nbsp;
               <button
                 type='button'
                 class='font-medium text-indigo-600 hover:text-indigo-500'
@@ -354,7 +360,7 @@ function CartInner(
                   ;(e.target as HTMLButtonElement).closest('dialog')!.close()
                 }}
               >
-                Continue Shopping <span aria-hidden='true'>&rarr;</span>
+                {t['Continue Shopping']} <span aria-hidden='true'>&rarr;</span>
               </button>
             </p>
           </div>

@@ -8,6 +8,7 @@ import * as $_lang_products_product_ from './routes/[[lang]]/products/[product].
 import * as $_app from './routes/_app.tsx'
 import * as $_middleware from './routes/_middleware.ts'
 import * as $api_shopify from './routes/api/shopify.ts'
+import * as $browsing_context_suggestions_json from './routes/browsing_context_suggestions.json.ts'
 import * as $index from './routes/index.tsx'
 import * as $AddToCart from './islands/AddToCart.tsx'
 import * as $Cart from './islands/Cart.tsx'
@@ -30,6 +31,8 @@ const manifest = {
     './routes/_app.tsx': $_app,
     './routes/_middleware.ts': $_middleware,
     './routes/api/shopify.ts': $api_shopify,
+    './routes/browsing_context_suggestions.json.ts':
+      $browsing_context_suggestions_json,
     './routes/index.tsx': $index,
   },
   islands: {

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 import { menuItems } from '@/config/headerMenu.ts'
 import { meta } from '@/config/meta.ts'
 import { Social } from '@/components/Social.tsx'
-import { locales } from '@/config/locales.ts'
+import { locales } from '../config/locales.ts'
 import { LanguageCode, languages } from '@/translations.ts'
 
 interface MenuProps {

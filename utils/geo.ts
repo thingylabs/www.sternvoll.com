@@ -10,6 +10,12 @@ import {
 import { FreshContext } from '$fresh/server.ts'
 import { Data } from '@/routes/_middleware.ts'
 import { logger } from '@/utils/logger.ts'
+import { locales } from '@/config/locales.ts'
+
+export function getCountryNameByCode(code: string): string | undefined {
+  const locale = locales.find((locale) => locale.code === code)
+  return locale ? locale.country : undefined
+}
 
 const langCodes = languages.map((obj) => obj.code) as LanguageCode[]
 
@@ -48,7 +54,7 @@ export function getGeoData(req: Request, ctx: FreshContext<Data>) {
   }
 
   const lang = langPartial || 'en'
-  const getT = (keys?: TranslationKey[]) => {
+  const getT = (keys?: readonly TranslationKey[]) => {
     const result = {} as TranslationMap
     if (keys) {
       keys.forEach((key) => {

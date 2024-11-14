@@ -266,8 +266,20 @@ export const translations = {
       de:
         'Für Kunden, die keine zusätzliche Datenverarbeitung wünschen. Hierbei erfolgt die Zahlung z.B. durch eine manuelle PayPal-Überweisung oder Banküberweisung.',
     },
-  'Terms apply': {
-    de: 'Bedingungen gelten',
+  'Data privacy': {
+    de: 'Datenschutzerklärung',
+  },
+  'Shipping and taxes calculated at checkout.': {
+    de: 'Versandkosten und Steuern werden an der Kasse berechnet.',
+  },
+  'Checkout': {
+    de: 'Bezahlen',
+  },
+  'or': {
+    de: 'oder',
+  },
+  'Continue Shopping': {
+    de: 'Weiter Einkaufen',
   },
   // Policy page
   'Default Privacy Policy': {
