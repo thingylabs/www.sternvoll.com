@@ -20,12 +20,14 @@ export default function App(
           href='/sorts-mill-goudy-regular.woff2'
           as='font'
           type='font/woff2'
+          crossorigin='anonymous'
         />
         <link
           rel='preload'
           href='/sorts-mill-goudy-regular-italic.woff2'
           as='font'
           type='font/woff2'
+          crossorigin='anonymous'
         />
         <link
           rel='icon'
