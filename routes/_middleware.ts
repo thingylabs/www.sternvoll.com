@@ -17,8 +17,7 @@ export interface Data {
 export async function handler(req: Request, ctx: FreshContext<Data>) {
   if (
     ctx.destination !== 'route' || // Request for assets
-    req.url.includes('/api/') ||
-    req.url.includes('browsing_context_suggestions.json')
+    req.url.includes('/api/')
   ) {
     return await ctx.next()
   }
