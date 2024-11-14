@@ -1,3 +1,4 @@
+// routes/[[lang]]/collections/[collection].tsx
 import { Handlers, PageProps } from '$fresh/server.ts'
 import {
   Header,
@@ -76,7 +77,7 @@ export const handler: Handlers<Query, Data> = {
     try {
       const data = await graphql<Query>(
         q,
-        { collection },
+        { collection: decodeURIComponent(collection) },
         ctx.state.geo.lang,
       )
 
