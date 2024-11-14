@@ -49,12 +49,12 @@ export function Hero({ children, t }: HeroProps) {
             drop-shadow
           `}
           >
-            {t['everyday doesn\’t mean boring']}.
+            {t["everyday doesn't mean boring"]}.
           </p>
 
           {/* Button */}
           <a
-            href='#shop'
+            href='/collections/all'
             class={`
             inline-block bg-white
             text-gray-900 font-bold hover:bg-gray-200

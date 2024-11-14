@@ -13,10 +13,10 @@ import type { Data } from '@/routes/_middleware.ts'
 import { meta as pageMeta } from '@/config/meta.ts'
 
 interface Query {
-  collectionByHandle: {
+  collectionByHandle?: {
     title: string
     descriptionHtml: string
-    image: Image
+    image?: Image
     seo: {
       title: string
       description: string
@@ -24,6 +24,9 @@ interface Query {
     products: {
       edges: { node: Product & { normalizedSales: number } }[]
     }
+  }
+  products?: {
+    edges: { node: Product & { normalizedSales: number } }[]
   }
 }
 
@@ -70,29 +73,67 @@ const q = `query ($collection: String!) {
   }
 }`
 
+const allProductsQuery = `query {
+  products(first: 24, sortKey: BEST_SELLING) {
+    edges {
+      node {
+        id
+        title
+        handle
+        featuredImage {
+          url(transform: {preferredContentType: WEBP, maxWidth:400, maxHeight:400})
+          altText
+          width
+          height
+        }
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        variants(first: 1) {
+          nodes {
+            availableForSale
+          }
+        }
+      }
+    }
+  }
+}`
+
 export const handler: Handlers<Query, Data> = {
   async GET(_req, ctx) {
     const { collection } = ctx.params
 
     try {
-      const data = await graphql<Query>(
-        q,
-        { collection: decodeURIComponent(collection) },
-        ctx.state.geo.lang,
-      )
-
-      if (!data.collectionByHandle) {
-        return new Response('Collection not found', { status: 404 })
+      let data: Query
+      if (collection === 'all') {
+        data = await graphql<Query>(
+          allProductsQuery,
+          {},
+          ctx.state.geo.lang,
+        )
+        if (!data.products) {
+          return new Response('Collection not found', { status: 404 })
+        }
+      } else {
+        data = await graphql<Query>(
+          q,
+          { collection: decodeURIComponent(collection) },
+          ctx.state.geo.lang,
+        )
+        if (!data.collectionByHandle) {
+          return new Response('Collection not found', { status: 404 })
+        }
       }
 
-      // Use product order to assign a normalized sales value
-      const products = data.collectionByHandle.products.edges.map((edge) =>
-        edge.node
-      )
-      const totalProducts = products.length
+      const products = collection === 'all'
+        ? data.products!.edges.map((edge) => edge.node)
+        : data.collectionByHandle!.products.edges.map((edge) => edge.node)
 
+      const totalProducts = products.length
       const normalizedProducts = products.map((product, index) => {
-        // Normalize sales based on position: first product gets 1, last gets 0
         const normalizedSales = (totalProducts - index - 1) /
           (totalProducts - 1)
         return {
@@ -103,7 +144,18 @@ export const handler: Handlers<Query, Data> = {
 
       return ctx.render({
         collectionByHandle: {
-          ...data.collectionByHandle,
+          title: collection === 'all'
+            ? 'All Products'
+            : data.collectionByHandle!.title,
+          descriptionHtml: collection === 'all'
+            ? ''
+            : data.collectionByHandle!.descriptionHtml,
+          seo: collection === 'all'
+            ? { title: 'All Products', description: 'Browse all products' }
+            : data.collectionByHandle!.seo,
+          image: collection === 'all'
+            ? undefined
+            : data.collectionByHandle!.image,
           products: { edges: normalizedProducts.map((node) => ({ node })) },
         },
       })
@@ -118,7 +170,16 @@ export default function CollectionPage(ctx: PageProps<Query, Data>) {
   const { data, url, state } = ctx
   const t = state.geo.getT()
   const getT = state.geo.getT
-  const { collectionByHandle: collection } = data
+
+  // Use the collection data, or default values if collectionByHandle is undefined
+  const collection = data.collectionByHandle || {
+    title: 'All Products',
+    descriptionHtml: '',
+    seo: { title: 'All Products', description: 'Browse all products' },
+    image: undefined,
+    products: { edges: [] },
+  }
+
   const products = collection.products.edges.map((edge) => edge.node)
 
   const meta = {

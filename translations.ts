@@ -111,7 +111,7 @@ export const translations = {
   'Effortless chic': {
     de: 'Effortless chic',
   },
-  'everyday doesn\’t mean boring': {
+  "everyday doesn't mean boring": {
     de: 'alltäglich heißt nicht langweilig',
   },
   'SHOP NOW': {
