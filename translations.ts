@@ -6,6 +6,9 @@ export const languages = [
 ] as const
 
 export const translations = {
+  'Log in': {
+    de: 'Anmelden',
+  },
   'Sternvoll Jewelry: Effortless chic for every day': {
     de: 'Sternvoll Jewelry: Effortless chic  für jeden Tag',
   },

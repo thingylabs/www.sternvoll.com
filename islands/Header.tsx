@@ -1,15 +1,17 @@
 // islands/Header.tsx
 import { useSignal } from '@preact/signals'
 import { useEffect } from 'preact/hooks'
-import { Menu } from './HeaderSidebarMenu.tsx'
+import {
+  Menu,
+  translationKeys as sidebarMenuTranslationKeys,
+} from './HeaderSidebarMenu.tsx'
 import { InlineMenu } from '@/components/HeaderInlineMenu.tsx'
 import {
   Cart,
-  T,
-  translationKeys as cartTranslationKeys,
+  translationKeys as inlineCartTranslationKeys,
 } from '@/islands/Cart.tsx'
 import { LanguageSwitcher } from '@/islands/LanguageSwitcher.tsx'
-import { LanguageCode } from '@/translations.ts'
+import { LanguageCode, TranslationMap } from '@/translations.ts'
 
 interface HeaderProps {
   forceBackground?: boolean
@@ -18,7 +20,12 @@ interface HeaderProps {
   lang: LanguageCode
 }
 
-export const translationKeys = cartTranslationKeys
+export const translationKeys = [
+  ...inlineCartTranslationKeys,
+  ...sidebarMenuTranslationKeys,
+] as const
+
+export type T = Pick<TranslationMap, typeof translationKeys[number]>
 
 export function Header(
   { forceBackground = false, t, lang, isEuIp }: HeaderProps,
@@ -61,7 +68,11 @@ export function Header(
           {/* Left Container: Drawer Menu Button */}
           <div class='flex items-center space-x-4 flex-none'>
             <div class='lg:hidden'>
-              <Menu transparentButton={!hasBackground.value} lang={lang} />
+              <Menu
+                transparentButton={!hasBackground.value}
+                lang={lang}
+                t={t}
+              />
             </div>
             <div class='hidden lg:block w-10'></div>
           </div>

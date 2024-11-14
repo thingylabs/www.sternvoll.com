@@ -3,15 +3,21 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 import { menuItems } from '@/config/headerMenu.ts'
 import { meta } from '@/config/meta.ts'
 import { Social } from '@/components/Social.tsx'
-import { locales } from '../config/locales.ts'
-import { LanguageCode, languages } from '@/translations.ts'
+import { locales } from '@/config/locales.ts'
+import { LanguageCode, languages, type TranslationMap } from '@/translations.ts'
+
+export const translationKeys = menuItems.map((category) => category.label)
+  .concat([
+    'Log in',
+  ])
 
 interface MenuProps {
   transparentButton?: boolean
   lang: LanguageCode
+  t: TranslationMap
 }
 
-export function Menu({ transparentButton = false, lang }: MenuProps) {
+export function Menu({ transparentButton = false, lang, t }: MenuProps) {
   const menuRef = useRef<HTMLDialogElement | null>(null)
   const localeRef = useRef<HTMLDialogElement | null>(null)
 
@@ -92,6 +98,7 @@ export function Menu({ transparentButton = false, lang }: MenuProps) {
           onOpenLocaleSelector={openLocaleSelector}
           onClose={() => menuRef.current?.close()}
           lang={lang}
+          t={t}
         />
       </dialog>
 
@@ -164,10 +171,12 @@ function MenuDrawer({
   onOpenLocaleSelector,
   onClose,
   lang,
+  t,
 }: {
   onOpenLocaleSelector: () => void
   onClose: () => void
   lang: LanguageCode
+  t: TranslationMap
 }) {
   const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false)
   const languageSelectorRef = useRef<HTMLDivElement | null>(null)
@@ -217,7 +226,7 @@ function MenuDrawer({
         {menuItems.map((category) => (
           <li key={category.label}>
             <a href={category.link} class='hover:underline'>
-              {category.label}
+              {t[category.label]}
             </a>
           </li>
         ))}
@@ -227,9 +236,11 @@ function MenuDrawer({
       <div class='mt-8 border-t border-gray-200 pt-4'>
         <div class='space-y-2'>
           <a class='text-gray-600' href='https://account.sternvoll.com/'>
-            Log in
+            {t['Log in']}
           </a>
           {/* Locale Selector */}
+          {
+            /*
           <div
             class='text-gray-600 cursor-pointer flex items-center'
             onClick={onOpenLocaleSelector}
@@ -237,6 +248,8 @@ function MenuDrawer({
             United States | USD $
             <span class='ml-2'>▾</span>
           </div>
+          */
+          }
           {/* Language Selector */}
           <div
             class='text-gray-600 cursor-pointer flex items-center relative'
