@@ -37,6 +37,7 @@
     "$std/": "https://deno.land/std@0.216.0/",
     "swr": "https://esm.sh/v98/swr@1.3.0?alias=react:preact/compat&external=preact/compat",
     "cookie": "https://deno.land/std@0.224.0/http/cookie.ts",
+    "axiom": "npm:@axiomhq/js",
     "@/": "./"
   },
   "compilerOptions": {
