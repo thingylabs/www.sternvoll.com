@@ -8,7 +8,10 @@ import {
 import { adminApiGraphql } from '@/utils/shopify.ts'
 import type { Data } from '@/routes/_middleware.ts'
 import { meta as siteMeta } from '@/config/meta.ts'
-import { policy as privacyPolicyContent } from '@/config/privacyPolicy.ts'
+import {
+  comfortCheckout,
+  defaultPolicy,
+} from '../../../config/privacyPolicies.ts'
 
 interface PolicyData {
   title: string
@@ -43,11 +46,24 @@ export const handler: Handlers<{ policy: PolicyData | null }, Data> = {
   async GET(_req, ctx) {
     const { policy: policyHandle } = ctx.params
     const policyType = kebabToUpperSnakeCase(policyHandle)
+    const t = ctx.state.geo.getT()
 
     // Special case for "privacy-policy" page
     if (policyHandle === 'privacy-policy') {
       return ctx.render({
-        policy: { title: 'Privacy Policy', body: privacyPolicyContent },
+        policy: {
+          title: t['Default Privacy Policy'],
+          body: defaultPolicy[ctx.state.geo.lang],
+        },
+      })
+    }
+
+    if (policyHandle === 'privacy-policy-comfort-checkout') {
+      return ctx.render({
+        policy: {
+          title: t['Privacy Policy Comfort Checkout'],
+          body: comfortCheckout[ctx.state.geo.lang],
+        },
       })
     }
 

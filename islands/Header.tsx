@@ -113,6 +113,7 @@ export function Header(
               transparentButton={!hasBackground.value}
               t={t}
               isEuIp={isEuIp}
+              lang={lang}
             />
           </div>
         </div>

@@ -266,6 +266,16 @@ export const translations = {
       de:
         'Für Kunden, die keine zusätzliche Datenverarbeitung wünschen. Hierbei erfolgt die Zahlung z.B. durch eine manuelle PayPal-Überweisung oder Banküberweisung.',
     },
+  'Terms apply': {
+    de: 'Bedingungen gelten',
+  },
+  // Policy page
+  'Default Privacy Policy': {
+    de: 'Standard-Datenschutzerklärung',
+  },
+  'Privacy Policy Comfort Checkout': {
+    de: 'Datenschutzerklärung Komfort-Checkout',
+  },
 }
 
 export type LanguageCode = typeof languages[number]['code']

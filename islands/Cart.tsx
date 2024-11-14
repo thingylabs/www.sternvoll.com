@@ -1,13 +1,12 @@
 // islands/Cart.tsx
-import { useRef } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 import {
   CartData,
   formatCurrency,
   removeFromCart,
-  updateCartAttributes,
   useCart,
 } from '@/utils/data.ts'
-import { TranslationMap } from '@/translations.ts'
+import { type LanguageCode, TranslationMap } from '@/translations.ts'
 
 export const translationKeys = [
   'Shopping Cart',
@@ -18,12 +17,11 @@ export const translationKeys = [
   'Privacy Policy',
   'Manual Checkout',
   'For customers who prefer not to have additional data processing. In this option, payment is made manually, e.g., through a manual PayPal or bank transfer.',
+  'Comfort Checkout',
+  'Terms apply',
 ] as const
 
-export type T = Pick<
-  TranslationMap,
-  typeof translationKeys[number]
->
+export type T = Pick<TranslationMap, typeof translationKeys[number]>
 
 declare global {
   interface HTMLDialogElement {
@@ -37,15 +35,38 @@ export function Cart(
     transparentButton = false,
     isEuIp,
     t,
+    lang,
   }: {
     transparentButton?: boolean
     isEuIp: boolean
     t: T
+    lang: LanguageCode
   },
 ) {
   const { data, error } = useCart()
   const cartRef = useRef<HTMLDialogElement | null>(null)
   const privacyRef = useRef<HTMLDialogElement | null>(null)
+
+  const [isComfortCheckoutEnabled, setIsComfortCheckoutEnabled] = useState(
+    !isEuIp,
+  )
+  const [hasUserSetPreference, setHasUserSetPreference] = useState(false)
+
+  useEffect(() => {
+    const storedChoice = localStorage.getItem('comfortCheckoutEnabled')
+    if (storedChoice !== null) {
+      setIsComfortCheckoutEnabled(JSON.parse(storedChoice))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (hasUserSetPreference) {
+      localStorage.setItem(
+        'comfortCheckoutEnabled',
+        JSON.stringify(isComfortCheckoutEnabled),
+      )
+    }
+  }, [isComfortCheckoutEnabled, hasUserSetPreference])
 
   const onDialogClick = (e: MouseEvent) => {
     if ((e.target as HTMLDialogElement).tagName === 'DIALOG') {
@@ -54,29 +75,35 @@ export function Cart(
   }
 
   const openPrivacyModal = () => {
-    if (isEuIp) {
+    if (isEuIp && !isComfortCheckoutEnabled) {
       privacyRef.current?.showModal()
     } else if (data) {
-      location.href = data.checkoutUrl
+      const url = new URL(data.checkoutUrl)
+      url.searchParams.set('locale', lang)
+      location.href = url.toString()
     }
   }
 
-  const acceptPrivacy = async () => {
+  const acceptPrivacy = () => {
     privacyRef.current?.close()
+    setIsComfortCheckoutEnabled(true)
+    setHasUserSetPreference(true)
     if (data) {
-      // Update cart attributes with user consent
-      const timestamp = new Date().toISOString()
-      await updateCartAttributes(data.id, {
-        key: 'privacy_consent',
-        value: `accepted_${timestamp}`,
-      })
-
-      location.href = data.checkoutUrl
+      const url = new URL(data.checkoutUrl)
+      url.searchParams.set('locale', lang)
+      location.href = url.toString()
     }
   }
 
   const declinePrivacy = () => {
     privacyRef.current?.close()
+    setIsComfortCheckoutEnabled(false)
+    setHasUserSetPreference(true)
+  }
+
+  const handleCheckboxToggle = () => {
+    setIsComfortCheckoutEnabled((prev) => !prev)
+    setHasUserSetPreference(true)
   }
 
   if (error) {
@@ -132,16 +159,21 @@ export function Cart(
         class='bg-transparent p-0 m-0 pt-[50%] sm:pt-0 max-w-full sm:pl-[40%] md:pl-[60%] w-full max-h-full h-full transition-transform duration-500 sm:translate-x-0 translate-y-0 backdrop-blur'
         onClick={onDialogClick}
       >
-        <CartInner cart={data} t={t} onCheckout={openPrivacyModal} />
+        <CartInner
+          cart={data}
+          t={t}
+          onCheckout={openPrivacyModal}
+          isComfortCheckoutEnabled={isComfortCheckoutEnabled}
+          onToggleComfortCheckout={handleCheckboxToggle}
+        />
       </dialog>
 
-      {/* Inline Privacy Modal */}
       <dialog
         ref={privacyRef}
         class='rounded-2xl max-w-lg w-full p-6 backdrop-blur-md bg-white/80 shadow-lg transition'
       >
         <div class='text-center'>
-          <h3 class='text-xl font-semibold'>{t['Checkout Options']}</h3>
+          <h3 class='text-lg font-semibold'>{t['Checkout Options']}</h3>
           <p class='mt-2 text-sm text-gray-600 text-justify'>
             <strong>{t['Comfort Checkout']}</strong> - {t[
               'For a fast, automated process with modern payment methods (e.g., PayPal, Klarna, Apple Pay). By choosing this checkout option, you agree to additional data processing. Learn more in our'
@@ -184,7 +216,13 @@ export function Cart(
 }
 
 function CartInner(
-  props: { cart: CartData | undefined; t: T; onCheckout: () => void },
+  props: {
+    cart: CartData | undefined
+    t: T
+    onCheckout: () => void
+    isComfortCheckoutEnabled: boolean
+    onToggleComfortCheckout: () => void
+  },
 ) {
   const t = props.t
   const { data: cart } = useCart()
@@ -278,10 +316,28 @@ function CartInner(
           <p class='mt-0.5 text-sm text-gray-500'>
             Shipping and taxes calculated at checkout.
           </p>
-          <div class='mt-6'>
+
+          {/* Comfort Checkout Checkbox */}
+          <div class='mt-6 flex flex-col items-center'>
+            <div class='flex items-center text-sm text-gray-600'>
+              <input
+                type='checkbox'
+                id='comfortCheckout'
+                class='mr-2'
+                checked={props.isComfortCheckoutEnabled}
+                onChange={props.onToggleComfortCheckout}
+              />
+              <label htmlFor='comfortCheckout'>
+                {t['Comfort Checkout']}
+              </label>
+              <a href='/policies/privacy-policy-comfort-checkout' class='ml-1'>
+                ({t['Terms apply']})
+              </a>
+            </div>
+
             <button
               type='button'
-              class='w-full bg-gray-700 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-700'
+              class='w-full mt-4 bg-gray-700 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-700'
               disabled={props.cart.lines.nodes.length === 0}
               onClick={props.onCheckout}
             >
