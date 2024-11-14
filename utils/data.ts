@@ -88,9 +88,6 @@ async function cartFetcher(): Promise<CartData> {
     { id },
   )
   if (cart === null) {
-    // If there is a cart ID, but the returned cart is null, then the cart
-    // was already part of a completed order. Clear the cart ID and get a new
-    // one.
     localStorage.removeItem('cartId')
     return cartFetcher()
   }
@@ -117,6 +114,41 @@ export async function addToCart(cartId: string, productId: string) {
   await mutate('cart', mutation)
 }
 
+const UPDATE_CART_ATTRIBUTES_MUTATION = `
+  mutation updateCartAttributes($cartId: ID!, $attributes: [AttributeInput!]!) {
+    cartAttributesUpdate(cartId: $cartId, attributes: $attributes) {
+      cart {
+        id
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`
+
+export async function updateCartAttributes(
+  cartId: string,
+  attribute: { key: string; value: string },
+) {
+  const response = await shopifyGraphql<
+    { cartAttributesUpdate: { userErrors: Array<{ message: string }> } }
+  >(
+    UPDATE_CART_ATTRIBUTES_MUTATION,
+    {
+      cartId,
+      attributes: [attribute],
+    },
+  )
+  if (response.cartAttributesUpdate.userErrors.length) {
+    console.error(
+      'Error updating cart attributes:',
+      response.cartAttributesUpdate.userErrors,
+    )
+  }
+}
+
 const REMOVE_FROM_CART_MUTATION = `
   mutation removeFromCart($cartId: ID!, $lineIds: [ID!]!) {
     cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
@@ -137,10 +169,7 @@ export async function removeFromCart(cartId: string, lineItemId: string) {
 }
 
 export function formatCurrency(amount: Money) {
-  // Fallback to a default currency if none is provided
   const currency = amount.currencyCode || 'USD'
-
-  // Use Intl.NumberFormat with the fallback currency code
   const intl = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: currency,

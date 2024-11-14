@@ -4,6 +4,7 @@ import {
   CartData,
   formatCurrency,
   removeFromCart,
+  updateCartAttributes,
   useCart,
 } from '@/utils/data.ts'
 import { TranslationMap } from '@/translations.ts'
@@ -54,17 +55,22 @@ export function Cart(
 
   const openPrivacyModal = () => {
     if (isEuIp) {
-      // Show the privacy modal if the user is from the EU
       privacyRef.current?.showModal()
     } else if (data) {
-      // Directly proceed to checkout if not from the EU
       location.href = data.checkoutUrl
     }
   }
 
-  const acceptPrivacy = () => {
+  const acceptPrivacy = async () => {
     privacyRef.current?.close()
     if (data) {
+      // Update cart attributes with user consent
+      const timestamp = new Date().toISOString()
+      await updateCartAttributes(data.id, {
+        key: 'privacy_consent',
+        value: `accepted_${timestamp}`,
+      })
+
       location.href = data.checkoutUrl
     }
   }
@@ -135,7 +141,7 @@ export function Cart(
         class='rounded-2xl max-w-lg w-full p-6 backdrop-blur-md bg-white/80 shadow-lg transition'
       >
         <div class='text-center'>
-          <h3 class='text-lg font-semibold'>{t['Checkout Options']}</h3>
+          <h3 class='text-xl font-semibold'>{t['Checkout Options']}</h3>
           <p class='mt-2 text-sm text-gray-600 text-justify'>
             <strong>{t['Comfort Checkout']}</strong> - {t[
               'For a fast, automated process with modern payment methods (e.g., PayPal, Klarna, Apple Pay). By choosing this checkout option, you agree to additional data processing. Learn more in our'
