@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks'
-import { addToCart, ensureLocale, useCart } from '@/utils/data.ts'
+import { addToCart, useCart } from '@/utils/data.ts'
 import type { CountryCode } from '@/config/locales.ts'
 
 interface AddToCartProps {
@@ -8,7 +8,7 @@ interface AddToCartProps {
 }
 
 export function AddToCart(props: AddToCartProps) {
-  const { data } = useCart(props.country)
+  const { data } = useCart()
   const [isAdding, setIsAdding] = useState(false)
 
   const add = (e: MouseEvent) => {

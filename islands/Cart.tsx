@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import {
   CartData,
-  ensureLocale,
   formatCurrency,
   removeFromCart,
   useCart,
@@ -50,7 +49,7 @@ export function Cart(
     country: CountryCode
   },
 ) {
-  const { data, error } = useCart(country)
+  const { data, error } = useCart()
 
   const cartRef = useRef<HTMLDialogElement | null>(null)
   const privacyRef = useRef<HTMLDialogElement | null>(null)
@@ -94,8 +93,8 @@ export function Cart(
 
   const acceptPrivacy = () => {
     privacyRef.current?.close()
-    setIsComfortCheckoutEnabled(true)
     setHasUserSetPreference(true)
+    setIsComfortCheckoutEnabled(true)
     if (data) {
       const url = new URL(data.checkoutUrl)
       url.searchParams.set('locale', lang)
@@ -105,13 +104,13 @@ export function Cart(
 
   const declinePrivacy = () => {
     privacyRef.current?.close()
-    setIsComfortCheckoutEnabled(false)
     setHasUserSetPreference(true)
+    setIsComfortCheckoutEnabled(false)
   }
 
   const handleCheckboxToggle = () => {
-    setIsComfortCheckoutEnabled((prev) => !prev)
     setHasUserSetPreference(true)
+    setIsComfortCheckoutEnabled((prev) => !prev)
   }
 
   if (error) {
@@ -235,7 +234,7 @@ function CartInner(
   },
 ) {
   const t = props.t
-  const { data: cart } = useCart(props.country)
+  const { data: cart } = useCart()
 
   const remove = (itemId: string) => {
     if (cart) {

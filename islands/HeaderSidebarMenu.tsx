@@ -5,6 +5,7 @@ import { meta } from '@/config/meta.ts'
 import { Social } from '@/components/Social.tsx'
 import { CountryCode, locales } from '@/config/locales.ts'
 import { LanguageCode, languages, type TranslationMap } from '@/translations.ts'
+import { setCartLocale } from '@/utils/data.ts'
 
 export const translationKeys = menuItems.map((category) => category.label)
   .concat([
@@ -140,6 +141,7 @@ function LocaleDrawer({
   }
 
   const handleCountrySelect = (code: CountryCode) => {
+    setCartLocale(code)
     document.cookie = `country=${code}; path=/;`
     globalThis.location.reload()
   }

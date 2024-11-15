@@ -3,6 +3,7 @@ import { useSignal } from '@preact/signals'
 import { CountryCode, locales } from '@/config/locales.ts'
 import { useEffect, useRef } from 'preact/hooks'
 import { Locale } from '@/config/locales.ts'
+import { setCartLocale } from '@/utils/data.ts'
 
 interface Props {
   country: CountryCode
@@ -26,6 +27,7 @@ export function CountrySelector({ country }: Props) {
   }
 
   const selectCountry = (country: Locale) => {
+    setCartLocale(country.code)
     selectedCountry.value = country
     closeMenu()
     document.cookie = `country=${country.code}; path=/;`

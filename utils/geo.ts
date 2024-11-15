@@ -41,7 +41,9 @@ export function getGeoData(req: Request, ctx: FreshContext<Data>) {
     ? (firstPathPartial as LanguageCode)
     : undefined
 
-  const country = cookies['country'] || browserCountry
+  const country = cookies['country'] ||
+    req.headers.get('cf-ipcountry') ||
+    browserCountry
 
   if (!langPartial) {
     if (!cookieLang) {
