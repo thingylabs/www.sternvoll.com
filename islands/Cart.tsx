@@ -82,7 +82,7 @@ export function Cart(
   }
 
   const openPrivacyModal = () => {
-    if (isEuIp && !isComfortCheckoutEnabled) {
+    if (!isComfortCheckoutEnabled) {
       privacyRef.current?.showModal()
     } else if (data) {
       const url = new URL(data.checkoutUrl)
