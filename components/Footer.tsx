@@ -70,7 +70,7 @@ export const Footer = ({ meta, t }: FooterProps) => {
           </div>
 
           {/* Menu Links */}
-          <div className='pl-2 pt-6 w-full md:w-1/2 flex flex-wrap justify-between'>
+          <div className='pt-6 w-full md:w-1/2 flex flex-wrap justify-between'>
             {menuItems.map((section) => (
               <div key={section.title} className='w-1/2 pb-6'>
                 <h3 className='font-semibold mb-4 xl:text-[1vw]'>
