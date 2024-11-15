@@ -12,6 +12,7 @@ export default {
         'tertiary-darker': '#E7E4E4',
         background: '#f6f4f2',
         'accent-blue': '#051F34',
+        'skin-tone': '#D8C1B9',
       },
       fontFamily: {
         accent: ['Sorts Mill Goudy', 'serif'],

@@ -44,7 +44,7 @@ export function LanguageSwitcher({ lang }: Props) {
   return (
     <div ref={dropdownRef} class='relative lg:flex items-center cursor-pointer'>
       {/* Language Selector */}
-      <div class='flex items-center' onClick={toggleMenu}>
+      <div class='flex items-center opacity-75' onClick={toggleMenu}>
         <span>
           {/* Display the name of the currently selected language */}
           {languages.find((langObj) =>

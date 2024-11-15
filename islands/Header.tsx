@@ -4,7 +4,7 @@ import { useEffect } from 'preact/hooks'
 import {
   Menu,
   translationKeys as sidebarMenuTranslationKeys,
-} from './HeaderSidebarMenu.tsx'
+} from '@/islands/HeaderSidebarMenu.tsx'
 import { InlineMenu } from '@/components/HeaderInlineMenu.tsx'
 import {
   Cart,
@@ -13,6 +13,7 @@ import {
 import { LanguageSwitcher } from '@/islands/LanguageSwitcher.tsx'
 import { LanguageCode, TranslationMap } from '@/translations.ts'
 import type { CountryCode } from '@/config/locales.ts'
+import { CountrySelector } from '@/islands/CountrySelector.tsx'
 
 interface HeaderProps {
   forceBackground?: boolean
@@ -93,8 +94,9 @@ export function Header(
           </a>
 
           {/* Right Container: Language Switcher, User Icon, Cart */}
-          <div class='flex items-center space-x-4 flex-none'>
-            <div class='hidden lg:inline'>
+          <div class='flex items-center space-x-4 flex-none z-10'>
+            <div class='hidden lg:inline-flex flex-col items-end text-right'>
+              <CountrySelector country={country} />
               <LanguageSwitcher lang={lang} />
             </div>
             <div class='hidden lg:inline'>

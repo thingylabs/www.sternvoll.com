@@ -1,13 +1,17 @@
 // islands/CountrySelector.tsx
 import { useSignal } from '@preact/signals'
-import { locales } from '../config/locales.ts'
+import { CountryCode, locales } from '@/config/locales.ts'
 import { useEffect, useRef } from 'preact/hooks'
-import { Locale } from '../config/locales.ts'
+import { Locale } from '@/config/locales.ts'
 
-export function CountrySelector() {
+interface Props {
+  country: CountryCode
+}
+
+export function CountrySelector({ country }: Props) {
   const isOpen = useSignal(false)
   const selectedCountry = useSignal(
-    locales.find((locale) => locale.code === 'US') || locales[0],
+    locales.find((locale) => locale.code === country)!,
   )
   const inputRef = useRef<HTMLInputElement>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -24,7 +28,8 @@ export function CountrySelector() {
   const selectCountry = (country: Locale) => {
     selectedCountry.value = country
     closeMenu()
-    searchTerm.value = ''
+    document.cookie = `country=${country.code}; path=/;`
+    globalThis.location.reload()
   }
 
   const filteredLocales = locales.filter((locale) => {
@@ -62,7 +67,7 @@ export function CountrySelector() {
   return (
     <div ref={dropdownRef} class='relative lg:flex items-center cursor-pointer'>
       {/* Selected Country and Currency */}
-      <div class='flex items-center' onClick={toggleMenu}>
+      <div class='flex items-center opacity-75' onClick={toggleMenu}>
         <span>{selectedCountry.value.country}</span>
         <span class='mx-2'>|</span>
         <span>
@@ -76,7 +81,7 @@ export function CountrySelector() {
 
       {/* Dropdown Menu */}
       {isOpen.value && (
-        <div class='absolute top-full mt-2 bg-gray-800 text-white shadow-lg rounded-lg p-4 w-56 z-10'>
+        <div class='opacity-100 absolute top-full mt-2 bg-gray-800 text-white shadow-lg rounded-lg p-4 w-56 z-10'>
           <div class='flex items-center border-b border-gray-700 pb-2 mb-2'>
             <input
               type='text'
