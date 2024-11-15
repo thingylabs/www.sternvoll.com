@@ -8,8 +8,7 @@ interface AddToCartProps {
 }
 
 export function AddToCart(props: AddToCartProps) {
-  const { data } = useCart()
-  ensureLocale(data, props.country)
+  const { data } = useCart(props.country)
   const [isAdding, setIsAdding] = useState(false)
 
   const add = (e: MouseEvent) => {

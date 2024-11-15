@@ -74,12 +74,27 @@ async function shopifyGraphql<T = any>(
   return await res.json()
 }
 
-async function cartFetcher(): Promise<CartData> {
+async function cartFetcher(countryCode: string): Promise<CartData> {
   const id = localStorage.getItem('cartId')
+
   if (id === null) {
     const { cartCreate } = await shopifyGraphql<
       { cartCreate: { cart: CartData } }
-    >(`mutation { cartCreate { cart ${CART_QUERY} } }`)
+    >(
+      `mutation cartCreate($input: CartInput!) {
+        cartCreate(input: $input) {
+          cart ${CART_QUERY}
+        }
+      }`,
+      {
+        input: {
+          buyerIdentity: {
+            countryCode,
+          },
+        },
+      },
+    )
+
     localStorage.setItem('cartId', cartCreate.cart.id)
     return cartCreate.cart
   }
@@ -88,16 +103,22 @@ async function cartFetcher(): Promise<CartData> {
     `query($id: ID!) { cart(id: $id) ${CART_QUERY} }`,
     { id },
   )
-  if (cart === null) {
+
+  if (!cart) {
     localStorage.removeItem('cartId')
-    return cartFetcher()
+    return cartFetcher(countryCode)
   }
 
-  return cart
+  // Update the cart locale and return the updated cart
+  return await ensureLocale(cart, countryCode)
 }
 
-export function useCart() {
-  return useSWR<CartData, Error>('cart', cartFetcher, {})
+export function useCart(countryCode: string) {
+  return useSWR<CartData, Error>(
+    ['cart', countryCode],
+    () => cartFetcher(countryCode),
+    {},
+  )
 }
 
 const ADD_TO_CART_QUERY =
@@ -179,28 +200,23 @@ export function formatCurrency(amount: Money) {
 }
 
 export async function ensureLocale(
-  cart: CartData | undefined,
+  cart: CartData,
   countryCode: string,
-): Promise<void> {
-  if (!cart) {
-    console.warn('Cart is not loaded yet. Skipping locale check.')
-    return
-  }
-
+): Promise<CartData> {
   const cartId = cart.id
   const expectedCurrency = getCurrencyByCountryCode(countryCode)
 
   if (!expectedCurrency) {
-    console.warn(`No currency mapping found for country code: ${countryCode}`)
-    return
+    return cart
   }
 
   const currentCurrency = cart.estimatedCost?.totalAmount?.currencyCode
 
   if (currentCurrency !== expectedCurrency) {
-    await shopifyGraphql(
+    const response = await shopifyGraphql(
       `mutation updateCartBuyerIdentity($cartId: ID!, $buyerIdentity: CartBuyerIdentityInput!) {
         cartBuyerIdentityUpdate(cartId: $cartId, buyerIdentity: $buyerIdentity) {
+          cart ${CART_QUERY}  # Reuse CART_QUERY here
           userErrors {
             field
             message
@@ -214,10 +230,15 @@ export async function ensureLocale(
         },
       },
     )
-    console.log(`Cart locale updated to country: ${countryCode}`)
-  } else {
-    console.log(
-      `Cart is already set to the expected currency (${expectedCurrency}).`,
-    )
+
+    const updatedCart = response.cartBuyerIdentityUpdate.cart
+
+    if (!updatedCart) {
+      return cart
+    }
+    return updatedCart
   }
+
+  // Return the original cart if no update was needed
+  return cart
 }

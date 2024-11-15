@@ -50,8 +50,7 @@ export function Cart(
     country: CountryCode
   },
 ) {
-  const { data, error } = useCart()
-  ensureLocale(data, country)
+  const { data, error } = useCart(country)
 
   const cartRef = useRef<HTMLDialogElement | null>(null)
   const privacyRef = useRef<HTMLDialogElement | null>(null)
@@ -236,8 +235,7 @@ function CartInner(
   },
 ) {
   const t = props.t
-  const { data: cart } = useCart()
-  ensureLocale(cart, props.country)
+  const { data: cart } = useCart(props.country)
 
   const remove = (itemId: string) => {
     if (cart) {
