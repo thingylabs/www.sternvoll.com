@@ -158,6 +158,7 @@ export default function ProductPage(ctx: PageProps<Query, Data>) {
         forceBackground
         t={getT(headerTranslationKeys)}
         lang={state.geo.lang}
+        country={state.geo.country}
         isEuIp={state.geo.isEuIp}
       />
 

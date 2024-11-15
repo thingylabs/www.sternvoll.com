@@ -12,12 +12,14 @@ import {
 } from '@/islands/Cart.tsx'
 import { LanguageSwitcher } from '@/islands/LanguageSwitcher.tsx'
 import { LanguageCode, TranslationMap } from '@/translations.ts'
+import type { CountryCode } from '@/config/locales.ts'
 
 interface HeaderProps {
   forceBackground?: boolean
   t: T
   isEuIp: boolean
   lang: LanguageCode
+  country: CountryCode
 }
 
 export const translationKeys = [
@@ -28,7 +30,7 @@ export const translationKeys = [
 export type T = Pick<TranslationMap, typeof translationKeys[number]>
 
 export function Header(
-  { forceBackground = false, t, lang, isEuIp }: HeaderProps,
+  { forceBackground = false, t, lang, country, isEuIp }: HeaderProps,
 ) {
   const hasBackground = useSignal(forceBackground)
   const isVisible = useSignal(false)
@@ -71,6 +73,7 @@ export function Header(
               <Menu
                 transparentButton={!hasBackground.value}
                 lang={lang}
+                country={country}
                 t={t}
               />
             </div>

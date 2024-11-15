@@ -111,6 +111,7 @@ export default function PolicyPage(
         forceBackground
         t={getT(headerTranslationKeys)}
         lang={state.geo.lang}
+        country={state.geo.country}
         isEuIp={state.geo.isEuIp}
       />
 

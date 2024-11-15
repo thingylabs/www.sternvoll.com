@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 import { menuItems } from '@/config/headerMenu.ts'
 import { meta } from '@/config/meta.ts'
 import { Social } from '@/components/Social.tsx'
-import { locales } from '@/config/locales.ts'
+import { CountryCode, locales } from '@/config/locales.ts'
 import { LanguageCode, languages, type TranslationMap } from '@/translations.ts'
 
 export const translationKeys = menuItems.map((category) => category.label)
@@ -14,10 +14,13 @@ export const translationKeys = menuItems.map((category) => category.label)
 interface MenuProps {
   transparentButton?: boolean
   lang: LanguageCode
+  country: CountryCode
   t: TranslationMap
 }
 
-export function Menu({ transparentButton = false, lang, t }: MenuProps) {
+export function Menu(
+  { transparentButton = false, lang, country, t }: MenuProps,
+) {
   const menuRef = useRef<HTMLDialogElement | null>(null)
   const localeRef = useRef<HTMLDialogElement | null>(null)
 
@@ -98,6 +101,7 @@ export function Menu({ transparentButton = false, lang, t }: MenuProps) {
           onOpenLocaleSelector={openLocaleSelector}
           onClose={() => menuRef.current?.close()}
           lang={lang}
+          country={country}
           t={t}
         />
       </dialog>
@@ -116,6 +120,7 @@ export function Menu({ transparentButton = false, lang, t }: MenuProps) {
       >
         <LocaleDrawer
           closeLocaleSelector={closeLocaleSelector}
+          country={country}
         />
       </dialog>
     </div>
@@ -126,7 +131,25 @@ function LocaleDrawer({
   closeLocaleSelector,
 }: {
   closeLocaleSelector: () => void
+  country: CountryCode
 }) {
+  const [search, setSearch] = useState('')
+
+  const handleSearchChange = (e: Event) => {
+    setSearch((e.target as HTMLInputElement).value.toLowerCase())
+  }
+
+  const handleCountrySelect = (code: CountryCode) => {
+    document.cookie = `country=${code}; path=/;`
+    globalThis.location.reload()
+  }
+
+  const filteredLocales = locales.filter((locale) =>
+    locale.country.toLowerCase().includes(search) ||
+    locale.currency.code.toLowerCase().includes(search) ||
+    locale.currency.symbol.toLowerCase().includes(search)
+  )
+
   return (
     <div class='bg-white rounded-t-lg shadow-xl w-full max-w-md mx-auto flex flex-col h-full'>
       <div class='flex items-center p-4'>
@@ -134,6 +157,8 @@ function LocaleDrawer({
           type='text'
           placeholder='Search'
           class='w-full border p-2 rounded'
+          value={search}
+          onInput={handleSearchChange}
         />
         <button onClick={closeLocaleSelector} class='ml-2 text-gray-400'>
           <svg
@@ -149,10 +174,13 @@ function LocaleDrawer({
       {/* Scrollable Country and Currency List */}
       <div class='flex-1 overflow-y-auto'>
         <div class='px-4'>
-          {/* Add padding only here */}
           <ul class='space-y-1'>
-            {locales.map((locale, index) => (
-              <li key={index} className='flex justify-between'>
+            {filteredLocales.map((locale) => (
+              <li
+                key={locale.code}
+                class='flex justify-between cursor-pointer p-2 rounded'
+                onClick={() => handleCountrySelect(locale.code as CountryCode)}
+              >
                 <span>{locale.country}</span>
                 <span>
                   <span>{locale.currency.code}</span>
@@ -171,15 +199,19 @@ function MenuDrawer({
   onOpenLocaleSelector,
   onClose,
   lang,
+  country,
   t,
 }: {
   onOpenLocaleSelector: () => void
   onClose: () => void
   lang: LanguageCode
+  country: CountryCode
   t: TranslationMap
 }) {
   const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false)
   const languageSelectorRef = useRef<HTMLDivElement | null>(null)
+  const languageButtonRef = useRef<HTMLDivElement | null>(null)
+  const locale = locales.find((l) => l.code === country)!
 
   const toggleLanguageSelector = () => {
     setIsLanguageSelectorOpen((prev) => !prev)
@@ -190,12 +222,13 @@ function MenuDrawer({
     globalThis.location.reload()
   }
 
-  // Close the dropdown if clicking outside
+  // Close the dropdown if clicking outside or clicking the toggle area again
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         languageSelectorRef.current &&
-        !languageSelectorRef.current.contains(event.target as Node)
+        !languageSelectorRef.current.contains(event.target as Node) &&
+        languageButtonRef.current !== event.target
       ) {
         setIsLanguageSelectorOpen(false)
       }
@@ -232,27 +265,24 @@ function MenuDrawer({
         ))}
       </ul>
 
-      {/* Footer Section */}
       <div class='mt-8 border-t border-gray-200 pt-4'>
         <div class='space-y-2'>
           <a class='text-gray-600' href='https://account.sternvoll.com/'>
             {t['Log in']}
           </a>
           {/* Locale Selector */}
-          {
-            /*
           <div
             class='text-gray-600 cursor-pointer flex items-center'
             onClick={onOpenLocaleSelector}
           >
-            United States | USD $
+            {`${locale.country} | ${locale.currency.code} ${locale.currency.symbol}`}
+
             <span class='ml-2'>▾</span>
           </div>
-          */
-          }
           {/* Language Selector */}
           <div
             class='text-gray-600 cursor-pointer flex items-center relative'
+            ref={languageButtonRef}
             onClick={toggleLanguageSelector}
           >
             {languages.find((l) => l.code === lang)?.name}
@@ -270,7 +300,6 @@ function MenuDrawer({
                       lang === language.code ? 'font-bold' : ''
                     }`}
                   >
-                    {/* Fixed-width space for checkmark */}
                     <span class='w-4 mr-2 flex-shrink-0'>
                       {lang === language.code && (
                         <svg

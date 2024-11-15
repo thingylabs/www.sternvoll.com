@@ -11,6 +11,7 @@ export const defaultPolicy = {
   <ul>
     <li>Sobald ein Schmuckstück in den Warenkorb gelegt wird, wird ein technischer Identifier erstellt und lokal hinterlegt. Dieser wird verwendet, um den Warenkorb eindeutig zu kennzeichnen. Dadurch bleibt Ihr Warenkorb über mehrere Seitenaufrufe hinweg erhalten und funktionsfähig.</li>
     <li>Sobald die Komfort-Checkout-Funktion aktiviert wird, wird diese Entscheidung lokal hinterlegt, um beim nächsten Mal direkt der Nutzerentscheidung entsprechen zu können.</li>
+    <li>Die Auswahl Ihres Landes wird ebenfalls lokal gespeichert, um Ihnen beim nächsten Besuch automatisch die entsprechende Währung und Landesinformationen anzeigen zu können.</li>
   </ul>
   
   <p>Ausnahmen stellen hierbei folgende Umstände dar:</p>
@@ -46,6 +47,7 @@ export const defaultPolicy = {
   <ul>
     <li>As soon as a piece of jewelry is added to the cart, a technical identifier is created and stored locally. This identifier is used to uniquely mark the cart, allowing it to remain intact and functional across multiple page visits.</li>
     <li>Once the Comfort Checkout feature is activated, this decision is stored locally to automatically apply the user's preference in future sessions.</li>
+    <li>Your country selection is also stored locally, so the corresponding currency and country information can be displayed automatically on your next visit.</li>
   </ul>
   
   <p>Exceptions are limited to the following circumstances:</p>

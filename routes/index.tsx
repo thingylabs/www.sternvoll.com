@@ -91,6 +91,7 @@ export default function Home(ctx: PageProps<Collection, Data>) {
         <Header
           t={getT(headerTranslationKeys)}
           lang={state.geo.lang}
+          country={state.geo.country}
           isEuIp={state.geo.isEuIp}
         />
       </Hero>

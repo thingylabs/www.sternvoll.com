@@ -9,6 +9,8 @@ export type Locale = {
   }
 }
 
+export type CountryCode = (typeof locales)[number]['code']
+
 export const locales = [
   {
     'country': 'Afghanistan',

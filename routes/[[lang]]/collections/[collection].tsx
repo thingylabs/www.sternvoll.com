@@ -218,6 +218,7 @@ export default function CollectionPage(ctx: PageProps<Query, Data>) {
         forceBackground
         t={getT(headerTranslationKeys)}
         lang={state.geo.lang}
+        country={state.geo.country}
         isEuIp={state.geo.isEuIp}
       />
       <main class='max-w-7xl mx-auto p-4 pt-[2vw]'>

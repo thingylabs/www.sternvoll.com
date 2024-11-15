@@ -22,6 +22,8 @@ const langCodes = languages.map((obj) => obj.code) as LanguageCode[]
 export function getGeoData(req: Request, ctx: FreshContext<Data>) {
   const { lang: browserLang, country: browserCountry } = getBrowserLocale(req)
   const cookies = getCookies(req.headers)
+
+  // Handle language
   const cookieLang = langCodes.includes(cookies['lang'] as LanguageCode)
     ? (cookies['lang'] as LanguageCode)
     : undefined
@@ -31,6 +33,8 @@ export function getGeoData(req: Request, ctx: FreshContext<Data>) {
   const langPartial = langCodes.includes(firstPathPartial as LanguageCode)
     ? (firstPathPartial as LanguageCode)
     : undefined
+
+  const country = cookies['country'] || browserCountry
 
   if (!langPartial) {
     if (!cookieLang) {
@@ -73,10 +77,10 @@ export function getGeoData(req: Request, ctx: FreshContext<Data>) {
   }
 
   ctx.state.geo = {
-    country: browserCountry,
+    country,
     isEuIp: isEuIp(req),
     lang,
-    locale: `${lang}_${browserCountry}`,
+    locale: `${lang}_${country}`,
     getT,
   }
 }
