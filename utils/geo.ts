@@ -135,6 +135,8 @@ function isEuIp(req: Request) {
   if (!req.headers.get('cf-ipcountry')) {
     logger.warn('Missing Cloudflare header `cf-ipcountry`')
   }
+  console.log('cf country', req.headers.get('cf-ipcountry'))
+  console.log('isEuIp', eu.includes(req.headers.get('cf-ipcountry') || 'DE'))
   return eu.includes(req.headers.get('cf-ipcountry') || 'DE')
 }
 
