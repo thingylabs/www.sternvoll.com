@@ -342,7 +342,7 @@ function CartInner(
               </label>
               <a
                 href='/policies/privacy-policy-comfort-checkout'
-                class='ml-1 block sm:inline w-full sm:w-auto  text-indigo-600 hover:text-indigo-500'
+                class='ml-1 inline text-indigo-600 hover:text-indigo-500'
               >
                 ({t['Data privacy']})
               </a>
