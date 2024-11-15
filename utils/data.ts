@@ -1,6 +1,7 @@
 // utils/data.ts
 import useSWR, { mutate } from 'swr'
 import { Image, Money } from './types.ts'
+import { getCurrencyByCountryCode } from '@/utils/geo.ts'
 
 export interface CartData {
   id: string
@@ -175,4 +176,48 @@ export function formatCurrency(amount: Money) {
     currency: currency,
   })
   return intl.format(Number(amount.amount))
+}
+
+export async function ensureLocale(
+  cart: CartData | undefined,
+  countryCode: string,
+): Promise<void> {
+  if (!cart) {
+    console.warn('Cart is not loaded yet. Skipping locale check.')
+    return
+  }
+
+  const cartId = cart.id
+  const expectedCurrency = getCurrencyByCountryCode(countryCode)
+
+  if (!expectedCurrency) {
+    console.warn(`No currency mapping found for country code: ${countryCode}`)
+    return
+  }
+
+  const currentCurrency = cart.estimatedCost?.totalAmount?.currencyCode
+
+  if (currentCurrency !== expectedCurrency) {
+    await shopifyGraphql(
+      `mutation updateCartBuyerIdentity($cartId: ID!, $buyerIdentity: CartBuyerIdentityInput!) {
+        cartBuyerIdentityUpdate(cartId: $cartId, buyerIdentity: $buyerIdentity) {
+          userErrors {
+            field
+            message
+          }
+        }
+      }`,
+      {
+        cartId,
+        buyerIdentity: {
+          countryCode,
+        },
+      },
+    )
+    console.log(`Cart locale updated to country: ${countryCode}`)
+  } else {
+    console.log(
+      `Cart is already set to the expected currency (${expectedCurrency}).`,
+    )
+  }
 }

@@ -1,7 +1,8 @@
 import { Axiom } from 'axiom'
+import { IS_BROWSER } from '$fresh/runtime.ts'
 
-const AXIOM_TOKEN = Deno.env.get('AXIOM_TOKEN')
-const AXIOM_DATASET = Deno.env.get('AXIOM_DATASET')
+const AXIOM_TOKEN = !IS_BROWSER && Deno.env.get('AXIOM_TOKEN')
+const AXIOM_DATASET = !IS_BROWSER && Deno.env.get('AXIOM_DATASET')
 type LogLevel = 'info' | 'warn' | 'error'
 
 export const logger = {
@@ -10,7 +11,7 @@ export const logger = {
   error: (message: string, data?: object) => send('error', message, data),
 }
 
-const axiom = AXIOM_TOKEN && AXIOM_DATASET
+const axiom = !IS_BROWSER && AXIOM_TOKEN && AXIOM_DATASET
   ? new Axiom({ token: AXIOM_TOKEN! })
   : { ingest: () => {} }
 

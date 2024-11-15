@@ -130,6 +130,7 @@ export function Header(
               t={t}
               isEuIp={isEuIp}
               lang={lang}
+              country={country}
             />
           </div>
         </div>

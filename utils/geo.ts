@@ -12,6 +12,13 @@ import { Data } from '@/routes/_middleware.ts'
 import { logger } from '@/utils/logger.ts'
 import { locales } from '@/config/locales.ts'
 
+export function getCurrencyByCountryCode(
+  countryCode: string,
+): string | undefined {
+  const locale = locales.find((locale) => locale.code === countryCode)
+  return locale?.currency.code
+}
+
 export function getCountryNameByCode(code: string): string | undefined {
   const locale = locales.find((locale) => locale.code === code)
   return locale ? locale.country : undefined

@@ -2,11 +2,13 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import {
   CartData,
+  ensureLocale,
   formatCurrency,
   removeFromCart,
   useCart,
 } from '@/utils/data.ts'
 import { type LanguageCode, TranslationMap } from '@/translations.ts'
+import type { CountryCode } from '@/config/locales.ts'
 
 export const translationKeys = [
   'Shopping Cart',
@@ -39,14 +41,18 @@ export function Cart(
     isEuIp,
     t,
     lang,
+    country,
   }: {
     transparentButton?: boolean
     isEuIp: boolean
     t: T
     lang: LanguageCode
+    country: CountryCode
   },
 ) {
   const { data, error } = useCart()
+  ensureLocale(data, country)
+
   const cartRef = useRef<HTMLDialogElement | null>(null)
   const privacyRef = useRef<HTMLDialogElement | null>(null)
 
@@ -165,6 +171,7 @@ export function Cart(
         <CartInner
           cart={data}
           t={t}
+          country={country}
           onCheckout={openPrivacyModal}
           isComfortCheckoutEnabled={isComfortCheckoutEnabled}
           onToggleComfortCheckout={handleCheckboxToggle}
@@ -222,6 +229,7 @@ function CartInner(
   props: {
     cart: CartData | undefined
     t: T
+    country: CountryCode
     onCheckout: () => void
     isComfortCheckoutEnabled: boolean
     onToggleComfortCheckout: () => void
@@ -229,6 +237,7 @@ function CartInner(
 ) {
   const t = props.t
   const { data: cart } = useCart()
+  ensureLocale(cart, props.country)
 
   const remove = (itemId: string) => {
     if (cart) {
