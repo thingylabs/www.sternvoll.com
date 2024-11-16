@@ -50,7 +50,7 @@ export function OurStory({ t }: { t: TranslationMap }) {
             <FillLetter
               firstLine={t['OUR']}
               secondLine={t['STORY']}
-              href='#'
+              href='/collections/about-us'
             />
           </div>
         </div>

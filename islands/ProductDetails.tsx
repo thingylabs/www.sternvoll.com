@@ -3,8 +3,11 @@ import { AddToCart } from '@/islands/AddToCart.tsx'
 import { formatCurrency } from '@/utils/data.ts'
 import { Product } from '@/utils/types.ts'
 import { categories } from '@/config/productCategories.ts'
+import type { CountryCode } from '@/config/locales.ts'
 
-export default function ProductDetails({ product }: { product: Product }) {
+export default function ProductDetails(
+  { product, country }: { product: Product; country: CountryCode },
+) {
   const [variant, setVariant] = useState(product.variants.nodes[0])
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [startX, setStartX] = useState<number | null>(null)
@@ -161,7 +164,7 @@ export default function ProductDetails({ product }: { product: Product }) {
           {category && (
             <>
               {' '} &gt;{' '}
-              <a href={`/collections/${category.link ?? '#'}`} class='ml-2'>
+              <a href={`/collections/${category.link}`} class='ml-2'>
                 {category.label}
               </a>
             </>
@@ -249,7 +252,7 @@ export default function ProductDetails({ product }: { product: Product }) {
           )}
           {variant.availableForSale && (
             <div class='mt-4'>
-              <AddToCart id={variant.id} />
+              <AddToCart id={variant.id} country={country} />
             </div>
           )}
         </section>

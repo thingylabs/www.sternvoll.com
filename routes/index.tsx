@@ -166,29 +166,29 @@ export default function Home(ctx: PageProps<Collection, Data>) {
         <CategoryCard
           backgroundImage='category-earrings.jpg'
           text={t['Earrings']}
-          href='#'
+          href='/collections/earrings'
         />
         <CategoryCard
           backgroundImage='category-rings.jpg'
           text={t['Rings']}
-          href='#'
+          href='/collections/rings'
         />
         <CategoryCard
           backgroundImage='category-necklaces.jpg'
           text={t['Necklaces']}
-          href='#'
+          href='/collections/necklace'
         />
         <CategoryCard
           backgroundImage='category-clip-ons.jpg'
           text={t['Clip-ons']}
-          href='#'
+          href='/collections/pain-free-clip-ons-earclips'
         />
       </div>
 
       <FillLetter
         firstLine={t['Explore']}
         secondLine={t['Collections']}
-        href='#'
+        href='/collections/all'
       />
 
       <Journal

@@ -1,6 +1,7 @@
 import { formatCurrency } from '@/utils/data.ts'
 import { IconCart } from '@/components/IconCart.tsx'
 import { Product } from '@/utils/types.ts'
+import { tags } from '@/config/tags.ts'
 
 interface ProductCardProps {
   product: Product
@@ -65,7 +66,9 @@ export function ProductCard(
             .map((tag, index) => (
               <a
                 key={index}
-                href='#'
+                href={tags[tag]
+                  ? tags[tag].url
+                  : `/collections/${tag.toLowerCase()}`}
                 class='hover:text-secondary text-gray-500 text-sm xl:text-base 2xl:text-[1.25vw] 2xl:pt-[0.25vw] flex items-center'
               >
                 {index !== 0 && (

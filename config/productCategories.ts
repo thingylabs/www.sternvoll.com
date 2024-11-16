@@ -2,7 +2,7 @@ import { TranslationKey } from '@/translations.ts'
 
 type Category = {
   label: TranslationKey
-  link?: string
+  link: string
 }
 
 export const categories: Category[] = [

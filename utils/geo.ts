@@ -9,7 +9,6 @@ import {
 } from '@/translations.ts'
 import { FreshContext } from '$fresh/server.ts'
 import { Data } from '@/routes/_middleware.ts'
-import { logger } from '@/utils/logger.ts'
 import { locales } from '@/config/locales.ts'
 
 export function getCurrencyByCountryCode(

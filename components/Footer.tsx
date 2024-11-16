@@ -34,7 +34,7 @@ export const Footer = ({ meta, t }: FooterProps) => {
             xl:pr-[5vw]
             `}
           >
-            <a href='#' className='flex items-center'>
+            <a href='/' className='flex items-center'>
               <img
                 src={'/' + meta.logos!.square}
                 className={`
