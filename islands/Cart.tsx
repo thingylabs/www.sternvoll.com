@@ -187,7 +187,7 @@ export function Cart(
               'For a fast, automated process with modern payment methods (e.g., PayPal, Klarna, Apple Pay). By choosing this checkout option, you agree to additional data processing. Learn more in our exended'
             ]}{' '}
             <a
-              href='/datenschutz'
+              href='/policies/privacy-policy-comfort-checkout'
               target='_blank'
               class='text-blue-600 underline'
             >
