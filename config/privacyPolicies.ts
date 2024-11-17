@@ -83,6 +83,7 @@ export const comfortCheckout = {
     data-locale="de"
     data-no-styles="false">
 </script>
+<p>Dieses Dokument beschreibt die Datenverarbeitung auf cart.sternvoll.com, der Plattform für den Compfort-Checkout. Diese Plattform wird im Auftrag von Sternvoll Jewelry von Shopify als Auftragsverarbeiter bereitgestellt. Sobald ein Nutzer den Checkout auf www.sternvoll.com einleitet und der Compfort-Checkout aktiviert ist, wird er automatisch zu cart.sternvoll.com weitergeleitet, um den Vorgang abzuschließen. Dabei erfolgt die Datenverarbeitung wie folgt:</p>
 <div id="dieter-document-de"></div>
 `,
   en: `
@@ -94,6 +95,7 @@ export const comfortCheckout = {
     data-locale="en"
     data-no-styles="false">
 </script>
+<p>This document outlines the data processing on cart.sternvoll.com, the platform for the Compfort checkout. This platform is provided by Shopify as a data processor on behalf of Sternvoll Jewelry. When a user initiates the checkout on www.sternvoll.com and the Compfort checkout is activated, they are automatically redirected to cart.sternvoll.com to complete the process. The data processing carried out there is as follows:</p>
 <div id="dieter-document"></div>
 `,
 }
