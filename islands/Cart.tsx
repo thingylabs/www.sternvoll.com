@@ -14,7 +14,7 @@ export const translationKeys = [
   'Open cart',
   'Checkout Options',
   'Comfort Checkout',
-  'For a fast, automated process with modern payment methods (e.g., PayPal, Klarna, Apple Pay). By choosing this checkout option, you agree to additional data processing. Learn more in our',
+  'For a fast, automated process with modern payment methods (e.g., PayPal, Klarna, Apple Pay). By choosing this checkout option, you agree to additional data processing. Learn more in our exended',
   'Privacy Policy',
   'Manual Checkout',
   'For customers who prefer not to have additional data processing. In this option, payment is made manually, e.g., through a manual PayPal or bank transfer.',
@@ -184,7 +184,7 @@ export function Cart(
           <h3 class='text-lg font-semibold'>{t['Checkout Options']}</h3>
           <p class='mt-2 text-sm text-gray-600 text-justify'>
             <strong>{t['Comfort Checkout']}</strong> - {t[
-              'For a fast, automated process with modern payment methods (e.g., PayPal, Klarna, Apple Pay). By choosing this checkout option, you agree to additional data processing. Learn more in our'
+              'For a fast, automated process with modern payment methods (e.g., PayPal, Klarna, Apple Pay). By choosing this checkout option, you agree to additional data processing. Learn more in our exended'
             ]}{' '}
             <a
               href='/datenschutz'

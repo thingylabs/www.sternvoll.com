@@ -253,10 +253,10 @@ export const translations = {
   'Comfort Checkout': {
     de: 'Komfort Checkout',
   },
-  'For a fast, automated process with modern payment methods (e.g., PayPal, Klarna, Apple Pay). By choosing this checkout option, you agree to additional data processing. Learn more in our':
+  'For a fast, automated process with modern payment methods (e.g., PayPal, Klarna, Apple Pay). By choosing this checkout option, you agree to additional data processing. Learn more in our exended':
     {
       de:
-        'Für eine schnelle, automatisierte Abwicklung mit modernen Zahlungsmethoden (z.B. PayPal, Klarna, Apple Pay). Durch die Wahl dieses Checkouts stimmen Sie der erweiterten Datenverarbeitung zu. Mehr dazu in unseren',
+        'Für eine schnelle, automatisierte Abwicklung mit modernen Zahlungsmethoden (z.B. PayPal, Klarna, Apple Pay). Durch die Wahl dieses Checkouts stimmen Sie der erweiterten Datenverarbeitung zu. Mehr dazu in unseren erweiterten',
     },
   'Privacy Policy': {
     de: 'Datenschutzbestimmungen',
