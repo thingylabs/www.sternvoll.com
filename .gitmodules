@@ -1,0 +1,3 @@
+[submodule "utils/denokv-bridge"]
+	path = utils/denokv-bridge
+	url = https://github.com/thingylabs/denokv-bridge.git
