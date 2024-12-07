@@ -1,11 +1,8 @@
+// routes/index.tsx
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { graphql } from '@/utils/shopify.ts'
 import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
-import {
-  Header,
-  translationKeys as headerTranslationKeys,
-} from '@/islands/Header.tsx'
 import { List, Product } from '@/utils/types.ts'
 import { OurStory } from '@/components/OurStory.tsx'
 import { Hero } from '@/components/Hero.tsx'
@@ -17,7 +14,7 @@ import { FillLetter } from '@/components/FillLetter.tsx'
 import { Journal } from '@/components/Journal.tsx'
 import { meta as siteMeta } from '@/config/meta.ts'
 import { RouteConfig } from '$fresh/server.ts'
-import { Data } from '@/routes/_middleware.ts'
+import { State } from '@/routes/_middleware.ts'
 import type { TranslationKey } from '@/translations.ts'
 
 export const config: RouteConfig = {
@@ -33,8 +30,15 @@ const q = `{
         title
         tags
         featuredImage {
-          url(transform: {preferredContentType: WEBP, maxWidth:400, maxHeight:400})
           altText
+          webp: url(transform: {preferredContentType: WEBP, maxWidth: 400, maxHeight: 400})
+          webp1_5x: url(transform: {preferredContentType: WEBP, maxWidth: 600, maxHeight: 600})
+          webp2x: url(transform: {preferredContentType: WEBP, maxWidth: 800, maxHeight: 800})
+          jpg: url(transform: {preferredContentType: JPG, maxWidth: 400, maxHeight: 400})
+          jpg1_5x: url(transform: {preferredContentType: JPG, maxWidth: 600, maxHeight: 600})
+          jpg2x: url(transform: {preferredContentType: JPG, maxWidth: 800, maxHeight: 800})
+          width: width
+          height: height
         }
         priceRange {
           minVariantPrice {
@@ -57,14 +61,14 @@ interface Collection {
   }
 }
 
-export const handler: Handlers<Collection, Data> = {
+export const handler: Handlers<Collection, State> = {
   async GET(_req, ctx) {
     const data = await graphql<Collection>(q, {}, ctx.state.geo.lang)
     return ctx.render(data)
   },
 }
 
-export default function Home(ctx: PageProps<Collection, Data>) {
+export default function Home(ctx: PageProps<Collection, State>) {
   const { data, url, state } = ctx
   const products = data.collection.products.nodes
   const getT = state.geo.getT
@@ -74,6 +78,7 @@ export default function Home(ctx: PageProps<Collection, Data>) {
     ...siteMeta,
     description: t[siteMeta.shortDescription as TranslationKey],
     locale: state.geo.locale,
+    lang: state.geo.lang,
     image: {
       url: siteMeta.ogImage.fileName,
       width: siteMeta.ogImage.width,
@@ -85,16 +90,7 @@ export default function Home(ctx: PageProps<Collection, Data>) {
   return (
     <>
       <Meta url={url} meta={meta} />
-
-      <Hero t={t}>
-        {/* Only fetch the necessary keys for client-side Header component */}
-        <Header
-          t={getT(headerTranslationKeys)}
-          lang={state.geo.lang}
-          country={state.geo.country}
-          isEuIp={state.geo.isEuIp}
-        />
-      </Hero>
+      <Hero t={t} />
 
       <div class='pt-[12.5vw] 2xl:pt-[5vw]'>
         <OurStory t={t} />

@@ -1,5 +1,4 @@
 // config/locales.ts
-
 export type Locale = {
   country: string
   code: string

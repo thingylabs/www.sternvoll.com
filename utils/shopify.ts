@@ -1,4 +1,6 @@
+// utils/shopify.ts
 import type { LanguageCode } from '@/translations.ts'
+import { kv } from '@/utils/kv.ts'
 
 const SHOPIFY_SHOP = Deno.env.get('SHOPIFY_SHOP')
 const SHOPIFY_ACCESS_TOKEN = Deno.env.get('SHOPIFY_ACCESS_TOKEN')
@@ -28,14 +30,32 @@ export async function graphql<T>(
     },
     body: JSON.stringify({ query, variables }),
   })
+
   if (!resp.ok) {
     const body = await resp.text()
     throw new Error(`${resp.status} ${body}`)
   }
+
   const json = await resp.json()
   if (json.errors) {
     throw new Error(json.errors.map((e: Error) => e.message).join('\n'))
   }
+
+  if (query.includes('mutation cartCreate')) {
+    try {
+      console.log(
+        'mutation cartCreate',
+        await kv.global.enqueue(JSON.stringify({
+          type: 'cart_created',
+          cartId: json.data.cartCreate.cart.id,
+          timestamp: new Date().toISOString(),
+        })),
+      )
+    } catch (error) {
+      console.error('Failed to enqueue cart creation event:', error)
+    }
+  }
+
   return json.data as T
 }
 

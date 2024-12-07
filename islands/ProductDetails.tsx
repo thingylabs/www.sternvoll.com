@@ -1,3 +1,4 @@
+// islands/ProductDetails.tsx
 import { useState } from 'preact/hooks'
 import { AddToCart } from '@/islands/AddToCart.tsx'
 import { formatCurrency } from '@/utils/data.ts'
@@ -73,7 +74,7 @@ export default function ProductDetails(
             {product.images && product.images.nodes[currentImageIndex] && (
               <img
                 id='productImage'
-                src={product.images.nodes[currentImageIndex].url}
+                src={product.images.nodes[currentImageIndex].jpg_small}
                 alt={product.images.nodes[currentImageIndex].altText}
                 class='w-full h-full object-center object-contain'
                 crossorigin='anonymous'
@@ -142,7 +143,7 @@ export default function ProductDetails(
                 } rounded-lg overflow-hidden`}
               >
                 <img
-                  src={image.url}
+                  src={image.jpg_small}
                   alt={image.altText}
                   class='w-full h-full object-cover'
                   crossorigin='anonymous'

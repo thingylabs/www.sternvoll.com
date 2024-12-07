@@ -1,3 +1,4 @@
+// components/Footer.tsx
 import { Social } from '@/components/Social.tsx'
 import { MovingText } from '@/islands/MovingText.tsx'
 import { Payment } from '@/components/Payment.tsx'

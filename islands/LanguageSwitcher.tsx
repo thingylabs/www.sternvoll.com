@@ -2,6 +2,7 @@
 import { useSignal } from '@preact/signals'
 import { LanguageCode, languages } from '@/translations.ts'
 import { useEffect, useRef } from 'preact/hooks'
+import { COOKIE_KEYS, setCookie } from '@/utils/cookies.ts'
 
 interface Props {
   lang: LanguageCode
@@ -20,8 +21,7 @@ export function LanguageSwitcher({ lang }: Props) {
     selectedLanguage.value = language
     isOpen.value = false
 
-    // Set the language cookie and reload the page
-    document.cookie = `lang=${language}; path=/;`
+    setCookie(COOKIE_KEYS.LANGUAGE, language)
     globalThis.location.reload()
   }
 
@@ -35,7 +35,9 @@ export function LanguageSwitcher({ lang }: Props) {
         isOpen.value = false
       }
     }
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('mousedown', handleClickOutside, {
+      passive: true,
+    })
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }

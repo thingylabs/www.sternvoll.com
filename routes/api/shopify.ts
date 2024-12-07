@@ -1,3 +1,4 @@
+// routes/api/shopify.ts
 import { Handlers } from '$fresh/server.ts'
 import { graphql } from '@/utils/shopify.ts'
 

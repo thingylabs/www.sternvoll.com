@@ -1,3 +1,4 @@
+// components/IconCart.tsx
 export function IconCart({ size = 16 }: { size?: number }) {
   return (
     <svg

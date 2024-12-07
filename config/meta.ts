@@ -1,5 +1,12 @@
+// config/meta.ts
 export const meta = {
   title: 'Sternvoll Jewelry',
+  sepa: {
+    iban: 'DE91 4306 0967 7023 0442 02',
+    bic: 'GENODEM1GLS',
+    bank: 'GLS Bank',
+    holder: 'Per Guth',
+  },
   logos: {
     default: 'Sternvoll-bright.png',
     square: 'Sternvoll-star.png',

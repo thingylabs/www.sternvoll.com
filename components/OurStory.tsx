@@ -1,3 +1,4 @@
+// components/OurStory.tsx
 import { MovingText } from '@/islands/MovingText.tsx'
 import { FillLetter } from '@/components/FillLetter.tsx'
 import { TranslationMap } from '@/translations.ts'

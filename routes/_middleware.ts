@@ -2,31 +2,64 @@
 import { FreshContext } from '$fresh/server.ts'
 import { LanguageCode, TranslationKey, TranslationMap } from '@/translations.ts'
 import { getGeoData } from '@/utils/geo.ts'
-import { logger } from '../utils/logger.ts'
+import { ImageFormat } from '@/utils/types.ts'
+import { Locale } from '@/config/locales.ts'
+import { COOKIE_KEYS, getCookie } from '@/utils/cookies.ts'
+import { comfortCheckout } from '@/utils/comfortCheckout.ts'
 
-export interface Data {
-  geo: {
-    lang: LanguageCode
-    country: string
-    isEuIp: boolean
-    locale: string
-    getT: (keys?: readonly TranslationKey[]) => TranslationMap
-  }
+interface GeoData {
+  lang: LanguageCode
+  country: string
+  isEuIp: boolean
+  locale: Locale
+  getT: (keys?: readonly TranslationKey[]) => TranslationMap
 }
 
-export async function handler(req: Request, ctx: FreshContext<Data>) {
-  if (
-    ctx.destination !== 'route' || // Request for assets
-    req.url.includes('/api/')
-  ) {
-    return await ctx.next()
+export interface State {
+  geo: GeoData
+  imageFormat: ImageFormat
+  comfortCheckout: boolean
+}
+
+export function handler(req: Request, ctx: FreshContext<State>) {
+  const url = new URL(req.url)
+
+  if (!shouldProcessRequest(ctx, url.pathname)) {
+    return ctx.next()
   }
 
-  const redirect = getGeoData(req, ctx)
+  const [geo, redirect] = getGeoData(req)
   if (redirect) {
-    logger.info('Redirecting', { url: req.url, newPath: redirect.path })
     return redirect.redirect
   }
 
-  return await ctx.next()
+  ctx.state.geo = geo!
+  ctx.state.comfortCheckout = handleComfortCheckout(req, !!geo && geo.isEuIp)
+  ctx.state.imageFormat = determineImageFormat(req.headers.get('accept'))
+
+  return ctx.next()
+}
+
+function shouldProcessRequest(
+  ctx: FreshContext<State>,
+  pathname: string,
+): boolean {
+  return ctx.destination === 'route' && !pathname.startsWith('/api/')
+}
+
+function handleComfortCheckout(req: Request, isEuIp: boolean): boolean {
+  const savedPreference = getCookie(COOKIE_KEYS.COMFORT_CHECKOUT, req)
+  const value = savedPreference !== undefined
+    ? Boolean(savedPreference)
+    : !isEuIp
+  comfortCheckout.value = value
+  return value
+}
+
+function determineImageFormat(acceptHeader: string | null): ImageFormat {
+  if (!acceptHeader) return 'jpg'
+
+  const formats: ImageFormat[] = ['avif', 'webp', 'jpg']
+  return formats.find((format) => acceptHeader.includes(`image/${format}`)) ||
+    'jpg'
 }

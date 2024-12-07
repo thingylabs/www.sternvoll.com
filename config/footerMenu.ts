@@ -1,3 +1,4 @@
+// config/footerMenu.ts
 import { TranslationKey } from '@/translations.ts'
 
 type MenuItem = {

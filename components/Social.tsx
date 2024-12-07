@@ -1,3 +1,4 @@
+// components/Social.tsx
 import { meta } from '../config/meta.ts'
 
 export function Social() {

@@ -1,10 +1,11 @@
 // islands/Header.tsx
 import { useSignal } from '@preact/signals'
 import { useEffect } from 'preact/hooks'
+import { IS_BROWSER } from '$fresh/runtime.ts'
 import {
-  Menu,
+  SidebarMenu,
   translationKeys as sidebarMenuTranslationKeys,
-} from '@/islands/HeaderSidebarMenu.tsx'
+} from '@/components/SidebarMenu.tsx'
 import { InlineMenu } from '@/components/HeaderInlineMenu.tsx'
 import {
   Cart,
@@ -12,15 +13,17 @@ import {
 } from '@/islands/Cart.tsx'
 import { LanguageSwitcher } from '@/islands/LanguageSwitcher.tsx'
 import { LanguageCode, TranslationMap } from '@/translations.ts'
-import type { CountryCode } from '@/config/locales.ts'
-import { CountrySelector } from '@/islands/CountrySelector.tsx'
+import { Locale } from '@/config/locales.ts'
+// import { CountrySelector } from '@/islands/CountrySelector.tsx'
+import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
 
 interface HeaderProps {
   forceBackground?: boolean
-  t: T
-  isEuIp: boolean
+  t: TranslationMap
   lang: LanguageCode
-  country: CountryCode
+  locale: Locale
+  href?: string
+  comfortCheckout: boolean
 }
 
 export const translationKeys = [
@@ -28,83 +31,127 @@ export const translationKeys = [
   ...sidebarMenuTranslationKeys,
 ] as const
 
+// TODO: What was this for?
 export type T = Pick<TranslationMap, typeof translationKeys[number]>
 
 export function Header(
-  { forceBackground = false, t, lang, country, isEuIp }: HeaderProps,
+  { forceBackground = false, t, lang, locale, comfortCheckout }: HeaderProps,
 ) {
   const hasBackground = useSignal(forceBackground)
-  const isVisible = useSignal(false)
+  const isVisible = useSignal(true)
   const lastScrollTop = useSignal(0)
+  const isMobile = useSignal(IS_BROWSER ? globalThis.innerWidth < 640 : true)
 
   useEffect(() => {
-    const handleScroll = () => {
+    if (!IS_BROWSER) return
+
+    let ticking = false
+
+    const updateState = () => {
       const scrollTop = globalThis.scrollY
-      hasBackground.value = forceBackground ||
+      const width = globalThis.innerWidth
+
+      isMobile.value = width < 640
+      hasBackground.value = (isMobile.value && forceBackground) ||
         scrollTop > globalThis.innerHeight * 0.95
       isVisible.value = scrollTop < lastScrollTop.value || scrollTop < 100
       lastScrollTop.value = scrollTop
+
+      ticking = false
     }
-    handleScroll()
-    globalThis.addEventListener('scroll', handleScroll)
-    return () => globalThis.removeEventListener('scroll', handleScroll)
+
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateState()
+        })
+        ticking = true
+      }
+    }
+
+    const onResize = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateState()
+        })
+        ticking = true
+      }
+    }
+
+    // Initial state
+    updateState()
+
+    // Event listeners with RAF for performance
+    globalThis.addEventListener('scroll', onScroll, { passive: true })
+    globalThis.addEventListener('resize', onResize, { passive: true })
+
+    return () => {
+      globalThis.removeEventListener('scroll', onScroll)
+      globalThis.removeEventListener('resize', onResize)
+    }
   }, [forceBackground])
 
-  useEffect(() => {
-    isVisible.value = true
-  }, [])
+  const baseClasses =
+    'fixed top-0 left-0 w-full z-20 p-4 transition-all duration-500 text-secondary sm:text-secondary'
+  const backgroundClasses = isMobile.value
+    ? hasBackground.value ? 'bg-dark-blue !text-dark-blue' : 'bg-transparent'
+    : hasBackground.value
+    ? 'bg-primary sm:!text-dark-blue lg:!text-secondary'
+    : 'bg-transparent'
+  const visibilityClasses = isVisible.value
+    ? 'translate-y-0 opacity-100'
+    : '-translate-y-full opacity-0'
 
   return (
-    <div class='h-[12vw] min-h-[72px]'>
+    <>
       <header
-        class={`fixed top-0 left-0 w-full z-20 p-4 2xl:p-[1vw] transition-all duration-500 ${
-          hasBackground.value
-            ? 'bg-primary text-primary'
-            : 'bg-transparent text-white'
-        } transform ${
-          isVisible.value
-            ? 'translate-y-0 opacity-100'
-            : '-translate-y-full opacity-0'
-        } lg:text-white`}
+        class={`${baseClasses} ${backgroundClasses} transform ${visibilityClasses}`}
       >
         <div class='flex items-center justify-between'>
-          {/* Left Container: Drawer Menu Button */}
           <div class='flex items-center space-x-4 flex-none'>
             <div class='lg:hidden'>
-              <Menu
+              <SidebarMenu
                 transparentButton={!hasBackground.value}
                 lang={lang}
-                country={country}
+                locale={locale}
                 t={t}
               />
             </div>
             <div class='hidden lg:block w-10'></div>
           </div>
 
-          {/* Centered Logo - Absolute Center */}
           <a
             href='/'
             class='absolute left-1/2 transform -translate-x-1/2'
           >
-            <img
-              class='object-scale-down h-10 lg:h-[2.75vw] 2xl:h-[2.5vw] 2xl:my-[1vw]'
-              src='/Sternvoll-bright.png'
-              alt='Sternvoll'
+            <ResponsiveImage
+              src='sternvoll-name-bright.png'
+              width={275}
+              height={22}
+              alt='Sternvoll Jewelry'
             />
           </a>
 
-          {/* Right Container: Language Switcher, User Icon, Cart */}
           <div class='flex items-center space-x-4 flex-none z-10'>
             <div class='hidden lg:inline-flex flex-col items-end text-right'>
-              <CountrySelector country={country} />
-              <LanguageSwitcher lang={lang} />
+              {
+                /*
+              <CountrySelector
+                data-delay='2'
+                initialLocale={locale}
+              />
+              */
+              }
+              <LanguageSwitcher
+                data-delay='2'
+                lang={lang}
+              />
             </div>
             <div class='hidden lg:inline'>
-              <a href='https://account.sternvoll.com/'>
+              <a href='https://account.pixelpilot.club/'>
                 <svg
                   width='30'
                   height='30'
-                  class='2xl:w-[2vw] 2xl:h-[2vw]'
                   viewBox='0 0 24 24'
                   fill='none'
                   xmlns='http://www.w3.org/2000/svg'
@@ -113,12 +160,12 @@ export function Header(
                     cx='12'
                     cy='8'
                     r='4'
-                    stroke='white'
+                    stroke='currentColor'
                     stroke-width='1'
                   />
                   <path
                     d='M4 20c0-4 4-6 8-6s8 2 8 6'
-                    stroke='white'
+                    stroke='currentColor'
                     stroke-width='1'
                     stroke-linecap='round'
                   />
@@ -126,11 +173,12 @@ export function Header(
               </a>
             </div>
             <Cart
+              data-delay='1'
               transparentButton={!hasBackground.value}
               t={t}
-              isEuIp={isEuIp}
               lang={lang}
-              country={country}
+              country={`${lang}_${locale.code}`}
+              comfortCheckout={comfortCheckout}
             />
           </div>
         </div>
@@ -138,6 +186,6 @@ export function Header(
         {/* Inline Navigation Links for large screens */}
         <InlineMenu />
       </header>
-    </div>
+    </>
   )
 }

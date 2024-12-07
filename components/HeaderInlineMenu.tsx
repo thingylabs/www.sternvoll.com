@@ -1,3 +1,4 @@
+// components/HeaderInlineMenu.tsx
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { menuItems } from '@/config/headerMenu.ts'
 

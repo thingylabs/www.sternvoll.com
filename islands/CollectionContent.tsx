@@ -1,3 +1,4 @@
+// islands/CollectionContent.tsx
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { SelectedWorks } from '@/components/SelectedWorks.tsx'
 import { Product } from '@/utils/types.ts'

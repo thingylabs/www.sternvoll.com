@@ -67,10 +67,12 @@ const CART_QUERY = `{
 async function shopifyGraphql<T = any>(
   query: string,
   variables?: Record<string, unknown>,
+  priority?: RequestPriority,
 ): Promise<T> {
   const res = await fetch('/api/shopify', {
     method: 'POST',
     body: JSON.stringify({ query, variables }),
+    priority: priority ?? 'low',
   })
   return await res.json()
 }

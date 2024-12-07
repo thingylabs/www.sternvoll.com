@@ -1,12 +1,9 @@
+// routes/[[lang]]/policies/[policy].tsx
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
-import {
-  Header,
-  translationKeys as headerTranslationKeys,
-} from '@/islands/Header.tsx'
 import { adminApiGraphql } from '@/utils/shopify.ts'
-import type { Data } from '@/routes/_middleware.ts'
+import type { State } from '@/routes/_middleware.ts'
 import { meta as siteMeta } from '@/config/meta.ts'
 import {
   comfortCheckout,
@@ -42,7 +39,7 @@ function kebabToUpperSnakeCase(str: string): string {
   return str.replace(/-/g, '_').toUpperCase()
 }
 
-export const handler: Handlers<{ policy: PolicyData | null }, Data> = {
+export const handler: Handlers<{ policy: PolicyData | null }, State> = {
   async GET(_req, ctx) {
     const { policy: policyHandle } = ctx.params
     const policyType = kebabToUpperSnakeCase(policyHandle)
@@ -87,7 +84,7 @@ export const handler: Handlers<{ policy: PolicyData | null }, Data> = {
 }
 
 export default function PolicyPage(
-  { data, url, state }: PageProps<{ policy: PolicyData | null }, Data>,
+  { data, url, state }: PageProps<{ policy: PolicyData | null }, State>,
 ) {
   const { policy } = data
   const getT = state.geo.getT
@@ -102,18 +99,13 @@ export default function PolicyPage(
     title: policy.title,
     description: policy.title,
     locale: state.geo.locale,
+    lang: state.geo.lang,
   }
 
   return (
     <>
       <Meta url={url} meta={meta} />
-      <Header
-        forceBackground
-        t={getT(headerTranslationKeys)}
-        lang={state.geo.lang}
-        country={state.geo.country}
-        isEuIp={state.geo.isEuIp}
-      />
+      <div class='bg-primary h-[108px] w-full'></div>
 
       <div class='px-4 md:px-8 lg:px-12 xl:px-0 xl:max-w-[80vw] mx-auto 2xl:pt-[5vw]'>
         <h1 class='text-2xl font-bold mb-4'>{policy.title}</h1>

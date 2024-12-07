@@ -1,15 +1,12 @@
+// routes/[[lang]]/products/[product].tsx
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
-import {
-  Header,
-  translationKeys as headerTranslationKeys,
-} from '@/islands/Header.tsx'
 import ProductDetails from '@/islands/ProductDetails.tsx'
 import { graphql } from '@/utils/shopify.ts'
 import { Product } from '@/utils/types.ts'
 import { SelectedWorks } from '@/components/SelectedWorks.tsx'
-import { Data } from '@/routes/_middleware.ts'
+import { State } from '@/routes/_middleware.ts'
 import { meta as siteMeta } from '@/config/meta.ts'
 
 const q = `query ($product: String!) {
@@ -93,7 +90,7 @@ interface Query {
   relatedProducts: Product[]
 }
 
-export const handler: Handlers<Query, Data> = {
+export const handler: Handlers<Query, State> = {
   async GET(_req, ctx) {
     try {
       const data = await graphql<Query>(
@@ -105,7 +102,6 @@ export const handler: Handlers<Query, Data> = {
         return new Response('Product not found', { status: 404 })
       }
 
-      // Format tags into a single query string
       const tags = data.product.tags ? data.product.tags.join(' ') : ''
       const relatedData = await graphql<
         { products: { edges: { node: Product }[] } }
@@ -115,11 +111,14 @@ export const handler: Handlers<Query, Data> = {
         ctx.state.geo.lang,
       )
 
-      const relatedProducts = relatedData.products.edges.map((edge) =>
-        edge.node
-      )
+      const relatedProducts = relatedData.products.edges
+        .filter((edge) => edge.node.handle !== ctx.params.product)
+        .map((edge) => edge.node)
 
-      return ctx.render({ product: data.product, relatedProducts })
+      return ctx.render({
+        product: data.product,
+        relatedProducts,
+      })
     } catch (error) {
       console.error('Error fetching product data:', error)
       return new Response('Error fetching product data', { status: 500 })
@@ -127,7 +126,7 @@ export const handler: Handlers<Query, Data> = {
   },
 }
 
-export default function ProductPage(ctx: PageProps<Query, Data>) {
+export default function ProductPage(ctx: PageProps<Query, State>) {
   const { data, url, state } = ctx
   const getT = state.geo.getT
   const t = getT()
@@ -140,8 +139,9 @@ export default function ProductPage(ctx: PageProps<Query, Data>) {
     ...siteMeta,
     locale: state.geo.locale,
     description: data.product.description,
+    lang: state.geo.lang,
     image: {
-      url: data.product.featuredImage!.url,
+      url: data.product.featuredImage!.jpg_small!,
       width: data.product.featuredImage!.width,
       height: data.product.featuredImage!.height,
       alt: data.product.featuredImage!.altText,
@@ -154,13 +154,7 @@ export default function ProductPage(ctx: PageProps<Query, Data>) {
   return (
     <>
       <Meta url={url} meta={meta} />
-      <Header
-        forceBackground
-        t={getT(headerTranslationKeys)}
-        lang={state.geo.lang}
-        country={state.geo.country}
-        isEuIp={state.geo.isEuIp}
-      />
+      <div class='bg-primary h-[108px] w-full'></div>
 
       <div class='pt-4'>
         <ProductDetails

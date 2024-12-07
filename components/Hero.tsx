@@ -1,26 +1,37 @@
-import { JSX } from 'preact'
+// components/Hero.tsx
 import { TranslationMap } from '@/translations.ts'
+import { ResponsiveImage } from './ResponsiveImage.tsx'
 
 interface HeroProps {
-  children: JSX.Element
   t: TranslationMap
 }
 
-export function Hero({ children, t }: HeroProps) {
+export function Hero({ t }: HeroProps) {
   return (
     <div class='relative h-screen'>
-      {/* The Header or other content passed as children */}
-      {children}
-
       {/* Hero Image */}
-      <img
-        src='/hero.jpg'
-        alt='Hero Image'
-        class={`
-        absolute inset-0 w-full h-full
-        object-cover object-[95%]
-        `}
-      />
+      <div class="
+        aspect-video 
+        w-full
+        min-h-[270px]
+        before:content-['']
+        before:block
+      ">
+        <ResponsiveImage
+          src='hero.jpg'
+          alt='Sternvoll Hero Image'
+          width={[480, 786, 1280, 1920]}
+          height={270}
+          objectPosition='center right'
+          fetchpriority='high'
+          decoding='sync'
+          lazy={false}
+          class={`
+            absolute inset-0 w-full h-full
+            object-cover
+          `}
+        />
+      </div>
 
       {/* Overlay Content constrained to 1280px */}
       <div

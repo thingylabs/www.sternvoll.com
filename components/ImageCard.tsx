@@ -1,3 +1,4 @@
+// components/ImageCard.tsx
 import { FunctionalComponent } from 'preact'
 
 interface ImageCardProps {

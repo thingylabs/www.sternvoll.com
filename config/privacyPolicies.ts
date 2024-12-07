@@ -1,3 +1,4 @@
+// config/privacyPolicies.ts
 export const defaultPolicy = {
   de: `
   <p>Wir schätzen Ihr Vertrauen und setzen uns dafür ein, Ihre Privatsphäre zu schützen und zu respektieren. Hier erklären wir Ihnen, wie wir Ihre Daten behandeln und schützen.</p>
@@ -19,7 +20,7 @@ export const defaultPolicy = {
   <ul>
     <li>
       <p><b>Der Komfort-Checkout</b></p>
-      <p>Sollten Sie sich für den Komfort-Checkout entscheiden, kommt es zur Speicherung und Verarbeitung personenbezogener Daten. <a href=/policies/privacy-policy-comfort-checkout'>Bedingungen gelten</a></p>
+      <p>Sollten Sie sich für den Komfort-Checkout entscheiden, kommt es zur Speicherung und Verarbeitung personenbezogener Daten. Es gelten diese <a href=/policies/privacy-policy-comfort-checkout>Bedingungen</a></p>
     </li>
   </ul>
   
@@ -55,7 +56,7 @@ export const defaultPolicy = {
   <ul>
     <li>
       <p><b>Comfort Checkout</b></p>
-      <p>If you choose the Comfort Checkout option, personal data will be stored and processed. <a href=/policies/privacy-policy-comfort-checkout'>Terms apply</a></p>
+      <p>If you choose the Comfort Checkout option, personal data will be stored and processed. These <a href=/policies/privacy-policy-comfort-checkout>Terms</a> apply.</p>
     </li>
   </ul>
   
@@ -83,7 +84,7 @@ export const comfortCheckout = {
     data-locale="de"
     data-no-styles="false">
 </script>
-<p>Dieses Dokument beschreibt die Datenverarbeitung auf cart.sternvoll.com, der Plattform für den Compfort-Checkout. Diese Plattform wird im Auftrag von Sternvoll Jewelry von Shopify als Auftragsverarbeiter bereitgestellt. Sobald ein Nutzer den Checkout auf www.sternvoll.com einleitet und der Compfort-Checkout aktiviert ist, wird er automatisch zu cart.sternvoll.com weitergeleitet, um den Vorgang abzuschließen. Dabei erfolgt die Datenverarbeitung wie folgt:</p>
+<p>Dieses Dokument beschreibt die Datenverarbeitung auf cart.pixelpilot.club, der Plattform für den Compfort-Checkout. Diese Plattform wird im Auftrag von PiXELPiLOT von Shopify als Auftragsverarbeiter bereitgestellt. Sobald ein Nutzer den Checkout auf www.pixelpilot.club einleitet und der Compfort-Checkout aktiviert ist, wird er automatisch zu cart.pixelpilot.club weitergeleitet, um den Vorgang abzuschließen. Dabei erfolgt die Datenverarbeitung wie folgt:</p>
 <div id="dieter-document-de"></div>
 `,
   en: `
@@ -95,7 +96,69 @@ export const comfortCheckout = {
     data-locale="en"
     data-no-styles="false">
 </script>
-<p>This document outlines the data processing on cart.sternvoll.com, the platform for the Compfort checkout. This platform is provided by Shopify as a data processor on behalf of Sternvoll Jewelry. When a user initiates the checkout on www.sternvoll.com and the Compfort checkout is activated, they are automatically redirected to cart.sternvoll.com to complete the process. The data processing carried out there is as follows:</p>
+<p>This document outlines the data processing on cart.pixelpilot.club, the platform for the Compfort checkout. This platform is provided by Shopify as a data processor on behalf of PiXELPiLOT. When a user initiates the checkout on www.pixelpilot.club and the Compfort checkout is activated, they are automatically redirected to cart.pixelpilot.club to complete the process. The data processing carried out there is as follows:</p>
 <div id="dieter-document"></div>
 `,
+}
+
+export const newsletterSignup = {
+  de: `
+  <p>Mit Ihrer Anmeldung zu unserem Newsletter stimmen Sie zu, regelmäßig Informationen über unsere neuesten Produkte, exklusive Angebote und spannende Aktionen zu erhalten.</p>
+
+  <h3>Wie verwenden wir Ihre Daten?</h3>
+  
+  <p>Ihre E-Mail-Adresse wird ausschließlich für den Versand unseres Newsletters verwendet. Wir geben Ihre Daten nicht an Dritte weiter.</p>
+  
+  <h3>Abmeldung jederzeit möglich</h3>
+  
+  <p>Sie können sich jederzeit von unserem Newsletter abmelden, indem Sie auf den Abmeldelink in der Fußzeile jedes Newsletters klicken.</p>
+  
+  <h3>Schutz Ihrer Daten</h3>
+  
+  <p>Wir setzen strenge Sicherheitsmaßnahmen ein, um Ihre Daten zu schützen. Ihre Privatsphäre ist uns wichtig.</p>
+  
+  <h3>Kontaktieren Sie uns!</h3>
+  
+  <p>Wenn Sie Fragen zu unserem Newsletter oder zum Datenschutz haben, stehen wir Ihnen gerne zur Verfügung.</p>
+  `,
+  en: `
+  <p>By signing up for our newsletter, you agree to receive regular updates about our latest products, exclusive offers, and exciting promotions.</p>
+
+  <h3>How do we use your data?</h3>
+  
+  <p>Your email address will only be used for sending our newsletter. We do not share your data with third parties.</p>
+  
+  <h3>Unsubscribe anytime</h3>
+  
+  <p>You can unsubscribe from our newsletter at any time by clicking the unsubscribe link in the footer of any newsletter email.</p>
+  
+  <h3>Protection of your data</h3>
+  
+  <p>We implement strict security measures to protect your data. Your privacy is important to us.</p>
+  
+  <h3>Contact us!</h3>
+  
+  <p>If you have any questions about our newsletter or data protection, we are happy to assist you.</p>
+  `,
+}
+
+export const joinWaitlist = {
+  de: `
+  <p>Mit Ihrer Anmeldung zur Warteliste stimmen Sie zu, von uns benachrichtigt zu werden, sobald das gewünschte Produkt wieder verfügbar ist.</p>
+  <h3>Wie verwenden wir Ihre Daten?</h3>
+  <p>Ihre E-Mail-Adresse wird ausschließlich für die Benachrichtigung verwendet, wenn das Produkt wieder auf Lager ist. Ihre Daten werden nicht an Dritte weitergegeben.</p>
+  <h3>Schutz Ihrer Daten</h3>
+  <p>Wir setzen strenge Sicherheitsmaßnahmen ein, um Ihre Daten vor unbefugtem Zugriff zu schützen. Ihre Privatsphäre ist uns wichtig.</p>
+  <h3>Kontaktieren Sie uns!</h3>
+  <p>Bei Fragen zur Warteliste oder zum Datenschutz können Sie uns jederzeit kontaktieren. Wir helfen Ihnen gerne weiter.</p>
+  `,
+  en: `
+  <p>By joining the waitlist, you agree to be notified as soon as the desired product is back in stock.</p>
+  <h3>How do we use your data?</h3>
+  <p>Your email address will only be used to notify you when the product is back in stock. We do not share your data with third parties.</p>
+  <h3>Protection of your data</h3>
+  <p>We implement strict security measures to protect your data from unauthorized access. Your privacy is important to us.</p>
+  <h3>Contact us!</h3>
+  <p>If you have any questions about the waitlist or data protection, feel free to contact us. We are happy to assist you.</p>
+  `,
 }

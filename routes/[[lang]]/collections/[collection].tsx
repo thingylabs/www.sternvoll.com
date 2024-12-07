@@ -1,15 +1,11 @@
 // routes/[[lang]]/collections/[collection].tsx
 import { Handlers, PageProps } from '$fresh/server.ts'
-import {
-  Header,
-  translationKeys as headerTranslationKeys,
-} from '@/islands/Header.tsx'
 import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
 import { CollectionContent } from '@/islands/CollectionContent.tsx'
 import { graphql } from '@/utils/shopify.ts'
 import { Image, Product } from '@/utils/types.ts'
-import type { Data } from '@/routes/_middleware.ts'
+import type { State } from '@/routes/_middleware.ts'
 import { meta as pageMeta } from '@/config/meta.ts'
 
 interface Query {
@@ -102,7 +98,7 @@ const allProductsQuery = `query {
   }
 }`
 
-export const handler: Handlers<Query, Data> = {
+export const handler: Handlers<Query, State> = {
   async GET(_req, ctx) {
     const { collection } = ctx.params
 
@@ -166,10 +162,9 @@ export const handler: Handlers<Query, Data> = {
   },
 }
 
-export default function CollectionPage(ctx: PageProps<Query, Data>) {
+export default function CollectionPage(ctx: PageProps<Query, State>) {
   const { data, url, state } = ctx
   const t = state.geo.getT()
-  const getT = state.geo.getT
 
   // Use the collection data, or default values if collectionByHandle is undefined
   const collection = data.collectionByHandle || {
@@ -188,7 +183,7 @@ export default function CollectionPage(ctx: PageProps<Query, Data>) {
     title: collection.seo.title,
     description: collection.seo.description,
     image: {
-      url: collection.image?.url,
+      url: collection.image?.jpg_small,
       width: collection.image?.width,
       height: collection.image?.height,
       alt: collection.image?.altText,
@@ -203,10 +198,11 @@ export default function CollectionPage(ctx: PageProps<Query, Data>) {
         meta={{
           title: `${collection.title} - Shop`,
           description: `Browse our ${collection.title} collection`,
-          locale: 'en-US',
+          locale: state.geo.locale,
+          lang: state.geo.lang,
           image: firstProductImage
             ? {
-              url: firstProductImage.url,
+              url: firstProductImage.jpg_small!,
               width: firstProductImage.width,
               height: firstProductImage.height,
               alt: firstProductImage.altText || '',
@@ -214,13 +210,8 @@ export default function CollectionPage(ctx: PageProps<Query, Data>) {
             : undefined,
         }}
       />
-      <Header
-        forceBackground
-        t={getT(headerTranslationKeys)}
-        lang={state.geo.lang}
-        country={state.geo.country}
-        isEuIp={state.geo.isEuIp}
-      />
+      <div class='bg-primary h-[108px] w-full'></div>
+
       <main class='max-w-7xl mx-auto p-4 pt-[2vw]'>
         <h1 class='text-2xl font-bold mb-4'>{collection.title}</h1>
         {collection.descriptionHtml && (

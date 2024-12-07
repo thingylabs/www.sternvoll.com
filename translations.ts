@@ -1,5 +1,4 @@
 // translations.ts
-
 export const languages = [
   { code: 'en', name: 'English' },
   { code: 'de', name: 'Deutsch' },
@@ -247,6 +246,9 @@ export const translations = {
     de: 'Inspirierende Geschichten, Trends und Einblicke in die Schmuckwelt',
   },
   // Cart
+  'Total': {
+    de: 'Gesamt',
+  },
   'Checkout Options': {
     de: 'Checkout-Optionen',
   },

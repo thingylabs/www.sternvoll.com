@@ -7,16 +7,20 @@ import * as $_lang_policies_policy_ from './routes/[[lang]]/policies/[policy].ts
 import * as $_lang_products_product_ from './routes/[[lang]]/products/[product].tsx'
 import * as $_app from './routes/_app.tsx'
 import * as $_middleware from './routes/_middleware.ts'
+import * as $api_locales from './routes/api/locales.ts'
 import * as $api_shopify from './routes/api/shopify.ts'
 import * as $index from './routes/index.tsx'
 import * as $AddToCart from './islands/AddToCart.tsx'
 import * as $Cart from './islands/Cart.tsx'
+import * as $CartButton from './islands/CartButton.tsx'
+import * as $CartContents from './islands/CartContents.tsx'
 import * as $CollectionContent from './islands/CollectionContent.tsx'
 import * as $Collections from './islands/Collections.tsx'
 import * as $CountrySelector from './islands/CountrySelector.tsx'
 import * as $Header from './islands/Header.tsx'
-import * as $HeaderSidebarMenu from './islands/HeaderSidebarMenu.tsx'
 import * as $LanguageSwitcher from './islands/LanguageSwitcher.tsx'
+import * as $LocaleDrawer from './islands/LocaleDrawer.tsx'
+import * as $MenuDrawer from './islands/MenuDrawer.tsx'
 import * as $MovingText from './islands/MovingText.tsx'
 import * as $ProductDetails from './islands/ProductDetails.tsx'
 import type { Manifest } from '$fresh/server.ts'
@@ -29,18 +33,22 @@ const manifest = {
     './routes/[[lang]]/products/[product].tsx': $_lang_products_product_,
     './routes/_app.tsx': $_app,
     './routes/_middleware.ts': $_middleware,
+    './routes/api/locales.ts': $api_locales,
     './routes/api/shopify.ts': $api_shopify,
     './routes/index.tsx': $index,
   },
   islands: {
     './islands/AddToCart.tsx': $AddToCart,
     './islands/Cart.tsx': $Cart,
+    './islands/CartButton.tsx': $CartButton,
+    './islands/CartContents.tsx': $CartContents,
     './islands/CollectionContent.tsx': $CollectionContent,
     './islands/Collections.tsx': $Collections,
     './islands/CountrySelector.tsx': $CountrySelector,
     './islands/Header.tsx': $Header,
-    './islands/HeaderSidebarMenu.tsx': $HeaderSidebarMenu,
     './islands/LanguageSwitcher.tsx': $LanguageSwitcher,
+    './islands/LocaleDrawer.tsx': $LocaleDrawer,
+    './islands/MenuDrawer.tsx': $MenuDrawer,
     './islands/MovingText.tsx': $MovingText,
     './islands/ProductDetails.tsx': $ProductDetails,
   },

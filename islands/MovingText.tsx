@@ -1,3 +1,4 @@
+// islands/MovingText.tsx
 import { useSignal } from '@preact/signals'
 import { useEffect, useRef } from 'preact/hooks'
 import { JSX } from 'preact'

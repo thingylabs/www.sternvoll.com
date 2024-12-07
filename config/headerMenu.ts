@@ -1,3 +1,4 @@
+// config/headerMenu.ts
 import { categories } from './productCategories.ts'
 import { TranslationKey } from '@/translations.ts'
 

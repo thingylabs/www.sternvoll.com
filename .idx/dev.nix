@@ -7,6 +7,8 @@
   # Use https://search.nixos.org/packages to find packages
   packages = [
     pkgs.nano
+    pkgs.imagemagick  # ImageMagick for the 'magick' command
+    pkgs.libavif      # libavif for the 'avifenc' command
   ];
 
   # Sets environment variables in the workspace

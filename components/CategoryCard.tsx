@@ -1,3 +1,4 @@
+// components/CategoryCard.tsx
 interface CategoryCardProps {
   backgroundImage: string
   text: string

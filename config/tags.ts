@@ -1,3 +1,4 @@
+// config/tags.ts
 type TagDetails = {
   url: string
 }

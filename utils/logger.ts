@@ -1,3 +1,4 @@
+// utils/logger.ts
 import { Axiom } from 'axiom'
 import { IS_BROWSER } from '$fresh/runtime.ts'
 

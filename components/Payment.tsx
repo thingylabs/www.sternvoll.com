@@ -1,3 +1,4 @@
+// components/Payment.tsx
 export function Payment() {
   const path = '/payment-logos/assets/'
   const methods = [
@@ -16,10 +17,9 @@ export function Payment() {
           alt={method.name}
           key={method.name}
           width={36}
-          height={36}
-          class={`
-          xl:w-[3vw]
-          `}
+          height={23}
+          class='opacity-70 min-[425px]:w-[46px] sm:opacity-50'
+          loading='lazy'
         />
       ))}
     </div>

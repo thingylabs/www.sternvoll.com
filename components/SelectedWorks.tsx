@@ -1,3 +1,4 @@
+// components/SelectedWorks.tsx
 import { ProductCard } from '@/components/ProductCard.tsx'
 import { Product } from '@/utils/types.ts'
 

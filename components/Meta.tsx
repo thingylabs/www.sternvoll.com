@@ -1,12 +1,16 @@
+// components/Meta.tsx
 import { Head } from '$fresh/runtime.ts'
 import { meta as siteMeta } from '@/config/meta.ts'
+import { Locale } from '@/config/locales.ts'
+import { LanguageCode } from '@/translations.ts'
 
 export type HeadProps = {
   url: URL
   meta: {
     title: string
     description: string
-    locale: string
+    locale: Locale
+    lang: LanguageCode
     image?: {
       url: string
       width: number
@@ -27,7 +31,7 @@ TODO: Here are some other tips for OG images:
 */
 
 export function Meta(
-  { url, meta: { title, description, image, price, currency, locale } }:
+  { url, meta: { title, description, image, price, currency, locale, lang } }:
     HeadProps,
 ) {
   return (
@@ -42,13 +46,13 @@ export function Meta(
       <link rel="alternate" hreflang="x-default" href={url.href} />
       <link rel="alternate" hreflang="en-DE" href="..." />
       <link rel="alternate" hreflang="de-DE" href="..." />
-      <link rel="alternate" type="application/json+oembed" href="https://www.sternvoll.com/de/products/cuban-chain-armband-18k-gold-princess-cut-diamant-in-fassung.oembed" />
+      <link rel="alternate" type="application/json+oembed" href="https://www.pixelpilot.club/de/products/cuban-chain-armband-18k-gold-princess-cut-diamant-in-fassung.oembed" />
         */
       }
 
       {/* OpenGraph */}
       <meta property='og:site_name' content={siteMeta.title} />
-      <meta property='og:locale' content={locale} />
+      <meta property='og:locale' content={`${lang}_${locale.code}`} />
       {price && <meta property='og:price:amount' content={'' + price} />}
       {currency && <meta property='og:price:currency' content={currency} />}
       {image && (
@@ -70,7 +74,7 @@ export function Meta(
       {image && <meta property='og:image' content={`${url}/${image}`} />}
 
       {/* Twitter Meta Tags */}
-      <meta name='twitter:site' content={siteMeta.social.x} />
+      {/* <meta name='twitter:site' content={siteMeta.social.x} /> */}
       <meta name='twitter:card' content='summary_large_image' />
       <meta name='twitter:title' content={title} />
       <meta name='twitter:description' content={description} />

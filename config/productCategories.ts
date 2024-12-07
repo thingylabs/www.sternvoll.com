@@ -1,3 +1,4 @@
+// config/productCategories.ts
 import { TranslationKey } from '@/translations.ts'
 
 type Category = {

@@ -1,3 +1,4 @@
+// islands/AddToCart.tsx
 import { useState } from 'preact/hooks'
 import { addToCart, useCart } from '@/utils/data.ts'
 import type { CountryCode } from '@/config/locales.ts'
