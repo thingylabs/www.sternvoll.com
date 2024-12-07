@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'preact/hooks'
 
 const inset = {
   yStart: 300,
-  yEnd: -150,
+  yEnd: -60,
 }
 
 export function Collections() {
@@ -93,7 +93,7 @@ export function Collections() {
   return (
     <div
       ref={handRef}
-      class='relative min-h-[700px] h-[70vw] flex flex-col justify-center items-center overflow-hidden font-accent'
+      class='relative min-h-[700px] h-[45vw] flex flex-col justify-center items-center overflow-hidden font-accent'
     >
       <div class='text-center w-full'>
         <h1
@@ -122,11 +122,11 @@ export function Collections() {
         <img
           src='/hand.png'
           alt='Hand holding jewelry'
-          class='w-auto max-w-[40vw] h-auto object-contain xl:max-w-[60vw] 2xl:w-[20vw]'
+          class='w-auto max-w-[40vw] h-auto object-contain xl:max-w-[60vw] 2xl:w-[10vw]'
         />
       </div>
 
-      <div class='absolute bottom-10 text-center px-4 z-20 xl:pt-[10vw]'>
+      <div class='absolute bottom-10 text-center px-4 z-20 xl:pt-[5vw]'>
         <p class='text-2xl font-accent mt-5 md:text-3xl md:leading-relaxed xl:text-[3vw] 2xl:text-[2vw] xl:w-[80vw] x:mx-auto'>
           Entdecken Sie unsere Schmuckkollektionen, inspiriert von den Wundern
           der Natur, dem Glanz der Städte und den feinen Linien moderner Kunst.

@@ -10,28 +10,21 @@ export function Hero({ t }: HeroProps) {
   return (
     <div class='relative h-screen'>
       {/* Hero Image */}
-      <div class="
-        aspect-video 
-        w-full
-        min-h-[270px]
-        before:content-['']
-        before:block
-      ">
-        <ResponsiveImage
-          src='hero.jpg'
-          alt='Sternvoll Hero Image'
-          width={[480, 786, 1280, 1920]}
-          height={270}
-          objectPosition='center right'
-          fetchpriority='high'
-          decoding='sync'
-          lazy={false}
-          class={`
-            absolute inset-0 w-full h-full
-            object-cover
-          `}
-        />
-      </div>
+
+      <ResponsiveImage
+        src='hero.png'
+        alt='Sternvoll Hero Image'
+        width={[480, 786, 1280, 1920]}
+        height={270}
+        objectPosition='center right'
+        fetchpriority='high'
+        decoding='sync'
+        lazy={false}
+        class={`
+          absolute inset-0 w-full h-full
+          object-cover
+        `}
+      />
 
       {/* Overlay Content constrained to 1280px */}
       <div
@@ -46,7 +39,7 @@ export function Hero({ t }: HeroProps) {
           <h1
             class={`
             text-white font-accent
-            text-7xl md:text-[12vw] lg:text-[10vw] 2xl:text-[7.5vw]
+            text-7xl md:text-[12vw] lg:text-[10vw] 2xl:text-[7vw]
             leading-none drop-shadow
           `}
           >

@@ -5,34 +5,34 @@ import { TranslationMap } from '@/translations.ts'
 
 export function OurStory({ t }: { t: TranslationMap }) {
   return (
-    <div class='h-full'>
+    <div class=''>
       <MovingText
         firstLine={t['Modern']}
         secondLine={t['Classics']}
-        fontSize='23vw'
+        fontSize='15vw'
         color='#eee8e3'
         inset={{
           top: {
-            xStart: -30,
+            xStart: -10,
             xEnd: 45,
           },
           bottom: {
-            xStart: 45,
-            xEnd: -35,
-            class: 'bottom-[25vw]',
+            xStart: 115,
+            xEnd: 20,
+            class: 'bottom-[6vw]',
           },
         }}
       >
         <div
           class={`
-        h-full pt-[20vw]
+        pt-[10vw]
         font-accent
         flex flex-col justify-center items-center
         `}
         >
           <p
             class={`
-          text-[6vw] md:text-[5vw] xl:text-[4vw] 2xl:text-[3vw]
+          text-[6vw] md:text-[5vw] xl:text-[4vw] 2xl:text-[2vw]
           text-center
           `}
           >
@@ -44,8 +44,8 @@ export function OurStory({ t }: { t: TranslationMap }) {
           </p>
           <div
             class={`
-          relative pt-[3vw]
-          h-[45vw] w-[45vw]
+          relative
+          h-[17vw] w-[17vw]
           `}
           >
             <FillLetter

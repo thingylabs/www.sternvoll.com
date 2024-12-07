@@ -96,7 +96,7 @@ export function MovingText(
     <div
       ref={sectionRef}
       class={`
-        relative h-full flex flex-col justify-center items-center
+        relative flex flex-col justify-center items-center
         font-accent
         overflow-hidden 
         `}
@@ -163,7 +163,7 @@ export function MovingText(
         relative z-10
         flex justify-center items-center
         transition-opacity duration-700 ease-in-out
-        h-full w-full overflow-hidden
+        w-full overflow-hidden
         `}
         style={{
           opacity: opacity,

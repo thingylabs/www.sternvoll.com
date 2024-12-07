@@ -40,7 +40,7 @@ export const ImageCard: FunctionalComponent<ImageCardProps> = ({
         } w-full max-w-full lg:max-w-[1280px] xl:max-w-[80vw] mx-auto`}
       >
         {/* Image Section */}
-        <div class='relative w-full md:w-1/2 lg:w-[46%] z-10'>
+        <div class='relative w-full md:w-1/2 lg:w-[46%] z-10 h-[90vh]'>
           <img
             src={'/' + image}
             alt={title}

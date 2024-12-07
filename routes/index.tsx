@@ -90,18 +90,22 @@ export default function Home(ctx: PageProps<Collection, State>) {
   return (
     <>
       <Meta url={url} meta={meta} />
-      <Hero t={t} />
+      <div class='
+        aspect-video 
+        w-full
+      '>
+        <Hero t={t} />
+      </div>
 
       <div class='pt-[12.5vw] 2xl:pt-[5vw]'>
         <OurStory t={t} />
       </div>
 
-      <div class='px-4 pt-[2.5vw]'>
+      <div class='px-4 pt-[2.5vw] 2xl:w-[80%] mx-auto'>
         <SelectedWorks products={products} showcase lang={state.geo.lang} />
       </div>
 
       <div class='py-4 px-4 md:px-0 pt-[10vw]'>
-        {/* Server-rendered component can access the full `t` map */}
         <ImageCard
           image='collection-clip-ons.jpg'
           title={t['Gentle Touch - Pain-Free Clip-Ons']}
@@ -146,7 +150,7 @@ export default function Home(ctx: PageProps<Collection, State>) {
         />
       </div>
 
-      <div class='2xl:pt-[5vw]'>
+      <div class='2xl:pt-[3vw]'>
         <Collections />
       </div>
 
@@ -157,6 +161,7 @@ export default function Home(ctx: PageProps<Collection, State>) {
       lg:gap-8
       xl:grid-cols-4 xl:gap-8
       2xl:pt-[5vw]
+      2xl:w-[80vw] mx-auto
       `}
       >
         <CategoryCard

@@ -84,7 +84,7 @@ export function ProductCard(
                 href={tags[tag]
                   ? tags[tag].url
                   : `/collections/${tag.toLowerCase()}`}
-                class='hover:text-secondary text-gray-500 text-sm xl:text-base 2xl:text-[1.25vw] 2xl:pt-[0.25vw] flex items-center'
+                class='hover:text-secondary text-gray-500 text-sm xl:text-base flex items-center'
               >
                 {index !== 0 && (
                   <span class='w-1 h-1 bg-gray-400 rounded-full inline-block mx-1'>

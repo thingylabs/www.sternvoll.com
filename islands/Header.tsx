@@ -126,9 +126,10 @@ export function Header(
           >
             <ResponsiveImage
               src='sternvoll-name-bright.png'
-              width={275}
+              width={[275, 413, 550]}
               height={22}
               alt='Sternvoll Jewelry'
+              class='2xl:w-[350px]'
             />
           </a>
 
