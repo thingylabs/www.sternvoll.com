@@ -154,16 +154,14 @@ export default function Home(ctx: PageProps<Collection, State>) {
         <Collections />
       </div>
 
-      <div
-        class={`
-      p-4 py-10 space-y-6
-      md:space-y-0 md:grid md:grid-cols-2 md:gap-6
-      lg:gap-8
-      xl:grid-cols-4 xl:gap-8
-      2xl:pt-[5vw]
-      2xl:w-[80vw] mx-auto
-      `}
-      >
+      <div class='
+          p-4 py-10 space-y-6
+          md:space-y-0 md:grid md:grid-cols-2 md:gap-6
+          lg:gap-8
+          xl:grid-cols-4 xl:gap-8
+          2xl:pt-[5vw]
+          2xl:w-[80vw] mx-auto
+        '>
         <CategoryCard
           backgroundImage='category-earrings.jpg'
           text={t['Earrings']}

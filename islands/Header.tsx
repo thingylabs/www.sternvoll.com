@@ -111,7 +111,7 @@ export function Header(
           <div class='flex items-center space-x-4 flex-none'>
             <div class='lg:hidden'>
               <SidebarMenu
-                transparentButton={!hasBackground.value}
+                transparentButton={true}
                 lang={lang}
                 locale={locale}
                 t={t}
@@ -129,7 +129,7 @@ export function Header(
               width={[275, 413, 550]}
               height={22}
               alt='Sternvoll Jewelry'
-              class='2xl:w-[350px]'
+              class='2xl:w-[275px]'
             />
           </a>
 
@@ -175,7 +175,7 @@ export function Header(
             </div>
             <Cart
               data-delay='1'
-              transparentButton={!hasBackground.value}
+              transparentButton={true}
               t={t}
               lang={lang}
               country={`${lang}_${locale.code}`}

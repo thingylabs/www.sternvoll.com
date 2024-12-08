@@ -5,6 +5,7 @@ import { Payment } from '@/components/Payment.tsx'
 import { menuItems } from '@/config/footerMenu.ts'
 import { TranslationKey, TranslationMap } from '@/translations.ts'
 import { PartialMeta } from '@/config/meta.ts'
+import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
 
 interface FooterProps {
   meta: PartialMeta
@@ -19,6 +20,7 @@ export const Footer = ({ meta, t }: FooterProps) => {
         container mx-auto px-6 py-8 pt-14
         md:pt-24
         xl:max-w-[80vw]
+        xl:px-0
         `}
       >
         <div
@@ -31,25 +33,26 @@ export const Footer = ({ meta, t }: FooterProps) => {
           <div
             className={`
             w-full mb-6
-            md:w-1/2 md:pt-6 md:mb-0 md:px-12
+            md:w-1/2 md:pt-6 md:mb-0 md:px-0 md:pr-12
             xl:pr-[5vw]
             `}
           >
             <a href='/' className='flex items-center'>
-              <img
-                src={'/' + meta.logos!.square}
-                className={`
-                mr-3 flex-shrink-0 h-8 drop-shadow
-                xl:h-[2vw]
-                `}
-                alt='Sternvoll Logo'
+              <ResponsiveImage
+                src='/sternvoll-logo.png'
+                class='
+                  mr-3 flex-shrink-0 h-8 drop-shadow
+                  xl:h-[2vw]
+                '
+                alt='Sternvoll Jewelry Logo'
+                width={[36, 54, 72]}
+                height={36}
               />
               <h1
                 className={`
                 pt-2
-                text-3xl font-accent text-black font-bold
+                text-3xl font-accent text-black
                 xl:text-[2vw]
-                drop-shadow
                 `}
               >
                 Sternvoll Jewelry
@@ -59,7 +62,6 @@ export const Footer = ({ meta, t }: FooterProps) => {
               className={`
               text-justify font-accent tracking-wider text-black
               mt-4
-              drop-shadow
               lg:text-lg xl:text-[1vw] xl:leading-snug
               `}
             >
@@ -103,18 +105,20 @@ export const Footer = ({ meta, t }: FooterProps) => {
           secondLine={t['with looking good']}
           inset={{
             top: {
-              xStart: -40,
-              xEnd: 30,
+              xStart: -10,
+              xEnd: 20,
             },
             bottom: {
-              xStart: 100,
-              xEnd: -10,
+              xStart: 70,
+              xEnd: 10,
             },
           }}
           fontSize='9vw'
           color='#eee8e3'
         >
-          <Social />
+          <div class='h-[20vw] flex items-center justify-center'>
+            <Social />
+          </div>
         </MovingText>
       </div>
 

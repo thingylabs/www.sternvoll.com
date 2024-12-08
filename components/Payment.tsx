@@ -18,7 +18,7 @@ export function Payment() {
           key={method.name}
           width={36}
           height={23}
-          class='opacity-70 min-[425px]:w-[46px] sm:opacity-50'
+          class='opacity-70 min-[425px]:w-[46px] sm:opacity-90'
           loading='lazy'
         />
       ))}

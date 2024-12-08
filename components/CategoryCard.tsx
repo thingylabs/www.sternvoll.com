@@ -11,12 +11,19 @@ export function CategoryCard(
   return (
     <a
       href={href}
-      class={`block relative group w-full h-[120vw] sm:h-[90vw] md:h-[70vw] overflow-hidden flex justify-center items-center bg-cover bg-center transition-all duration-800 ease-in-out
-      lg:h-[50vw] 2xl:h-[30vw]`}
+      class='
+        block relative group w-full
+        h-[120vw] sm:h-[90vw] md:h-[70vw] lg:h-[50vw] 2xl:h-[30vw]
+        overflow-hidden flex justify-center items-center bg-cover bg-center
+        transition-all duration-800 ease-in-out
+        pt-20
+      '
       style={{ backgroundImage: `url(/${backgroundImage})` }}
     >
       {/* Hover Overlay */}
-      <div class='absolute inset-0 bg-[#002A3F] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out'>
+      <div class='
+        absolute inset-0 bg-[#002A3F] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out
+      '>
       </div>
 
       {/* Main Text */}

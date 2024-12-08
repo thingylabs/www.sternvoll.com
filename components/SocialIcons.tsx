@@ -46,7 +46,7 @@ const iconPaths = {
   },
 }
 
-export const socialIcons = Object.fromEntries(
+export const SocialIcons = Object.fromEntries(
   Object.entries(iconPaths).map(([platform, icon]) => [
     platform,
     (url: string, svgClass: string) => renderIcon(url, svgClass, icon),

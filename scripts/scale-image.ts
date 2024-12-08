@@ -21,6 +21,7 @@ await $`mkdir -p ${scaledDir}`
 
 const dimensions = await $`identify -format "%w %h" ${inputFile}`.text()
 const [sourceWidth, sourceHeight] = dimensions.split(' ').map(Number)
+console.log(`Native image dimensions: ${sourceHeight} x ${sourceWidth}`)
 
 const qualities: Record<'jpg' | 'webp' | 'avif', number> = {
   jpg: 85,

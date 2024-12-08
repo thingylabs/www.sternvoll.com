@@ -23,31 +23,25 @@ export function OurStory({ t }: { t: TranslationMap }) {
           },
         }}
       >
-        <div
-          class={`
-        pt-[10vw]
-        font-accent
-        flex flex-col justify-center items-center
-        `}
-        >
-          <p
-            class={`
-          text-[6vw] md:text-[5vw] xl:text-[4vw] 2xl:text-[2vw]
-          text-center
-          `}
-          >
+        <div class='
+            pt-[10vw]
+            font-accent
+            flex flex-col justify-center items-center
+          '>
+          <p class='
+              text-[6vw] md:text-[4vw] xl:text-[3vw] 2xl:text-[2.5vw]
+              text-center
+            '>
             {t['In the heart of Stuttgart,']}
             <br />
             {t['Sternvoll creates unique jewelry,']}
             <br />
             {t['inspired by cosmic beauty.']}
           </p>
-          <div
-            class={`
-          relative
-          h-[17vw] w-[17vw]
-          `}
-          >
+          <div class='
+              relative
+              h-[17vw] w-[17vw]
+            '>
             <FillLetter
               firstLine={t['OUR']}
               secondLine={t['STORY']}

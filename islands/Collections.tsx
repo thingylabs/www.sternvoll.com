@@ -3,8 +3,8 @@ import { useSignal } from '@preact/signals'
 import { useEffect, useRef } from 'preact/hooks'
 
 const inset = {
-  yStart: 300,
-  yEnd: -60,
+  yStart: 500,
+  yEnd: -120,
 }
 
 export function Collections() {
@@ -85,22 +85,20 @@ export function Collections() {
   }
 
   const translateY = interpolate(inset.yStart, inset.yEnd, scrollPos.value)
-  const scrollOpacity = interpolate(0, 1, scrollPos.value)
 
-  const opacity = fadeIn.value ? scrollOpacity : 0
   const transition = !hasFadedIn.value ? 'opacity 0.8s ease-in' : 'none'
 
   return (
     <div
       ref={handRef}
-      class='relative min-h-[700px] h-[45vw] flex flex-col justify-center items-center overflow-hidden font-accent'
+      class='relative min-h-[700px] h-[40vw] flex flex-col justify-center items-center overflow-hidden font-accent'
     >
       <div class='text-center w-full'>
         <h1
           class={`
-        text-5xl font-accent text-secondary-light absolute top-40 z-0 w-full text-center
-        md:text-[120px] xl:text-[11vw]
-        `}
+            text-5xl font-accent text-secondary-light absolute top-40 z-0 w-full text-center
+            md:text-[120px] xl:text-[11vw]
+          `}
         >
           Kollektionen
         </h1>
@@ -111,7 +109,6 @@ export function Collections() {
         class='absolute z-10'
         style={{
           transform: `translateY(${translateY}px)`,
-          opacity,
           transition,
         }}
         onTransitionEnd={() => {
@@ -126,7 +123,7 @@ export function Collections() {
         />
       </div>
 
-      <div class='absolute bottom-10 text-center px-4 z-20 xl:pt-[5vw]'>
+      <div class='absolute bottom-10 text-center px-4 z-20 xl:pt-[2vw]'>
         <p class='text-2xl font-accent mt-5 md:text-3xl md:leading-relaxed xl:text-[3vw] 2xl:text-[2vw] xl:w-[80vw] x:mx-auto'>
           Entdecken Sie unsere Schmuckkollektionen, inspiriert von den Wundern
           der Natur, dem Glanz der Städte und den feinen Linien moderner Kunst.

@@ -1,15 +1,14 @@
 // components/Journal.tsx
 import { FillLetter } from '@/components/FillLetter.tsx'
 import { TranslationMap } from '@/translations.ts'
+import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
 
 interface JournalProps {
-  imageSrc: string
-  title: string
   date: string
   t: TranslationMap
 }
 
-export function Journal({ imageSrc, title, date, t }: JournalProps) {
+export function Journal({ date, t }: JournalProps) {
   return (
     <>
       <div class='lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center lg:justify-center'>
@@ -38,10 +37,12 @@ export function Journal({ imageSrc, title, date, t }: JournalProps) {
           <div class='relative'>
             {/* Smaller background cover for md and above */}
             <div class='hidden md:block absolute left-[-40px] top-1/2 transform -translate-y-1/2 lg:left-[-60px] lg:top-[-40px] lg:translate-y-0 w-[60%] h-[60%] z-0 rounded shadow-lg'>
-              <img
-                src='/journal-cover-background.jpg'
-                alt='Smaller Cover'
-                class='w-full h-full object-cover rounded shadow-lg'
+              <ResponsiveImage
+                src='journal-cover-background.jpg'
+                alt='Sternvoll Jewelry Cover Background'
+                width={282}
+                height={466}
+                class='w-full w-max-[282px] h-full object-cover rounded shadow-lg'
               />
             </div>
 
@@ -56,20 +57,27 @@ export function Journal({ imageSrc, title, date, t }: JournalProps) {
                 style={{ right: '-5px', height: '98%', top: '1%' }}
               />
 
-              {/* Main book cover image */}
               <a href='/collections/jewelry-insights-materials-finishes-benefits-care'>
                 <div class='relative w-full h-full rounded shadow-lg md:shadow-xl'>
-                  <img
-                    src={'/' + imageSrc}
-                    alt={title}
-                    class='w-full h-full object-cover rounded shadow-lg md:shadow-xl'
+                  {/* Main book cover image */}
+                  <ResponsiveImage
+                    src='journal-cover.jpg'
+                    alt='Sternvoll Jewelry Journal Cover'
+                    width={[376, 385, 470, 705]}
+                    height={621}
+                    class='w-full max-w-[470px] h-full object-cover rounded shadow-lg md:shadow-xl'
                   />
 
                   <div class='absolute inset-0 flex flex-col justify-between items-center p-6'>
                     {/* Title */}
-                    <h2 class='text-white text-xl font-serif tracking-wide mt-4'>
-                      <img src='/Sternvoll-bright.png' alt='Sternvoll Logo' />
-                    </h2>
+                    <div class='p-4'>
+                      <ResponsiveImage
+                        src='sternvoll-name-bright.png'
+                        width={[324, 486, 648]}
+                        height={26}
+                        alt='Sternvoll Jewelry'
+                      />
+                    </div>
 
                     {/* Date at the bottom */}
                     <p class='text-lg font-accent tracking-widest text-white mb-4'>
