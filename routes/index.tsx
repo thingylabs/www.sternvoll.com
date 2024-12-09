@@ -191,8 +191,6 @@ export default function Home(ctx: PageProps<Collection, State>) {
       />
 
       <Journal
-        imageSrc='journal-cover.jpg'
-        title={t['Sternvoll Journal Cover']}
         date={t['2024 / April']}
         t={t}
       />
