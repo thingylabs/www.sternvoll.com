@@ -233,12 +233,13 @@ export default function CollectionPage(ctx: PageProps<Query, State>) {
             dangerouslySetInnerHTML={{ __html: collection.descriptionHtml }}
           />
         )}
-        {!!products.length && <CollectionContent
-          products={products}
-          title={collection.descriptionHtml ? '' : collection.title}
-          lang={state.geo.lang}
-        />
-        }
+        {!!products.length && (
+          <CollectionContent
+            products={products}
+            title={collection.descriptionHtml ? '' : collection.title}
+            lang={state.geo.lang}
+          />
+        )}
       </main>
       <Footer meta={meta} t={t} />
     </>

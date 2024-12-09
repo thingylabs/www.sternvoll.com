@@ -49,10 +49,8 @@ export function Header(
 
     const updateState = () => {
       const scrollTop = globalThis.scrollY
-      const width = globalThis.innerWidth
 
-      isMobile.value = width < 640
-      hasBackground.value = (isMobile.value && forceBackground) ||
+      hasBackground.value = forceBackground ||
         scrollTop > globalThis.innerHeight * 0.95
       isVisible.value = scrollTop < lastScrollTop.value || scrollTop < 100
       lastScrollTop.value = scrollTop

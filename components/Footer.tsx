@@ -41,8 +41,7 @@ export const Footer = ({ meta, t }: FooterProps) => {
               <ResponsiveImage
                 src='/sternvoll-logo.png'
                 class='
-                  mr-3 flex-shrink-0 h-8 drop-shadow
-                  xl:h-[2vw]
+                  mr-3 flex-shrink-0 h-[36px] w-[36px]
                 '
                 alt='Sternvoll Jewelry Logo'
                 width={[36, 54, 72]}

@@ -18,6 +18,8 @@ export default function App(
   const t = state.geo?.getT()
   const imageFormat = state.imageFormat
 
+  const headerForceBackground = url.pathname !== '/' && url.pathname !== '/de'
+
   return (
     <>
       <Head>
@@ -98,6 +100,7 @@ export default function App(
         lang={state.geo.lang}
         locale={state.geo.locale}
         href={url.href}
+        forceBackground={headerForceBackground}
         comfortCheckout={state.comfortCheckout}
       />
       <Component />
