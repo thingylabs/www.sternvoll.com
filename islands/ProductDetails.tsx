@@ -61,7 +61,7 @@ export default function ProductDetails(
   }
 
   const accordions = parseDescription(product.descriptionHtml)
-  const image = product.featuredImage!
+  const image = product.images && product.images.nodes[currentImageIndex]
 
   return (
     <div class='w-11/12 xl:max-w-[80vw] mx-auto grid gap-8 md:grid-cols-2'>
@@ -73,25 +73,21 @@ export default function ProductDetails(
           onTouchEnd={(e) => handleTouchEnd(e)}
         >
           <div class='rounded-lg overflow-hidden relative'>
-            {product.images && product.images.nodes[currentImageIndex] && (
+            {image && (
               <ResponsiveImage
-                src={product.images.nodes[currentImageIndex].jpg_square!}
-                alt={product.images.nodes[currentImageIndex].altText}
+                src={image.jpg_square!}
+                alt={image.altText}
                 class='w-full h-full object-center object-contain'
                 width={400}
                 height={400}
                 shopify={{
                   'webp': {
-                    'default': product.images.nodes[currentImageIndex]
-                      .webp_square!,
-                    '2x': product.images.nodes[currentImageIndex]
-                      .webp_square_2x!,
+                    'default': image.webp_square!,
+                    '2x': image.webp_square_2x!,
                   },
                   'jpg': {
-                    'default': product.images.nodes[currentImageIndex]
-                      .jpg_square!,
-                    '2x': product.images.nodes[currentImageIndex]
-                      .jpg_square_2x!,
+                    'default': image.jpg_square!,
+                    '2x': image.jpg_square_2x!,
                   },
                 }}
               />
