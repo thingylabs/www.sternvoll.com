@@ -9,6 +9,7 @@ import * as $_app from './routes/_app.tsx'
 import * as $_middleware from './routes/_middleware.ts'
 import * as $api_locales from './routes/api/locales.ts'
 import * as $api_shopify from './routes/api/shopify.ts'
+import * as $api_waitlist from './routes/api/waitlist.ts'
 import * as $index from './routes/index.tsx'
 import * as $AddToCart from './islands/AddToCart.tsx'
 import * as $Cart from './islands/Cart.tsx'
@@ -18,6 +19,7 @@ import * as $CollectionContent from './islands/CollectionContent.tsx'
 import * as $Collections from './islands/Collections.tsx'
 import * as $CountrySelector from './islands/CountrySelector.tsx'
 import * as $Header from './islands/Header.tsx'
+import * as $JoinWaitlist from './islands/JoinWaitlist.tsx'
 import * as $LanguageSwitcher from './islands/LanguageSwitcher.tsx'
 import * as $LocaleDrawer from './islands/LocaleDrawer.tsx'
 import * as $MenuDrawer from './islands/MenuDrawer.tsx'
@@ -35,6 +37,7 @@ const manifest = {
     './routes/_middleware.ts': $_middleware,
     './routes/api/locales.ts': $api_locales,
     './routes/api/shopify.ts': $api_shopify,
+    './routes/api/waitlist.ts': $api_waitlist,
     './routes/index.tsx': $index,
   },
   islands: {
@@ -46,6 +49,7 @@ const manifest = {
     './islands/Collections.tsx': $Collections,
     './islands/CountrySelector.tsx': $CountrySelector,
     './islands/Header.tsx': $Header,
+    './islands/JoinWaitlist.tsx': $JoinWaitlist,
     './islands/LanguageSwitcher.tsx': $LanguageSwitcher,
     './islands/LocaleDrawer.tsx': $LocaleDrawer,
     './islands/MenuDrawer.tsx': $MenuDrawer,

@@ -1,3 +1,4 @@
+// components/CategoryCard.tsx
 import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
 
 // components/CategoryCard.tsx

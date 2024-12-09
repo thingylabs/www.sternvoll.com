@@ -293,6 +293,27 @@ export const translations = {
   'Privacy Policy Comfort Checkout': {
     de: 'Datenschutzerklärung Komfort-Checkout',
   },
+  // Waitlist
+  "Awesome! You're on the list! 🎉": {
+    de: 'Super! Du bist auf der Liste! 🎉',
+  },
+  "We'll let you know as soon as it's available!": {
+    de: 'Wir melden uns, sobald er verfügbar ist!',
+  },
+  'Thank you! You’ve joined the waitlist.': {
+    de: 'Vielen Dank! Sie wurden auf die Warteliste gesetzt.',
+  },
+  'Be the first to know when this product is back in stock!': {
+    de: 'Erfahren Sie als Erster, wenn dieses Produkt wieder verfügbar ist!',
+  },
+  'By joining the waitlist, you agree that we may contact you via email when this product is available. Your data will be processed in accordance with our':
+    {
+      de:
+        'Mit Ihrer Anmeldung zur Warteliste stimmen Sie zu, dass wir Sie per E-Mail benachrichtigen dürfen, wenn dieses Produkt verfügbar ist. Ihre Daten werden gemäß unserer',
+    },
+  'Join the Waitlist': {
+    de: 'Auf die Warteliste',
+  },
 }
 
 export type LanguageCode = typeof languages[number]['code']

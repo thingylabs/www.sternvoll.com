@@ -6,9 +6,22 @@ import { Product } from '@/utils/types.ts'
 import { categories } from '@/config/productCategories.ts'
 import type { CountryCode } from '@/config/locales.ts'
 import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
+import {
+  JoinWaitlist,
+  translationKeys as joinWaitlistTranslationKeys,
+} from '@/islands/JoinWaitlist.tsx'
+import { TranslationMap } from '@/translations.ts'
 
-export default function ProductDetails(
-  { product, country }: { product: Product; country: CountryCode },
+export const translationKeys = [
+  ...joinWaitlistTranslationKeys,
+] as const
+
+export function ProductDetails(
+  { product, country, t }: {
+    product: Product
+    country: CountryCode
+    t: TranslationMap
+  },
 ) {
   const [variant, setVariant] = useState(product.variants.nodes[0])
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -274,11 +287,17 @@ export default function ProductDetails(
               </div>
             </div>
           )}
-          {variant.availableForSale && (
-            <div class='mt-4'>
-              <AddToCart id={variant.id} country={country} />
-            </div>
-          )}
+          {variant.availableForSale
+            ? (
+              <div class='mt-4'>
+                <AddToCart id={variant.id} country={country} />
+              </div>
+            )
+            : (
+              <div class='mt-4'>
+                <JoinWaitlist productTitle={product.title} t={t} />
+              </div>
+            )}
         </section>
 
         {/* Additional Information Accordion */}

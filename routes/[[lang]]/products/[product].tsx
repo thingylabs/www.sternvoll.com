@@ -2,13 +2,16 @@
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
-import ProductDetails from '@/islands/ProductDetails.tsx'
 import { graphql } from '@/utils/shopify.ts'
 import { Product } from '@/utils/types.ts'
 import { SelectedWorks } from '@/components/SelectedWorks.tsx'
 import { State } from '@/routes/_middleware.ts'
 import { meta as siteMeta } from '@/config/meta.ts'
 import { srcset } from '@/utils/shopifySrcset.ts'
+import {
+  ProductDetails,
+  translationKeys as productDetailsTranslationKeys,
+} from '@/islands/ProductDetails.tsx'
 
 const q = `query ($product: String!) {
   product(handle: $product) {
@@ -155,6 +158,7 @@ export default function ProductPage(ctx: PageProps<Query, State>) {
         <ProductDetails
           product={data.product!}
           country={ctx.state.geo.country}
+          t={getT(productDetailsTranslationKeys)}
         />
       </div>
 
