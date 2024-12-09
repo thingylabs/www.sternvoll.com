@@ -1,3 +1,5 @@
+import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
+
 // components/CategoryCard.tsx
 interface CategoryCardProps {
   backgroundImage: string
@@ -14,12 +16,20 @@ export function CategoryCard(
       class='
         block relative group w-full
         h-[120vw] sm:h-[90vw] md:h-[70vw] lg:h-[50vw] 2xl:h-[30vw]
-        overflow-hidden flex justify-center items-center bg-cover bg-center
+        overflow-hidden flex justify-center items-center
         transition-all duration-800 ease-in-out
         pt-20
       '
-      style={{ backgroundImage: `url(/${backgroundImage})` }}
     >
+      {/* Background Image */}
+      <ResponsiveImage
+        src={backgroundImage}
+        alt={text}
+        class='absolute inset-0 w-full h-full object-cover z-0'
+        width={420}
+        height={576}
+      />
+
       {/* Hover Overlay */}
       <div class='
         absolute inset-0 bg-[#002A3F] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out
