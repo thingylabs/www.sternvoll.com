@@ -59,7 +59,11 @@ export function InlineMenu() {
                   <div class='grid grid-cols-4 gap-8'>
                     {category.items.map((subCategory) => (
                       <div key={subCategory.label}>
-                        <h4 class='font-semibold mb-2'>{subCategory.label}</h4>
+                        <h4 class='font-semibold mb-2'>
+                          <a href={subCategory.link}>
+                            {subCategory.label}
+                          </a>
+                        </h4>
                         <ul class='space-y-1'>
                           {subCategory.items?.map((subItem) => (
                             <li key={subItem.label}>
