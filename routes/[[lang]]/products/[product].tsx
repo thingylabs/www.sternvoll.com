@@ -8,6 +8,7 @@ import { Product } from '@/utils/types.ts'
 import { SelectedWorks } from '@/components/SelectedWorks.tsx'
 import { State } from '@/routes/_middleware.ts'
 import { meta as siteMeta } from '@/config/meta.ts'
+import { srcset } from '@/utils/shopifySrcset.ts'
 
 const q = `query ($product: String!) {
   product(handle: $product) {
@@ -41,17 +42,15 @@ const q = `query ($product: String!) {
     }
 
     featuredImage {
+      ${srcset('square', 400, 400)}
       url(transform: {preferredContentType: WEBP, maxWidth:400, maxHeight:400})
-      width
-      height
       altText
     }
 
     images(first: 10) {
       nodes {
+        ${srcset('square', 400, 400)}
         url(transform: {preferredContentType: WEBP, maxWidth:400, maxHeight:400})
-        width
-        height
         altText
       }
     }
@@ -65,10 +64,8 @@ const relatedProductsQuery = `query ($query: String!) {
         handle
         title
         featuredImage {
-          url
+          ${srcset('square', 400, 400)}
           altText
-          width
-          height
         }
         priceRange {
           minVariantPrice {

@@ -6,7 +6,6 @@ type ImageFormat = 'avif' | 'webp' | 'jpg'
 interface ShopifyImageVariants {
   [format: string]: {
     'default': string
-    '1.5x': string
     '2x': string
   }
 }

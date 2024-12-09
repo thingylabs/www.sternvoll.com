@@ -5,6 +5,7 @@ import { formatCurrency } from '@/utils/data.ts'
 import { Product } from '@/utils/types.ts'
 import { categories } from '@/config/productCategories.ts'
 import type { CountryCode } from '@/config/locales.ts'
+import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
 
 export default function ProductDetails(
   { product, country }: { product: Product; country: CountryCode },
@@ -60,6 +61,7 @@ export default function ProductDetails(
   }
 
   const accordions = parseDescription(product.descriptionHtml)
+  const image = product.featuredImage!
 
   return (
     <div class='w-11/12 xl:max-w-[80vw] mx-auto grid gap-8 md:grid-cols-2'>
@@ -72,12 +74,26 @@ export default function ProductDetails(
         >
           <div class='rounded-lg overflow-hidden relative'>
             {product.images && product.images.nodes[currentImageIndex] && (
-              <img
-                id='productImage'
-                src={product.images.nodes[currentImageIndex].jpg_small}
+              <ResponsiveImage
+                src={product.images.nodes[currentImageIndex].jpg_square!}
                 alt={product.images.nodes[currentImageIndex].altText}
                 class='w-full h-full object-center object-contain'
-                crossorigin='anonymous'
+                width={400}
+                height={400}
+                shopify={{
+                  'webp': {
+                    'default': product.images.nodes[currentImageIndex]
+                      .webp_square!,
+                    '2x': product.images.nodes[currentImageIndex]
+                      .webp_square_2x!,
+                  },
+                  'jpg': {
+                    'default': product.images.nodes[currentImageIndex]
+                      .jpg_square!,
+                    '2x': product.images.nodes[currentImageIndex]
+                      .jpg_square_2x!,
+                  },
+                }}
               />
             )}
 
@@ -142,11 +158,22 @@ export default function ProductDetails(
                     : 'border-gray-300'
                 } rounded-lg overflow-hidden`}
               >
-                <img
-                  src={image.jpg_small}
+                <ResponsiveImage
+                  src={image.jpg_square!}
                   alt={image.altText}
                   class='w-full h-full object-cover'
-                  crossorigin='anonymous'
+                  width={400}
+                  height={400}
+                  shopify={{
+                    'webp': {
+                      'default': image.webp_square!,
+                      '2x': image.webp_square_2x!,
+                    },
+                    'jpg': {
+                      'default': image.jpg_square!,
+                      '2x': image.jpg_square_2x!,
+                    },
+                  }}
                 />
               </button>
             ))}
