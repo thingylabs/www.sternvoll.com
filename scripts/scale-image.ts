@@ -21,7 +21,7 @@ await $`mkdir -p ${scaledDir}`
 
 const dimensions = await $`identify -format "%w %h" ${inputFile}`.text()
 const [sourceWidth, sourceHeight] = dimensions.split(' ').map(Number)
-console.log(`Native image dimensions: ${sourceHeight} x ${sourceWidth}`)
+console.log(`Native image dimensions: ${sourceWidth}w x ${sourceHeight}h`)
 
 const qualities: Record<'jpg' | 'webp' | 'avif', number> = {
   jpg: 85,
@@ -32,7 +32,7 @@ const qualities: Record<'jpg' | 'webp' | 'avif', number> = {
 // Handle largest width with density variants
 const [largestWidth, ...remainingWidths] = widths
 const targetWidths = [
-  ...([largestWidth, Math.ceil(largestWidth * 1.5), largestWidth * 2]
+  ...([largestWidth * 2, Math.ceil(largestWidth * 1.5), largestWidth]
     .filter((width) => width <= sourceWidth)),
   ...remainingWidths,
 ]

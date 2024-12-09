@@ -1,5 +1,6 @@
 // components/ImageCard.tsx
 import { FunctionalComponent } from 'preact'
+import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
 
 interface ImageCardProps {
   image: string
@@ -41,11 +42,12 @@ export const ImageCard: FunctionalComponent<ImageCardProps> = ({
       >
         {/* Image Section */}
         <div class='relative w-full md:w-1/2 lg:w-[46%] z-10'>
-          <img
-            src={'/' + image}
+          <ResponsiveImage
+            src={image}
             alt={title}
             class='w-full object-cover'
-            crossorigin='anonymous'
+            width={[480, 768, 1024]}
+            height={720}
           />
         </div>
 

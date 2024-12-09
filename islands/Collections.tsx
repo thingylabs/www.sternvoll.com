@@ -1,6 +1,7 @@
 // islands/Collections.tsx
 import { useSignal } from '@preact/signals'
 import { useEffect, useRef } from 'preact/hooks'
+import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
 
 const inset = {
   yStart: 500,
@@ -116,10 +117,12 @@ export function Collections() {
           hasFadedIn.value = true
         }}
       >
-        <img
-          src='/hand.png'
-          alt='Hand holding jewelry'
+        <ResponsiveImage
+          src='hand.png'
+          alt='A hand holding jewelry'
           class='w-auto max-w-[40vw] h-auto object-contain xl:max-w-[60vw] 2xl:w-[10vw]'
+          width={169}
+          height={524}
         />
       </div>
 
