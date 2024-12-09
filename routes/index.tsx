@@ -16,6 +16,7 @@ import { meta as siteMeta } from '@/config/meta.ts'
 import { RouteConfig } from '$fresh/server.ts'
 import { State } from '@/routes/_middleware.ts'
 import type { TranslationKey } from '@/translations.ts'
+import { srcset } from '@/utils/shopifySrcset.ts'
 
 export const config: RouteConfig = {
   routeOverride: '/{:lang}?',
@@ -31,14 +32,7 @@ const q = `{
         tags
         featuredImage {
           altText
-          webp: url(transform: {preferredContentType: WEBP, maxWidth: 400, maxHeight: 400})
-          webp1_5x: url(transform: {preferredContentType: WEBP, maxWidth: 600, maxHeight: 600})
-          webp2x: url(transform: {preferredContentType: WEBP, maxWidth: 800, maxHeight: 800})
-          jpg: url(transform: {preferredContentType: JPG, maxWidth: 400, maxHeight: 400})
-          jpg1_5x: url(transform: {preferredContentType: JPG, maxWidth: 600, maxHeight: 600})
-          jpg2x: url(transform: {preferredContentType: JPG, maxWidth: 800, maxHeight: 800})
-          width: width
-          height: height
+          ${srcset('square', 400, 400)}
         }
         priceRange {
           minVariantPrice {
