@@ -7,6 +7,7 @@ import { graphql } from '@/utils/shopify.ts'
 import { Image, Product } from '@/utils/types.ts'
 import type { State } from '@/routes/_middleware.ts'
 import { meta as pageMeta } from '@/config/meta.ts'
+import { srcset } from '@/utils/shopifySrcset.ts'
 
 interface Query {
   collectionByHandle?: {
@@ -47,7 +48,7 @@ const q = `query ($collection: String!) {
           title
           handle
           featuredImage {
-            url(transform: {preferredContentType: WEBP, maxWidth:400, maxHeight:400})
+            ${srcset('square', 400, 400)}
             altText
             width
             height
@@ -77,7 +78,7 @@ const allProductsQuery = `query {
         title
         handle
         featuredImage {
-          url(transform: {preferredContentType: WEBP, maxWidth:400, maxHeight:400})
+          ${srcset('square', 400, 400)}
           altText
           width
           height
@@ -232,11 +233,12 @@ export default function CollectionPage(ctx: PageProps<Query, State>) {
             dangerouslySetInnerHTML={{ __html: collection.descriptionHtml }}
           />
         )}
-        <CollectionContent
+        {!!products.length && <CollectionContent
           products={products}
-          title={collection.title}
+          title={collection.descriptionHtml ? '' : collection.title}
           lang={state.geo.lang}
         />
+        }
       </main>
       <Footer meta={meta} t={t} />
     </>

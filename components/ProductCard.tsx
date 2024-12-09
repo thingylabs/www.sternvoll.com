@@ -21,6 +21,7 @@ export function ProductCard(
     amount: parseFloat('' + price),
     currencyCode,
   })
+  const image = product.featuredImage!
 
   return (
     <div key={product.id} class='mb-4 xl:text-[1vw]'>
@@ -35,23 +36,21 @@ export function ProductCard(
         >
           {product.featuredImage && (
             <ResponsiveImage
-              src={product.featuredImage.jpg!}
-              alt={product.featuredImage.altText || product.title}
-              width={400}
-              height={400}
-              class={`absolute inset-0 w-full h-full object-center ${
-                showcase ? 'object-cover' : 'object-contain'
-              }`}
+              src={image.jpg_square!}
+              alt={image.altText || product.title}
+              width={361}
+              height={361}
+              class='absolute inset-0 w-full h-full object-center object-cover'
               shopify={{
-                webp: {
-                  default: product.featuredImage.webp!,
-                  '1.5x': product.featuredImage.webp1_5x!,
-                  '2x': product.featuredImage.webp2x!,
+                'webp': {
+                  'default': image.webp_square!,
+                  '1.5x': image.webp_square_1_5x!,
+                  '2x': image.webp_square_2x!,
                 },
-                jpg: {
-                  default: product.featuredImage.jpg!,
-                  '1.5x': product.featuredImage.jpg1_5x!,
-                  '2x': product.featuredImage.jpg2x!,
+                'jpg': {
+                  'default': image.jpg_square!,
+                  '1.5x': image.jpg_square_1_5x!,
+                  '2x': image.jpg_square_2x!,
                 },
               }}
             />

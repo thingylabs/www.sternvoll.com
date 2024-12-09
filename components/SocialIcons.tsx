@@ -1,4 +1,4 @@
-// utils/social-icons.tsx
+// components/SocialIcons.tsx
 const iconPaths = {
   facebook: {
     path:
