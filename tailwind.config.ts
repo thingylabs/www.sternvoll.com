@@ -1,5 +1,5 @@
 import { type Config } from 'tailwindcss'
-import aspectRatio from 'aspectRatio'
+import aspectRatio from '@tailwindcss/aspect-ratio'
 
 export default {
   theme: {
