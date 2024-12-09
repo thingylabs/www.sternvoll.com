@@ -43,14 +43,12 @@ const q = `query ($product: String!) {
 
     featuredImage {
       ${srcset('square', 400, 400)}
-      url(transform: {preferredContentType: WEBP, maxWidth:400, maxHeight:400})
       altText
     }
 
     images(first: 10) {
       nodes {
         ${srcset('square', 400, 400)}
-        url(transform: {preferredContentType: WEBP, maxWidth:400, maxHeight:400})
         altText
       }
     }

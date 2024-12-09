@@ -3,6 +3,7 @@ import useSWR, { mutate } from 'swr'
 import { Image, Money } from './types.ts'
 import { getCurrencyByCountryCode } from '@/utils/geo.ts'
 import type { CountryCode } from '@/config/locales.ts'
+import { srcset } from '@/utils/shopifySrcset.ts'
 
 export interface CartData {
   id: string
@@ -38,7 +39,7 @@ const CART_QUERY = `{
         ...on ProductVariant {
           title
           image {
-            url
+            ${srcset('tiny', 94, 94)}
             altText
           }
           product {

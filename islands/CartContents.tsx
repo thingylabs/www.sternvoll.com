@@ -3,6 +3,7 @@ import { formatCurrency, removeFromCart, useCart } from '@/utils/data.ts'
 import type { CartData } from '@/utils/data.ts'
 import type { Signal } from '@preact/signals'
 import type { TranslationMap } from '@/translations.ts'
+import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
 
 interface CartContentsProps {
   cart: CartData | undefined
@@ -54,11 +55,23 @@ export function CartContents({
                   {cart.lines.nodes.map((line) => (
                     <li class='flex py-6' key={line.id}>
                       <div class='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200'>
-                        <img
-                          src={line.merchandise.image.jpg_small}
+                        <ResponsiveImage
+                          src={line.merchandise.image.jpg_tiny!}
                           alt={line.merchandise.image.altText ??
                             line.merchandise.product.title}
                           class='h-full w-full object-cover object-center'
+                          height={94}
+                          width={94}
+                          shopify={{
+                            webp: {
+                              default: line.merchandise.image.webp_tiny!,
+                              '2x': line.merchandise.image.webp_tiny_2x!,
+                            },
+                            jpg: {
+                              default: line.merchandise.image.jpg_tiny!,
+                              '2x': line.merchandise.image.jpg_tiny_2x!,
+                            },
+                          }}
                         />
                       </div>
                       <div class='ml-4 flex flex-1 flex-col'>

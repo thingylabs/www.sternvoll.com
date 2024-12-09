@@ -44,12 +44,10 @@ export function ProductCard(
               shopify={{
                 'webp': {
                   'default': image.webp_square!,
-                  '1.5x': image.webp_square_1_5x!,
                   '2x': image.webp_square_2x!,
                 },
                 'jpg': {
                   'default': image.jpg_square!,
-                  '1.5x': image.jpg_square_1_5x!,
                   '2x': image.jpg_square_2x!,
                 },
               }}

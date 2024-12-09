@@ -57,6 +57,10 @@ export interface Image {
   jpg_square?: string
   jpg_square_1_5x?: string
   jpg_square_2x?: string
+  webp_tiny?: string
+  webp_tiny_2x?: string
+  jpg_tiny?: string
+  jpg_tiny_2x?: string
 }
 
 // Rest of the types remain unchanged
