@@ -2,6 +2,11 @@
 import { formatCurrency } from '@/utils/data.ts'
 import { Money } from '@/utils/types.ts'
 import { meta } from '@/config/meta.ts'
+import {
+  SendEmailCommand,
+  SendEmailCommandInput,
+  SESClient,
+} from '@aws-sdk/client-ses'
 
 interface EmailOptions {
   to: string
@@ -12,68 +17,56 @@ interface EmailOptions {
 
 const bankDetails = meta.sepa
 
-class MailgunError extends Error {
+class SesError extends Error {
   constructor(message: string) {
     super(message)
-    this.name = 'MailgunError'
+    this.name = 'SesError'
   }
 }
 
-export async function sendEmail({ to, subject, text, html }: EmailOptions) {
-  const MAILGUN_API_KEY = Deno.env.get('MAILGUN_API_KEY')
-  const MAILGUN_DOMAIN = Deno.env.get('MAILGUN_DOMAIN')
+const ses = new SESClient({
+  region: Deno.env.get('AWS_REGION')!,
+  credentials: {
+    accessKeyId: Deno.env.get('AWS_ACCESS_KEY_ID')!,
+    secretAccessKey: Deno.env.get('AWS_SECRET_ACCESS_KEY')!,
+  },
+})
 
-  if (!MAILGUN_API_KEY || !MAILGUN_DOMAIN) {
-    throw new MailgunError('Missing required Mailgun configuration')
+export async function sendEmail({ to, subject, text, html }: EmailOptions) {
+  const FROM_EMAIL = Deno.env.get('FROM_EMAIL')
+
+  if (!FROM_EMAIL) {
+    throw new SesError('Missing FROM_EMAIL configuration')
   }
 
-  // Construct the from address using the verified domain
-  const from = `Pixelpilot Notifications <notifications@${MAILGUN_DOMAIN}>`
+  if (!html && !text) {
+    throw new SesError('No email body provided (html or text required).')
+  }
 
-  const formData = new FormData()
-  formData.append('from', from)
-  formData.append('to', to)
-  formData.append('subject', subject)
-
-  if (text) formData.append('text', text)
-  if (html) formData.append('html', html)
+  const params: SendEmailCommandInput = {
+    Source: FROM_EMAIL,
+    Destination: {
+      ToAddresses: [to],
+    },
+    Message: {
+      Subject: {
+        Data: subject,
+      },
+      Body: {
+        ...(html ? { Html: { Data: html } } : {}),
+        ...(text ? { Text: { Data: text } } : {}),
+      },
+    },
+  }
 
   try {
-    // Convert API key to base64 properly
-    const auth = btoa(`api:${MAILGUN_API_KEY}`)
-
-    const response = await fetch(
-      `https://api.eu.mailgun.net/v3/${MAILGUN_DOMAIN}/messages`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Basic ${auth}`,
-          'Accept': 'application/json',
-        },
-        body: formData,
-      },
-    )
-
-    if (!response.ok) {
-      const errorBody = await response.text()
-      console.error('Mailgun API response:', {
-        status: response.status,
-        statusText: response.statusText,
-        body: errorBody,
-      })
-      throw new MailgunError(
-        `Mailgun API error: ${response.status} ${response.statusText} - ${errorBody}`,
-      )
-    }
-
-    return await response.json()
+    const command = new SendEmailCommand(params)
+    const response = await ses.send(command)
+    return response
   } catch (err) {
     const error = err as Error
-    if (error instanceof MailgunError) {
-      throw error
-    }
-    console.error('Failed to send email:', error)
-    throw new MailgunError(`Email sending failed: ${error.message}`)
+    console.error('Failed to send email via SES:', error)
+    throw new SesError(`Email sending failed: ${error.message}`)
   }
 }
 
@@ -81,7 +74,7 @@ export function sendWaitlistNotification(email: string, productTitle: string) {
   const SALES_NOTIFICATION_EMAIL = Deno.env.get('SALES_NOTIFICATION_EMAIL')
 
   if (!SALES_NOTIFICATION_EMAIL) {
-    throw new MailgunError('Missing SALES_NOTIFICATION_EMAIL configuration')
+    throw new SesError('Missing SALES_NOTIFICATION_EMAIL configuration')
   }
 
   return sendEmail({
@@ -119,7 +112,7 @@ export function sendSepaPaymentConfirmationToClient({
 
   const moneyAmount = {
     amount: amount,
-    currencyCode: 'EUR', // You can dynamically set this based on user or settings
+    currencyCode: 'EUR',
   }
 
   const htmlContent = `
@@ -139,18 +132,20 @@ export function sendSepaPaymentConfirmationToClient({
   `
 
   const textContent = `
-    Order Confirmation\n
+    Order Confirmation
     Thank you for your order! Please find below the SEPA payment details for your order ${orderId}.
-    \n\n
-    \nAmount: ${formatCurrency(moneyAmount)}
-    \nBank Name: ${bankDetails.bank}
-    \nAccount Holder: ${bankDetails.holder}
-    \nIBAN: ${bankDetails.iban}
-    \nBIC: ${bankDetails.bic}
-    \nReference Number: ${orderId}
-    \n\nPlease complete your transfer by ${dueDate}.
-    \nIf we do not receive your payment by this date, your order will be automatically canceled.
-    \n\nThank you for choosing us!
+
+    Amount: ${formatCurrency(moneyAmount)}
+    Bank Name: ${bankDetails.bank}
+    Account Holder: ${bankDetails.holder}
+    IBAN: ${bankDetails.iban}
+    BIC: ${bankDetails.bic}
+    Reference Number: ${orderId}
+
+    Please complete your transfer by ${dueDate}.
+    If we do not receive your payment by this date, your order will be automatically canceled.
+
+    Thank you for choosing us!
   `
 
   return sendEmail({
@@ -167,7 +162,7 @@ export function sendSepaPaymentConfirmationToSales(
   const SALES_NOTIFICATION_EMAIL = Deno.env.get('SALES_NOTIFICATION_EMAIL')
 
   if (!SALES_NOTIFICATION_EMAIL) {
-    throw new MailgunError('Missing SALES_NOTIFICATION_EMAIL configuration')
+    throw new SesError('Missing SALES_NOTIFICATION_EMAIL configuration')
   }
 
   const { orderId, amount } = orderDetails
@@ -184,9 +179,10 @@ export function sendSepaPaymentConfirmationToSales(
       </ul>
     `,
     text: `
-      New SEPA Payment Intent\n
-      Order ID: ${orderId}\n
-      Amount: ${formatCurrency(amount)}\n
+      New SEPA Payment Intent
+
+      Order ID: ${orderId}
+      Amount: ${formatCurrency(amount)}
     `,
   })
 }

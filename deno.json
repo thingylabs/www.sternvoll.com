@@ -47,7 +47,8 @@
     "cookie": "https://deno.land/std@0.224.0/http/cookie.ts",
     "axiom": "npm:@axiomhq/js",
     "@/": "./",
-    "prefetch": "https://deno.land/x/prefetch@0.1.0/mod.ts"
+    "prefetch": "https://deno.land/x/prefetch@0.1.0/mod.ts",
+    "@aws-sdk/client-ses": "npm:@aws-sdk/client-ses"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
