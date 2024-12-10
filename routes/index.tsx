@@ -169,7 +169,7 @@ export default function Home(ctx: PageProps<Collection, State>) {
         <CategoryCard
           backgroundImage='category-necklaces.jpg'
           text={t['Necklaces']}
-          href='/collections/necklace'
+          href='/collections/necklaces'
         />
         <CategoryCard
           backgroundImage='category-clip-ons.jpg'
