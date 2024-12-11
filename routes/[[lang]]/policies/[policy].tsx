@@ -105,7 +105,7 @@ export default function PolicyPage(
   return (
     <>
       <Meta url={url} meta={meta} />
-      <div class='bg-primary h-[108px] w-full'></div>
+      <div class='bg-primary h-[74px] w-full'></div>
 
       <div class='px-4 md:px-8 lg:px-12 xl:px-0 xl:max-w-[80vw] mx-auto 2xl:pt-[5vw]'>
         <h1 class='text-2xl font-bold mb-4'>{policy.title}</h1>

@@ -211,7 +211,7 @@ export default function CollectionPage(ctx: PageProps<Query, State>) {
             : undefined,
         }}
       />
-      <div class='bg-primary h-[108px] w-full'></div>
+      <div class='bg-primary h-[74px] w-full'></div>
 
       <main class='max-w-7xl mx-auto p-4 pt-[2vw]'>
         <h1 class='text-2xl font-bold mb-4'>{collection.title}</h1>
