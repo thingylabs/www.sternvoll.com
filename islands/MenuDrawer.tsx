@@ -34,10 +34,10 @@ export function MenuDrawer({
       {/* Header */}
       <div class='flex justify-between pb-4 border-b border-gray-200'>
         <ResponsiveImage
-          src='pixelpilot-name-black.png'
-          width={276}
-          height={25}
-          alt='Pixelpilot Name Black'
+          src='sternvoll-name-bright.png'
+          width={[275, 413, 550]}
+          height={22}
+          alt='Sternvoll Jewelry'
           class='w-[80%] object-scale-down'
         />
         <button class='py-1' onClick={onClose}>

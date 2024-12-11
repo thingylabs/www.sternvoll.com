@@ -128,6 +128,8 @@ export function Header(
               height={22}
               alt='Sternvoll Jewelry'
               class='2xl:w-[275px]'
+              lazy={false}
+              fetchpriority='high'
             />
           </a>
 

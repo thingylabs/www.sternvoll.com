@@ -5,7 +5,7 @@ import { meta } from '@/config/meta.ts'
 import { TranslationKey } from '@/translations.ts'
 import { State } from '@/routes/_middleware.ts'
 import { asset } from '$fresh/runtime.ts'
-import { ImageFormat } from '@/utils/types.ts'
+import { PreloadImage } from '@/components/PreloadImage.tsx'
 import {
   Header,
   translationKeys as headerTranslationKeys,
@@ -86,7 +86,12 @@ export default function App(
               <>
                 <PreloadImage
                   src='hero.jpg'
-                  width={1024}
+                  widths={[480, 786, 1280, 1920]}
+                  format={imageFormat}
+                />
+                <PreloadImage
+                  src='sternvoll-name-bright.png'
+                  widths={[275, 324, 413, 486, 550, 648]}
                   format={imageFormat}
                 />
               </>
@@ -105,46 +110,5 @@ export default function App(
       />
       <Component />
     </>
-  )
-}
-
-type PreloadImageProps = {
-  src: string
-  width: number
-  resolutionVariants?: ('1.5x' | '2x')[]
-  format: ImageFormat
-}
-
-export const PreloadImage = (
-  { src, width, resolutionVariants = ['1.5x', '2x'], format }:
-    PreloadImageProps,
-) => {
-  const nameOnly = src.split('.')[0]
-
-  const srcSet = [
-    `${asset(`/scaled/${nameOnly}.${format}`)} ${width}w`,
-    ...resolutionVariants.map((res) =>
-      `${asset(`/scaled/${nameOnly}@${res}.${format}`)} ${res}`
-    ),
-  ].join(',\n            ')
-
-  const mimeTypes = {
-    avif: 'image/avif',
-    webp: 'image/webp',
-    jpg: 'image/jpeg',
-  }
-
-  return (
-    <link
-      rel='preload'
-      as='image'
-      crossOrigin='anonymous'
-      type={mimeTypes[format]}
-      imagesrcset={srcSet}
-      sizes={`${width}px`}
-      fetchpriority='high'
-      decoding='sync'
-      loading='eager'
-    />
   )
 }
