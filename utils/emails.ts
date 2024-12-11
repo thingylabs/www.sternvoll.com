@@ -2,11 +2,6 @@
 import { formatCurrency } from '@/utils/data.ts'
 import { Money } from '@/utils/types.ts'
 import { meta } from '@/config/meta.ts'
-import {
-  SendEmailCommand,
-  SendEmailCommandInput,
-  SESClient,
-} from '@aws-sdk/client-ses'
 
 interface EmailOptions {
   to: string
@@ -17,56 +12,81 @@ interface EmailOptions {
 
 const bankDetails = meta.sepa
 
-class SesError extends Error {
+class MailerSendError extends Error {
   constructor(message: string) {
     super(message)
-    this.name = 'SesError'
+    this.name = 'MailerSendError'
   }
 }
 
-const ses = new SESClient({
-  region: Deno.env.get('AWS_REGION')!,
-  credentials: {
-    accessKeyId: Deno.env.get('AWS_ACCESS_KEY_ID')!,
-    secretAccessKey: Deno.env.get('AWS_SECRET_ACCESS_KEY')!,
-  },
-})
-
 export async function sendEmail({ to, subject, text, html }: EmailOptions) {
+  const MAILERSEND_API_KEY = Deno.env.get('MAILERSEND_API_KEY')
   const FROM_EMAIL = Deno.env.get('FROM_EMAIL')
 
+  if (!MAILERSEND_API_KEY) {
+    throw new MailerSendError('Missing MAILERSEND_API_KEY configuration')
+  }
+
   if (!FROM_EMAIL) {
-    throw new SesError('Missing FROM_EMAIL configuration')
+    throw new MailerSendError('Missing FROM_EMAIL configuration')
   }
 
   if (!html && !text) {
-    throw new SesError('No email body provided (html or text required).')
+    throw new MailerSendError('No email body provided (html or text required).')
   }
 
-  const params: SendEmailCommandInput = {
-    Source: FROM_EMAIL,
-    Destination: {
-      ToAddresses: [to],
+  const payload = {
+    from: {
+      email: FROM_EMAIL,
+      name: 'Sternvoll Jewelry',
     },
-    Message: {
-      Subject: {
-        Data: subject,
-      },
-      Body: {
-        ...(html ? { Html: { Data: html } } : {}),
-        ...(text ? { Text: { Data: text } } : {}),
-      },
-    },
+    to: [{
+      email: to,
+    }],
+    subject: subject,
+    ...(html ? { html } : {}),
+    ...(text ? { text } : {}),
   }
 
   try {
-    const command = new SendEmailCommand(params)
-    const response = await ses.send(command)
-    return response
+    const response = await fetch('https://api.mailersend.com/v1/email', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${MAILERSEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+
+    if (!response.ok) {
+      const errorBody = await response.text()
+      console.error('MailerSend API response:', {
+        status: response.status,
+        statusText: response.statusText,
+        body: errorBody,
+      })
+      throw new MailerSendError(
+        `MailerSend API error: ${response.status} ${response.statusText} - ${errorBody}`,
+      )
+    }
+
+    // If the response has a body and JSON content-type, parse it
+    const contentType = response.headers.get('content-type') || ''
+    if (contentType.includes('application/json')) {
+      const data = await response.json()
+      return data
+    } else {
+      // MailerSend often returns 202 Accepted with no JSON body.
+      // In this case, we can return a simple success object or nothing.
+      return { status: 'accepted' }
+    }
   } catch (err) {
     const error = err as Error
-    console.error('Failed to send email via SES:', error)
-    throw new SesError(`Email sending failed: ${error.message}`)
+    if (error instanceof MailerSendError) {
+      throw error
+    }
+    console.error('Failed to send email:', error)
+    throw new MailerSendError(`Email sending failed: ${error.message}`)
   }
 }
 
@@ -74,7 +94,7 @@ export function sendWaitlistNotification(email: string, productTitle: string) {
   const SALES_NOTIFICATION_EMAIL = Deno.env.get('SALES_NOTIFICATION_EMAIL')
 
   if (!SALES_NOTIFICATION_EMAIL) {
-    throw new SesError('Missing SALES_NOTIFICATION_EMAIL configuration')
+    throw new MailerSendError('Missing SALES_NOTIFICATION_EMAIL configuration')
   }
 
   return sendEmail({
@@ -133,6 +153,7 @@ export function sendSepaPaymentConfirmationToClient({
 
   const textContent = `
     Order Confirmation
+
     Thank you for your order! Please find below the SEPA payment details for your order ${orderId}.
 
     Amount: ${formatCurrency(moneyAmount)}
@@ -162,7 +183,7 @@ export function sendSepaPaymentConfirmationToSales(
   const SALES_NOTIFICATION_EMAIL = Deno.env.get('SALES_NOTIFICATION_EMAIL')
 
   if (!SALES_NOTIFICATION_EMAIL) {
-    throw new SesError('Missing SALES_NOTIFICATION_EMAIL configuration')
+    throw new MailerSendError('Missing SALES_NOTIFICATION_EMAIL configuration')
   }
 
   const { orderId, amount } = orderDetails
