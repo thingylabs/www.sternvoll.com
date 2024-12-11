@@ -40,6 +40,7 @@ import * as $MovingText from './islands/MovingText.tsx'
 import * as $NewsletterSignup from './islands/NewsletterSignup.tsx'
 import * as $OrderPay from './islands/OrderPay.tsx'
 import * as $OrderReview from './islands/OrderReview.tsx'
+import * as $PreloadSrcsets from './islands/PreloadSrcsets.tsx'
 import * as $ProductDetails from './islands/ProductDetails.tsx'
 import * as $ThankYou from './islands/ThankYou.tsx'
 import type { Manifest } from '$fresh/server.ts'
@@ -89,6 +90,7 @@ const manifest = {
     './islands/NewsletterSignup.tsx': $NewsletterSignup,
     './islands/OrderPay.tsx': $OrderPay,
     './islands/OrderReview.tsx': $OrderReview,
+    './islands/PreloadSrcsets.tsx': $PreloadSrcsets,
     './islands/ProductDetails.tsx': $ProductDetails,
     './islands/ThankYou.tsx': $ThankYou,
   },

@@ -2,7 +2,7 @@
 import { useState } from 'preact/hooks'
 import { AddToCart } from '@/islands/AddToCart.tsx'
 import { formatCurrency } from '@/utils/data.ts'
-import { Product } from '@/utils/types.ts'
+import { ImageFormat, Product } from '@/utils/types.ts'
 import { categories } from '@/config/productCategories.ts'
 import type { CountryCode } from '@/config/locales.ts'
 import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
@@ -11,16 +11,19 @@ import {
   translationKeys as joinWaitlistTranslationKeys,
 } from '@/islands/JoinWaitlist.tsx'
 import { TranslationMap } from '@/translations.ts'
+import { PreloadSrcsets } from '@/islands/PreloadSrcsets.tsx'
+import { useMemo } from 'preact/hooks'
 
 export const translationKeys = [
   ...joinWaitlistTranslationKeys,
 ] as const
 
 export function ProductDetails(
-  { product, country, t }: {
+  { product, country, t, imageFormat }: {
     product: Product
     country: CountryCode
     t: TranslationMap
+    imageFormat: ImageFormat
   },
 ) {
   const [variant, setVariant] = useState(product.variants.nodes[0])
@@ -76,8 +79,18 @@ export function ProductDetails(
   const accordions = parseDescription(product.descriptionHtml)
   const image = product.images && product.images.nodes[currentImageIndex]
 
+  const preloadSrcsets = useMemo(() => {
+    return product.images?.nodes.map((image) => {
+      return imageFormat !== 'jpg'
+        ? `${image.webp_square} 1x, ${image.webp_square_2x} 2x`
+        : `${image.jpg_square} 1x, ${image.jpg_square_2x} 2x`
+    }) || []
+  }, [product, imageFormat])
+
   return (
     <div class='w-11/12 xl:max-w-[80vw] mx-auto grid gap-8 md:grid-cols-2'>
+      <PreloadSrcsets srcsets={preloadSrcsets} />
+
       {/* Product image */}
       <div class='relative'>
         <div

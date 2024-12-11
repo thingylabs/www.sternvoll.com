@@ -159,6 +159,7 @@ export default function ProductPage(ctx: PageProps<Query, State>) {
           product={data.product!}
           country={ctx.state.geo.country}
           t={getT(productDetailsTranslationKeys)}
+          imageFormat={state.imageFormat}
         />
       </div>
 
