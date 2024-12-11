@@ -1,34 +1,58 @@
 // islands/AddToCart.tsx
-import { useState } from 'preact/hooks'
+import { useSignal } from '@preact/signals'
 import { addToCart, useCart } from '@/utils/data.ts'
 import type { CountryCode } from '@/config/locales.ts'
+import { IS_BROWSER } from '$fresh/runtime.ts'
+import { isCartOpen } from '@/utils/cartState.ts'
 
 interface AddToCartProps {
   id: string
   country: CountryCode
 }
 
-export function AddToCart(props: AddToCartProps) {
+export function AddToCart({ id }: AddToCartProps) {
   const { data } = useCart()
-  const [isAdding, setIsAdding] = useState(false)
+  const isAdding = useSignal(false)
 
-  const add = (e: MouseEvent) => {
-    e.preventDefault()
-    setIsAdding(true)
-    addToCart(data!.id, props.id).finally(() => {
-      setIsAdding(false)
-    })
+  const baseClasses =
+    'w-full border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white'
+
+  const getStateClasses = () => {
+    if (!IS_BROWSER || isAdding.value || !data) {
+      return '!bg-gray-400 cursor-not-allowed'
+    }
+    return 'bg-secondary hover:bg-gray-900'
   }
+
+  const add = async (e: MouseEvent) => {
+    e.preventDefault()
+    if (!IS_BROWSER || !data || isAdding.value) return
+
+    try {
+      isAdding.value = true
+      await addToCart(data.id, id)
+      isCartOpen.value = true
+    } catch (error) {
+      console.error('Failed to add to cart:', error)
+    } finally {
+      isAdding.value = false
+    }
+  }
+
+  const buttonText = isAdding.value
+    ? 'Processing...'
+    : !IS_BROWSER || !data
+    ? 'Loading...'
+    : 'Buy'
 
   return (
     <button
       onClick={add}
-      disabled={!data && !isAdding}
-      class={`w-full ${
-        isAdding ? '!bg-gray-400' : 'bg-gray-700'
-      } border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-900 2xl:text-[1.5vw] 2xl:py-[1vw]`}
+      disabled={!IS_BROWSER || !data || isAdding.value}
+      class={`${baseClasses} ${getStateClasses()}`}
+      aria-busy={isAdding.value}
     >
-      {isAdding ? 'Adding...' : 'Add to Cart'}
+      {buttonText}
     </button>
   )
 }
