@@ -1,4 +1,4 @@
-// postcss.conf.js
+// postcss.config.js
 module.exports = {
   plugins: [
     require('cssnano')({
