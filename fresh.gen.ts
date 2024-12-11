@@ -12,6 +12,7 @@ import * as $_lang_products_product_ from './routes/[[lang]]/products/[product].
 import * as $_app from './routes/_app.tsx'
 import * as $_middleware from './routes/_middleware.ts'
 import * as $api_locales from './routes/api/locales.ts'
+import * as $api_newsletter_subscribe from './routes/api/newsletter/subscribe.ts'
 import * as $api_orders_bank_transfer from './routes/api/orders/bank-transfer.ts'
 import * as $api_paypal_capture_payment from './routes/api/paypal/capture-payment.ts'
 import * as $api_paypal_confirm_payment from './routes/api/paypal/confirm-payment.ts'
@@ -58,6 +59,7 @@ const manifest = {
     './routes/_app.tsx': $_app,
     './routes/_middleware.ts': $_middleware,
     './routes/api/locales.ts': $api_locales,
+    './routes/api/newsletter/subscribe.ts': $api_newsletter_subscribe,
     './routes/api/orders/bank-transfer.ts': $api_orders_bank_transfer,
     './routes/api/paypal/capture-payment.ts': $api_paypal_capture_payment,
     './routes/api/paypal/confirm-payment.ts': $api_paypal_confirm_payment,
