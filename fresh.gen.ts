@@ -2,19 +2,31 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
+import * as $_lang_checkout_confirmation_bank_transfer from './routes/[[lang]]/checkout/confirmation/bank-transfer.tsx'
+import * as $_lang_checkout_confirmation_paypal from './routes/[[lang]]/checkout/confirmation/paypal.tsx'
+import * as $_lang_checkout_review from './routes/[[lang]]/checkout/review.tsx'
+import * as $_lang_checkout_start from './routes/[[lang]]/checkout/start.tsx'
 import * as $_lang_collections_collection_ from './routes/[[lang]]/collections/[collection].tsx'
 import * as $_lang_policies_policy_ from './routes/[[lang]]/policies/[policy].tsx'
 import * as $_lang_products_product_ from './routes/[[lang]]/products/[product].tsx'
 import * as $_app from './routes/_app.tsx'
 import * as $_middleware from './routes/_middleware.ts'
 import * as $api_locales from './routes/api/locales.ts'
+import * as $api_orders_bank_transfer from './routes/api/orders/bank-transfer.ts'
+import * as $api_paypal_capture_payment from './routes/api/paypal/capture-payment.ts'
+import * as $api_paypal_confirm_payment from './routes/api/paypal/confirm-payment.ts'
+import * as $api_paypal_create_order from './routes/api/paypal/create-order.ts'
 import * as $api_shopify from './routes/api/shopify.ts'
 import * as $api_waitlist from './routes/api/waitlist.ts'
 import * as $index from './routes/index.tsx'
 import * as $AddToCart from './islands/AddToCart.tsx'
+import * as $BackToShopButton from './islands/BackToShopButton.tsx'
+import * as $BankDetails from './islands/BankDetails.tsx'
 import * as $Cart from './islands/Cart.tsx'
 import * as $CartButton from './islands/CartButton.tsx'
+import * as $CartCleanup from './islands/CartCleanup.tsx'
 import * as $CartContents from './islands/CartContents.tsx'
+import * as $Checkout from './islands/Checkout.tsx'
 import * as $CollectionContent from './islands/CollectionContent.tsx'
 import * as $Collections from './islands/Collections.tsx'
 import * as $CountrySelector from './islands/CountrySelector.tsx'
@@ -24,11 +36,21 @@ import * as $LanguageSwitcher from './islands/LanguageSwitcher.tsx'
 import * as $LocaleDrawer from './islands/LocaleDrawer.tsx'
 import * as $MenuDrawer from './islands/MenuDrawer.tsx'
 import * as $MovingText from './islands/MovingText.tsx'
+import * as $NewsletterSignup from './islands/NewsletterSignup.tsx'
+import * as $OrderPay from './islands/OrderPay.tsx'
+import * as $OrderReview from './islands/OrderReview.tsx'
 import * as $ProductDetails from './islands/ProductDetails.tsx'
+import * as $ThankYou from './islands/ThankYou.tsx'
 import type { Manifest } from '$fresh/server.ts'
 
 const manifest = {
   routes: {
+    './routes/[[lang]]/checkout/confirmation/bank-transfer.tsx':
+      $_lang_checkout_confirmation_bank_transfer,
+    './routes/[[lang]]/checkout/confirmation/paypal.tsx':
+      $_lang_checkout_confirmation_paypal,
+    './routes/[[lang]]/checkout/review.tsx': $_lang_checkout_review,
+    './routes/[[lang]]/checkout/start.tsx': $_lang_checkout_start,
     './routes/[[lang]]/collections/[collection].tsx':
       $_lang_collections_collection_,
     './routes/[[lang]]/policies/[policy].tsx': $_lang_policies_policy_,
@@ -36,15 +58,23 @@ const manifest = {
     './routes/_app.tsx': $_app,
     './routes/_middleware.ts': $_middleware,
     './routes/api/locales.ts': $api_locales,
+    './routes/api/orders/bank-transfer.ts': $api_orders_bank_transfer,
+    './routes/api/paypal/capture-payment.ts': $api_paypal_capture_payment,
+    './routes/api/paypal/confirm-payment.ts': $api_paypal_confirm_payment,
+    './routes/api/paypal/create-order.ts': $api_paypal_create_order,
     './routes/api/shopify.ts': $api_shopify,
     './routes/api/waitlist.ts': $api_waitlist,
     './routes/index.tsx': $index,
   },
   islands: {
     './islands/AddToCart.tsx': $AddToCart,
+    './islands/BackToShopButton.tsx': $BackToShopButton,
+    './islands/BankDetails.tsx': $BankDetails,
     './islands/Cart.tsx': $Cart,
     './islands/CartButton.tsx': $CartButton,
+    './islands/CartCleanup.tsx': $CartCleanup,
     './islands/CartContents.tsx': $CartContents,
+    './islands/Checkout.tsx': $Checkout,
     './islands/CollectionContent.tsx': $CollectionContent,
     './islands/Collections.tsx': $Collections,
     './islands/CountrySelector.tsx': $CountrySelector,
@@ -54,7 +84,11 @@ const manifest = {
     './islands/LocaleDrawer.tsx': $LocaleDrawer,
     './islands/MenuDrawer.tsx': $MenuDrawer,
     './islands/MovingText.tsx': $MovingText,
+    './islands/NewsletterSignup.tsx': $NewsletterSignup,
+    './islands/OrderPay.tsx': $OrderPay,
+    './islands/OrderReview.tsx': $OrderReview,
     './islands/ProductDetails.tsx': $ProductDetails,
+    './islands/ThankYou.tsx': $ThankYou,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest

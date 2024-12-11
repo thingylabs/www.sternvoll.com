@@ -314,6 +314,215 @@ export const translations = {
   'Join the Waitlist': {
     de: 'Auf die Warteliste',
   },
+
+  // Checkout
+  'Pay with PayPal': {
+    de: 'Mit PayPal bezahlen',
+  },
+  'OR PAY WITH BANK TRANSFER': {
+    de: 'ODER MIT BANKÜBERWEISUNG BEZAHLEN',
+  },
+  'Continue to Payment Details': {
+    de: 'Weiter zu den Zahlungsdetails',
+  },
+  'First Name': {
+    de: 'Vorname',
+  },
+  'Last Name': {
+    de: 'Nachname',
+  },
+  'optional': {
+    de: 'optional',
+  },
+  'Phone Number': {
+    de: 'Telefonnummer',
+  },
+  'Street Address': {
+    de: 'Straße und Hausnummer',
+  },
+  'Please provide either an email address or phone number': {
+    de:
+      'Bitte geben Sie entweder eine E-Mail-Adresse oder eine Telefonnummer an',
+  },
+
+  // Bank details
+  'Order Date': {
+    de: 'Bestelldatum',
+  },
+  'Due Date': {
+    de: 'Fälligkeitsdatum',
+  },
+  'Bank Name': {
+    de: 'Bankname',
+  },
+  'Account Holder': {
+    de: 'Kontoinhaber',
+  },
+  'Copy IBAN': {
+    de: 'IBAN kopieren',
+  },
+  'Copy BIC': {
+    de: 'BIC kopieren',
+  },
+  'Amount': {
+    de: 'Betrag',
+  },
+  'Reference': {
+    de: 'Verwendungszweck',
+  },
+  'Copy Reference': {
+    de: 'Verwendungszweck kopieren',
+  },
+  'Please complete the transfer by': {
+    de: 'Bitte schließen Sie die Überweisung bis',
+  },
+  'Orders without received payment after this date will be automatically cancelled.':
+    {
+      de:
+        'Bestellungen, für die nach diesem Datum keine Zahlung eingeht, werden automatisch storniert.',
+    },
+  'Print Bank Details': {
+    de: 'Bankverbindung drucken',
+  },
+  'Order': {
+    de: 'Bestellung',
+  },
+
+  // Confirmation - bank
+  'Thank You for Your Order!': {
+    de: 'Vielen Dank für Ihre Bestellung!',
+  },
+  'Please transfer the total amount to our bank account to begin processing.': {
+    de:
+      'Bitte überweisen Sie den Gesamtbetrag auf unser Bankkonto, um die Bearbeitung zu starten.',
+  },
+  'If you have any questions, our support team is here to help.': {
+    de:
+      'Wenn Sie Fragen haben, steht Ihnen unser Support-Team gerne zur Verfügung.',
+  },
+
+  // Confirmation -- paypal
+  'We will send out your order as soon as possible!': {
+    de: 'Wir werden Ihre Bestellung so schnell wie möglich versenden!',
+  },
+
+  // OrderReview
+  'Quantity': {
+    de: 'Menge',
+  },
+  'Delivery Address': {
+    de: 'Lieferadresse',
+  },
+  'Name': {
+    de: 'Name',
+  },
+  'Email': {
+    de: 'E-Mail',
+  },
+  'Phone': {
+    de: 'Telefon',
+  },
+  'Address': {
+    de: 'Adresse',
+  },
+  'City': {
+    de: 'Stadt',
+  },
+  'Postal Code': {
+    de: 'Postleitzahl',
+  },
+  'Country': {
+    de: 'Land',
+  },
+  'Bank': {
+    de: 'Bank',
+  },
+  'Bank Transfer Details': {
+    de: 'Bankverbindungsdetails',
+  },
+  'Please transfer the total amount to the following bank account': {
+    de: 'Bitte überweisen Sie den Gesamtbetrag auf folgendes Bankkonto',
+  },
+  'Account holder': {
+    de: 'Kontoinhaber',
+  },
+  'IBAN': {
+    de: 'IBAN',
+  },
+  'BIC': {
+    de: 'BIC',
+  },
+  'This will be shown again on the next screen.': {
+    de: 'Dies wird auf dem nächsten Bildschirm erneut angezeigt.',
+  },
+  'PayPal Details': {
+    de: 'PayPal-Details',
+  },
+  'Payer': {
+    de: 'Zahler',
+  },
+  'Shipping Address': {
+    de: 'Versandadresse',
+  },
+  'Privacy-Focused Checkout': {
+    de: 'Datenschutzorientierter Checkout',
+  },
+  'Your shipping address will only be used for delivery': {
+    de: 'Ihre Versandadresse wird ausschließlich für die Lieferung verwendet',
+  },
+  'No account creation required': {
+    de: 'Keine Kontoerstellung erforderlich',
+  },
+  'No payment details stored': {
+    de: 'Keine Zahlungsdaten werden gespeichert',
+  },
+
+  // Newsletter signup
+  'Sign up for our newsletter to receive exclusive offers and updates.': {
+    de:
+      'Melden Sie sich für unseren Newsletter an, um exklusive Angebote und Neuigkeiten zu erhalten.',
+  },
+  'Thank You!': {
+    de: 'Vielen Dank!',
+  },
+  'Join Our Newsletter': {
+    de: 'Unserem Newsletter beitreten',
+  },
+  'Exclusive offers': {
+    de: 'Exklusive Angebote',
+  },
+  'Product updates': {
+    de: 'Produktaktualisierungen',
+  },
+  'Special promotions': {
+    de: 'Sonderaktionen',
+  },
+  'By subscribing, you agree to our': {
+    de: 'Mit Ihrer Anmeldung stimmen Sie unseren',
+  },
+  'You can unsubscribe anytime.': {
+    de: 'Sie können sich jederzeit abmelden.',
+  },
+  'Subscribe Now': {
+    de: 'Jetzt anmelden',
+  },
+  'Thanks for subscribing!': {
+    de: 'Vielen Dank für Ihre Anmeldung!',
+  },
+  'Check your email for updates.': {
+    de: 'Prüfen Sie Ihre E-Mails für weitere Informationen.',
+  },
+
+  // OrderPay
+  'Review Your Order': {
+    de: 'Überprüfen Sie Ihre Bestellung',
+  },
+  'Confirm Bank Transfer': {
+    de: 'Banküberweisung bestätigen',
+  },
+  'Send PayPal Payment': {
+    de: 'PayPal-Zahlung senden',
+  },
 }
 
 export type LanguageCode = typeof languages[number]['code']
