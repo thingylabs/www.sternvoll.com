@@ -18,8 +18,8 @@ export function CartContents({
   cart,
   t,
   onCheckout,
-  isComfortCheckoutEnabled,
-  onToggleComfortCheckout,
+  // isComfortCheckoutEnabled,
+  // onToggleComfortCheckout,
   onClose,
 }: CartContentsProps) {
   const { data: cartData } = useCart()
@@ -121,6 +121,8 @@ export function CartContents({
             </p>
 
             <div class='mt-6 flex flex-col items-center'>
+              {
+                /*
               <div class='flex flex-wrap items-center justify-center text-sm text-gray-600 text-center'>
                 <input
                   type='checkbox'
@@ -139,6 +141,8 @@ export function CartContents({
                   ({t['Data privacy']})
                 </a>
               </div>
+              */
+              }
 
               <button
                 type='button'

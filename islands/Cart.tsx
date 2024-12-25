@@ -63,9 +63,10 @@ export function Cart({
   }
 
   const handleCheckout = () => {
-    if (!isComfortCheckoutEnabled.value) {
-      privacyRef.current?.showModal()
-    } else if (data) {
+    // if (!isComfortCheckoutEnabled.value) {
+    //  privacyRef.current?.showModal()
+    // } else if (data) {
+    if (data) {
       const url = new URL(data.checkoutUrl)
       url.searchParams.set('locale', lang)
       location.href = url.toString()

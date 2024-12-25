@@ -47,19 +47,10 @@ export const defaultPolicy = {
   
   <ul>
     <li>As soon as a piece of jewelry is added to the cart, a technical identifier is created and stored locally. This identifier is used to uniquely mark the cart, allowing it to remain intact and functional across multiple page visits.</li>
-    <li>Once the Comfort Checkout feature is activated, this decision is stored locally to automatically apply the user's preference in future sessions.</li>
     <li>Your country selection is also stored locally, so the corresponding currency and country information can be displayed automatically on your next visit.</li>
+    <li>The checkout will be handled by Shopify. The URL will be cart.sternvoll.com. Shopify is configured to store the least amount of data possible. Shopify will set various functional cookies on cart.sternvoll.com to facitilate the checkout. More about that can be learnt here: https://www.shopify.com/legal/privacy/app-users</li>
   </ul>
-  
-  <p>Exceptions are limited to the following circumstances:</p>
-  
-  <ul>
-    <li>
-      <p><b>Comfort Checkout</b></p>
-      <p>If you choose the Comfort Checkout option, personal data will be stored and processed. These <a href=/policies/privacy-policy-comfort-checkout>Terms</a> apply.</p>
-    </li>
-  </ul>
-  
+
   <h3>Protection of Your Data</h3>
   
   <p>We take the protection of your personal data seriously and implement strict security measures to protect it from unauthorized access.</p>

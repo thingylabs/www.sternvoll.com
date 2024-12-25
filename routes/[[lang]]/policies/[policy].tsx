@@ -55,14 +55,14 @@ export const handler: Handlers<{ policy: PolicyData | null }, State> = {
       })
     }
 
-    if (policyHandle === 'privacy-policy-comfort-checkout') {
-      return ctx.render({
-        policy: {
-          title: t['Privacy Policy Comfort Checkout'],
-          body: comfortCheckout[ctx.state.geo.lang],
-        },
-      })
-    }
+    // if (policyHandle === 'privacy-policy-comfort-checkout') {
+    //   return ctx.render({
+    //     policy: {
+    //       title: t['Privacy Policy Comfort Checkout'],
+    //       body: comfortCheckout[ctx.state.geo.lang],
+    //     },
+    //   })
+    // }
 
     try {
       // Use the Admin API to fetch all available policies
