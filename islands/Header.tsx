@@ -55,6 +55,7 @@ export function Header(
       isVisible.value = scrollTop < lastScrollTop.value || scrollTop < 100
       lastScrollTop.value = scrollTop
 
+      console.log('hasBackground.value', hasBackground.value)
       ticking = false
     }
 
@@ -92,7 +93,7 @@ export function Header(
   const baseClasses =
     'fixed top-0 left-0 w-full z-20 p-4 transition-all duration-500 text-secondary sm:text-secondary'
   const backgroundClasses = isMobile.value
-    ? hasBackground.value ? 'bg-dark-blue !text-dark-blue' : 'bg-transparent'
+    ? hasBackground.value ? 'bg-primary' : 'bg-transparent'
     : hasBackground.value
     ? 'bg-primary sm:!text-dark-blue lg:!text-secondary'
     : 'bg-transparent'
