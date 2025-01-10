@@ -21,6 +21,12 @@ const q = `query ($product: String!) {
     productType
     tags
 
+    options {
+      id
+      name
+      values
+    }
+
     priceRange {
       minVariantPrice {
         amount
@@ -36,6 +42,10 @@ const q = `query ($product: String!) {
       nodes {
         id
         title
+        selectedOptions {
+          name
+          value
+        }
         availableForSale
         priceV2 {
           amount

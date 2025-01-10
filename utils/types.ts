@@ -87,6 +87,10 @@ export interface Product {
   priceRange: ProductPriceRange
   createdAt: string
   normalizedSales?: number
+  options?: {
+    name: string
+    values: string[]
+  }[]
 }
 
 export interface ProductVariant {
@@ -101,6 +105,7 @@ export interface ProductVariant {
       image: Image
     }>
   }
+  selectedOptions?: { name: string; value: string }[]
   videosMetafield?: {
     references: {
       nodes: Array<{
