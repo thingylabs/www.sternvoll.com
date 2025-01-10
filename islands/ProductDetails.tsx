@@ -29,6 +29,7 @@ export function ProductDetails(
   const [variant, setVariant] = useState(product.variants.nodes[0])
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [startX, setStartX] = useState<number | null>(null)
+  const [chosenOptions, setChosenOptions] = useState<[string?, string?]>([])
 
   // Function to change the main image
   function changeImage(index: number) {
@@ -249,57 +250,92 @@ export function ProductDetails(
 
         {/* Product Form */}
         <section aria-labelledby='options-heading' class='pt-4 2xl:mt-[2vw]'>
-          {product.variants.nodes.length > 1 && (
-            <div class='group'>
-              <div class='relative p-4 flex items-center justify-between rounded-lg border-2 border-gray-300 group-hover:border-gray-400 transition-colors 2xl:text-[1vw] 2xl:p-[1vw]'>
-                <span>{/* spaceholder place, don't remove */}</span>
-                <span class='text-gray-400 group-hover:text-gray-600 transition-colors'>
-                  <svg
-                    width='16'
-                    height='16'
-                    viewBox='0 0 16 16'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <path
-                      d='M5 5.85716L8 3.00002L11 5.85716'
-                      stroke='currentColor'
-                      stroke-width='1.5'
-                      stroke-linecap='round'
-                      stroke-linejoin='round'
-                    />
-                    <path
-                      d='M11 10.1429L8 13L5 10.1429'
-                      stroke='currentColor'
-                      stroke-width='1.5'
-                      stroke-linecap='round'
-                      stroke-linejoin='round'
-                    />
-                  </svg>
-                </span>
-                <select
-                  onChange={(e) => {
-                    setVariant(
-                      JSON.parse((e.target as HTMLSelectElement).value),
-                    )
-                    ;(e.target as HTMLSelectElement).blur()
-                  }}
-                  class='absolute pl-4 top-0 left-0 block w-full h-full rounded-lg appearance-none bg-transparent cursor-pointer'
-                >
-                  {product.variants.nodes.map((variant) => {
-                    return (
-                      <option
-                        value={JSON.stringify(variant)}
-                        class='2xl:text-[2vw]'
-                      >
-                        {variant.title}
-                      </option>
-                    )
-                  })}
-                </select>
-              </div>
-            </div>
-          )}
+          <div>
+            {(product.options || []).map((option, isSecondRow) => {
+              return (
+                <>
+                  <div className='flex items-start w-full'>
+                    <div className='flex-none w-24 font-bold p-2'>
+                      {option.name}
+                    </div>
+                    <div className='flex flex-wrap items-start'>
+                      {option.values.map((value, notFirstOption) => (
+                        <div
+                          style='text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);'
+                          className={`border-2 cursor-pointer border-secondary border-solid p-2 mr-2 rounded-md  ${
+                            chosenOptions.includes(value) ||
+                              !chosenOptions.length && !notFirstOption
+                              ? 'bg-secondary !border-primary text-shadow-white'
+                              : ''
+                          } ${isSecondRow ? 'mt-2' : ''}`}
+                          onClick={(_) => {
+                            let variant
+                            if (
+                              product.options!.length === 2 &&
+                              !chosenOptions.length
+                            ) {
+                              variant = findNode(
+                                product,
+                                product.options![0].values[0],
+                                value,
+                              )
+                              setChosenOptions([
+                                product.options![0].values[0],
+                                value,
+                              ])
+                            } else {
+                              variant = findNode(product, value)
+                              setChosenOptions([
+                                chosenOptions[0],
+                                value,
+                              ])
+                            }
+                            setVariant(variant!)
+                          }}
+                        >
+                          {option.name === 'Color' && (
+                            <span
+                              className={`border inline-block w-6 h-6 rounded-full mr-2 align-middle shadow-inner ${
+                                value === 'Gold'
+                                  ? 'bg-yellow-300'
+                                  : value === 'Rose gold'
+                                  ? 'bg-pink-200'
+                                  : value === 'White gold'
+                                  ? 'bg-white'
+                                  : value === 'Silver'
+                                  ? 'bg-gray-200'
+                                  : ''
+                              } ${
+                                chosenOptions.includes(value) ||
+                                  !chosenOptions.length && !notFirstOption
+                                  ? '!border-primary'
+                                  : 'border-secondary'
+                              }`}
+                              style={{
+                                backgroundImage: `
+                                  linear-gradient(
+                                    -45deg,
+                                    transparent 20%,
+                                    rgba(255,255,255,0.7) 35%,
+                                    transparent 50%,
+                                    transparent 60%,
+                                    rgba(255,255,255,0.7) 75%,
+                                    transparent 90%
+                                  )
+                                `,
+                              }}
+                            />
+                          )}
+                          <span className='align-middle'>{value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )
+            })}
+          </div>
+
           {variant.availableForSale
             ? (
               <div class='mt-4'>
@@ -337,4 +373,14 @@ export function ProductDetails(
       </div>
     </div>
   )
+}
+
+function findNode(product: Product, v1: string, v2 = '') {
+  return product.variants.nodes.find((node) => {
+    if (v2 !== '') {
+      return node.selectedOptions![0].value === v1 &&
+        node.selectedOptions![1].value === v2
+    }
+    return node.selectedOptions![0].value === v1
+  })
 }
