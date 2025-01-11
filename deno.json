@@ -28,10 +28,12 @@
   },
   "exclude": [
     "**/_fresh/*",
-    "old/*"
+    "*.sh",
+    "static/*"
   ],
   "imports": {
     "@/": "./",
+    "hls.js": "npm:hls.js@1.4.12",
     "$fresh/": "https://deno.land/x/fresh@1.7.2/",
     "preact": "https://esm.sh/preact@10.22.0",
     "preact/": "https://esm.sh/preact@10.22.0/",

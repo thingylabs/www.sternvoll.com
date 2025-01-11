@@ -43,6 +43,7 @@ import * as $OrderReview from './islands/OrderReview.tsx'
 import * as $PreloadSrcsets from './islands/PreloadSrcsets.tsx'
 import * as $ProductDetails from './islands/ProductDetails.tsx'
 import * as $ThankYou from './islands/ThankYou.tsx'
+import * as $VideoPlayer from './islands/VideoPlayer.tsx'
 import type { Manifest } from '$fresh/server.ts'
 
 const manifest = {
@@ -93,6 +94,7 @@ const manifest = {
     './islands/PreloadSrcsets.tsx': $PreloadSrcsets,
     './islands/ProductDetails.tsx': $ProductDetails,
     './islands/ThankYou.tsx': $ThankYou,
+    './islands/VideoPlayer.tsx': $VideoPlayer,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest

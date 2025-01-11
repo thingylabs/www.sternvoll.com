@@ -523,6 +523,11 @@ export const translations = {
   'Send PayPal Payment': {
     de: 'PayPal-Zahlung senden',
   },
+
+  // Video hero
+  'Hero video showing jewelry collection': {
+    de: 'Video der Schmuckkollektion im Überblick',
+  },
 }
 
 export type LanguageCode = typeof languages[number]['code']

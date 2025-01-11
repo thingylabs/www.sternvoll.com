@@ -9,6 +9,7 @@
     pkgs.nano
     pkgs.imagemagick  # ImageMagick for the 'magick' command
     pkgs.libavif      # libavif for the 'avifenc' command
+    pkgs.ffmpeg
   ];
 
   # Sets environment variables in the workspace

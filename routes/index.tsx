@@ -5,7 +5,6 @@ import { Footer } from '@/components/Footer.tsx'
 import { Meta } from '@/components/Meta.tsx'
 import { List, Product } from '@/utils/types.ts'
 import { OurStory } from '@/components/OurStory.tsx'
-import { Hero } from '@/components/Hero.tsx'
 import { SelectedWorks } from '@/components/SelectedWorks.tsx'
 import { ImageCard } from '@/components/ImageCard.tsx'
 import { Collections } from '@/islands/Collections.tsx'
@@ -17,6 +16,7 @@ import { RouteConfig } from '$fresh/server.ts'
 import { State } from '@/routes/_middleware.ts'
 import type { TranslationKey } from '@/translations.ts'
 import { srcset } from '@/utils/shopifySrcset.ts'
+import VideoPlayer from '@/islands/VideoPlayer.tsx'
 
 export const config: RouteConfig = {
   routeOverride: '/{:lang}?',
@@ -84,12 +84,13 @@ export default function Home(ctx: PageProps<Collection, State>) {
   return (
     <>
       <Meta url={url} meta={meta} />
-      <div class='
-        aspect-video 
-        w-full
-      '>
-        <Hero t={t} />
-      </div>
+      <VideoPlayer
+        posterImage='hero-video-cover'
+        hlsUrl='/videos/sternvoll-jewelry/master.m3u8'
+        alt={t['Hero video showing jewelry collection']}
+        width={[1920, 1280, 854]}
+        height={1080}
+      />
 
       <div class='pt-[12.5vw] 2xl:pt-[5vw]'>
         <OurStory t={t} />

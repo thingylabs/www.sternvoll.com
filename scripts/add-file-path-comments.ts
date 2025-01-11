@@ -47,7 +47,13 @@ async function addFilePathComments(directory: string) {
     const entry of walk(rootDir, {
       includeDirs: false,
       exts: fileTypes.map((ext) => ext.slice(1)),
-      skip: [/node_modules/, /\.git/, /denokv-bridge/, /_fresh/],
+      skip: [
+        /node_modules/,
+        /\.git/,
+        /denokv-bridge/,
+        /_fresh/,
+        /static/,
+      ],
     })
   ) {
     const filePath = entry.path
