@@ -5,7 +5,7 @@ import { kv } from '@/utils/kv.ts'
 import { dateString } from '@/utils/dateString.ts'
 
 const env = Deno.env.get('ENV')!
-const site = 'www.pixelpilot.club'
+const site = 'www.sternvoll.com'
 
 export async function saveBankOrder(
   cartId: string,

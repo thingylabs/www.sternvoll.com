@@ -131,7 +131,7 @@ export const comfortCheckout = {
     data-locale="de"
     data-no-styles="false">
 </script>
-<p>Dieses Dokument beschreibt die Datenverarbeitung auf cart.pixelpilot.club, der Plattform für den Compfort-Checkout. Diese Plattform wird im Auftrag von PiXELPiLOT von Shopify als Auftragsverarbeiter bereitgestellt. Sobald ein Nutzer den Checkout auf www.pixelpilot.club einleitet und der Compfort-Checkout aktiviert ist, wird er automatisch zu cart.pixelpilot.club weitergeleitet, um den Vorgang abzuschließen. Dabei erfolgt die Datenverarbeitung wie folgt:</p>
+<p>Dieses Dokument beschreibt die Datenverarbeitung auf cart.pixelpilot.club, der Plattform für den Compfort-Checkout. Diese Plattform wird im Auftrag von PiXELPiLOT von Shopify als Auftragsverarbeiter bereitgestellt. Sobald ein Nutzer den Checkout auf www.sternvoll.com einleitet und der Compfort-Checkout aktiviert ist, wird er automatisch zu cart.pixelpilot.club weitergeleitet, um den Vorgang abzuschließen. Dabei erfolgt die Datenverarbeitung wie folgt:</p>
 <div id="dieter-document-de"></div>
 `,
   en: `
@@ -143,7 +143,7 @@ export const comfortCheckout = {
     data-locale="en"
     data-no-styles="false">
 </script>
-<p>This document outlines the data processing on cart.pixelpilot.club, the platform for the Compfort checkout. This platform is provided by Shopify as a data processor on behalf of PiXELPiLOT. When a user initiates the checkout on www.pixelpilot.club and the Compfort checkout is activated, they are automatically redirected to cart.pixelpilot.club to complete the process. The data processing carried out there is as follows:</p>
+<p>This document outlines the data processing on cart.pixelpilot.club, the platform for the Compfort checkout. This platform is provided by Shopify as a data processor on behalf of PiXELPiLOT. When a user initiates the checkout on www.sternvoll.com and the Compfort checkout is activated, they are automatically redirected to cart.pixelpilot.club to complete the process. The data processing carried out there is as follows:</p>
 <div id="dieter-document"></div>
 `,
 }

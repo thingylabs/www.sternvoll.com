@@ -46,7 +46,7 @@ export function Meta(
       <link rel="alternate" hreflang="x-default" href={url.href} />
       <link rel="alternate" hreflang="en-DE" href="..." />
       <link rel="alternate" hreflang="de-DE" href="..." />
-      <link rel="alternate" type="application/json+oembed" href="https://www.pixelpilot.club/de/products/cuban-chain-armband-18k-gold-princess-cut-diamant-in-fassung.oembed" />
+      <link rel="alternate" type="application/json+oembed" href="https://www.sternvoll.com/de/products/cuban-chain-armband-18k-gold-princess-cut-diamant-in-fassung.oembed" />
         */
       }
 

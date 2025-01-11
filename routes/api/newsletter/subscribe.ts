@@ -9,7 +9,7 @@ export const handler: Handlers = {
 
       await kv.german
         .set(
-          ['www.pixelpilot.club', Deno.env.get('ENV')!, 'newsletter', email],
+          ['www.sternvoll.com', Deno.env.get('ENV')!, 'newsletter', email],
           {
             email,
             subscribedAt: new Date().toISOString(),
