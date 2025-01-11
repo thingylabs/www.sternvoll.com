@@ -1,3 +1,4 @@
+// components/PreloadImage.tsx
 import { ImageFormat } from '@/utils/types.ts'
 
 interface PreloadImageProps {

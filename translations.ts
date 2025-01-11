@@ -220,8 +220,8 @@ export const translations = {
   'Engagement & Wedding': {
     de: 'Verlobung & Hochzeit',
   },
-  'On Sale 🔖': {
-    de: 'Im Angebot 🔖',
+  'On Sale': {
+    de: 'Im Angebot',
   },
   // Categories
   'Bracelets': {
