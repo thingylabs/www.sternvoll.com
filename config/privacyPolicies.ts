@@ -1,5 +1,4 @@
 // config/privacyPolicies.ts
-
 const defaultPolicyText = `
 <div class="contractDetails"><style>.contractDetails {
   padding-left: 1.25cm;

@@ -1,3 +1,4 @@
+// islands/PreloadSrcsets.tsx
 import { useEffect } from 'preact/hooks'
 
 interface PreloadSrcsetsProps {
