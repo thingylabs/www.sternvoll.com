@@ -150,7 +150,7 @@ export function Header(
               />
             </div>
             <div class='hidden lg:inline'>
-              <a href='https://account.pixelpilot.club/'>
+              <a href='https://account.sternvoll.com/'>
                 <svg
                   width='30'
                   height='30'

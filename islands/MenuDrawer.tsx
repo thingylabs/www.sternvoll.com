@@ -64,7 +64,7 @@ export function MenuDrawer({
       {/* Footer */}
       <div class='mt-5 border-t border-gray-200 pt-4'>
         <div class='space-y-2'>
-          <a class='text-gray-600' href='https://account.pixelpilot.club/'>
+          <a class='text-gray-600' href='https://account.sternvoll.com/'>
             {t['Log in']}
           </a>
 
