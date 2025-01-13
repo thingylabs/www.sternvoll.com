@@ -38,7 +38,7 @@ declare global {
 
 export const translationKeys = [
   'Hero video showing jewelry collection',
-  'Scroll to explore',
+  'Scroll to explore'
 ] as const
 
 export type T = Pick<TranslationMap, typeof translationKeys[number]>
@@ -66,7 +66,6 @@ export function VideoPlayer({
   const hlsRef = useRef<Hls | null>(null)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const [scriptLoaded, setScriptLoaded] = useState(false)
-  const [isTransitioning, setIsTransitioning] = useState(false)
 
   const getOptimalPosition = () => {
     if (globalThis.innerWidth < 768) {
@@ -85,7 +84,7 @@ export function VideoPlayer({
   const handleScrollClick = () => {
     globalThis.scrollTo({
       top: globalThis.innerHeight,
-      behavior: 'smooth',
+      behavior: 'smooth'
     })
   }
 
@@ -113,16 +112,6 @@ export function VideoPlayer({
   }, [])
 
   useEffect(() => {
-    if (isVideoLoaded) {
-      const transitionInterval = setInterval(() => {
-        setIsTransitioning((prev) => !prev)
-      }, 5000)
-
-      return () => clearInterval(transitionInterval)
-    }
-  }, [isVideoLoaded])
-
-  useEffect(() => {
     if (!scriptLoaded || !Hls) return
 
     const video = videoRef.current
@@ -148,13 +137,6 @@ export function VideoPlayer({
         setIsVideoLoaded(true)
       })
 
-      hls.on(Hls.Events.FRAG_LOADED, () => {
-        const currentHls = hlsRef.current
-        if (currentHls?.autoLevelEnabled) {
-          currentHls.nextLevel = -1
-        }
-      })
-
       return () => {
         if (hlsRef.current) {
           hlsRef.current.destroy()
@@ -173,10 +155,8 @@ export function VideoPlayer({
   return (
     <div class={`relative w-full h-full ${className || ''}`}>
       <div
-        class={`absolute inset-0 transition-all duration-1000 ${
-          isVideoLoaded
-            ? (isTransitioning ? 'opacity-0' : 'opacity-100')
-            : 'opacity-100'
+        class={`absolute inset-0 transition-opacity duration-1000 ${
+          isVideoLoaded ? 'opacity-0' : 'opacity-100'
         }`}
       >
         <ResponsiveImage
@@ -194,10 +174,8 @@ export function VideoPlayer({
 
       <video
         ref={videoRef}
-        class={`w-full h-full object-cover transition-all duration-1000 ${
-          isVideoLoaded
-            ? (isTransitioning ? 'opacity-100' : 'opacity-0')
-            : 'opacity-0'
+        class={`w-full h-full object-cover transition-opacity duration-1000 ${
+          isVideoLoaded ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ objectPosition }}
         playsinline
@@ -206,17 +184,14 @@ export function VideoPlayer({
         poster={posterImage}
       />
 
-      <div
-        class={`absolute bottom-8 left-1/2 -translate-x-1/2 transition-opacity duration-500 cursor-pointer
-          ${isVideoLoaded && !isTransitioning ? 'opacity-100' : 'opacity-0'}`}
+      <div 
+        class="absolute bottom-8 left-1/2 -translate-x-1/2 transition-opacity duration-500 cursor-pointer"
         onClick={handleScrollClick}
       >
-        <div class='flex flex-col items-center gap-2 text-white'>
-          <span class='text-sm uppercase tracking-widest'>
-            {t['Scroll to explore']}
-          </span>
-          <ChevronDown
-            class='animate-bounce'
+        <div class="flex flex-col items-center gap-2 text-white">
+          <span class="text-sm uppercase tracking-widest">{t['Scroll to explore']}</span>
+          <ChevronDown 
+            class="animate-bounce" 
             size={24}
           />
         </div>
