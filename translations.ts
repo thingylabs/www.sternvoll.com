@@ -535,6 +535,9 @@ export const translations = {
   'Scroll to explore': {
     de: 'Scrollen Sie zum Entdecken',
   },
+  'Menu': {
+    de: 'Menü',
+  },
 }
 
 export type LanguageCode = typeof languages[number]['code']

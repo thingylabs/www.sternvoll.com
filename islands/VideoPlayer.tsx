@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
 import { TranslationMap } from '@/translations.ts'
-import { ChevronDown } from 'npm:lucide-react'
+import { Menu } from 'npm:lucide-react'
 
 interface HlsConfig {
   enableWorker: boolean
@@ -38,7 +38,7 @@ declare global {
 
 export const translationKeys = [
   'Hero video showing jewelry collection',
-  'Scroll to explore'
+  'Menu',
 ] as const
 
 export type T = Pick<TranslationMap, typeof translationKeys[number]>
@@ -51,6 +51,7 @@ interface Props {
   width: number[]
   height: number
   class?: string
+  onMenuClick?: () => void
 }
 
 export function VideoPlayer({
@@ -61,6 +62,7 @@ export function VideoPlayer({
   height,
   class: className,
   t,
+  onMenuClick,
 }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const hlsRef = useRef<Hls | null>(null)
@@ -80,13 +82,6 @@ export function VideoPlayer({
   const [objectPosition, setObjectPosition] = useState(() =>
     getOptimalPosition()
   )
-
-  const handleScrollClick = () => {
-    globalThis.scrollTo({
-      top: globalThis.innerHeight,
-      behavior: 'smooth'
-    })
-  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -154,6 +149,7 @@ export function VideoPlayer({
 
   return (
     <div class={`relative w-full h-full ${className || ''}`}>
+      {/* Poster Image */}
       <div
         class={`absolute inset-0 transition-opacity duration-1000 ${
           isVideoLoaded ? 'opacity-0' : 'opacity-100'
@@ -172,6 +168,7 @@ export function VideoPlayer({
         />
       </div>
 
+      {/* Video */}
       <video
         ref={videoRef}
         class={`w-full h-full object-cover transition-opacity duration-1000 ${
@@ -184,17 +181,16 @@ export function VideoPlayer({
         poster={posterImage}
       />
 
-      <div 
-        class="absolute bottom-8 left-1/2 -translate-x-1/2 transition-opacity duration-500 cursor-pointer"
-        onClick={handleScrollClick}
-      >
-        <div class="flex flex-col items-center gap-2 text-white">
-          <span class="text-sm uppercase tracking-widest">{t['Scroll to explore']}</span>
-          <ChevronDown 
-            class="animate-bounce" 
-            size={24}
-          />
-        </div>
+      {/* Menu Overlay - Always visible and on top */}
+      <div class='absolute top-0 left-0 right-0 z-50 p-6'>
+        <button
+          onClick={onMenuClick}
+          class='flex items-center space-x-2 text-white hover:opacity-80 transition-opacity'
+          title={t['Menu']}
+        >
+          <Menu size={32} />
+          <span class='text-lg uppercase tracking-wider'>{t['Menu']}</span>
+        </button>
       </div>
     </div>
   )
