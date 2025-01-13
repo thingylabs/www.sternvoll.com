@@ -530,7 +530,10 @@ export const translations = {
   },
 
   'Related jewelry': {
-    de: '',
+    de: 'Verwandter Schmuck',
+  },
+  'Scroll to explore': {
+    de: 'Scrollen Sie zum Entdecken',
   },
 }
 
