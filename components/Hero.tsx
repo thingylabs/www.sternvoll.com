@@ -1,20 +1,22 @@
 // components/Hero.tsx
-import VideoPlayer from '@/islands/VideoPlayer.tsx'
 import { TranslationMap } from '@/translations.ts'
+import { VideoPlayer } from '../islands/VideoPlayer.tsx'
 
-interface HeroProps {
+interface Props {
   t: TranslationMap
 }
 
-export function Hero({ t }: HeroProps) {
+export default function Hero({ t }: Props) {
   return (
-    <div class='relative w-full h-full object-cover'>
+    <div class='relative w-screen h-screen'>
       <VideoPlayer
-        posterImage='hero-video-cover' // Without extension, as ResponsiveImage handles this
+        posterImage='hero-video-cover'
         hlsUrl='/videos/sternvoll-jewelry/master.m3u8'
         alt={t['Hero video showing jewelry collection']}
-        width={[1920, 1280, 854]} // Matching your video resolutions
-        height={1080} // Adjust based on your aspect ratio
+        width={[1280, 1024, 768, 640, 480, 430, 390, 360]}
+        height={932}
+        class='absolute inset-0 w-full h-full object-cover'
+        t={t}
       />
     </div>
   )

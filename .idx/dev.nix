@@ -9,7 +9,9 @@
     pkgs.nano
     pkgs.imagemagick  # ImageMagick for the 'magick' command
     pkgs.libavif      # libavif for the 'avifenc' command
-    pkgs.ffmpeg
+    pkgs.ffmpeg # scripts/create-hls.ts
+    pkgs.libwebp # scripts/create-hls.ts
+    pkgs.libavif # scripts/create-hls.ts
   ];
 
   # Sets environment variables in the workspace

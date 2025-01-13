@@ -528,6 +528,10 @@ export const translations = {
   'Hero video showing jewelry collection': {
     de: 'Video der Schmuckkollektion im Überblick',
   },
+
+  'Related jewelry': {
+    de: '',
+  },
 }
 
 export type LanguageCode = typeof languages[number]['code']

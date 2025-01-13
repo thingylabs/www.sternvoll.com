@@ -1,14 +1,7 @@
 // islands/VideoPlayer.tsx
 import { useEffect, useRef, useState } from 'preact/hooks'
-import { ResponsiveImage } from '../components/ResponsiveImage.tsx'
-
-interface VideoPlayerProps {
-  posterImage: string
-  hlsUrl: string
-  alt: string
-  width: number[]
-  height: number
-}
+import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
+import { TranslationMap } from '@/translations.ts'
 
 interface HlsConfig {
   enableWorker: boolean
@@ -42,29 +35,43 @@ declare global {
   }
 }
 
-export default function VideoPlayer({
+export const translationKeys = [
+  'Hero video showing jewelry collection',
+] as const
+
+export type T = Pick<TranslationMap, typeof translationKeys[number]>
+
+interface Props {
+  t: TranslationMap
+  posterImage: string
+  hlsUrl: string
+  alt: string
+  width: number[]
+  height: number
+  class?: string
+}
+
+export function VideoPlayer({
   posterImage,
   hlsUrl,
   alt,
   width,
   height,
-}: VideoPlayerProps) {
+  class: className,
+}: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const hlsRef = useRef<Hls | null>(null)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const [scriptLoaded, setScriptLoaded] = useState(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
-  // Calculate optimal object-position based on viewport width
   const getOptimalPosition = () => {
-    // For very narrow screens (mobile), focus more on the center
     if (globalThis.innerWidth < 768) {
-      return 'center 40%' // Slight upward focus for vertical screens
+      return 'center 40%'
     }
-    // For medium screens (tablet)
     if (globalThis.innerWidth < 1280) {
-      return 'center 45%' // Very slight upward focus
+      return 'center 45%'
     }
-    // For large screens, show full video
     return 'center center'
   }
 
@@ -72,7 +79,6 @@ export default function VideoPlayer({
     getOptimalPosition()
   )
 
-  // Update object-position on resize
   useEffect(() => {
     const handleResize = () => {
       setObjectPosition(getOptimalPosition())
@@ -82,7 +88,6 @@ export default function VideoPlayer({
     return () => globalThis.removeEventListener('resize', handleResize)
   }, [])
 
-  // Load HLS.js script
   useEffect(() => {
     if (!scriptLoaded) {
       const script = document.createElement('script')
@@ -97,7 +102,16 @@ export default function VideoPlayer({
     }
   }, [])
 
-  // Initialize HLS
+  useEffect(() => {
+    if (isVideoLoaded) {
+      const transitionInterval = setInterval(() => {
+        setIsTransitioning(prev => !prev)
+      }, 5000) // Adjust timing as needed
+
+      return () => clearInterval(transitionInterval)
+    }
+  }, [isVideoLoaded])
+
   useEffect(() => {
     if (!scriptLoaded || !Hls) return
 
@@ -138,7 +152,6 @@ export default function VideoPlayer({
         }
       }
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      // Native HLS support (Safari)
       video.src = hlsUrl
       video.addEventListener('loadedmetadata', () => {
         void video.play()
@@ -148,10 +161,10 @@ export default function VideoPlayer({
   }, [hlsUrl, scriptLoaded])
 
   return (
-    <div class='relative w-full h-full'>
+    <div class={`relative w-full h-full ${className || ''}`}>
       <div
-        class={`inset-0 transition-opacity duration-500 ${
-          isVideoLoaded ? 'opacity-0' : 'opacity-100'
+        class={`absolute inset-0 transition-all duration-1000 ${
+          isVideoLoaded ? (isTransitioning ? 'opacity-0' : 'opacity-100') : 'opacity-100'
         }`}
       >
         <ResponsiveImage
@@ -162,22 +175,21 @@ export default function VideoPlayer({
           lazy={false}
           fetchpriority='high'
           decoding='sync'
-          class='w-full aspect-ratio'
+          class='w-full h-full object-cover'
           objectPosition={objectPosition}
         />
       </div>
 
       <video
         ref={videoRef}
-        class={`absolute inset-0 ${
-          isVideoLoaded ? 'opacity-100' : 'opacity-0'
-        } transition-opacity duration-500 w-full aspect-video`}
+        class={`w-full h-full object-cover transition-all duration-1000 ${
+          isVideoLoaded ? (isTransitioning ? 'opacity-100' : 'opacity-0') : 'opacity-0'
+        }`}
         style={{ objectPosition }}
-        poster={`/scaled/${posterImage}-${Math.min(...width)}.jpg`}
         playsinline
         muted
         loop
-        preload='metadata'
+        poster={posterImage}
       />
     </div>
   )

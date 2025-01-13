@@ -12,7 +12,8 @@
     "preview": "deno run -A main.ts",
     "update": "deno run -A -r https://fresh.deno.dev/update .",
     "format": "deno run --allow-read --allow-write scripts/add-file-path-comments.ts && deno fmt",
-    "scale": "deno run --allow-env --allow-read --allow-write --allow-run scripts/scale-image.ts"
+    "scale": "deno run --allow-env --allow-read --allow-write --allow-run scripts/scale-image.ts",
+    "hls": "deno -A scripts/create-hls.ts"
   },
   "lint": {
     "rules": {
@@ -33,6 +34,7 @@
   ],
   "imports": {
     "@/": "./",
+    "zx": "npm:zx",
     "hls.js": "npm:hls.js@1.4.12",
     "$fresh/": "https://deno.land/x/fresh@1.7.2/",
     "preact": "https://esm.sh/preact@10.22.0",

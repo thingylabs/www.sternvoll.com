@@ -16,7 +16,9 @@ import { RouteConfig } from '$fresh/server.ts'
 import { State } from '@/routes/_middleware.ts'
 import type { TranslationKey } from '@/translations.ts'
 import { srcset } from '@/utils/shopifySrcset.ts'
-import VideoPlayer from '@/islands/VideoPlayer.tsx'
+import { VideoPlayer } from '@/islands/VideoPlayer.tsx'
+
+// translationKeys as newsletterTranslationKeys,
 
 export const config: RouteConfig = {
   routeOverride: '/{:lang}?',
@@ -65,9 +67,8 @@ export const handler: Handlers<Collection, State> = {
 export default function Home(ctx: PageProps<Collection, State>) {
   const { data, url, state } = ctx
   const products = data.collection.products.nodes
-  const getT = state.geo.getT
+  const t = state.geo.getT()
 
-  const t = getT()
   const meta = {
     ...siteMeta,
     description: t[siteMeta.shortDescription as TranslationKey],
@@ -84,13 +85,20 @@ export default function Home(ctx: PageProps<Collection, State>) {
   return (
     <>
       <Meta url={url} meta={meta} />
-      <VideoPlayer
-        posterImage='hero-video-cover'
-        hlsUrl='/videos/sternvoll-jewelry/master.m3u8'
-        alt={t['Hero video showing jewelry collection']}
-        width={[1920, 1280, 854]}
-        height={1080}
-      />
+      <div class='relative w-screen h-screen'>
+        <VideoPlayer
+          posterImage='hero-video-cover'
+          hlsUrl='/videos/sternvoll-jewelry/master.m3u8'
+          alt={t['Hero video showing jewelry collection']}
+          width={[1280, 1024, 768, 640, 480, 430, 390, 360]}
+          height={932}
+          class='absolute inset-0 w-full h-full object-cover'
+          t={state.geo.getT([
+            'Hero video showing jewelry collection',
+            'Related jewelry',
+          ])}
+        />
+      </div>
 
       <div class='pt-[12.5vw] 2xl:pt-[5vw]'>
         <OurStory t={t} />
