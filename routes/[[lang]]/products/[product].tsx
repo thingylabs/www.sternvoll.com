@@ -162,67 +162,46 @@ export default function ProductPage(ctx: PageProps<Query, State>) {
   return (
     <>
       <Meta url={url} meta={meta} />
+      <div class='bg-primary h-[74px] w-full'></div>
 
-      <div class='relative min-h-screen'>
-        <div class='h-[74px] w-full bg-primary absolute top-0 z-10'></div>
+      <div class='pt-4'>
+        <ProductDetails
+          product={data.product!}
+          country={ctx.state.geo.country}
+          t={getT(productDetailsTranslationKeys)}
+          imageFormat={state.imageFormat}
+        />
+      </div>
 
-        <div class='relative h-[calc(100vh-74px)] mt-[74px]'>
-          <ProductDetails
-            product={data.product!}
-            country={ctx.state.geo.country}
-            t={getT(productDetailsTranslationKeys)}
-            imageFormat={state.imageFormat}
-            class='absolute inset-0 w-full h-full'
+      <div class='px-4 md:px-8 lg:px-12 xl:px-0 xl:max-w-[80vw] mx-auto 2xl:pt-[5vw]'>
+        <div class='mt-16'>
+          <SelectedWorks
+            title='Related jewelry'
+            products={data.relatedProducts}
+            lang={state.geo.lang}
           />
-
-          <div class='absolute inset-0 flex flex-col justify-end pb-14 px-4 md:pl-[60px] xl:pl-[10vw] lg:justify-center lg:pb-0'>
-            <div class='w-full'>
-              <h1 class='text-gray-900 font-accent text-7xl md:text-[12vw] lg:text-[10vw] 2xl:text-[7vw] leading-none'>
-                {data.product.title}
-              </h1>
-              <p class='text-gray-700 font-accent italic leading-snug text-3xl md:text-4xl xl:text-[3vw] pr-10 lg:-mt-2 xl:leading-normal'>
-                {data.product.description}
-              </p>
-
-              <div class='mt-6 lg:mt-10 xl:mt-[3vw]'>
-                <button class='inline-block bg-primary text-white font-bold hover:bg-primary/90 xl:text-[1.2vw] px-6 py-3 rounded-md'>
-                  {t['Add to Cart']}
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <div class='px-4 md:px-8 lg:px-12 xl:px-0 xl:max-w-[80vw] mx-auto 2xl:pt-[5vw]'>
-          <div class='mt-16'>
-            <SelectedWorks
-              title={t['Related jewelry']}
-              products={data.relatedProducts}
-              lang={state.geo.lang}
-            />
-          </div>
-
-          <div class='back-to-shop mt-12 xl:text-base 2xl:text-[1vw]'>
-            <a
-              href='/'
-              class='flex items-center gap-2 text-gray-500 hover:text-gray-800 transition-colors duration-200'
+        <div class='back-to-shop mt-12 xl:text-base 2xl:text-[1vw]'>
+          <a
+            href='/'
+            class='flex items-center gap-2 text-gray-500 hover:text-gray-800 transition-colors duration-200'
+          >
+            <svg
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              class='xl:w-[1vw] xl:h-[1vw]'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
             >
-              <svg
-                width='16'
-                height='16'
-                viewBox='0 0 16 16'
-                class='xl:w-[1vw] xl:h-[1vw]'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path
-                  d='M4.65 3.35C4.92 3.08 5.36 3.08 5.64 3.35C5.91 3.62 5.91 4.07 5.64 4.34L2.69 7.28H15.28C15.67 7.28 16 7.6 16 8C16 8.4 15.67 8.72 15.28 8.72H2.69L5.64 11.67C5.91 11.94 5.91 12.38 5.64 12.66C5.36 12.92 4.92 12.92 4.65 12.66L0.35 8.35C0.16 8.16 0.16 7.84 0.35 7.65L4.65 3.35Z'
-                  fill='currentColor'
-                />
-              </svg>
-              {t['Back to shop']}
-            </a>
-          </div>
+              <path
+                d='M4.65 3.35C4.92 3.08 5.36 3.08 5.64 3.35C5.91 3.62 5.91 4.07 5.64 4.34L2.69 7.28H15.28C15.67 7.28 16 7.6 16 8C16 8.4 15.67 8.72 15.28 8.72H2.69L5.64 11.67C5.91 11.94 5.91 12.38 5.64 12.66C5.36 12.92 4.92 12.92 4.65 12.66L0.35 8.35C0.16 8.16 0.16 7.84 0.35 7.65L4.65 3.35Z'
+                fill='currentColor'
+              />
+            </svg>
+            Back to shop
+          </a>
         </div>
       </div>
 

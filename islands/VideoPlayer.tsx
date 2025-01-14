@@ -105,7 +105,7 @@ export function VideoPlayer({
   useEffect(() => {
     if (isVideoLoaded) {
       const transitionInterval = setInterval(() => {
-        setIsTransitioning(prev => !prev)
+        setIsTransitioning((prev) => !prev)
       }, 5000) // Adjust timing as needed
 
       return () => clearInterval(transitionInterval)
@@ -164,7 +164,9 @@ export function VideoPlayer({
     <div class={`relative w-full h-full ${className || ''}`}>
       <div
         class={`absolute inset-0 transition-all duration-1000 ${
-          isVideoLoaded ? (isTransitioning ? 'opacity-0' : 'opacity-100') : 'opacity-100'
+          isVideoLoaded
+            ? (isTransitioning ? 'opacity-0' : 'opacity-100')
+            : 'opacity-100'
         }`}
       >
         <ResponsiveImage
@@ -183,7 +185,9 @@ export function VideoPlayer({
       <video
         ref={videoRef}
         class={`w-full h-full object-cover transition-all duration-1000 ${
-          isVideoLoaded ? (isTransitioning ? 'opacity-100' : 'opacity-0') : 'opacity-0'
+          isVideoLoaded
+            ? (isTransitioning ? 'opacity-100' : 'opacity-0')
+            : 'opacity-0'
         }`}
         style={{ objectPosition }}
         playsinline
