@@ -70,10 +70,11 @@ async function processImages() {
   const tempPoster = join(posterDir, `${filename}-poster.png`)
 
   try {
+    // Extract the very first frame using -vf select='eq(n\,0)'
     await $`ffmpeg -y -hide_banner -loglevel error \
       -i ${inputFile} \
-      -ss 00:00:01.000 -vframes 1 \
-      -vf "scale=-2:1080,crop=1080*9/16:1080:in_w/2-out_w/2:0" \
+      -vf "select='eq(n\\,0)',scale=-2:1080,crop=1080*9/16:1080:in_w/2-out_w/2:0" \
+      -vframes 1 \
       ${tempPoster}`
   } catch (e) {
     const err = e as Error

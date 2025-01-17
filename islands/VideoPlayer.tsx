@@ -149,19 +149,6 @@ export function VideoPlayer({
 
   return (
     <div class={`relative w-full h-full ${className || ''}`}>
-      {!isVideoLoaded && (
-        <ResponsiveImage
-          src={posterImage}
-          alt={alt}
-          width={width}
-          height={height}
-          lazy={false}
-          fetchpriority='high'
-          decoding='sync'
-          class='absolute inset-0 w-full h-full object-cover'
-          objectPosition={objectPosition}
-        />
-      )}
       <video
         ref={videoRef}
         class='absolute inset-0 w-full h-full object-cover'
