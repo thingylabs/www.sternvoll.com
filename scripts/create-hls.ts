@@ -11,21 +11,70 @@ if (!inputFile) {
 const filename = basename(inputFile, '.*')
 const outputDir = join('static', 'videos', filename)
 const posterDir = join('static', 'scaled')
-// Include iPhone Pro Max width (430px) and other common mobile sizes
 const sizes = [1280, 1024, 768, 640, 480, 430, 390, 360]
 
 $.verbose = false
 
 await createDirectories()
+await processVideo()
 await processImages()
 await cleanupTempFiles()
 console.log('Done!')
+
+async function processVideo() {
+  console.log('Creating HLS streams...')
+
+  const qualities = [
+    { height: 1080, bitrate: '5000k', name: 'v2' },
+    { height: 720, bitrate: '2800k', name: 'v1' },
+    { height: 480, bitrate: '1400k', name: 'v0' },
+  ]
+
+  for (const quality of qualities) {
+    const outputPath = join(outputDir, quality.name)
+    const segmentPath = join(outputPath, 'segment_%03d.ts')
+    const playlistPath = join(outputPath, 'playlist.m3u8')
+
+    try {
+      await $`ffmpeg -y -hide_banner -loglevel error \
+        -i ${inputFile} \
+        -vf scale=-2:${quality.height} \
+        -c:v h264 -profile:v main -crf 20 -sc_threshold 0 \
+        -g 48 -keyint_min 48 -r 24 \
+        -b:v ${quality.bitrate} -maxrate ${quality.bitrate} -bufsize ${quality.bitrate} \
+        -c:a aac -b:a 128k -ac 2 \
+        -hls_time 4 \
+        -hls_playlist_type vod \
+        -hls_segment_filename ${segmentPath} \
+        ${playlistPath}`
+    } catch (e) {
+      const err = e as Error
+      console.error(`Failed to create ${quality.height}p stream:`, err.message)
+    }
+  }
+
+  // Create master playlist
+  const masterPlaylist = `#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-STREAM-INF:BANDWIDTH=5000000,RESOLUTION=1920x1080
+v2/playlist.m3u8
+#EXT-X-STREAM-INF:BANDWIDTH=2800000,RESOLUTION=1280x720
+v1/playlist.m3u8
+#EXT-X-STREAM-INF:BANDWIDTH=1400000,RESOLUTION=854x480
+v0/playlist.m3u8`
+
+  await Deno.writeTextFile(join(outputDir, 'master.m3u8'), masterPlaylist)
+}
 
 async function processImages() {
   const tempPoster = join(posterDir, `${filename}-poster.png`)
 
   try {
-    await $`ffmpeg -y -hide_banner -loglevel error -i ${inputFile} -ss 00:00:01.000 -vframes 1 -vf "scale=-1:932,crop=430:932:0:0" "${tempPoster}"`
+    await $`ffmpeg -y -hide_banner -loglevel error \
+      -i ${inputFile} \
+      -ss 00:00:01.000 -vframes 1 \
+      -vf "scale=-2:1080,crop=1080*9/16:1080:in_w/2-out_w/2:0" \
+      ${tempPoster}`
   } catch (e) {
     const err = e as Error
     console.error('Failed to create poster:', err.message)
@@ -34,10 +83,13 @@ async function processImages() {
 
   console.log('Creating JPEGs...')
   for (const size of sizes) {
-    const height = Math.round(size * (932 / 430)) // Match iPhone 14 Pro Max aspect ratio
+    const height = Math.round(size * (16 / 9))
     const jpgPath = join(posterDir, `hero-video-cover-${size}.jpg`)
     try {
-      await $`ffmpeg -y -hide_banner -loglevel error -i "${tempPoster}" -vf "scale=${size}:${height}" "${jpgPath}"`
+      await $`ffmpeg -y -hide_banner -loglevel error \
+        -i ${tempPoster} \
+        -vf "scale=${size}:${height},setsar=1:1" \
+        ${jpgPath}`
     } catch (e) {
       const err = e as Error
       console.error(`Failed to create ${size}px JPEG:`, err.message)
@@ -47,10 +99,9 @@ async function processImages() {
   console.log('Creating WebPs...')
   for (const size of sizes) {
     const jpgPath = join(posterDir, `hero-video-cover-${size}.jpg`)
+    const webpPath = join(posterDir, `hero-video-cover-${size}.webp`)
     try {
-      await $`cwebp -quiet "${jpgPath}" -o "${
-        join(posterDir, `hero-video-cover-${size}.webp`)
-      }"`
+      await $`cwebp -quiet ${jpgPath} -o ${webpPath}`
     } catch (e) {
       const err = e as Error
       console.error(`WebP conversion failed for ${size}px:`, err.message)
@@ -60,10 +111,9 @@ async function processImages() {
   console.log('Creating AVIFs...')
   for (const size of sizes) {
     const jpgPath = join(posterDir, `hero-video-cover-${size}.jpg`)
+    const avifPath = join(posterDir, `hero-video-cover-${size}.avif`)
     try {
-      await $`avifenc -q 40 "${jpgPath}" "${
-        join(posterDir, `hero-video-cover-${size}.avif`)
-      }" > /dev/null 2>&1`
+      await $`avifenc -q 40 ${jpgPath} ${avifPath} > /dev/null 2>&1`
     } catch (e) {
       const err = e as Error
       console.error(`AVIF conversion failed for ${size}px:`, err.message)

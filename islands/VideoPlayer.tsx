@@ -61,9 +61,8 @@ export function VideoPlayer({
 }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const hlsRef = useRef<Hls | null>(null)
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const [scriptLoaded, setScriptLoaded] = useState(false)
-  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
 
   const getOptimalPosition = () => {
     if (globalThis.innerWidth < 768) {
@@ -103,16 +102,6 @@ export function VideoPlayer({
   }, [])
 
   useEffect(() => {
-    if (isVideoLoaded) {
-      const transitionInterval = setInterval(() => {
-        setIsTransitioning((prev) => !prev)
-      }, 5000) // Adjust timing as needed
-
-      return () => clearInterval(transitionInterval)
-    }
-  }, [isVideoLoaded])
-
-  useEffect(() => {
     if (!scriptLoaded || !Hls) return
 
     const video = videoRef.current
@@ -135,14 +124,10 @@ export function VideoPlayer({
 
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         void video.play()
-        setIsVideoLoaded(true)
       })
 
-      hls.on(Hls.Events.FRAG_LOADED, () => {
-        const currentHls = hlsRef.current
-        if (currentHls?.autoLevelEnabled) {
-          currentHls.nextLevel = -1
-        }
+      video.addEventListener('playing', () => {
+        setIsVideoLoaded(true)
       })
 
       return () => {
@@ -155,6 +140,8 @@ export function VideoPlayer({
       video.src = hlsUrl
       video.addEventListener('loadedmetadata', () => {
         void video.play()
+      })
+      video.addEventListener('playing', () => {
         setIsVideoLoaded(true)
       })
     }
@@ -162,13 +149,7 @@ export function VideoPlayer({
 
   return (
     <div class={`relative w-full h-full ${className || ''}`}>
-      <div
-        class={`absolute inset-0 transition-all duration-1000 ${
-          isVideoLoaded
-            ? (isTransitioning ? 'opacity-0' : 'opacity-100')
-            : 'opacity-100'
-        }`}
-      >
+      {!isVideoLoaded && (
         <ResponsiveImage
           src={posterImage}
           alt={alt}
@@ -177,18 +158,13 @@ export function VideoPlayer({
           lazy={false}
           fetchpriority='high'
           decoding='sync'
-          class='w-full h-full object-cover'
+          class='absolute inset-0 w-full h-full object-cover'
           objectPosition={objectPosition}
         />
-      </div>
-
+      )}
       <video
         ref={videoRef}
-        class={`w-full h-full object-cover transition-all duration-1000 ${
-          isVideoLoaded
-            ? (isTransitioning ? 'opacity-100' : 'opacity-0')
-            : 'opacity-0'
-        }`}
+        class='absolute inset-0 w-full h-full object-cover'
         style={{ objectPosition }}
         playsinline
         muted
