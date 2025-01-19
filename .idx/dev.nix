@@ -12,6 +12,7 @@
     pkgs.ffmpeg # scripts/create-hls.ts
     pkgs.libwebp # scripts/create-hls.ts
     pkgs.libavif # scripts/create-hls.ts
+    pkgs.htop
   ];
 
   # Sets environment variables in the workspace
