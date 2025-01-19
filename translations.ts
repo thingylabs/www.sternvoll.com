@@ -532,6 +532,23 @@ export const translations = {
   'Related jewelry': {
     de: '',
   },
+
+  // ProductDetails
+  'Add to cart': {
+    de: '',
+  },
+  'Size': {
+    de: '',
+  },
+  'Please select a size': {
+    de: '',
+  },
+  'Out of stock': {
+    de: '',
+  },
+  'Additional Information': {
+    de: '',
+  },
 }
 
 export type LanguageCode = typeof languages[number]['code']

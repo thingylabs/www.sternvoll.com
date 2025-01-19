@@ -1,33 +1,20 @@
 // components/product/ProductComponents.tsx
-import type { Product } from '@/utils/types.ts'
-import { formatCurrency } from '@/utils/data.ts'
+import type { Money } from '@/utils/types.ts'
 
-interface BreadcrumbNavProps {
-  category: ReturnType<
-    typeof import('@/hooks/useProductCategories.ts').useProductCategories
-  >
-}
-
-export function BreadcrumbNav({ category }: BreadcrumbNavProps) {
-  return (
-    <nav class='my-4 text-sm xl:text-base text-gray-500 flex justify-center md:justify-start 2xl:text-[1vw]'>
-      <a href='/' class='mr-2'>Home</a> &gt;{' '}
-      <a href='/collections/all' class='mx-2'>All Jewelry</a>
-      {category && (
-        <>
-          {' '} &gt;{' '}
-          <a href={`/collections/${category.link}`} class='ml-2'>
-            {category.label}
-          </a>
-        </>
-      )}
-    </nav>
-  )
+// Helper function to format currency that handles Money type
+export function formatCurrency(price: Money) {
+  const amount = typeof price.amount === 'string'
+    ? parseFloat(price.amount)
+    : price.amount
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: price.currencyCode,
+  }).format(amount)
 }
 
 interface ProductHeaderProps {
   title: string
-  price: Product['variants']['nodes'][0]['priceV2']
+  price: Money
 }
 
 export function ProductHeader({ title, price }: ProductHeaderProps) {
@@ -43,45 +30,31 @@ export function ProductHeader({ title, price }: ProductHeaderProps) {
   )
 }
 
-interface AdditionalInformationProps {
-  product: Product
+interface BreadcrumbNavProps {
+  category: ReturnType<
+    typeof import('@/hooks/useProductCategories.ts').useProductCategories
+  >
 }
 
-export function AdditionalInformation({ product }: AdditionalInformationProps) {
-  function parseDescription(descriptionHtml: string) {
-    if (!descriptionHtml) return []
-    const paragraphs = descriptionHtml
-      .split('</p>')
-      .map((p) => p.replace(/<[^>]+>/g, '').trim())
-      .filter((p) => p)
-    return paragraphs.slice(1).map((para) => {
-      const [title, ...rest] = para.split(':')
-      return { title: title?.trim(), content: rest.join(':').trim() }
-    })
-  }
-
-  const accordions = parseDescription(product.descriptionHtml)
-
-  if (accordions.length === 0) return null
-
+export function BreadcrumbNav({ category }: BreadcrumbNavProps) {
   return (
-    <section class='mt-8'>
-      <h3 class='text-lg font-semibold mb-4 2xl:text-[1vw] 2xl:py-[2vw]'>
-        Additional Information
-      </h3>
-      {accordions.map(({ title, content }, index) => (
-        <details
-          key={index}
-          class='border border-tertiary-darker rounded-lg xl:text-base'
-        >
-          <summary class='p-4 bg-tertiary cursor-pointer 2xl:text-[1vw] 2xl:p-[1.25vw]'>
-            {title}
-          </summary>
-          <div class='p-4 bg-tertiary pt-0 2xl:text-[1vw] 2xl:leading-normal'>
-            {content}
-          </div>
-        </details>
-      ))}
-    </section>
+    <nav class='text-sm xl:text-base text-gray-900 flex items-center font-medium 2xl:text-[1vw]'>
+      <a href='/' class='hover:text-gray-600 transition-colors'>Home</a>
+      <span class='mx-2 text-gray-400'>/</span>
+      <a href='/collections/all' class='hover:text-gray-600 transition-colors'>
+        All Jewelry
+      </a>
+      {category && (
+        <>
+          <span class='mx-2 text-gray-400'>/</span>
+          <a
+            href={`/collections/${category.link}`}
+            class='hover:text-gray-600 transition-colors'
+          >
+            {category.label}
+          </a>
+        </>
+      )}
+    </nav>
   )
 }

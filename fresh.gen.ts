@@ -42,6 +42,8 @@ import * as $OrderPay from './islands/OrderPay.tsx'
 import * as $OrderReview from './islands/OrderReview.tsx'
 import * as $PreloadSrcsets from './islands/PreloadSrcsets.tsx'
 import * as $ProductDetails from './islands/ProductDetails.tsx'
+import * as $ProductGallerySection from './islands/ProductGallerySection.tsx'
+import * as $ProductImageGallery from './islands/ProductImageGallery.tsx'
 import * as $ThankYou from './islands/ThankYou.tsx'
 import * as $VideoPlayer from './islands/VideoPlayer.tsx'
 import type { Manifest } from '$fresh/server.ts'
@@ -93,6 +95,8 @@ const manifest = {
     './islands/OrderReview.tsx': $OrderReview,
     './islands/PreloadSrcsets.tsx': $PreloadSrcsets,
     './islands/ProductDetails.tsx': $ProductDetails,
+    './islands/ProductGallerySection.tsx': $ProductGallerySection,
+    './islands/ProductImageGallery.tsx': $ProductImageGallery,
     './islands/ThankYou.tsx': $ThankYou,
     './islands/VideoPlayer.tsx': $VideoPlayer,
   },

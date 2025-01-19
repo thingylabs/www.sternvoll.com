@@ -8,8 +8,10 @@ import { SelectedWorks } from '@/components/SelectedWorks.tsx'
 import { State } from '@/routes/_middleware.ts'
 import { meta as siteMeta } from '@/config/meta.ts'
 import { srcset } from '@/utils/shopifySrcset.ts'
+import { useProductCategories } from '@/hooks/useProductCategories.ts'
+import { ProductGalleryWithNav } from '@/components/product/ProductGalleryWithNav.tsx'
+import ProductDetails from '@/islands/ProductDetails.tsx'
 import {
-  ProductDetails,
   translationKeys as productDetailsTranslationKeys,
 } from '@/islands/ProductDetails.tsx'
 
@@ -143,6 +145,8 @@ export default function ProductPage(ctx: PageProps<Query, State>) {
     return <div>{t['Product not found']}</div>
   }
 
+  const category = useProductCategories(data.product)
+
   const meta = {
     ...siteMeta,
     locale: state.geo.locale,
@@ -162,30 +166,33 @@ export default function ProductPage(ctx: PageProps<Query, State>) {
   return (
     <>
       <Meta url={url} meta={meta} />
-      <div class='bg-primary h-[74px] w-full'></div>
+      <div class='bg-primary h-[73px] md:h-[107px] w-full'></div>
 
-      <div class='pt-4'>
-        <ProductDetails
-          product={data.product!}
-          country={ctx.state.geo.country}
-          t={getT(productDetailsTranslationKeys)}
-          imageFormat={state.imageFormat}
-        />
-      </div>
+      <div class='xl:max-w-[80vw] mx-auto'>
+        <div class='grid grid-cols-1 md:grid-cols-2'>
+          <ProductGalleryWithNav
+            product={data.product}
+            category={category}
+          />
 
-      <div class='px-4 md:px-8 lg:px-12 xl:px-0 xl:max-w-[80vw] mx-auto 2xl:pt-[5vw]'>
-        <div class='mt-16'>
-          <SelectedWorks
-            title='Related jewelry'
-            products={data.relatedProducts}
-            lang={state.geo.lang}
+          <ProductDetails
+            product={data.product}
+            country={ctx.state.geo.country}
+            t={getT(productDetailsTranslationKeys)}
+            imageFormat={state.imageFormat}
           />
         </div>
+
+        <SelectedWorks
+          title='Related jewelry'
+          products={data.relatedProducts}
+          lang={state.geo.lang}
+        />
 
         <div class='back-to-shop mt-12 xl:text-base 2xl:text-[1vw]'>
           <a
             href='/'
-            class='flex items-center gap-2 text-gray-500 hover:text-gray-800 transition-colors duration-200'
+            class='flex items-center text-gray-500 hover:text-gray-800 transition-colors duration-200'
           >
             <svg
               width='16'
