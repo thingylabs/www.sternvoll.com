@@ -45,7 +45,7 @@ export function ProductImageGallery({
               <ResponsiveImage
                 src={image.jpg_square}
                 alt={image.altText || ''}
-                class='w-full h-full object-center object-contain'
+                class='w-full h-full object-center object-contain py-2 pt-4'
                 width={400}
                 height={400}
                 shopify={{

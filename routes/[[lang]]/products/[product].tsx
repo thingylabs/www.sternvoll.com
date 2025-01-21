@@ -164,12 +164,14 @@ export default function ProductPage(ctx: PageProps<Query, State>) {
       <Meta url={url} meta={meta} />
       <div class='bg-primary h-[74px] w-full'></div>
 
-      <ProductDetails
-        product={data.product!}
-        country={ctx.state.geo.country}
-        t={getT(productDetailsTranslationKeys)}
-        imageFormat={state.imageFormat}
-      />
+      <div class='px-4'>
+        <ProductDetails
+          product={data.product!}
+          country={ctx.state.geo.country}
+          t={getT(productDetailsTranslationKeys)}
+          imageFormat={state.imageFormat}
+        />
+      </div>
 
       <div class='px-4 md:px-8 lg:px-12 xl:px-0 xl:max-w-[80vw] mx-auto 2xl:pt-[5vw]'>
         <div class='mt-16'>
