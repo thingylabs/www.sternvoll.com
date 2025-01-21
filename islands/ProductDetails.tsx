@@ -66,7 +66,7 @@ export function ProductDetails({
   }
 
   return (
-    <div class='w-11/12 xl:max-w-[80vw] mx-auto grid gap-8 md:grid-cols-2'>
+    <div class='xl:w-11/12 xl:max-w-[80vw] mx-auto grid gap-8 md:grid-cols-2'>
       <PreloadSrcsets srcsets={preloadSrcsets} />
 
       <ProductImageGallery

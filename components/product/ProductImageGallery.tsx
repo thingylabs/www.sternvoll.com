@@ -1,6 +1,5 @@
 // components/product/ProductImageGallery.tsx
 import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
-import { ImageNavButtons, ImageThumbnails } from './ImageComponents.tsx'
 import { useState } from 'preact/hooks'
 import type { Product } from '@/utils/types.ts'
 
@@ -32,48 +31,38 @@ export function ProductImageGallery({
   }
 
   const images = product.images?.nodes || []
-  const currentImage = images[currentImageIndex]
 
   return (
     <div class='relative'>
       <div
-        class='aspect-square w-full bg-white rounded-xl border-2 border-gray-200'
+        class='aspect-square w-full'
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div class='rounded-lg overflow-hidden relative'>
-          {currentImage?.jpg_square && (
-            <ResponsiveImage
-              src={currentImage.jpg_square}
-              alt={currentImage.altText || ''}
-              class='w-full h-full object-center object-contain'
-              width={400}
-              height={400}
-              shopify={{
-                webp: {
-                  default: currentImage.webp_square || '',
-                  '2x': currentImage.webp_square_2x || '',
-                },
-                jpg: {
-                  default: currentImage.jpg_square,
-                  '2x': currentImage.jpg_square_2x || '',
-                },
-              }}
-            />
-          )}
-
-          <ImageNavButtons
-            onImageChange={onImageChange}
-            currentIndex={currentImageIndex}
-          />
+        <div class='overflow-hidden relative'>
+          {images.map((image) => (
+            image.jpg_square && (
+              <ResponsiveImage
+                src={image.jpg_square}
+                alt={image.altText || ''}
+                class='w-full h-full object-center object-contain'
+                width={400}
+                height={400}
+                shopify={{
+                  webp: {
+                    default: image.webp_square || '',
+                    '2x': image.webp_square_2x || '',
+                  },
+                  jpg: {
+                    default: image.jpg_square,
+                    '2x': image.jpg_square_2x || '',
+                  },
+                }}
+              />
+            )
+          ))}
         </div>
       </div>
-
-      <ImageThumbnails
-        images={images}
-        currentImageIndex={currentImageIndex}
-        onImageChange={onImageChange}
-      />
     </div>
   )
 }
