@@ -164,7 +164,7 @@ export default function ProductPage(ctx: PageProps<Query, State>) {
       <Meta url={url} meta={meta} />
       <div class='bg-primary h-[74px] w-full'></div>
 
-      <div class='pt-4'>
+      <div class='px-4'>
         <ProductDetails
           product={data.product!}
           country={ctx.state.geo.country}
