@@ -14,23 +14,23 @@ export function ProductOptions({
   onOptionSelect,
 }: ProductOptionsProps) {
   return (
-    <div>
+    <div className='w-full'>
       {product.options?.map((option, optionIndex) => (
-        <div key={option.name} class='flex items-start w-full'>
-          <div class='flex-none w-24 font-bold p-2'>
+        <div key={option.name} className='mb-4 flex flex-col sm:flex-row'>
+          <div className='font-bold mb-2 sm:mb-0 sm:w-24 sm:flex-none sm:p-2'>
             {option.name}
           </div>
-          <div class='flex flex-wrap items-start'>
+          <div className='flex flex-wrap gap-2'>
             {option.values.map((value, valueIndex) => (
-              <div
+              <button
                 key={value}
-                style='text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);'
-                class={`border-2 cursor-pointer border-secondary border-solid p-2 mr-2 rounded-md ${
+                className={`flex items-center min-w-[120px] border-2 p-2 rounded-md transition-colors
+                  ${
                   chosenOptions.includes(value) ||
                     (!chosenOptions.length && !valueIndex)
-                    ? 'bg-secondary !border-primary text-shadow-white'
-                    : ''
-                } ${optionIndex ? 'mt-2' : ''}`}
+                    ? 'bg-secondary border-primary'
+                    : 'border-secondary hover:border-primary/50'
+                }`}
                 onClick={() => onOptionSelect(value, optionIndex)}
               >
                 {option.name === 'Color' && (
@@ -40,8 +40,8 @@ export function ProductOptions({
                       (!chosenOptions.length && !valueIndex)}
                   />
                 )}
-                <span class='align-middle'>{value}</span>
-              </div>
+                <span>{value}</span>
+              </button>
             ))}
           </div>
         </div>
