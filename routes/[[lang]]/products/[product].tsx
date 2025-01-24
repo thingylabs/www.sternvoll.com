@@ -162,7 +162,7 @@ export default function ProductPage(ctx: PageProps<Query, State>) {
   return (
     <>
       <Meta url={url} meta={meta} />
-      <div class='bg-primary h-[74px] w-full'></div>
+      <div class='bg-primary h-[74px] md:h-[107px] w-full'></div>
 
       <div class='px-4'>
         <ProductDetails
