@@ -66,47 +66,65 @@ export function ProductDetails({
   }
 
   return (
-    <div class='xl:w-11/12 xl:max-w-[80vw] mx-auto grid gap-8 md:grid-cols-2'>
+    <>
       <PreloadSrcsets srcsets={preloadSrcsets} />
 
-      <ProductImageGallery
-        product={product}
-        currentImageIndex={currentImageIndex}
-        onImageChange={changeImage}
-      />
-
-      <div class='xl:text-[1.1vw]'>
-        <BreadcrumbNav category={category} />
-
-        <ProductHeader
-          title={product.title}
-          price={variant.priceV2}
-        />
-
-        <ProductDescription product={product} variant={variant} />
-
-        <section aria-labelledby='options-heading' class='pt-4 2xl:mt-[2vw]'>
-          <ProductOptions
-            product={product}
-            chosenOptions={chosenOptions}
-            onOptionSelect={handleOptionSelect}
+      <div class='w-full xl:w-11/12 xl:max-w-[80vw] mx-auto'>
+        <div class='block lg:hidden'>
+          <BreadcrumbNav category={category} />
+          <ProductHeader
+            title={product.title}
+            price={variant.priceV2}
           />
+        </div>
 
-          {variant.availableForSale
-            ? (
-              <div class='mt-4'>
-                <AddToCart id={variant.id} country={country} />
-              </div>
-            )
-            : (
-              <div class='mt-4'>
-                <JoinWaitlist productTitle={product.title} t={t} />
-              </div>
-            )}
-        </section>
+        <div class='grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8'>
+          <div class='col-span-1 lg:col-span-8'>
+            <ProductImageGallery
+              product={product}
+              currentImageIndex={currentImageIndex}
+              onImageChange={changeImage}
+            />
+          </div>
 
-        <AdditionalInformation product={product} />
+          <div class='col-span-1 lg:col-span-4 lg:sticky lg:top-4 xl:text-[1.1vw]'>
+            <div class='hidden lg:block'>
+              <BreadcrumbNav category={category} />
+              <ProductHeader
+                title={product.title}
+                price={variant.priceV2}
+              />
+            </div>
+
+            <ProductDescription product={product} variant={variant} />
+
+            <section
+              aria-labelledby='options-heading'
+              class='pt-4 2xl:mt-[2vw]'
+            >
+              <ProductOptions
+                product={product}
+                chosenOptions={chosenOptions}
+                onOptionSelect={handleOptionSelect}
+              />
+
+              {variant.availableForSale
+                ? (
+                  <div class='mt-4'>
+                    <AddToCart id={variant.id} country={country} />
+                  </div>
+                )
+                : (
+                  <div class='mt-4'>
+                    <JoinWaitlist productTitle={product.title} t={t} />
+                  </div>
+                )}
+            </section>
+
+            <AdditionalInformation product={product} />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
