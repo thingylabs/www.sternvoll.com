@@ -21,6 +21,7 @@ import * as $api_paypal_create_order from './routes/api/paypal/create-order.ts'
 import * as $api_shopify from './routes/api/shopify.ts'
 import * as $api_waitlist from './routes/api/waitlist.ts'
 import * as $index from './routes/index.tsx'
+import * as $queries from './routes/queries.ts'
 import * as $AddToCart from './islands/AddToCart.tsx'
 import * as $BackToShopButton from './islands/BackToShopButton.tsx'
 import * as $BankDetails from './islands/BankDetails.tsx'
@@ -71,6 +72,7 @@ const manifest = {
     './routes/api/shopify.ts': $api_shopify,
     './routes/api/waitlist.ts': $api_waitlist,
     './routes/index.tsx': $index,
+    './routes/queries.ts': $queries,
   },
   islands: {
     './islands/AddToCart.tsx': $AddToCart,

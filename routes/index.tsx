@@ -15,41 +15,12 @@ import { meta as siteMeta } from '@/config/meta.ts'
 import { RouteConfig } from '$fresh/server.ts'
 import { State } from '@/routes/_middleware.ts'
 import type { TranslationKey } from '@/translations.ts'
-import { srcset } from '@/utils/shopifySrcset.ts'
 import { VideoPlayer } from '@/islands/VideoPlayer.tsx'
-
-// translationKeys as newsletterTranslationKeys,
+import { homeQuery } from './queries.ts'
 
 export const config: RouteConfig = {
   routeOverride: '/{:lang}?',
 }
-
-const q = `{
-  collection(id: "gid://shopify/Collection/534705242378") {
-    products(first: 4) {
-      nodes {
-        id
-        handle
-        title
-        tags
-        featuredImage {
-          altText
-          ${srcset('square', 400, 400)}
-        }
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-          maxVariantPrice {
-            amount
-            currencyCode
-          }
-        }
-      }
-    }
-  }
-}`
 
 interface Collection {
   collection: {
@@ -59,7 +30,7 @@ interface Collection {
 
 export const handler: Handlers<Collection, State> = {
   async GET(_req, ctx) {
-    const data = await graphql<Collection>(q, {}, ctx.state.geo.lang)
+    const data = await graphql<Collection>(homeQuery, {}, ctx.state.geo.lang)
     return ctx.render(data)
   },
 }
@@ -78,7 +49,7 @@ export default function Home(ctx: PageProps<Collection, State>) {
       url: siteMeta.ogImage.fileName,
       width: siteMeta.ogImage.width,
       height: siteMeta.ogImage.height,
-      alt: siteMeta.ogImage.alt, // TODO: Translate
+      alt: siteMeta.ogImage.alt,
     },
   }
 
