@@ -9,6 +9,7 @@ import * as $_lang_checkout_start from './routes/[[lang]]/checkout/start.tsx'
 import * as $_lang_collections_collection_ from './routes/[[lang]]/collections/[collection].tsx'
 import * as $_lang_policies_policy_ from './routes/[[lang]]/policies/[policy].tsx'
 import * as $_lang_products_product_ from './routes/[[lang]]/products/[product].tsx'
+import * as $_lang_products_queries from './routes/[[lang]]/products/queries.ts'
 import * as $_app from './routes/_app.tsx'
 import * as $_middleware from './routes/_middleware.ts'
 import * as $api_locales from './routes/api/locales.ts'
@@ -58,6 +59,7 @@ const manifest = {
       $_lang_collections_collection_,
     './routes/[[lang]]/policies/[policy].tsx': $_lang_policies_policy_,
     './routes/[[lang]]/products/[product].tsx': $_lang_products_product_,
+    './routes/[[lang]]/products/queries.ts': $_lang_products_queries,
     './routes/_app.tsx': $_app,
     './routes/_middleware.ts': $_middleware,
     './routes/api/locales.ts': $api_locales,

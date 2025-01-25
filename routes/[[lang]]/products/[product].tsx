@@ -7,91 +7,14 @@ import { Product } from '@/utils/types.ts'
 import { SelectedWorks } from '@/components/SelectedWorks.tsx'
 import { State } from '@/routes/_middleware.ts'
 import { meta as siteMeta } from '@/config/meta.ts'
-import { srcset } from '@/utils/shopifySrcset.ts'
 import {
   ProductDetails,
   translationKeys as productDetailsTranslationKeys,
 } from '@/islands/ProductDetails.tsx'
-
-const q = `query ($product: String!) {
-  product(handle: $product) {
-    title
-    description
-    descriptionHtml
-    productType
-    tags
-
-    options {
-      id
-      name
-      values
-    }
-
-    priceRange {
-      minVariantPrice {
-        amount
-        currencyCode
-      }
-      maxVariantPrice {
-        amount
-        currencyCode
-      }
-    }
-
-    variants(first: 250) {
-      nodes {
-        id
-        title
-        selectedOptions {
-          name
-          value
-        }
-        availableForSale
-        priceV2 {
-          amount
-          currencyCode
-        }
-      }
-    }
-
-    featuredImage {
-      ${srcset('square', 400, 400)}
-      altText
-    }
-
-    images(first: 10) {
-      nodes {
-        ${srcset('square', 400, 400)}
-        altText
-      }
-    }
-  }
-}`
-
-const relatedProductsQuery = `query ($query: String!) {
-  products(first: 4, query: $query) {
-    edges {
-      node {
-        handle
-        title
-        featuredImage {
-          ${srcset('square', 400, 400)}
-          altText
-        }
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-          maxVariantPrice {
-            amount
-            currencyCode
-          }
-        }
-      }
-    }
-  }
-}`
+import {
+  productQuery,
+  relatedProductsQuery,
+} from '@/routes/[[lang]]/products/queries.ts'
 
 interface Query {
   product: Product | null
@@ -102,7 +25,7 @@ export const handler: Handlers<Query, State> = {
   async GET(_req, ctx) {
     try {
       const data = await graphql<Query>(
-        q,
+        productQuery,
         { product: ctx.params.product },
         ctx.state.geo.lang,
       )

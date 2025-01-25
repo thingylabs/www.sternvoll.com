@@ -22,6 +22,7 @@
     extensions = [
       "denoland.vscode-deno"
       "bradlc.vscode-tailwindcss"
+      "graphql.vscode-graphql"
     ];
 
     # Enable previews
