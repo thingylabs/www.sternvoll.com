@@ -70,14 +70,6 @@ export function ProductDetails({
       <PreloadSrcsets srcsets={preloadSrcsets} />
 
       <div class='w-full xl:w-11/12 xl:max-w-[80vw] mx-auto'>
-        <div class='block lg:hidden'>
-          <BreadcrumbNav category={category} />
-          <ProductHeader
-            title={product.title}
-            price={variant.priceV2}
-          />
-        </div>
-
         <div class='grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8'>
           <div class='col-span-1 lg:col-span-8'>
             <ProductImageGallery
@@ -88,13 +80,11 @@ export function ProductDetails({
           </div>
 
           <div class='col-span-1 lg:col-span-4 lg:sticky lg:top-4 xl:text-[1.1vw]'>
-            <div class='hidden lg:block'>
-              <BreadcrumbNav category={category} />
-              <ProductHeader
-                title={product.title}
-                price={variant.priceV2}
-              />
-            </div>
+            <BreadcrumbNav category={category} />
+            <ProductHeader
+              title={product.title}
+              price={variant.priceV2}
+            />
 
             <ProductDescription product={product} variant={variant} />
 

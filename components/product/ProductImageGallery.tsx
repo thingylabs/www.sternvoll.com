@@ -33,7 +33,7 @@ export function ProductImageGallery({
 
   return (
     <div
-      class='grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-min'
+      class='grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-min pt-4'
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -41,13 +41,13 @@ export function ProductImageGallery({
         image.jpg_square && (
           <div
             key={idx}
-            class='aspect-square w-full cursor-pointer relative group'
+            class={`aspect-square w-full cursor-pointer relative`}
             onClick={() => onImageChange(idx)}
           >
             <ResponsiveImage
               src={image.jpg_square}
               alt={image.altText || ''}
-              class='w-full h-full object-center object-cover transition-transform duration-200 group-hover:scale-105'
+              class='w-full h-full object-center object-cover transition-transform duration-200'
               width={400}
               height={400}
               shopify={{

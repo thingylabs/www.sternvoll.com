@@ -33,10 +33,10 @@ interface ProductHeaderProps {
 export function ProductHeader({ title, price }: ProductHeaderProps) {
   return (
     <div class='flex flex-col items-center md:items-start gap-2 text-center md:text-left'>
-      <h1 class='text-2xl lg:text-3xl xl:text-[1.75vw] font-semibold text-gray-800 2xl:mt-[2vw]'>
+      <h1 class='text-5xl font-accent mb-4 md:leading-tight lg:text-6xl 2xl:text-[4vw]'>
         {title}
       </h1>
-      <div class='text-xl xl:text-[1vw] font-thin tracking-wide 2xl:mt-[2vw]'>
+      <div class='text-3xl leading-normal mb-4 font-accent italic 2xl:text-[2.5vw]'>
         {formatCurrency(price)}
       </div>
     </div>
