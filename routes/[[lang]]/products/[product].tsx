@@ -11,10 +11,7 @@ import {
   ProductDetails,
   translationKeys as productDetailsTranslationKeys,
 } from '@/islands/ProductDetails.tsx'
-import {
-  productQuery,
-  relatedProductsQuery,
-} from '@/routes/[[lang]]/products/queries.ts'
+import { productQuery, relatedProductsQuery } from './_queries.ts'
 
 interface Query {
   product: Product | null

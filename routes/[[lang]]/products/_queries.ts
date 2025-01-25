@@ -1,4 +1,4 @@
-// routes/[[lang]]/products/queries.ts
+// routes/[[lang]]/products/_queries.ts
 import { srcset } from '@/utils/shopifySrcset.ts'
 
 export const productQuery = `query Product($product: String!) {

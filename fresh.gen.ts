@@ -9,9 +9,10 @@ import * as $_lang_checkout_start from './routes/[[lang]]/checkout/start.tsx'
 import * as $_lang_collections_collection_ from './routes/[[lang]]/collections/[collection].tsx'
 import * as $_lang_policies_policy_ from './routes/[[lang]]/policies/[policy].tsx'
 import * as $_lang_products_product_ from './routes/[[lang]]/products/[product].tsx'
-import * as $_lang_products_queries from './routes/[[lang]]/products/queries.ts'
+import * as $_lang_products_queries from './routes/[[lang]]/products/_queries.ts'
 import * as $_app from './routes/_app.tsx'
 import * as $_middleware from './routes/_middleware.ts'
+import * as $_queries from './routes/_queries.ts'
 import * as $api_locales from './routes/api/locales.ts'
 import * as $api_newsletter_subscribe from './routes/api/newsletter/subscribe.ts'
 import * as $api_orders_bank_transfer from './routes/api/orders/bank-transfer.ts'
@@ -21,7 +22,6 @@ import * as $api_paypal_create_order from './routes/api/paypal/create-order.ts'
 import * as $api_shopify from './routes/api/shopify.ts'
 import * as $api_waitlist from './routes/api/waitlist.ts'
 import * as $index from './routes/index.tsx'
-import * as $queries from './routes/queries.ts'
 import * as $AddToCart from './islands/AddToCart.tsx'
 import * as $BackToShopButton from './islands/BackToShopButton.tsx'
 import * as $BankDetails from './islands/BankDetails.tsx'
@@ -60,9 +60,10 @@ const manifest = {
       $_lang_collections_collection_,
     './routes/[[lang]]/policies/[policy].tsx': $_lang_policies_policy_,
     './routes/[[lang]]/products/[product].tsx': $_lang_products_product_,
-    './routes/[[lang]]/products/queries.ts': $_lang_products_queries,
+    './routes/[[lang]]/products/_queries.ts': $_lang_products_queries,
     './routes/_app.tsx': $_app,
     './routes/_middleware.ts': $_middleware,
+    './routes/_queries.ts': $_queries,
     './routes/api/locales.ts': $api_locales,
     './routes/api/newsletter/subscribe.ts': $api_newsletter_subscribe,
     './routes/api/orders/bank-transfer.ts': $api_orders_bank_transfer,
@@ -72,7 +73,6 @@ const manifest = {
     './routes/api/shopify.ts': $api_shopify,
     './routes/api/waitlist.ts': $api_waitlist,
     './routes/index.tsx': $index,
-    './routes/queries.ts': $queries,
   },
   islands: {
     './islands/AddToCart.tsx': $AddToCart,

@@ -16,7 +16,7 @@ import { RouteConfig } from '$fresh/server.ts'
 import { State } from '@/routes/_middleware.ts'
 import type { TranslationKey } from '@/translations.ts'
 import { VideoPlayer } from '@/islands/VideoPlayer.tsx'
-import { homeQuery } from './queries.ts'
+import { homeQuery } from './_queries.ts'
 
 export const config: RouteConfig = {
   routeOverride: '/{:lang}?',

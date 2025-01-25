@@ -1,4 +1,4 @@
-// routes/queries.ts
+// routes/_queries.ts
 import { srcset } from '@/utils/shopifySrcset.ts'
 
 export const homeQuery = `{
