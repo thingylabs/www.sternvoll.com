@@ -66,5 +66,5 @@ export const menuItems: MenuItem[] = [
   { label: 'Clip-ons', link: '/collections/pain-free-clip-ons-earclips' },
   { label: 'Necklaces', link: '/collections/necklaces' },
   { label: 'Engagement & Wedding', link: '/collections/engagement-wedding' },
-  { label: 'On Sale', link: '/collections/on-sale-🔖' },
+  { label: 'On Sale', link: '/collections/on-sale' },
 ]
