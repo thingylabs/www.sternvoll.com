@@ -15,7 +15,7 @@ export function AddToCart({ id }: AddToCartProps) {
   const isAdding = useSignal(false)
 
   const baseClasses =
-    'w-full border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white'
+    'w-full border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:!text-white'
 
   const getStateClasses = () => {
     if (!IS_BROWSER || isAdding.value || !data) {
