@@ -30,7 +30,7 @@ export function handler(req: Request, ctx: FreshContext<State>) {
 
   const [geo, redirect] = getGeoData(req)
   if (redirect) {
-    return redirect.redirect
+    return redirect
   }
 
   ctx.state.geo = geo!

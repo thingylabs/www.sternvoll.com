@@ -49,7 +49,10 @@ export function AddToCart({ id }: AddToCartProps) {
     <button
       onClick={add}
       disabled={!IS_BROWSER || !data || isAdding.value}
-      class={`${baseClasses} ${getStateClasses()}`}
+      class={`${baseClasses} ${getStateClasses()} `}
+      style={!IS_BROWSER || !data
+        ? ''
+        : 'border: 2px solid black; color: black;'}
       aria-busy={isAdding.value}
     >
       {buttonText}
