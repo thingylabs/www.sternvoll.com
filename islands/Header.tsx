@@ -55,7 +55,6 @@ export function Header(
       isVisible.value = scrollTop < lastScrollTop.value || scrollTop < 100
       lastScrollTop.value = scrollTop
 
-      console.log('hasBackground.value', hasBackground.value)
       ticking = false
     }
 
