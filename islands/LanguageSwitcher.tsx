@@ -2,7 +2,7 @@
 import { useSignal } from '@preact/signals'
 import { LanguageCode, languages } from '@/translations.ts'
 import { useEffect, useRef } from 'preact/hooks'
-import { COOKIE_KEYS, setCookie } from '@/utils/cookies.ts'
+import { COOKIE_KEYS } from '@/utils/cookieKeys.ts'
 
 interface Props {
   lang: LanguageCode
@@ -10,7 +10,7 @@ interface Props {
 
 export function LanguageSwitcher({ lang }: Props) {
   const isOpen = useSignal(false)
-  const selectedLanguage = useSignal<LanguageCode>(lang) // Initialize with the lang prop value
+  const selectedLanguage = useSignal<LanguageCode>(lang)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const toggleMenu = () => {
@@ -21,12 +21,13 @@ export function LanguageSwitcher({ lang }: Props) {
     selectedLanguage.value = language
     isOpen.value = false
 
-    setCookie(COOKIE_KEYS.LANGUAGE, language)
+    document.cookie = `${COOKIE_KEYS.LANGUAGE}=${language}; path=/; max-age=${
+      365 * 24 * 60 * 60
+    }; secure; samesite=Lax`
     globalThis.location.reload()
   }
 
   useEffect(() => {
-    // Close the dropdown if clicking outside of it
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
@@ -38,17 +39,13 @@ export function LanguageSwitcher({ lang }: Props) {
     document.addEventListener('mousedown', handleClickOutside, {
       passive: true,
     })
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
   return (
     <div ref={dropdownRef} class='relative lg:flex items-center cursor-pointer'>
-      {/* Language Selector */}
       <div class='flex items-center opacity-75' onClick={toggleMenu}>
         <span>
-          {/* Display the name of the currently selected language */}
           {languages.find((langObj) =>
             langObj.code === selectedLanguage.value
           )?.name}
@@ -58,7 +55,6 @@ export function LanguageSwitcher({ lang }: Props) {
         </svg>
       </div>
 
-      {/* Dropdown Menu */}
       {isOpen.value && (
         <div class='absolute top-full mt-2 bg-gray-800 text-white shadow-lg rounded-lg w-40 z-10'>
           <ul>
@@ -69,7 +65,7 @@ export function LanguageSwitcher({ lang }: Props) {
                   selectedLanguage.value === langObj.code ? 'font-bold' : ''
                 }`}
                 onClick={() => selectLanguage(langObj.code)}
-                style={{ paddingLeft: '1.5rem' }} // Ensure space for checkmark
+                style={{ paddingLeft: '1.5rem' }}
               >
                 <span class='w-4 mr-2 flex-shrink-0'>
                   {selectedLanguage.value === langObj.code && (
@@ -82,7 +78,6 @@ export function LanguageSwitcher({ lang }: Props) {
                     </svg>
                   )}
                 </span>
-                {/* Display the name of the language in the dropdown */}
                 <span>{langObj.name}</span>
               </li>
             ))}

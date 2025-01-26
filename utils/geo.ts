@@ -6,22 +6,15 @@ import {
   TranslationMap,
   translations,
 } from '@/translations.ts'
-import { locales } from '@/config/locales.ts'
-import { Locale } from '@/config/locales.ts'
-import { COOKIE_KEYS, getCookie } from '@/utils/cookies.ts'
+import { getCookies } from 'cookie'
+import { Locale, locales } from '@/config/locales.ts'
+import { COOKIE_KEYS } from '@/utils/cookieKeys.ts'
 
-// Pre-compute maps for faster lookups
 const CURRENCY_BY_COUNTRY = new Map(
-  locales.map((locale) => [locale.code, locale.currency.code]),
+  locales.map((l) => [l.code, l.currency.code]),
 )
-
-const COUNTRY_NAMES = new Map(
-  locales.map((locale) => [locale.code, locale.country]),
-)
-
-const LANG_CODES = new Set(languages.map((obj) => obj.code))
-
-// Pre-compute EU countries set for faster lookup
+const COUNTRY_NAMES = new Map(locales.map((l) => [l.code, l.country]))
+const LANG_CODES = new Set(languages.map((l) => l.code))
 const EU_COUNTRIES = new Set([
   'AT',
   'BE',
@@ -53,17 +46,14 @@ const EU_COUNTRIES = new Set([
   'GB',
 ])
 
-export function getCurrencyByCountryCode(
-  countryCode: string,
-): string | undefined {
+export function getCurrencyByCountryCode(countryCode: string) {
   return CURRENCY_BY_COUNTRY.get(countryCode)
 }
 
-export function getCountryNameByCode(code: string): string | undefined {
+export function getCountryNameByCode(code: string) {
   return COUNTRY_NAMES.get(code)
 }
 
-// Memoize translation maps
 const translationCache = new Map<string, TranslationMap>()
 
 function getTranslations(
@@ -71,17 +61,14 @@ function getTranslations(
   keys?: readonly TranslationKey[],
 ): TranslationMap {
   const cacheKey = `${lang}-${keys?.join(',') || 'all'}`
-
-  if (translationCache.has(cacheKey)) {
-    return translationCache.get(cacheKey)!
-  }
+  if (translationCache.has(cacheKey)) return translationCache.get(cacheKey)!
 
   const result = {} as TranslationMap
   const translationKeys = keys || Object.keys(translations) as TranslationKey[]
 
   translationKeys.forEach((key) => {
-    const translationEntry = translations[key]
-    result[key] = translationEntry[lang as keyof typeof translationEntry] ?? key
+    const entry = translations[key]
+    result[key] = entry[lang as keyof typeof entry] ?? key
   })
 
   translationCache.set(cacheKey, result)
@@ -100,46 +87,40 @@ type GeoReturn = [GeoData | null, ReturnType<typeof redirect> | null]
 
 export function getGeoData(req: Request): GeoReturn {
   const { lang: browserLang, country: browserCountry } = getBrowserLocale(req)
+  const cookies = getCookies(req.headers)
 
-  let cookieLang = getCookie(COOKIE_KEYS.LANGUAGE)
-  if (!LANG_CODES.has(cookieLang as LanguageCode)) {
-    cookieLang = undefined
-  }
-  const country = getCookie(COOKIE_KEYS.COUNTRY) as string ||
-    req.headers.get('cf-ipcountry') ||
-    browserCountry || 'DE'
-
-  const url = new URL(req.url)
-  const firstPathPartial = url.pathname.split('/')[1]
-  const langPartial = LANG_CODES.has(firstPathPartial as LanguageCode)
-    ? firstPathPartial as LanguageCode
+  const langCookie = cookies[COOKIE_KEYS.LANGUAGE]
+  const cookieLang = LANG_CODES.has(langCookie as LanguageCode)
+    ? langCookie
     : undefined
 
-  // Language redirect logic
+  const country = cookies[COOKIE_KEYS.COUNTRY] ||
+    req.headers.get('cf-ipcountry') ||
+    browserCountry ||
+    'DE'
+
+  const url = new URL(req.url)
+  const langPartial = getLangFromPath(url.pathname)
+
   if (!langPartial) {
     if (!cookieLang && browserLang !== 'en') {
-      url.pathname = `/${browserLang}${url.pathname}`
-      return [null, redirect(url)]
+      return [null, redirectTo(url, browserLang)]
     }
     if (cookieLang && cookieLang !== 'en') {
-      url.pathname = `/${cookieLang}${url.pathname}`
-      return [null, redirect(url)]
+      return [null, redirectTo(url, cookieLang)]
     }
   }
 
   if (langPartial) {
     if (cookieLang === 'en') {
-      url.pathname = url.pathname.replace(`/${langPartial}`, '')
-      return [null, redirect(url)]
+      return [null, redirectToBase(url, langPartial)]
     }
     if (cookieLang && cookieLang !== langPartial) {
-      url.pathname = url.pathname.replace(`/${langPartial}`, `/${cookieLang}`)
-      return [null, redirect(url)]
+      return [null, redirectFromTo(url, langPartial, cookieLang)]
     }
   }
 
   const lang = langPartial || 'en'
-
   return [
     {
       country,
@@ -150,6 +131,31 @@ export function getGeoData(req: Request): GeoReturn {
     },
     null,
   ]
+}
+
+function getLangFromPath(pathname: string): LanguageCode | undefined {
+  const firstPath = pathname.split('/')[1]
+  return LANG_CODES.has(firstPath as LanguageCode)
+    ? firstPath as LanguageCode
+    : undefined
+}
+
+function redirectTo(url: URL, lang: string) {
+  const newUrl = new URL(url)
+  newUrl.pathname = `/${lang}${url.pathname}`
+  return redirect(newUrl)
+}
+
+function redirectToBase(url: URL, lang: string) {
+  const newUrl = new URL(url)
+  newUrl.pathname = url.pathname.replace(`/${lang}`, '')
+  return redirect(newUrl)
+}
+
+function redirectFromTo(url: URL, oldLang: string, newLang: string) {
+  const newUrl = new URL(url)
+  newUrl.pathname = url.pathname.replace(`/${oldLang}`, `/${newLang}`)
+  return redirect(newUrl)
 }
 
 function redirect(url: URL) {
@@ -167,7 +173,7 @@ function getBrowserLocale(req: Request) {
     ?.trim()
     .split('-')
     .map((elem) => elem.substring(0, 2))
-    .map((elem, i) => (i === 1 ? elem.toUpperCase() : elem))
+    .map((elem, i) => i === 1 ? elem.toUpperCase() : elem)
 
   return {
     lang: LANG_CODES.has(lang as LanguageCode) ? lang as LanguageCode : 'en',

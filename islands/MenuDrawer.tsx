@@ -5,7 +5,7 @@ import { LanguageCode, languages, type TranslationMap } from '@/translations.ts'
 import { menuItems } from '@/config/headerMenu.ts'
 import { ResponsiveImage } from '@/components/ResponsiveImage.tsx'
 import { Locale } from '@/config/locales.ts'
-import { COOKIE_KEYS, setCookie } from '@/utils/cookies.ts'
+import { COOKIE_KEYS } from '@/utils/cookieKeys.ts'
 
 interface MenuDrawerProps {
   onOpenLocaleSelector: () => void
@@ -16,22 +16,21 @@ interface MenuDrawerProps {
 }
 
 export function MenuDrawer({
-  // onOpenLocaleSelector,
   onClose,
   lang,
-  // locale,
   t,
 }: MenuDrawerProps) {
   const isLanguageSelectorOpen = useSignal(false)
 
   const selectLanguage = (language: LanguageCode) => {
-    setCookie(COOKIE_KEYS.LANGUAGE, language)
+    document.cookie = `${COOKIE_KEYS.LANGUAGE}=${language}; path=/; max-age=${
+      365 * 24 * 60 * 60
+    }; secure; samesite=Lax`
     globalThis.location.reload()
   }
 
   return (
     <div class='py-8 pt-6 px-6 h-full bg-white rounded-tl-2xl rounded-tr-2xl sm:rounded-tl-none sm:rounded-br-2xl flex flex-col overflow-y-auto relative'>
-      {/* Header */}
       <div class='flex justify-between pb-4 border-b border-gray-200'>
         <ResponsiveImage
           src='sternvoll-name-bright.png'
@@ -41,16 +40,12 @@ export function MenuDrawer({
           class='w-[80%] object-scale-down'
         />
         <button class='py-1' onClick={onClose}>
-          <svg
-            class='w-6 h-6 fill-current text-gray-400'
-            viewBox='0 0 24 24'
-          >
+          <svg class='w-6 h-6 fill-current text-gray-400' viewBox='0 0 24 24'>
             <path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z' />
           </svg>
         </button>
       </div>
 
-      {/* Menu Items */}
       <ul class='mt-4 space-y-4 text-gray-900 text-lg'>
         {menuItems.map((category) => (
           <li key={category.label}>
@@ -61,24 +56,11 @@ export function MenuDrawer({
         ))}
       </ul>
 
-      {/* Footer */}
       <div class='mt-5 border-t border-gray-200 pt-4'>
         <div class='space-y-2'>
           <a class='text-gray-600' href='https://account.sternvoll.com/'>
             {t['Log in']}
           </a>
-
-          {
-            /*
-          <div
-            class='text-gray-600 cursor-pointer flex items-center'
-            onClick={onOpenLocaleSelector}
-          >
-            {`${locale.country} | ${locale.currency.code} ${locale.currency.symbol}`}
-            <span class='ml-2'>▾</span>
-          </div>
-          */
-          }
 
           <div class='text-gray-600 cursor-pointer flex items-center relative'>
             <div

@@ -4,7 +4,8 @@ import { LanguageCode, TranslationKey, TranslationMap } from '@/translations.ts'
 import { getGeoData } from '@/utils/geo.ts'
 import { ImageFormat } from '@/utils/types.ts'
 import { Locale } from '@/config/locales.ts'
-import { COOKIE_KEYS, getCookie } from '@/utils/cookies.ts'
+import { getCookies } from 'cookie'
+import { COOKIE_KEYS } from '@/utils/cookieKeys.ts'
 import { comfortCheckout } from '@/utils/comfortCheckout.ts'
 
 interface GeoData {
@@ -30,7 +31,7 @@ export function handler(req: Request, ctx: FreshContext<State>) {
 
   const [geo, redirect] = getGeoData(req)
   if (redirect) {
-    return redirect
+    return redirect.redirect
   }
 
   ctx.state.geo = geo!
@@ -48,9 +49,10 @@ function shouldProcessRequest(
 }
 
 function handleComfortCheckout(req: Request, isEuIp: boolean): boolean {
-  const savedPreference = getCookie(COOKIE_KEYS.COMFORT_CHECKOUT, req)
+  const cookies = getCookies(req.headers)
+  const savedPreference = cookies[COOKIE_KEYS.COMFORT_CHECKOUT]
   const value = savedPreference !== undefined
-    ? Boolean(savedPreference)
+    ? savedPreference === 'true'
     : !isEuIp
   comfortCheckout.value = value
   return value
@@ -60,6 +62,6 @@ function determineImageFormat(acceptHeader: string | null): ImageFormat {
   if (!acceptHeader) return 'jpg'
 
   const formats: ImageFormat[] = ['avif', 'webp', 'jpg']
-  return formats.find((format) => acceptHeader.includes(`image/${format}`)) ||
+  return formats.find((format) => acceptHeader.includes(`image/${format}`)) ??
     'jpg'
 }

@@ -8,7 +8,7 @@ import { CartButton } from '@/islands/CartButton.tsx'
 import { CartDialog } from '@/components/CartDialog.tsx'
 import { PrivacyDialog } from '@/components/PrivacyDialog.tsx'
 import { isCartOpen } from '@/utils/cartState.ts'
-import { COOKIE_KEYS, setCookie } from '@/utils/cookies.ts'
+import { COOKIE_KEYS } from '@/utils/cookieKeys.ts'
 
 export const translationKeys = [
   'Shopping Cart',
@@ -59,13 +59,13 @@ export function Cart({
   const updatePreference = (enabled: boolean) => {
     hasUserSetPreference.value = true
     isComfortCheckoutEnabled.value = enabled
-    setCookie(COOKIE_KEYS.COMFORT_CHECKOUT, enabled)
+    document.cookie =
+      `${COOKIE_KEYS.COMFORT_CHECKOUT}=${enabled}; path=/; max-age=${
+        365 * 24 * 60 * 60
+      }; secure; samesite=Lax`
   }
 
   const handleCheckout = () => {
-    // if (!isComfortCheckoutEnabled.value) {
-    //  privacyRef.current?.showModal()
-    // } else if (data) {
     if (data) {
       const url = new URL(data.checkoutUrl)
       url.searchParams.set('locale', lang)
