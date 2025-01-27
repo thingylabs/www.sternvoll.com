@@ -30,7 +30,7 @@ $.verbose = false
 await createDirectories()
 
 if (flags.video) {
-  console.log('Creating HLS streams...')
+  console.log('Creating HLS video...')
   await processVideo()
 }
 
@@ -43,8 +43,6 @@ if (flags.image) {
 console.log('Done!')
 
 async function processVideo() {
-  console.log('Creating HLS streams...')
-
   const qualities = [
     { height: 1080, bitrate: '5000k', name: 'v2' },
     { height: 720, bitrate: '2800k', name: 'v1' },
@@ -87,7 +85,6 @@ v0/playlist.m3u8`
 }
 
 async function processImages() {
-  console.log('Creating poster images...')
   const tempPoster = join(posterDir, `${filename}-poster.png`)
 
   try {

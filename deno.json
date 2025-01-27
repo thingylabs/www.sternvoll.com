@@ -13,7 +13,6 @@
     "update": "deno run -A -r https://fresh.deno.dev/update .",
     "format": "deno run --allow-read --allow-write scripts/add-file-path-comments.ts && deno fmt",
     "scale": "deno run --allow-env --allow-read --allow-write --allow-run scripts/scale-image.ts",
-    "hls": "deno -A scripts/create-hls.ts",
     "hls-video": "deno -A scripts/create-hls.ts --video",
     "hls-image": "deno -A scripts/create-hls.ts --image"
   },
