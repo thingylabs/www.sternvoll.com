@@ -15,7 +15,7 @@ export function CategoryCard(
     <a
       href={href}
       class='
-        block relative group w-full
+        relative group w-full
         h-[120vw] sm:h-[90vw] md:h-[70vw] lg:h-[50vw] 2xl:h-[30vw]
         overflow-hidden flex justify-center items-center
         transition-all duration-800 ease-in-out

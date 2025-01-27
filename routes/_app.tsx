@@ -85,13 +85,13 @@ export default function App(
         {url.pathname === '/' || url.pathname === '/de' && (
               <>
                 <PreloadImage
-                  src='hero.jpg'
-                  widths={[480, 786, 1280, 1920]}
+                  src='sternvoll-name-bright.png'
+                  widths={[275, 324, 413, 486, 550, 648]}
                   format={imageFormat}
                 />
                 <PreloadImage
-                  src='sternvoll-name-bright.png'
-                  widths={[275, 324, 413, 486, 550, 648]}
+                  src='hero-video-cover.jpg'
+                  widths={[1536, 1280, 1024, 768, 640]}
                   format={imageFormat}
                 />
               </>

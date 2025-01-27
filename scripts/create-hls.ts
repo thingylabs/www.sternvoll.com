@@ -1,24 +1,45 @@
 // scripts/create-hls.ts
 import { $ } from 'zx'
 import { basename, join } from 'https://deno.land/std@0.208.0/path/mod.ts'
+import { parse } from "https://deno.land/std@0.208.0/flags/mod.ts"
 
-const inputFile = Deno.args[0]
+const flags = parse(Deno.args, {
+  boolean: ["video", "image"],
+  default: { video: false, image: false },
+})
+
+const inputFile = flags._[0]
 if (!inputFile) {
-  console.error('Usage: deno run -A create-hls.ts <input-video-file>')
+  console.error('Usage: deno run -A create-hls.ts <input-video-file> [--video] [--image]')
+  console.error('Options:')
+  console.error('  --video  Create HLS video streams (default: true)')
+  console.error('  --image  Create image assets (default: true)')
+  console.error('Example:')
+  console.error('  deno run -A create-hls.ts input.mp4 --video')
+  console.error('  deno run -A create-hls.ts input.mp4 --image')
   Deno.exit(1)
 }
 
-const filename = basename(inputFile, '.*')
+const filename = basename(String(inputFile), '.*')
 const outputDir = join('static', 'videos', filename)
 const posterDir = join('static', 'scaled')
-const sizes = [1280, 1024, 768, 640, 480, 430, 390, 360]
+const sizes = [1536, 1280, 1024, 768, 640]
 
 $.verbose = false
 
 await createDirectories()
-await processVideo()
-await processImages()
-await cleanupTempFiles()
+
+if (flags.video) {
+  console.log('Creating HLS streams...')
+  await processVideo()
+}
+
+if (flags.image) {
+  console.log('Creating poster images...')
+  await processImages()
+  await cleanupTempFiles()
+}
+
 console.log('Done!')
 
 async function processVideo() {
@@ -53,7 +74,6 @@ async function processVideo() {
     }
   }
 
-  // Create master playlist
   const masterPlaylist = `#EXTM3U
 #EXT-X-VERSION:3
 #EXT-X-STREAM-INF:BANDWIDTH=5000000,RESOLUTION=1920x1080
@@ -67,15 +87,16 @@ v0/playlist.m3u8`
 }
 
 async function processImages() {
+  console.log('Creating poster images...')
   const tempPoster = join(posterDir, `${filename}-poster.png`)
 
   try {
-    // Extract the very first frame using -vf select='eq(n\,0)'
+    // Extract first frame and apply Gaussian blur
     await $`ffmpeg -y -hide_banner -loglevel error \
-      -i ${inputFile} \
-      -vf "select='eq(n\\,0)',scale=-2:1080,crop=1080*9/16:1080:in_w/2-out_w/2:0" \
-      -vframes 1 \
-      ${tempPoster}`
+    -i ${inputFile} \
+    -vf "select='eq(n\\,0)',scale=-2:1080,crop=1080*9/16:1080:in_w/2-out_w/2:0,gblur=sigma=2" \
+    -vframes 1 \
+    ${tempPoster}`
   } catch (e) {
     const err = e as Error
     console.error('Failed to create poster:', err.message)
@@ -84,7 +105,7 @@ async function processImages() {
 
   console.log('Creating JPEGs...')
   for (const size of sizes) {
-    const height = Math.round(size * (16 / 9))
+    const height = Math.round(size * (9 / 16))
     const jpgPath = join(posterDir, `hero-video-cover-${size}.jpg`)
     try {
       await $`ffmpeg -y -hide_banner -loglevel error \
@@ -123,10 +144,14 @@ async function processImages() {
 }
 
 async function createDirectories() {
-  for (let i = 0; i < 3; i++) {
-    await Deno.mkdir(join(outputDir, `v${i}`), { recursive: true })
+  if (flags.video) {
+    for (let i = 0; i < 3; i++) {
+      await Deno.mkdir(join(outputDir, `v${i}`), { recursive: true })
+    }
   }
-  await Deno.mkdir(posterDir, { recursive: true })
+  if (flags.image) {
+    await Deno.mkdir(posterDir, { recursive: true })
+  }
 }
 
 async function cleanupTempFiles() {

@@ -1,5 +1,6 @@
 // components/PreloadImage.tsx
 import { ImageFormat } from '@/utils/types.ts'
+import { asset } from '$fresh/runtime.ts'
 
 interface PreloadImageProps {
   src: string
@@ -13,7 +14,7 @@ export const PreloadImage = ({ src, widths, format }: PreloadImageProps) => {
   }
 
   const mimeTypes: Record<ImageFormat, string> = {
-    avif: 'image/avif',
+    avif: 'image/avif', 
     webp: 'image/webp',
     jpg: 'image/jpeg',
   }
@@ -22,7 +23,7 @@ export const PreloadImage = ({ src, widths, format }: PreloadImageProps) => {
   const baseName = dotIndex === -1 ? src : src.slice(0, dotIndex)
 
   const srcSetEntries = widths.map((w) =>
-    `/scaled/${baseName}-${w}.${format} ${w}w`
+    `${asset(`/scaled/${baseName}-${w}.${format}`)} ${w}w`
   )
   const srcSet = srcSetEntries.join(', ')
 
