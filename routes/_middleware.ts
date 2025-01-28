@@ -45,7 +45,8 @@ function shouldProcessRequest(
   ctx: FreshContext<State>,
   pathname: string,
 ): boolean {
-  return ctx.destination === 'route' && !pathname.startsWith('/api/') && !pathname.startsWith('/js/')
+  return ctx.destination === 'route' && !pathname.startsWith('/api/') &&
+    !pathname.startsWith('/js/')
 }
 
 function handleComfortCheckout(req: Request, isEuIp: boolean): boolean {
