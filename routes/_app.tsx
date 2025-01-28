@@ -99,7 +99,11 @@ export default function App(
 
         {/* <link rel='manifest' href={asset('/site.webmanifest')} /> */}
 
-        <script defer data-domain='sternvoll.com' src='/js/script.js'></script>
+        <script
+          defer
+          data-domain='sternvoll.com'
+          src='https://www.sternvoll.com/js/script.js'
+        />
       </Head>
 
       <Header
