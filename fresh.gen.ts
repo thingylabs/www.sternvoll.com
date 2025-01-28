@@ -13,6 +13,7 @@ import * as $_lang_products_queries from './routes/[[lang]]/products/_queries.ts
 import * as $_app from './routes/_app.tsx'
 import * as $_middleware from './routes/_middleware.ts'
 import * as $_queries from './routes/_queries.ts'
+import * as $api_event from './routes/api/event.ts'
 import * as $api_locales from './routes/api/locales.ts'
 import * as $api_newsletter_subscribe from './routes/api/newsletter/subscribe.ts'
 import * as $api_orders_bank_transfer from './routes/api/orders/bank-transfer.ts'
@@ -22,6 +23,7 @@ import * as $api_paypal_create_order from './routes/api/paypal/create-order.ts'
 import * as $api_shopify from './routes/api/shopify.ts'
 import * as $api_waitlist from './routes/api/waitlist.ts'
 import * as $index from './routes/index.tsx'
+import * as $js_script_js from './routes/js/script.js.ts'
 import * as $AddToCart from './islands/AddToCart.tsx'
 import * as $BackToShopButton from './islands/BackToShopButton.tsx'
 import * as $BankDetails from './islands/BankDetails.tsx'
@@ -64,6 +66,7 @@ const manifest = {
     './routes/_app.tsx': $_app,
     './routes/_middleware.ts': $_middleware,
     './routes/_queries.ts': $_queries,
+    './routes/api/event.ts': $api_event,
     './routes/api/locales.ts': $api_locales,
     './routes/api/newsletter/subscribe.ts': $api_newsletter_subscribe,
     './routes/api/orders/bank-transfer.ts': $api_orders_bank_transfer,
@@ -73,6 +76,7 @@ const manifest = {
     './routes/api/shopify.ts': $api_shopify,
     './routes/api/waitlist.ts': $api_waitlist,
     './routes/index.tsx': $index,
+    './routes/js/script.js.ts': $js_script_js,
   },
   islands: {
     './islands/AddToCart.tsx': $AddToCart,
