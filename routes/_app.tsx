@@ -98,6 +98,8 @@ export default function App(
             )}
 
         {/* <link rel='manifest' href={asset('/site.webmanifest')} /> */}
+        
+        <script defer data-domain="sternvoll.com" src="https://plausible.io/js/script.js"></script>
       </Head>
 
       <Header
