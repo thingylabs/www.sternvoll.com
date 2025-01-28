@@ -21,14 +21,16 @@ interface Props {
 
 export function VideoPlayer({
   posterImage,
-  hlsUrl, 
+  hlsUrl,
   alt,
   class: className,
 }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const hlsRef = useRef<HlsInstance | null>(null)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
-  const [objectPosition, setObjectPosition] = useState(() => getOptimalPosition())
+  const [objectPosition, setObjectPosition] = useState(() =>
+    getOptimalPosition()
+  )
 
   useEffect(() => {
     const handleResize = () => setObjectPosition(getOptimalPosition())
@@ -38,12 +40,12 @@ export function VideoPlayer({
 
   useEffect(() => {
     let cleanup: (() => void) | undefined
-    
+
     async function setupVideo() {
       if (typeof window === 'undefined') return
       const video = videoRef.current
       if (!video) return
-      
+
       try {
         const { default: Hls } = await import('hls.js')
         // @ts-ignore HLS is loaded dynamically
@@ -88,27 +90,27 @@ export function VideoPlayer({
   return (
     <div class={`fixed inset-0 overflow-hidden ${className || ''}`}>
       {/* Base layer - primary color background */}
-      <div class="absolute inset-0 z-[-30] bg-primary" />
+      <div class='absolute inset-0 z-[-30] bg-primary' />
 
       {/* Middle layer - blurred image */}
       {!isVideoLoaded && (
-        <div class="absolute inset-0 z-[-20]">
+        <div class='absolute inset-0 z-[-20]'>
           <ResponsiveImage
             src={posterImage}
             alt={alt}
             width={[640, 768, 1024, 1280, 1536]}
             height={getResponsiveHeight()}
-            class="w-full h-full object-cover"
+            class='w-full h-full object-cover'
             objectPosition={objectPosition}
             lazy={false}
-            fetchpriority="high"
+            fetchpriority='high'
           />
         </div>
       )}
 
       {/* Top layer - loading spinner with transparent overlay */}
       {!isVideoLoaded && (
-        <div class="absolute inset-0 z-[-10]">
+        <div class='absolute inset-0 z-[-10]'>
           <LoadingSpinner />
         </div>
       )}
@@ -138,5 +140,5 @@ function getOptimalPosition() {
 
 function getResponsiveHeight() {
   // Maintaining 16:9 aspect ratio
-  return Math.round(1536 * (9/16))
+  return Math.round(1536 * (9 / 16))
 }

@@ -14,7 +14,7 @@ export const PreloadImage = ({ src, widths, format }: PreloadImageProps) => {
   }
 
   const mimeTypes: Record<ImageFormat, string> = {
-    avif: 'image/avif', 
+    avif: 'image/avif',
     webp: 'image/webp',
     jpg: 'image/jpeg',
   }

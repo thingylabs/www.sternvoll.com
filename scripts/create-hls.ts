@@ -1,16 +1,18 @@
 // scripts/create-hls.ts
 import { $ } from 'zx'
 import { basename, join } from 'https://deno.land/std@0.208.0/path/mod.ts'
-import { parse } from "https://deno.land/std@0.208.0/flags/mod.ts"
+import { parse } from 'https://deno.land/std@0.208.0/flags/mod.ts'
 
 const flags = parse(Deno.args, {
-  boolean: ["video", "image"],
+  boolean: ['video', 'image'],
   default: { video: false, image: false },
 })
 
 const inputFile = flags._[0]
 if (!inputFile) {
-  console.error('Usage: deno run -A create-hls.ts <input-video-file> [--video] [--image]')
+  console.error(
+    'Usage: deno run -A create-hls.ts <input-video-file> [--video] [--image]',
+  )
   console.error('Options:')
   console.error('  --video  Create HLS video streams (default: true)')
   console.error('  --image  Create image assets (default: true)')
