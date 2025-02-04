@@ -9,10 +9,6 @@
     pkgs.nano
     pkgs.imagemagick  # ImageMagick for the 'magick' command
     pkgs.libavif      # libavif for the 'avifenc' command
-    pkgs.ffmpeg # scripts/create-hls.ts
-    pkgs.libwebp # scripts/create-hls.ts
-    pkgs.libavif # scripts/create-hls.ts
-    pkgs.htop
   ];
 
   # Sets environment variables in the workspace
@@ -22,7 +18,6 @@
     extensions = [
       "denoland.vscode-deno"
       "bradlc.vscode-tailwindcss"
-      "graphql.vscode-graphql"
     ];
 
     # Enable previews
@@ -51,8 +46,9 @@
           curl -fsSL -o $HOME/.deno/deno.zip "https://github.com/denoland/deno/releases/download/v2.0.0/deno-x86_64-unknown-linux-gnu.zip"
           unzip -o $HOME/.deno/deno.zip -d $HOME/.deno/bin
           chmod +x $HOME/.deno/bin/deno
-          export PATH="$PATH:$HOME/.deno/bin"
+          echo 'export PATH="$PATH:$HOME/.deno/bin"' >> ~/.bashrc
           rm $HOME/.deno/deno.zip
+          source ~/.bashrc
         '';
       };
       # Runs when the workspace is (re)started
