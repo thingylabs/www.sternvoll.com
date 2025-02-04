@@ -102,7 +102,7 @@ export default function App(
         <script
           defer
           data-domain='sternvoll.com'
-          src='/js/script.js'
+          src='https://www.sternvoll.com/js/script.js'
         />
       </Head>
 
