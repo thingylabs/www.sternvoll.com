@@ -530,7 +530,7 @@ export const translations = {
   },
 
   'Related jewelry': {
-    de: '',
+    de: 'Passend dazu',
   },
 }
 
