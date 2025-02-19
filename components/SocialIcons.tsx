@@ -49,7 +49,8 @@ const iconPaths = {
 export const SocialIcons = Object.fromEntries(
   Object.entries(iconPaths).map(([platform, icon]) => [
     platform,
-    (url: string, svgClass: string) => renderIcon(url, svgClass, icon),
+    (url: string, svgClass: string) =>
+      renderIcon(url, svgClass, icon, platform),
   ]),
 )
 
@@ -57,9 +58,10 @@ function renderIcon(
   url: string,
   svgClass: string,
   icon: { path: string; viewBox: string },
+  platform: string,
 ) {
   return (
-    <a href={url} class='text-[#051f34] hover:text-[#cb9274]'>
+    <a aria-label={`Find us on ${platform}`} href={url} class='text-[#051f34] hover:text-[#cb9274]'>
       <svg
         xmlns='http://www.w3.org/2000/svg'
         width='24'
