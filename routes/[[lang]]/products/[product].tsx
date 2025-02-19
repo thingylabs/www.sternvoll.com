@@ -94,13 +94,16 @@ export default function ProductPage(ctx: PageProps<Query, State>) {
       </div>
 
       <div class='px-4 md:px-8 lg:px-12 xl:px-0 xl:max-w-[80vw] mx-auto 2xl:pt-[5vw]'>
-        <div class='mt-16'>
-          <SelectedWorks
-            title='Related jewelry'
-            products={data.relatedProducts}
-            lang={state.geo.lang}
-          />
-        </div>
+        {!!data.relatedProducts.length &&
+          (
+            <div class='mt-16'>
+              <SelectedWorks
+                title='Related jewelry'
+                products={data.relatedProducts}
+                lang={state.geo.lang}
+              />
+            </div>
+          )}
 
         <div class='back-to-shop mt-12 xl:text-base 2xl:text-[1vw]'>
           <a

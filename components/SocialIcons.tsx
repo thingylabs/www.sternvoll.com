@@ -61,7 +61,11 @@ function renderIcon(
   platform: string,
 ) {
   return (
-    <a aria-label={`Find us on ${platform}`} href={url} class='text-[#051f34] hover:text-[#cb9274]'>
+    <a
+      aria-label={`Find us on ${platform}`}
+      href={url}
+      class='text-[#051f34] hover:text-[#cb9274]'
+    >
       <svg
         xmlns='http://www.w3.org/2000/svg'
         width='24'
