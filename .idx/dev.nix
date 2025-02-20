@@ -51,6 +51,9 @@
           rm $HOME/.deno/deno.zip
           source ~/.bashrc
         '';
+        deployctl-install = ''
+          deno install -gArf jsr:@deno/deployctl
+        '';
       };
       # Runs when the workspace is (re)started
       onStart = {
