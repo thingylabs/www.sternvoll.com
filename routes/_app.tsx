@@ -99,7 +99,7 @@ export default function App(
 
         {/* <link rel='manifest' href={asset('/site.webmanifest')} /> */}
 
-        {url.hostname.startsWith('dev') && (
+        {!url.hostname.startsWith('dev') && (
           <script
             defer
             data-domain='sternvoll.com'
