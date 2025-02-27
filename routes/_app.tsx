@@ -103,7 +103,7 @@ export default function App(
           <script
             defer
             data-domain='sternvoll.com'
-            src='https://plausible.guth-global.workers.dev/api/event'
+            src='https://gdpr.sternvoll.com/js/script.js'
           />
         )}
       </Head>
