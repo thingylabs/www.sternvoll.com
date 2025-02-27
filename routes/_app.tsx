@@ -99,11 +99,13 @@ export default function App(
 
         {/* <link rel='manifest' href={asset('/site.webmanifest')} /> */}
 
-        <script
-          defer
-          data-domain='sternvoll.com'
-          src='https://www.sternvoll.com/js/script.js'
-        />
+        {url.hostname.startsWith('dev') && (
+          <script
+            defer
+            data-domain='sternvoll.com'
+            src='https://plausible.guth-global.workers.dev/api/event'
+          />
+        )}
       </Head>
 
       <Header
